@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react'; //  // {useState, useEffect}
+// import {useDispatch, useSelector} from 'react-redux';
+import {StatusBar} from 'react-native';
 // import {bindActionCreators} from 'redux';
-import {Container, Text, Button} from './styles';
+import {Container} from './styles';
 // import * as CartActions from '../../store/modules/cart/action';
-import Header from '../../components/Header';
+// import Header from '../../components/Header';
+import Logo from '../../components/Logo';
 
 export default function Login() {
   //  const cart = useSelector(state => state.cart);
@@ -30,7 +32,8 @@ export default function Login() {
   //
   return (
     <Container>
-      <Header />
+      <Logo />
+      <StatusBar barStyle="dark-content" backgroundColor="#BBBB" />
     </Container>
   );
 }

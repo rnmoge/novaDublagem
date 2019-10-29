@@ -1,12 +1,15 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import {Container, Button, IconButton, Text} from './styles';
+import {
+  Container,
+  // Button,
+  // IconButton,
+  // Text
+} from './styles';
 // import Logo from '../../../assets/logo1';
 
 export default function Header() {
-  return (
-    <Container />
-  );
+  return <Container />;
 }
 
 // Header.propTypes = {
