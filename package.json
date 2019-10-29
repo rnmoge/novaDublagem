@@ -12,10 +12,12 @@
   "dependencies": {
     "axios": "^0.19.0",
     "immer": "^4.0.0",
+    "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-native": "0.61.2",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-reanimated": "^1.2.0",
+    "react-native-svg": "^9.13.3",
     "react-navigation": "^4.0.3",
     "react-navigation-stack": "^1.5.5",
     "react-redux": "^7.1.1",
@@ -48,5 +50,4 @@
   "jest": {
     "preset": "react-native"
   }
-
 }

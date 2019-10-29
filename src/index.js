@@ -9,7 +9,7 @@ import {setNavigator} from './services/navigation';
 export default function App() {
   return (
     <Provider store={store}>
-      <StatusBar barStyle="light-content" backgroundColor="#565677" />
+      <StatusBar barStyle="dark-content" backgroundColor="#565677" />
       <Routes ref={setNavigator} />
     </Provider>
   );
