@@ -2,10 +2,13 @@ import React from 'react'; //  // {useState, useEffect}
 // import {useDispatch, useSelector} from 'react-redux';
 import {StatusBar} from 'react-native';
 // import {bindActionCreators} from 'redux';
-import {Container} from './styles';
+// import {Text} from 'react-native';
+import {Container, Text, ContainerScroll} from './styles';
 // import * as CartActions from '../../store/modules/cart/action';
 // import Header from '../../components/Header';
 import Logo from '../../components/Logo';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 export default function Login() {
   //  const cart = useSelector(state => state.cart);
@@ -31,9 +34,19 @@ export default function Login() {
   //  console.tron.log(products);
   //
   return (
-    <Container>
-      <Logo />
-      <StatusBar barStyle="dark-content" backgroundColor="#BBBB" />
-    </Container>
+    <ContainerScroll
+      contentContainerStyle={{
+        flexGrow: 1,
+        flexDirection: 'column',
+      }}>
+      <Container>
+        <StatusBar barStyle="ligth-content" backgroundColor="#3f51b5" />
+        <Logo />
+        <Input placeholder="Usuário" value="" />
+        <Input placeholder="Senha" value="" />
+        <Button titleButton="ENTRAR" />
+        <Text>Esqueci minha senha</Text>
+      </Container>
+    </ContainerScroll>
   );
 }
