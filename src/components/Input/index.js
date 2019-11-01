@@ -5,7 +5,6 @@ import {Container, InputText} from './styles';
 export default function Input({
   error,
   placeholder,
-
   disabledInput,
   keyboardTypeInput,
 }) {

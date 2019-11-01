@@ -7,14 +7,14 @@ export default function Button({
   // icoName,
   // icoSize,
   titleButton,
-  // functionOnPress,
+  functionOnPress,
   // disabledButton,
   // loading,
   // IcoPosition,
 }) {
   return (
     <Container>
-      <ButtonArea>
+      <ButtonArea onPress={functionOnPress}>
         <Text>{titleButton}</Text>
       </ButtonArea>
     </Container>
@@ -27,11 +27,13 @@ Button.propTypes = {
   // disabledButton: PropTypes.bool,
   // loading: PropTypes.bool,
   // IcoPosition: PropTypes.string,
+  functionOnPress: PropTypes.func,
 };
 Button.defaultProps = {
   // icoName: 'fonticons',
   // icoSize: 22,
   titleButton: 'Title button',
+  functionOnPress: () => {},
   // disabledButton: false,
   // loading: false,
   // IcoPosition: 'left',

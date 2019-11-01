@@ -9,14 +9,12 @@ import {Container, Text, ContainerScroll} from './styles';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import {navigate} from '../../services/navigation';
 
 export default function Login() {
   //  const cart = useSelector(state => state.cart);
   //  const [products, setProducts] = useState([]);
   //  const dispatch = useDispatch();
-  //  // state = {
-  //  //  products: [],
-  //  // };
   //
   //  useEffect(async () => {
   //    async function loadProducts() {
@@ -32,7 +30,8 @@ export default function Login() {
   //  }
   //
   //  console.tron.log(products);
-  //
+  // c
+
   return (
     <ContainerScroll
       contentContainerStyle={{
@@ -44,7 +43,12 @@ export default function Login() {
         <Logo />
         <Input placeholder="Usuário" value="" />
         <Input placeholder="Senha" value="" />
-        <Button titleButton="ENTRAR" />
+        <Button
+          titleButton="ENTRAR"
+          functionOnPress={() => {
+            navigate('TableSelection');
+          }}
+        />
         <Text>Esqueci minha senha</Text>
       </Container>
     </ContainerScroll>
