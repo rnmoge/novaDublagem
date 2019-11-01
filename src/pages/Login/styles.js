@@ -13,9 +13,10 @@ export const Text = styled.Text`
   text-align: center;
   margin-top: 10;
   font-size: 16px;
+  color: #eeee;
   background: #3f51b5;
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: #000000;
+  text-decoration-color: #eeeeee;
 `;
 export const ContainerScroll = styled.ScrollView``;
