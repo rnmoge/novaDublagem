@@ -1,9 +1,7 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  loading: false,
-  error: false,
-  message: '',
+  errorLogin: false,
   username: '',
   password: '',
 };

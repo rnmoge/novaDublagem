@@ -13,3 +13,8 @@ export const Image = styled.Image.attrs({
 })`
   width: 250;
 `;
+
+export const Text = styled.Text`
+  font-size: 18px;
+  color: ${props => (props.error ? '#e45' : '#fefaf4')};
+`;
