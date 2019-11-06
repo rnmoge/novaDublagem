@@ -1,9 +1,10 @@
 import {all} from 'redux-saga/effects';
-
-import login from './Login/sagas';
+import common from './common/sagas';
+import login from './login/sagas';
 
 export default function* rootSaga() {
   return yield all([
+    common,
     login,
     // adicione mais sagas
   ]);
