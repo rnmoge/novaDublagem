@@ -1,40 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {Container, ButtonArea, Text} from './styles';
 
 export default function Button({
-  // icoName,
-  // icoSize,
   titleButton,
   functionOnPress,
   disabledButton,
-  // loading,
-  // IcoPosition,
+  loading,
 }) {
   return (
     <Container>
       <ButtonArea onPress={functionOnPress} disabled={disabledButton}>
-        <Text>{titleButton}</Text>
+        {loading ? (
+          <ActivityIndicator size="small" color="#000" />
+        ) : (
+          <Text>{titleButton}</Text>
+        )}
       </ButtonArea>
     </Container>
   );
 }
 Button.propTypes = {
-  // icoName: PropTypes.string,
-  // icoSize: PropTypes.number,
   titleButton: PropTypes.string,
   disabledButton: PropTypes.bool,
-  // loading: PropTypes.bool,
-  // IcoPosition: PropTypes.string,
+  loading: PropTypes.bool,
   functionOnPress: PropTypes.func,
 };
 Button.defaultProps = {
-  // icoName: 'fonticons',
-  // icoSize: 22,
   titleButton: 'Title button',
   functionOnPress: () => {},
   disabledButton: true,
-  // loading: false,
-  // IcoPosition: 'left',
+  loading: false,
 };

@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {StatusBar, TextInput} from 'react-native';
+import {StatusBar} from 'react-native';
 import {Container, Text, ContainerScroll} from './styles';
-import * as CommonActions from '../../store/modules/common/actions';
+// import * as CommonActions from '../../store/modules/common/actions';
 import * as LoginActions from '../../store/modules/login/actions';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
@@ -15,15 +15,13 @@ export default function Login() {
   const [userState, setUserState] = useState(null);
   const [passwordState, setPasswordState] = useState(null);
   const [notVisiblePasswordState, setNotVisiblePasswordState] = useState(true);
-  useEffect(() => {
-    console.tron.log(
-      (!userState || userState === null) &&
-        (!passwordState || passwordState === null)
-    );
-  }, [passwordState, userState]);
-  //
-  console.tron.log(userState);
-  console.tron.log(passwordState);
+  // função asssicrona que dispara as actions para os sagas
+  function handleSubmit() {
+    dispatch(LoginActions.loginRequest(userState, passwordState));
+  }
+  function handleForgotPassword() {
+    dispatch(LoginActions.loginRequest(userState, passwordState));
+  }
   return (
     <ContainerScroll
       contentContainerStyle={{
@@ -50,7 +48,7 @@ export default function Login() {
           passwordOption={notVisiblePasswordState}
           keyboardTypeInput="default"
           areaIcon
-          icoName={notVisiblePasswordState ? 'eye' : 'eye-slash'}
+          icoName={notVisiblePasswordState ? 'eye-slash' : 'eye'}
           functionOnChangeText={text => setPasswordState(text)}
           functionOnPressIcon={() =>
             setNotVisiblePasswordState(!notVisiblePasswordState)
@@ -64,8 +62,15 @@ export default function Login() {
             (!userState || userState === null) &&
             (!passwordState || passwordState === null)
           }
+          functionOnPress={() => handleSubmit()}
+          loading={loading}
         />
-        <Text>Esqueci minha senha</Text>
+        <Text
+          onPress={() => {
+            handleForgotPassword();
+          }}>
+          Esqueci minha senha
+        </Text>
       </Container>
     </ContainerScroll>
   );
