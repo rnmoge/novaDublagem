@@ -39,7 +39,7 @@ export const AreaIcon = styled.TouchableOpacity`
 `;
 
 export const Icon = styled(Icons)`
-  font-size: 30px;
+  font-size: 22px;
   font-weight: bold;
   color: ${props => props.colorIcon};
 `;

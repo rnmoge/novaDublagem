@@ -5,7 +5,7 @@ export function commonLoadingActivityOn(message) {
       message,
       error: false,
       loading: true,
-    }
+    },
   };
 }
 export function commonActionSucess(message) {
@@ -15,7 +15,7 @@ export function commonActionSucess(message) {
       message,
       error: false,
       loading: false,
-    }
+    },
   };
 }
 export function commonActionFailure(message) {
@@ -25,6 +25,6 @@ export function commonActionFailure(message) {
       message,
       error: true,
       loading: false,
-    }
+    },
   };
 }
