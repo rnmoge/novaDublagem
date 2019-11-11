@@ -6,9 +6,9 @@ import ForgotPassword from './pages/ForgotPassword';
 
 const Routes = createAppContainer(
   createSwitchNavigator({
+    ForgotPassword,
     TableSelection,
     Login,
-    ForgotPassword,
   })
 );
 

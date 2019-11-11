@@ -18,6 +18,6 @@ export const ContainerScroll = styled.ScrollView``;
 export const TextButton = styled.Text`
   font-weight: bold;
   color: #eeeeee;
-  margin-left: 330;
-  padding: 5px;
+  margin-left: 328;
+  padding: 2px;
 `;

@@ -1,28 +1,18 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import {
-  Container,
-  // Button,
-  // IconButton,
-  // Text
-} from './styles';
-// import Logo from '../../../assets/logo1';
+import PropTypes from 'prop-types';
+import {Container, Text} from './styles';
 
-export default function Header() {
-  return <Container />;
+export default function Header({title}) {
+  return (
+    <Container>
+      <Text>{title}</Text>
+    </Container>
+  );
 }
 
-// Header.propTypes = {
-//  imageExist: PropTypes.bool,
-//  buttonExist: PropTypes.bool,
-//  icoName: PropTypes.string,
-//  titleButton: PropTypes.string,
-//  functionOnPress: PropTypes.func,
-// };
-// Header.defaultProps = {
-//  imageExist: true,
-//  buttonExist: true,
-//  icoName: 'fonticons',
-//  functionOnPress: PropTypes.func,
-//  titleButton: 'voltar',
-// };
+Header.propTypes = {
+  title: PropTypes.string,
+};
+Header.defaultProps = {
+  title: 'undefield',
+};
