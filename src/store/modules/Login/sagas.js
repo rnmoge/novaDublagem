@@ -34,7 +34,7 @@ function* loginRequestSaga(action) {
           JSON.stringify({username, password})
         );
         yield put(commonActionSucess('Login sucess'));
-        navigate('TableSelection');
+        navigate('Home');
       } else {
         yield put(commonActionFailure('Password not exists'));
       }
