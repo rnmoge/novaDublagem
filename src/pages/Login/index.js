@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {StatusBar} from 'react-native';
 import {Container, Text, ContainerScroll} from './styles';
@@ -20,8 +20,11 @@ export default function Login() {
     dispatch(LoginActions.loginRequest(userState, passwordState));
   }
   function handleForgotPassword() {
-    dispatch(LoginActions.loginRequest(userState, passwordState));
+    dispatch(LoginActions.loginforgotPassword());
   }
+  useEffect(() => {
+    dispatch(LoginActions.loginRequestExist());
+  }, [dispatch]);
   return (
     <ContainerScroll
       contentContainerStyle={{
@@ -48,7 +51,7 @@ export default function Login() {
           passwordOption={notVisiblePasswordState}
           keyboardTypeInput="default"
           areaIcon
-          icoName={notVisiblePasswordState ? 'eye-slash' : 'eye'}
+          icoName={notVisiblePasswordState ? 'eye' : 'eye-slash'}
           functionOnChangeText={text => setPasswordState(text)}
           functionOnPressIcon={() =>
             setNotVisiblePasswordState(!notVisiblePasswordState)

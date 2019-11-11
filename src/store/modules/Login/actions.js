@@ -23,4 +23,8 @@ export function loginFailure() {
   };
 }
 
-export function forgotPassword() {}
+export function loginforgotPassword() {
+  return {
+    type: '@login/LOGIN_FORGOT_PASSWORD',
+  };
+}

@@ -24,7 +24,13 @@ export default function TableSelection() {
         </TextButton>
         <Logo />
         <Text>Selecione a tabela que você estará utilizando:</Text>
-        <Input placeholder="Tabelas" value="" />
+        <Input
+          placeholder="Tabelas"
+          keyboardTypeInput="default"
+          areaIcon
+          icoName="search"
+          disabledButtonIcon={false}
+        />
         <Button titleButton="AVANÇAR" />
       </Container>
     </ContainerScroll>
