@@ -5,8 +5,8 @@ export default class UserSchema {
     propertipes: {
       id: {type: 'int', indexed: true},
       line: {type: 'int', indexed: true},
-      description:'string',
-      update_at:'date',
+      description: 'string',
+      update_at: 'date',
     },
   };
 }

@@ -6,7 +6,7 @@ export default class UserSchema {
       id: {type: 'int', indexed: true},
       group_size: {type: 'int', indexed: true},
       description: 'string',
-      update_at:'date',
+      update_at: 'date',
     },
   };
 }
