@@ -8,10 +8,10 @@ export default class UserSchema {
       line_matrix_line: {type: 'int', indexed: true},
       line_matrix_matrix: {type: 'int', indexed: true},
       group_size_gruop_size: {type: 'int', indexed: true},
-      price_1:'int',
-      price_2:'int',
-      price_3:'int',
-      update_at:'date',
+      price_1: 'double',
+      price_2: 'double',
+      price_3: 'double',
+      update_at: 'date',
     },
   };
 }

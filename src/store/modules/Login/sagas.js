@@ -34,7 +34,7 @@ function* loginRequestSaga(action) {
           JSON.stringify({username, password})
         );
         yield put(commonActionSucess('Login sucess'));
-        navigate('TableSelection');
+        navigate('Home');
       } else {
         yield put(commonActionFailure('Password not exists'));
       }
@@ -79,8 +79,13 @@ function* loginRequestExistSaga() {
     yield put(commonActionFailure(''));
   }
 }
+function* loginforgotPasswordSaga() {
+  yield put(commonLoadingActivityOn('Loading...'));
+  navigate('ForgotPassword');
+}
 
 export default all([
   takeLatest('@login/LOGIN_REQUEST', loginRequestSaga),
   takeLatest('@login/LOGIN_REQUEST_EXIST', loginRequestExistSaga),
+  takeLatest('@login/LOGIN_FORGOT_PASSWORD', loginforgotPasswordSaga),
 ]);

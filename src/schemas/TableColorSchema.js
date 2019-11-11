@@ -5,9 +5,9 @@ export default class UserSchema {
     propertipes: {
       id: {type: 'int', indexed: true},
       color: {type: 'int', indexed: true},
-      description:'string',
+      description: 'string',
       feature: 'string',
-      update_at:'date',
+      update_at: 'date',
     },
   };
 }

@@ -1,28 +1,30 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import {
-  Container,
-  // Button,
-  // IconButton,
-  // Text
-} from './styles';
-// import Logo from '../../../assets/logo1';
+import PropTypes from 'prop-types';
+import {Container, Text, AreaIcon, Icon} from './styles';
 
-export default function Header() {
-  return <Container />;
+export default function Header({title, icoName, icoSize, colorIcon}) {
+  return (
+    <Container>
+      <AreaIcon>
+        <Icon name={icoName} size={icoSize} colorIcon={colorIcon} />
+      </AreaIcon>
+      <Text>{title}</Text>
+      <AreaIcon>
+        <Icon name={icoName} size={icoSize} colorIcon={colorIcon} />
+      </AreaIcon>
+    </Container>
+  );
 }
 
-// Header.propTypes = {
-//  imageExist: PropTypes.bool,
-//  buttonExist: PropTypes.bool,
-//  icoName: PropTypes.string,
-//  titleButton: PropTypes.string,
-//  functionOnPress: PropTypes.func,
-// };
-// Header.defaultProps = {
-//  imageExist: true,
-//  buttonExist: true,
-//  icoName: 'fonticons',
-//  functionOnPress: PropTypes.func,
-//  titleButton: 'voltar',
-// };
+Header.propTypes = {
+  title: PropTypes.string,
+  icoName: PropTypes.string,
+  icoSize: PropTypes.number,
+  colorIcon: PropTypes.string,
+};
+Header.defaultProps = {
+  title: 'undefield',
+  icoName: 'fonticons',
+  icoSize: 22,
+  colorIcon: '#eeee',
+};

@@ -7,7 +7,7 @@ export default class UserSchema {
       line: {type: 'int', indexed: true},
       matrix: {type: 'int', indexed: true},
       color: {type: 'int', indexed: true},
-      update_at:'date',
+      update_at: 'date',
     },
   };
 }

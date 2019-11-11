@@ -6,10 +6,10 @@ export default class UserSchema {
       id: {type: 'int', indexed: true},
       line: {type: 'int', indexed: true},
       matrix: {type: 'int', indexed: true},
-      description:'string',
+      description: 'string',
       feature: 'string',
       image: 'string',
-      update_at:'date',
+      update_at: 'date',
     },
   };
 }
