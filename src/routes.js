@@ -10,22 +10,38 @@ import Catalogo from './pages/Catalog';
 // import Catalog from './pages/Catalog';
 // import Repositories from './pages/Repositories';
 
-const createSwitchNavigatorApp = createSwitchNavigator({
-  Login,
-  Home,
-});
-const createStackNavigatorApp = createStackNavigator({
-  Home,
-  Catalogo,
-});
+// const createSwitchNavigatorApp = createSwitchNavigator({
+//   Login,
+//   Home,
+// });
+// const createStackNavigatorApp = createStackNavigator({
+//  Catalogo: {
+//    screen: Catalogo,
+//
+//    navigationOptions: {
+//      title: 'Catalogo',
+//      headerStyle: {
+//        backgroundColor: '#f4511e',
+//      },
+//      headerTintColor: '#fff',
+//      headerTitleStyle: {
+//        fontWeight: 'bold',
+//      },
+//    },
+//  },
+//  Home,
+// });
 // const createBottomTabNavigatorApp = createBottomTabNavigator({
 //  Login,
 //  Menu,
 // });
-const createDrawerNavigatorApp = createDrawerNavigator({
-  Home: {screen: createStackNavigatorApp},
-  Catalogo,
-});
+const createDrawerNavigatorApp = createDrawerNavigator(
+  {
+    Home,
+    Catalogo,
+  },
+  {}
+);
 const createAppNavigation = createSwitchNavigator({
   Home: {screen: createDrawerNavigatorApp},
   Login,
