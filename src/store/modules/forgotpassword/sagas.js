@@ -5,11 +5,7 @@ import {put, all, takeLatest} from 'redux-saga/effects';
 // import api from '../../../services/api';
 // import {cleanLogin} from './actions';
 // import {loginRequest, loginSucess, loginFailure} from './actions';
-import {
-  commonLoadingActivityOn,
-  commonActionSucess,
-  commonActionFailure,
-} from '../common/actions';
+import {commonLoadingActivityOn} from '../common/actions';
 
 import {navigate} from '../../../services/navigation';
 
@@ -18,4 +14,4 @@ function* cleanLoginSaga() {
   navigate('Login');
 }
 
-export default all([takeLatest('', cleanLoginSaga)]);
+export default all([takeLatest('@forgotpassword/CLEAN_LOGIN', cleanLoginSaga)]);
