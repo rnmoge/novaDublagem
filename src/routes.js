@@ -4,6 +4,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import TableSlection from './pages/TableSelection';
+import ForgotPassword from './pages/ForgotPassword';
+import Catalogo from './pages/Catalog';
+// import Catalog from './pages/Catalog';
 // import Repositories from './pages/Repositories';
 
 const createSwitchNavigatorApp = createSwitchNavigator({
@@ -11,21 +15,23 @@ const createSwitchNavigatorApp = createSwitchNavigator({
   Home,
 });
 const createStackNavigatorApp = createStackNavigator({
-  Login,
   Home,
+  Catalogo,
 });
 // const createBottomTabNavigatorApp = createBottomTabNavigator({
 //  Login,
 //  Menu,
 // });
 const createDrawerNavigatorApp = createDrawerNavigator({
-  Login,
-  Home,
+  Home: {screen: createStackNavigatorApp},
+  Catalogo,
 });
 const createAppNavigation = createSwitchNavigator({
+  Home: {screen: createDrawerNavigatorApp},
   Login,
-  Home,
+  TableSlection,
+  ForgotPassword,
 });
-const Routes = createAppContainer(createDrawerNavigatorApp);
+const Routes = createAppContainer(createAppNavigation);
 
 export default Routes;
