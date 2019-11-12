@@ -1,24 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Container, Text, AreaIcon, Icon, AreaIconCart, Icon2} from './styles';
+import {Container, Text, AreaIcon, Icon, AreaIconCart} from './styles';
 
 export default function Header({
   title,
   icoName,
   icoSize,
   colorIcon,
-  icoName2,
-  icoSize2,
+  icoNameTwo,
+  button,
+  cartExist,
+  functionOnpressIconLeft,
+  functionOnpressIconRigth,
 }) {
   return (
     <Container>
-      <AreaIcon>
-        <Icon name={icoName} size={icoSize} colorIcon={colorIcon} />
-      </AreaIcon>
+      {button ? (
+        <AreaIcon positionIcon="flex-start" onPress={functionOnpressIconLeft}>
+          <Icon name={icoName} size={icoSize} colorIcon={colorIcon} />
+        </AreaIcon>
+      ) : (
+        <AreaIcon positionIcon="flex-start" onPress={functionOnpressIconLeft}>
+          <Icon name={icoName} size={icoSize} colorIcon={colorIcon} />
+        </AreaIcon>
+      )}
       <Text>{title}</Text>
-      <AreaIconCart>
-        <Icon2 name={icoName2} size={icoSize2} colorIcon={colorIcon} />
-      </AreaIconCart>
+      {cartExist ? (
+        <AreaIconCart
+          positionIcon="flex-end"
+          onPress={functionOnpressIconRigth}>
+          <Icon name={icoNameTwo} size={icoSize} colorIcon={colorIcon} />
+        </AreaIconCart>
+      ) : null}
     </Container>
   );
 }
@@ -26,16 +39,22 @@ export default function Header({
 Header.propTypes = {
   title: PropTypes.string,
   icoName: PropTypes.string,
-  icoName2: PropTypes.string,
+  icoNameTwo: PropTypes.string,
   icoSize: PropTypes.number,
-  icoSize2: PropTypes.number,
   colorIcon: PropTypes.string,
+  button: PropTypes.bool,
+  cartExist: PropTypes.bool,
+  functionOnpressIconLeft: PropTypes.func,
+  functionOnpressIconRigth: PropTypes.func,
 };
 Header.defaultProps = {
-  title: 'undefield',
+  title: '',
   icoName: 'bars',
-  icoName2: 'fonticons',
+  icoNameTwo: 'fonticons',
   icoSize: 22,
-  icoSize2: 22,
   colorIcon: '#eeee',
+  button: false,
+  cartExist: true,
+  functionOnpressIconLeft: () => {},
+  functionOnpressIconRigth: () => {},
 };

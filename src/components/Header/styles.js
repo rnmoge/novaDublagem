@@ -12,25 +12,28 @@ export const Text = styled.Text`
   color: #fefaf4;
   font-size: 18px;
   font-weight: bold;
+  align-items: center;
 `;
 export const AreaIcon = styled.TouchableOpacity`
   flex: 1;
-  align-items: center;
+  justify-content: center;
+  align-items: ${props => props.positionIcon};
 `;
 
 export const Icon = styled(Icons)`
   font-size: 22px;
   font-weight: bold;
   color: #eee;
-  padding-right: 100px;
+  padding: 20px;
 `;
 export const AreaIconCart = styled.TouchableOpacity`
   flex: 1;
   align-items: center;
+  justify-content: flex-end;
+  align-items: ${props => props.positionIcon};
 `;
 export const Icon2 = styled(Icons)`
   font-size: 22px;
   font-weight: bold;
   color: #eee;
-  padding-left: 100px;
 `;

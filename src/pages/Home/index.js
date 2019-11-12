@@ -1,16 +1,20 @@
 import React from 'react';
 // import {View} from 'react-native';
-import {StatusBar} from 'react-native';
+// import PropTypes from 'prop-types';
 import {Container, Image, ContainerImage} from './styles';
 import Header from '../../components/Header';
-import Logo from '../../components/Logo';
+// import Logo from '../../components/Logo';
 import logo from '../../../assets/image/logo-azul.png';
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <Container>
-      <StatusBar barStyle="ligth-content" backgroundColor="#3f51b5" />
-      <Header title="Home" iconName="bars" icoName2="shopping-cart" />
+      <Header
+        title="Home"
+        iconName="bars"
+        icoNameTwo="shopping-cart"
+        functionOnpressIconLeft={() => navigation.openDrawer()}
+      />
       <ContainerImage>
         <Image source={logo} />
       </ContainerImage>

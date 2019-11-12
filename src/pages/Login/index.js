@@ -46,7 +46,7 @@ export default function Login() {
           error={errorLogin}
         />
         <Input
-          placeholder="Senha"
+          // placeholder="Senha"
           valueInputText={passwordState}
           editable
           passwordOption={notVisiblePasswordState}
@@ -66,8 +66,8 @@ export default function Login() {
             (!userState || userState === null) &&
             (!passwordState || passwordState === null)
           }
-          // functionOnPress={() => handleSubmit()}
-          functionOnPress={() => navigate('Home')}
+          functionOnPress={() => handleSubmit()}
+          // functionOnPress={() => navigate('Home')}
           loading={loading}
         />
         <Text
@@ -76,6 +76,7 @@ export default function Login() {
           }}>
           Esqueci minha senha
         </Text>
+        <Input />
       </Container>
     </ContainerScroll>
   );

@@ -1,27 +1,17 @@
 import React from 'react';
-// import {StatusBar} from 'react-native';
-import {Container} from './styles';
+import {TextInput} from 'react-native';
+import {Container, Text} from './styles';
 import Header from '../../components/Header';
+import Logo from '../../components/Logo';
 import Input from '../../components/Input';
+import {navigate} from '../../services/navigation';
 import Button from '../../components/Button';
 
 export default function ForgotPassword() {
   return (
     <Container>
-      <Header title="Recuperação de senha" />
-      <Input
-        placeholder="Senha"
-        // valueInputText={passwordState}
-        editable
-        // passwordOption={notVisiblePasswordState}
-        keyboardTypeInput="default"
-        areaIcon
-        // icoName={notVisiblePasswordState ? 'eye' : 'eye-slash'}
-        // functionOnChangeText={text => setPasswordState(text)}
-        // disabledButtonIcon={false}
-        // error={errorLogin}
-      />
-      <Button />
+      <Input />
+      <Button titleButton="AVANÇAR" />
     </Container>
   );
 }
