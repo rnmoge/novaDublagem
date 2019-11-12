@@ -1,12 +1,12 @@
 import React from 'react';
 // import {StatusBar} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import * as ForgotPasswordActions from '../../store/modules/forgotpassword/actions';
 import {Container, Text, ContainerPage} from './styles';
 import Header from '../../components/Header';
 // import Logo from '../../components/Logo';
 import Input from '../../components/Input2';
-import {navigate} from '../../services/navigation';
+// import {navigate} from '../../services/navigation';
 import Button from '../../components/Button';
 
 export default function ForgotPassword() {
