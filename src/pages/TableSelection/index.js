@@ -30,6 +30,7 @@ export default function TableSelection() {
           areaIcon
           icoName="search"
           disabledButtonIcon={false}
+          valueInputText=""
         />
         <Button titleButton="AVANÇAR" />
       </Container>

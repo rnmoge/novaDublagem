@@ -7,7 +7,7 @@ import * as LoginActions from '../../store/modules/login/actions';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import {navigate} from '../../services/navigation';
+// import {navigate} from '../../services/navigation';
 
 export default function Login() {
   const {loading, message, error} = useSelector(state => state.common);
@@ -46,7 +46,7 @@ export default function Login() {
           error={errorLogin}
         />
         <Input
-          // placeholder="Senha"
+          placeholder="Senha"
           valueInputText={passwordState}
           editable
           passwordOption={notVisiblePasswordState}
@@ -76,7 +76,6 @@ export default function Login() {
           }}>
           Esqueci minha senha
         </Text>
-        <Input />
       </Container>
     </ContainerScroll>
   );

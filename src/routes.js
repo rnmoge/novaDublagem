@@ -35,18 +35,15 @@ import Catalogo from './pages/Catalog';
 //  Login,
 //  Menu,
 // });
-const createDrawerNavigatorApp = createDrawerNavigator(
-  {
-    Home,
-    Catalogo,
-  },
-  {}
-);
+const createDrawerNavigatorApp = createDrawerNavigator({
+  Home,
+  Catalogo,
+});
 const createAppNavigation = createSwitchNavigator({
-  ForgotPassword,
-  Home: {screen: createDrawerNavigatorApp},
   Login,
   TableSlection,
+  ForgotPassword,
+  Home: {screen: createDrawerNavigatorApp},
 });
 const Routes = createAppContainer(createAppNavigation);
 

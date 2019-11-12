@@ -1,30 +1,5 @@
-export function loginRequest(username, password) {
+export function cleanLogin() {
   return {
-    type: '@login/LOGIN_REQUEST',
-    payload: {
-      username,
-      password,
-    },
-  };
-}
-export function loginRequestExist() {
-  return {
-    type: '@login/LOGIN_REQUEST_EXIST',
-  };
-}
-
-export function loginFailure() {
-  return {
-    type: '@login/LOGIN_FAILURE',
-    payload: {
-      error: true,
-      message: 'Usuário ou senha invalido',
-    },
-  };
-}
-
-export function loginforgotPassword() {
-  return {
-    type: '@login/LOGIN_FORGOT_PASSWORD',
+    type: '@forgotpassword/CLEAN_LOGIN',
   };
 }
