@@ -1,33 +1,97 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Title,
-  Container,
-  Icon,
-  AreaIcon,
-  ContainerHeader,
-  ContainerList,
-} from './styles';
-import Input from '../Input';
+import {FlatList, Text} from 'react-native';
+import {Input, Container, Icon, AreaIcon, ContainerHeader} from './styles';
 
-export default function Modal({nameIcon, title}) {
+export default function Modal({
+  nameIcon,
+  nameIconTwo,
+  placeholder,
+  modalVisible,
+  functionOnPressLeft,
+  functionOnPressRight,
+}) {
   return (
-    <Container>
+    <Container visible={modalVisible} animationType="slide">
       <ContainerHeader>
-        <AreaIcon>
+        <AreaIcon onPress={functionOnPressLeft}>
           <Icon name={nameIcon} />
         </AreaIcon>
-        <Title>{title}</Title>
-        <ContainerList />
+        <Input placeholder={placeholder} />
+        <AreaIcon onPress={functionOnPressRight}>
+          <Icon name={nameIconTwo} />
+        </AreaIcon>
       </ContainerHeader>
+
+      <FlatList
+        style={{flex: 1, backgroundColor: '#f65'}}
+        data={[
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+          {id: 1, name: 'tabela1'},
+        ]}
+        renderItem={item => {
+          return <Text>TablePrice</Text>;
+        }}
+      />
     </Container>
   );
 }
 Modal.propTypes = {
-  title: PropTypes.string,
+  placeholder: PropTypes.string,
   nameIcon: PropTypes.string,
+  nameIconTwo: PropTypes.string,
+  modalVisible: PropTypes.bool,
+  functionOnPressLeft: PropTypes.func,
+  functionOnPressRight: PropTypes.func,
 };
 Modal.defaultProps = {
-  title: 'Title Page',
   nameIcon: 'times',
+  nameIconTwo: 'search',
+  placeholder: 'TesteModal',
+  modalVisible: false,
+  functionOnPressLeft: () => {},
+  functionOnPressRight: () => {},
 };

@@ -6,7 +6,7 @@ import {Container} from './styles';
 export default function testeModal() {
   return (
     <Container>
-      <Modal title="Teste Modal" />
+      <Modal modalVisible />
     </Container>
   );
 }

@@ -39,11 +39,11 @@ const createDrawerNavigatorApp = createDrawerNavigator({
   Catalogo,
 });
 const createAppNavigation = createSwitchNavigator({
+  TesteModal,
   Login,
   TableSlection,
   ForgotPassword,
   Home: {screen: createDrawerNavigatorApp},
-  TesteModal,
 });
 const Routes = createAppContainer(createAppNavigation);
 
