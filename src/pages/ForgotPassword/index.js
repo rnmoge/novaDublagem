@@ -10,8 +10,9 @@ import Input from '../../components/Input2';
 import Button from '../../components/Button';
 
 export default function ForgotPassword() {
+  // const {loading, message, error} = useSelector(state => state.common);
   const dispatch = useDispatch();
-  function handleForgotPassword() {
+  function handleLogin() {
     dispatch(ForgotPasswordActions.cleanLogin());
   }
   return (
@@ -21,7 +22,7 @@ export default function ForgotPassword() {
         icoName="arrow-left"
         button
         cartExist={null}
-        functionOnpressIconLeft={() => handleForgotPassword()}
+        functionOnpressIconLeft={() => handleLogin()}
       />
 
       <ContainerPage>

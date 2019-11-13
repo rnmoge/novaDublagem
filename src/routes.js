@@ -7,8 +7,7 @@ import Home from './pages/Home';
 import TableSlection from './pages/TableSelection';
 import ForgotPassword from './pages/ForgotPassword';
 import Catalogo from './pages/Catalog';
-// import Catalog from './pages/Catalog';
-// import Repositories from './pages/Repositories';
+import TesteModal from './pages/testeModal';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -44,6 +43,7 @@ const createAppNavigation = createSwitchNavigator({
   TableSlection,
   ForgotPassword,
   Home: {screen: createDrawerNavigatorApp},
+  TesteModal,
 });
 const Routes = createAppContainer(createAppNavigation);
 
