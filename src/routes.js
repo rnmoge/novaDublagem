@@ -39,9 +39,9 @@ const createDrawerNavigatorApp = createDrawerNavigator({
   Catalogo,
 });
 const createAppNavigation = createSwitchNavigator({
+  TableSlection,
   TesteModal,
   Login,
-  TableSlection,
   ForgotPassword,
   Home: {screen: createDrawerNavigatorApp},
 });

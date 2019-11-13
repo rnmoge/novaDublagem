@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, Text} from 'react-native';
-import {Input, Container, Icon, AreaIcon, ContainerHeader} from './styles';
+import {
+  Input,
+  Container,
+  Icon,
+  AreaIcon,
+  ContainerHeader,
+  TextButton,
+} from './styles';
 
 export default function Modal({
   nameIcon,
@@ -10,6 +17,7 @@ export default function Modal({
   modalVisible,
   functionOnPressLeft,
   functionOnPressRight,
+  functionOnPressText,
 }) {
   return (
     <Container visible={modalVisible} animationType="slide">
@@ -73,7 +81,9 @@ export default function Modal({
           {id: 1, name: 'tabela1'},
         ]}
         renderItem={item => {
-          return <Text>TablePrice</Text>;
+          return (
+            <TextButton onPress={functionOnPressText}>TablePrice</TextButton>
+          );
         }}
       />
     </Container>
@@ -86,6 +96,7 @@ Modal.propTypes = {
   modalVisible: PropTypes.bool,
   functionOnPressLeft: PropTypes.func,
   functionOnPressRight: PropTypes.func,
+  functionOnPressText: PropTypes.func,
 };
 Modal.defaultProps = {
   nameIcon: 'times',
@@ -94,4 +105,5 @@ Modal.defaultProps = {
   modalVisible: false,
   functionOnPressLeft: () => {},
   functionOnPressRight: () => {},
+  functionOnPressText: () => {},
 };
