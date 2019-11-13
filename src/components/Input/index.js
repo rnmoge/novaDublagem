@@ -16,7 +16,6 @@ export default function Input({
   valueInputText,
   functionOnPressIcon,
   disabledButtonIcon,
-  functionOnPressInput,
 }) {
   return (
     <Container error={error}>
@@ -28,7 +27,6 @@ export default function Input({
           passwordOption={passwordOption}
           keyboardTypeInput={keyboardTypeInput}
           onChangeText={text => functionOnChangeText(text)}
-          onPress={functionOnPressInput}
         />
       </AreaInput>
       {areaIcon ? (
@@ -51,7 +49,6 @@ Input.propTypes = {
   areaIcon: PropTypes.bool,
   functionOnChangeText: PropTypes.func,
   functionOnPressIcon: PropTypes.func,
-  functionOnPressInput: PropTypes.func,
   disabledButtonIcon: PropTypes.bool,
   colorIcon: PropTypes.string,
 };
@@ -68,6 +65,5 @@ Input.defaultProps = {
   colorIcon: '#707070',
   functionOnChangeText: () => {},
   functionOnPressIcon: () => {},
-  functionOnPressInput: () => {},
   disabledButtonIcon: true,
 };

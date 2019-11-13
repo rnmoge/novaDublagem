@@ -24,7 +24,6 @@ function* loginRequestSaga(action) {
       .find(user => {
         return user.user.toLowerCase().indexOf(username.toLowerCase()) !== -1;
       });
-    console.tron.log(userSearch);
     console.tron.log(data);
     if (userSearch !== undefined) {
       if (userSearch.password === password) {
@@ -42,7 +41,7 @@ function* loginRequestSaga(action) {
       yield put(commonActionFailure('Usuário ou senha não existente'));
     }
   } catch (err) {
-    yield put(commonActionFailure('Connect error'));
+    yield put(commonActionFailure('Erro na conexão'));
   }
 }
 function* loginRequestExistSaga() {

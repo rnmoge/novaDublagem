@@ -4,10 +4,9 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import Login from './pages/Login';
 import Home from './pages/Home';
-import TableSlection from './pages/TableSelection';
+import TableSelection from './pages/TableSelection';
 import ForgotPassword from './pages/ForgotPassword';
 import Catalogo from './pages/Catalog';
-import TesteModal from './pages/testeModal';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -34,13 +33,17 @@ import TesteModal from './pages/testeModal';
 //  Login,
 //  Menu,
 // });
-const createDrawerNavigatorApp = createDrawerNavigator({
-  Home,
-  Catalogo,
-});
+const createDrawerNavigatorApp = createDrawerNavigator(
+  {
+    Home,
+    Catalogo,
+  },
+  {
+    navigationOptions: {title: 'Validar Propriedades'},
+  }
+);
 const createAppNavigation = createSwitchNavigator({
-  TableSlection,
-  TesteModal,
+  TableSelection,
   Login,
   ForgotPassword,
   Home: {screen: createDrawerNavigatorApp},
