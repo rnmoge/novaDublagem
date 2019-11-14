@@ -7,6 +7,7 @@ import * as LoginActions from '../../store/modules/login/actions';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+// import Header from '../../components/Header';
 
 export default function Login() {
   const {loading, message, error} = useSelector(state => state.common);

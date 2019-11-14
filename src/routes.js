@@ -17,15 +17,16 @@ import {
 } from 'react-native';
 // import {Container, Content, Header, Body} from 'native-base';
 // import {black} from 'ansi-colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import TableSelection from './pages/TableSelection';
 import ForgotPassword from './pages/ForgotPassword';
 import Catalogo from './pages/Catalog';
-import logoHome from '../assets/image/ico.png';
+// import logoHome from '../assets/image/ico.png';
 import HeaderDrawer from './components/HeaderDrawer';
 import FooterDrawer from './components/FooterDrawer';
-
+import Request from './pages/Request';
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
 //   Home,
@@ -77,11 +78,22 @@ const createDrawerNavigatorApp = createDrawerNavigator(
       screen: Home,
       navigationOptions: {
         title: 'Home',
+        drawerIcon: <Icon name="home" size={25} color="#263238" />,
       },
     },
     Catalogo: {
       screen: Catalogo,
-      navigationOptions: {title: 'Catálogo'},
+      navigationOptions: {
+        title: 'Catálogo',
+        drawerIcon: <Icon name="bookmark" size={25} color="#263238" />,
+      },
+    },
+    Request: {
+      screen: Request,
+      navigationOptions: {
+        title: 'Pedidos',
+        drawerIcon: <Icon name="shopping-bag" size={25} color="#263238" />,
+      },
     },
   },
   {
@@ -99,9 +111,9 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 );
 const createAppNavigation = createSwitchNavigator({
   Home: {screen: createDrawerNavigatorApp},
-  TableSelection,
-  Login,
   ForgotPassword,
+  Login,
+  TableSelection,
 });
 const Routes = createAppContainer(createAppNavigation);
 

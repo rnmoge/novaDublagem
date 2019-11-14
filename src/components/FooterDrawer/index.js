@@ -1,17 +1,21 @@
 import React from 'react';
 // import {View} from 'react-native';
-import {Container, TextFooter} from './styles';
-import {navigate} from '../../services/navigation';
+import {useDispatch} from 'react-redux';
+import {Container, TextFooter, AreaIcon, Icon} from './styles';
+// import {navigate} from '../../services/navigation';
+import * as exitDrawerActions from '../../store/modules/exitdrawer/actions';
 
-const FooterDrawer = () => (
-  <Container>
-    <TextFooter
-      onPress={() => {
-        navigate('Login');
-      }}>
-      Sair
-    </TextFooter>
-  </Container>
-);
-
-export default FooterDrawer;
+export default function FooterDrawer() {
+  const dispatch = useDispatch();
+  function handleExit() {
+    dispatch(exitDrawerActions.exitAplication());
+  }
+  return (
+    <Container>
+      <AreaIcon>
+        <Icon name="times" size={25} colorIcon="#263238" />
+      </AreaIcon>
+      <TextFooter onPress={() => handleExit()}>Sair</TextFooter>
+    </Container>
+  );
+}
