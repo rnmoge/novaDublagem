@@ -1,12 +1,30 @@
+import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {createDrawerNavigator} from 'react-navigation-drawer';
+import {
+  createDrawerNavigator,
+  DrawerItems,
+  drawerIcon,
+} from 'react-navigation-drawer';
+import {
+  Image,
+  SafeAreaView,
+  View,
+  StyleSheet,
+  StatusBar,
+  Text,
+} from 'react-native';
+// import {Container, Content, Header, Body} from 'native-base';
+// import {black} from 'ansi-colors';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import TableSelection from './pages/TableSelection';
 import ForgotPassword from './pages/ForgotPassword';
 import Catalogo from './pages/Catalog';
+import logoHome from '../assets/image/ico.png';
+import HeaderDrawer from './components/HeaderDrawer';
+import FooterDrawer from './components/FooterDrawer';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -33,20 +51,57 @@ import Catalogo from './pages/Catalog';
 //  Login,
 //  Menu,
 // });
+const customDrawer = props => (
+  <SafeAreaView style={{flex: 1}}>
+    <StatusBar backgroundColor="#002984" />
+    <View
+      style={{
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        backgroundColor: '#3f51b5',
+      }}>
+      <HeaderDrawer />
+    </View>
+    <View>
+      <DrawerItems {...props} />
+      <View>
+        <FooterDrawer />
+      </View>
+    </View>
+  </SafeAreaView>
+);
+
 const createDrawerNavigatorApp = createDrawerNavigator(
   {
-    Home,
-    Catalogo,
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        title: 'Home',
+      },
+    },
+    Catalogo: {
+      screen: Catalogo,
+      navigationOptions: {title: 'Catálogo'},
+    },
   },
   {
-    navigationOptions: {title: 'Validar Propriedades'},
+    drawerBackgroundColor: '#ffffff',
+    drawerWidth: 300,
+    contentComponent: customDrawer,
+    contentOptions: {
+      activeTintColor: '#707070',
+      labelStyle: {
+        fontSize: 16,
+        color: '#263238',
+      },
+    },
   }
 );
 const createAppNavigation = createSwitchNavigator({
+  Home: {screen: createDrawerNavigatorApp},
   TableSelection,
   Login,
   ForgotPassword,
-  Home: {screen: createDrawerNavigatorApp},
 });
 const Routes = createAppContainer(createAppNavigation);
 
