@@ -5,7 +5,7 @@ import * as ForgotPasswordActions from '../../store/modules/forgotpassword/actio
 import {Container, Text, ContainerPage} from './styles';
 import Header from '../../components/Header';
 // import Logo from '../../components/Logo';
-import Input from '../../components/Input2';
+// import Input from '../../components/Input2';
 // import {navigate} from '../../services/navigation';
 import Button from '../../components/Button';
 

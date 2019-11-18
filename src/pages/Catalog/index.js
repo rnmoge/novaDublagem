@@ -3,9 +3,8 @@ import React from 'react';
 
 import {Container, ContainerInput} from './styles';
 import Header from '../../components/Header';
-import Input from '../../components/Input';
 import Button from '../../components/Button';
-// import InputType from '../../components/InputType';
+import InputType from '../../components/InputType';
 
 export default function Catalog({navigation}) {
   return (
@@ -17,7 +16,8 @@ export default function Catalog({navigation}) {
         functionOnpressIconLeft={() => navigation.openDrawer()}
       />
       <ContainerInput>
-        <Input />
+        <InputType />
+        <InputType />
         <Button titleButton="AVANÇAR" />
       </ContainerInput>
     </Container>
