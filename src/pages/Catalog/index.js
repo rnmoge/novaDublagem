@@ -1,9 +1,14 @@
 import React from 'react';
 // import {View} from 'react-native';
 
-import {Container, ContainerInput} from './styles';
+import {
+  Container,
+  ContainerInput,
+  ContainerList,
+  ContainerScroll,
+} from './styles';
 import Header from '../../components/Header';
-import Button from '../../components/Button';
+import ListView from '../../components/ListView';
 import InputType from '../../components/InputType';
 
 export default function Catalog({navigation}) {
@@ -16,10 +21,18 @@ export default function Catalog({navigation}) {
         functionOnpressIconLeft={() => navigation.openDrawer()}
       />
       <ContainerInput>
-        <InputType />
-        <InputType />
-        <Button titleButton="AVANÇAR" />
+        <InputType placeholder="Digite a linha" icoName="search" areaIcon />
+        <InputType placeholder="Digite o modelo" icoName="search" areaIcon />
       </ContainerInput>
+      <ContainerScroll
+        contentContainerStyle={{
+          flexGrow: 1,
+          flexDirection: 'column',
+        }}>
+        <ContainerList>
+          <ListView />
+        </ContainerList>
+      </ContainerScroll>
     </Container>
   );
 }

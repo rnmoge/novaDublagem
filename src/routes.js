@@ -111,8 +111,8 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 );
 const createAppNavigation = createSwitchNavigator({
   Home: {screen: createDrawerNavigatorApp},
-  ForgotPassword,
   Login,
+  ForgotPassword,
   TableSelection,
 });
 const Routes = createAppContainer(createAppNavigation);

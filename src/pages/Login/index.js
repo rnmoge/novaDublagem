@@ -70,12 +70,12 @@ export default function Login() {
           // functionOnPress={() => navigate('Home')}
           loading={loading}
         />
-        <Text
+        {/* <Text
           onPress={() => {
             handleForgotPassword();
           }}>
           Esqueci minha senha
-        </Text>
+        </Text> */}
       </Container>
     </ContainerScroll>
   );
