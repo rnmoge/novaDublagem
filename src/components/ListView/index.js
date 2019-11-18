@@ -1,6 +1,6 @@
 import React from 'react';
 // import {Image} from 'react-native';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   Container,
   Line,
@@ -14,7 +14,7 @@ import {
   Text,
 } from './styles';
 
-export default function ListView() {
+export default function ListView({functionOnpresDetails}) {
   return (
     <Container>
       <FlatList
@@ -36,7 +36,7 @@ export default function ListView() {
                 <Model>{item.Model}</Model>
               </ContainerText>
               <ContainerButton>
-                <Button>
+                <Button onPress={functionOnpresDetails}>
                   <Text>VER DETALHES</Text>
                 </Button>
               </ContainerButton>
@@ -47,3 +47,9 @@ export default function ListView() {
     </Container>
   );
 }
+ListView.prototypes = {
+  functionOnpresDetails: PropTypes.func,
+};
+ListView.defaultProps = {
+  functionOnpresDetails: () => {},
+};

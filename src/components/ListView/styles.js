@@ -12,16 +12,14 @@ export const FlatList = styled.FlatList`
 export const ContainerList = styled.View`
   flex-direction: row;
   border-radius: 10px;
-  border-color: #707070;
   height: 100px;
   background: #fff;
   align-items: center;
   margin-bottom: 10px;
   border-radius: 10px;
-  border-color: #707070;
   elevation: 5;
   box-shadow: 10px 5px 5px black;
-  border-width: 0.2px;
+  border-width: 0.1px;
 `;
 export const ContainerText = styled.View`
   flex-direction: column;

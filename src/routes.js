@@ -2,19 +2,8 @@ import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {
-  createDrawerNavigator,
-  DrawerItems,
-  drawerIcon,
-} from 'react-navigation-drawer';
-import {
-  Image,
-  SafeAreaView,
-  View,
-  StyleSheet,
-  StatusBar,
-  Text,
-} from 'react-native';
+import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
+import {SafeAreaView, View, StatusBar} from 'react-native';
 // import {Container, Content, Header, Body} from 'native-base';
 // import {black} from 'ansi-colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,6 +16,7 @@ import Catalogo from './pages/Catalog';
 import HeaderDrawer from './components/HeaderDrawer';
 import FooterDrawer from './components/FooterDrawer';
 import Request from './pages/Request';
+import ProductDetails from './pages/ProductDetails';
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
 //   Home,
@@ -110,6 +100,7 @@ const createDrawerNavigatorApp = createDrawerNavigator(
   }
 );
 const createAppNavigation = createSwitchNavigator({
+  ProductDetails,
   Home: {screen: createDrawerNavigatorApp},
   Login,
   ForgotPassword,

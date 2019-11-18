@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {StatusBar} from 'react-native';
-import {Container, Text, ContainerScroll} from './styles';
+import {Container, ContainerScroll} from './styles';
 // import * as CommonActions from '../../store/modules/common/actions';
 import * as LoginActions from '../../store/modules/login/actions';
 import Logo from '../../components/Logo';
@@ -20,9 +20,9 @@ export default function Login() {
   function handleSubmit() {
     dispatch(LoginActions.loginRequest(userState, passwordState));
   }
-  function handleForgotPassword() {
-    dispatch(LoginActions.loginforgotPassword());
-  }
+  // function handleForgotPassword() {
+  //   dispatch(LoginActions.loginforgotPassword());
+  // }
   useEffect(() => {
     dispatch(LoginActions.loginRequestExist());
   }, [dispatch]);
