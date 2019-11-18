@@ -5,7 +5,7 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: flex-start;
   border-width: 3px;
-  border-color: ${props => (props.error ? '#e45' : '#fefaf4')};
+  border-color: ${props => (props.error ? '#f00' : '#fefaf4')};
   margin-bottom: 20px;
   background: #f4f4f4;
   border-radius: 8px;

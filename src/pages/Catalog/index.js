@@ -1,6 +1,7 @@
 import React from 'react';
 // import {View} from 'react-native';
 
+import {Item} from 'native-base';
 import {
   Container,
   ContainerInput,
@@ -10,6 +11,7 @@ import {
 import Header from '../../components/Header';
 import ListView from '../../components/ListView';
 import InputType from '../../components/InputType';
+import Bojo from '../../../assets/image/3101.jpg';
 
 export default function Catalog({navigation}) {
   return (
@@ -24,15 +26,10 @@ export default function Catalog({navigation}) {
         <InputType placeholder="Digite a linha" icoName="search" areaIcon />
         <InputType placeholder="Digite o modelo" icoName="search" areaIcon />
       </ContainerInput>
-      <ContainerScroll
-        contentContainerStyle={{
-          flexGrow: 1,
-          flexDirection: 'column',
-        }}>
-        <ContainerList>
-          <ListView />
-        </ContainerList>
-      </ContainerScroll>
+
+      <ContainerList>
+        <ListView />
+      </ContainerList>
     </Container>
   );
 }

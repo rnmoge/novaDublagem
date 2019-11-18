@@ -1,40 +1,49 @@
 import React from 'react';
-// import {View} from 'react-native';
+// import {Image} from 'react-native';
 // import PropTypes from 'prop-types';
-import {Container, Line, FlatList} from './styles';
+import {
+  Container,
+  Line,
+  FlatList,
+  ContainerList,
+  Model,
+  Image,
+  ContainerText,
+  Button,
+  ContainerButton,
+  Text,
+} from './styles';
 
 export default function ListView() {
   return (
     <Container>
       <FlatList
         data={[
-          {id: 1, name: 'tabela1'},
-          {id: 2, name: 'tabela1'},
-          {id: 3, name: 'tabela1'},
-          {id: 4, name: 'tabela1'},
-          {id: 5, name: 'tabela1'},
-          {id: 6, name: 'tabela1'},
-          {id: 7, name: 'tabela1'},
-          {id: 8, name: 'tabela1'},
-          {id: 9, name: 'tabela1'},
-          {id: 10, name: 'tabela1'},
-          {id: 11, name: 'tabela1'},
-          {id: 12, name: 'tabela1'},
-          {id: 13, name: 'tabela1'},
-          {id: 14, name: 'tabela1'},
-          {id: 15, name: 'tabela1'},
-          {id: 16, name: 'tabela1'},
-          {id: 17, name: 'tabela1'},
-          {id: 18, name: 'tabela1'},
-          {id: 19, name: 'tabela1'},
+          {id: 1, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 2, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 3, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 4, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 5, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 6, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 7, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
         ]}
-        renderItem={item => {
-          return <Line>Tabelas</Line>;
+        renderItem={({item}) => {
+          return (
+            <ContainerList>
+              <Image />
+              <ContainerText>
+                <Line>{item.Line}</Line>
+                <Model>{item.Model}</Model>
+              </ContainerText>
+              <ContainerButton>
+                <Button>
+                  <Text>VER DETALHES</Text>
+                </Button>
+              </ContainerButton>
+            </ContainerList>
+          );
         }}
       />
     </Container>
   );
 }
-
-ListView.propTypes = {};
-ListView.defaultProps = {};
