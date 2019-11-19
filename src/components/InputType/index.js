@@ -20,10 +20,12 @@ export default function InputType({
     <Container>
       <AreaInput>
         <Input
+          value={valueInputText}
           placeholder={placeholder}
           editable={disabledInput}
           passwordOption={passwordOption}
           keyboardTypeInput={keyboardTypeInput}
+          onChangeText={text => functionOnChangeText(text)}
         />
       </AreaInput>
       {areaIcon ? (

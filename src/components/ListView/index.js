@@ -15,19 +15,11 @@ import {
 } from './styles';
 import Bojo from '../../../assets/image/3101.jpg';
 
-export default function ListView({functionOnpresDetails}) {
+export default function ListView({functionOnpresDetails, data}) {
   return (
     <Container>
       <FlatList
-        data={[
-          {id: 1, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 2, Line: 'Linha: P.U', Model: 'Modelo: 3105'},
-          {id: 3, Line: 'Linha: P.U', Model: 'Modelo: 3106'},
-          {id: 4, Line: 'Linha: P.U', Model: 'Modelo: 3107'},
-          {id: 5, Line: 'Linha: P.U', Model: 'Modelo: 3108'},
-          {id: 6, Line: 'Linha: P.U', Model: 'Modelo: 3109'},
-          {id: 7, Line: 'Linha: P.U', Model: 'Modelo: 3111'},
-        ]}
+        data={data}
         renderItem={({item}) => {
           return (
             <ContainerList>
