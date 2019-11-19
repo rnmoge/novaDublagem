@@ -35,7 +35,7 @@ export const Model = styled.Text`
   font-size: 16;
   margin-bottom: 5px;
 `;
-export const Image = styled.View`
+export const Image = styled.Image`
   height: 75;
   width: 75;
   background: #707070;

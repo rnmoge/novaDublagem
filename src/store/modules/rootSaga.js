@@ -4,6 +4,7 @@ import login from './login/sagas';
 import forgotpassword from './forgotpassword/sagas';
 import exitdrawer from './exitdrawer/sagas';
 import catalog from './catalog/sagas';
+import detailsproduct from './detailsproduct/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -12,6 +13,7 @@ export default function* rootSaga() {
     forgotpassword,
     exitdrawer,
     catalog,
+    detailsproduct,
     // adicione mais sagas
   ]);
 }

@@ -1,5 +1,5 @@
-export function catalogMoreDetailsProduct() {
+export function backCatalog() {
   return {
-    type: '@catalog/CATALOG_MORE_DETAILS_PRODUCT',
+    type: '@details/BACK_CATALOG',
   };
 }

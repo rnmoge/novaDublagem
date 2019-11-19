@@ -1,16 +1,18 @@
 import React from 'react';
 // import {Text} from 'react-native';
+import {useDispatch} from 'react-redux';
 import Header from '../../components/Header';
-import {
-  Container,
-  Details,
-  ContainerBody,
-  Tables,
-  ContainerTable,
-} from './styles';
+import CardDetails from '../../components/CardDetails';
+import CardTablePrice from '../../components/CardTablePrice';
+import {Container, ContainerBody} from './styles';
+import * as DetailsProductActions from '../../store/modules/detailsproduct/actions';
 
 export default function ProductDetails() {
-  function backCatalog() {}
+  const dispatch = useDispatch();
+
+  function backCatalogPage() {
+    dispatch(DetailsProductActions.backCatalog());
+  }
   return (
     <Container>
       <Header
@@ -19,14 +21,17 @@ export default function ProductDetails() {
         icoSize={20}
         icoNameTwo="shopping-cart"
         functionOnpressIconLeft={() => {
-          backCatalog();
+          backCatalogPage();
         }}
       />
       <ContainerBody>
-        <Details />
-        <ContainerTable>
-          <Tables />
-        </ContainerTable>
+        <CardDetails
+          line="P.U"
+          model="3101"
+          description="3101 BJ LIS"
+          feacture="Liso com cabo"
+        />
+        <CardTablePrice />
       </ContainerBody>
     </Container>
   );

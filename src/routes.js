@@ -17,6 +17,7 @@ import HeaderDrawer from './components/HeaderDrawer';
 import FooterDrawer from './components/FooterDrawer';
 import Request from './pages/Request';
 import ProductDetails from './pages/ProductDetails';
+
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
 //   Home,

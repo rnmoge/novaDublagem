@@ -7,16 +7,9 @@ import {put, all, takeLatest} from 'redux-saga/effects';
 import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
 import {navigate} from '../../../services/navigation';
 
-function* moreDetailsProduct() {
+function* backCatalogSaga() {
   yield put(commonLoadingActivityOn(''));
-  try {
-    yield put(commonLoadingActivityOn(''));
-    navigate('ProductDetails');
-  } catch (err) {
-    yield put(commonActionFailure('Produto não encontrado'));
-  }
+  navigate('Catalogo');
 }
 
-export default all([
-  takeLatest('@catalog/CATALOG_MORE_DETAILS_PRODUCT', moreDetailsProduct),
-]);
+export default all([takeLatest('@details/BACK_CATALOG', backCatalogSaga)]);

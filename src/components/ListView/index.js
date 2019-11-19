@@ -13,6 +13,7 @@ import {
   ContainerButton,
   Text,
 } from './styles';
+import Bojo from '../../../assets/image/3101.jpg';
 
 export default function ListView({functionOnpresDetails}) {
   return (
@@ -20,17 +21,17 @@ export default function ListView({functionOnpresDetails}) {
       <FlatList
         data={[
           {id: 1, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 2, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 3, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 4, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 5, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 6, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
-          {id: 7, Line: 'Linha: P.U', Model: 'Modelo: 3101'},
+          {id: 2, Line: 'Linha: P.U', Model: 'Modelo: 3105'},
+          {id: 3, Line: 'Linha: P.U', Model: 'Modelo: 3106'},
+          {id: 4, Line: 'Linha: P.U', Model: 'Modelo: 3107'},
+          {id: 5, Line: 'Linha: P.U', Model: 'Modelo: 3108'},
+          {id: 6, Line: 'Linha: P.U', Model: 'Modelo: 3109'},
+          {id: 7, Line: 'Linha: P.U', Model: 'Modelo: 3111'},
         ]}
         renderItem={({item}) => {
           return (
             <ContainerList>
-              <Image />
+              <Image source={Bojo} />
               <ContainerText>
                 <Line>{item.Line}</Line>
                 <Model>{item.Model}</Model>
