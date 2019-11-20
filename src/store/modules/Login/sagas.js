@@ -2,7 +2,7 @@
 // select busca informações sobre o estado
 import {call, put, all, takeLatest, cancel} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import getRealm from '../../../services/realm';
 import api from '../../../services/api';
 // import {loginRequest, loginSucess, loginFailure} from './actions';
 import {

@@ -14,9 +14,9 @@ export default function getRealm() {
     schema: [
       TablePrice,
       User,
-      TableColor,
       TableLine,
       TableLineMatrix,
+      TableColor,
       TableLineMatrixColor,
       TableGroupSize,
       TablePriceLineMatrix,

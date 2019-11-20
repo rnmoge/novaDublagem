@@ -24,9 +24,8 @@ export default function Catalog({navigation}) {
   ]);
   const [dataStateAux, setDataStateAux] = useState(dataState);
   const dispatch = useDispatch();
-  function handleMoreDetails(id) {
-    console.tron.log(id);
-    dispatch(CatalogActions.catalogMoreDetailsProduct(id));
+  function handleMoreDetails() {
+    dispatch(CatalogActions.catalogMoreDetailsProduct());
   }
   useEffect(() => {
     if (inputLineState === '' && inputModelState === '') {

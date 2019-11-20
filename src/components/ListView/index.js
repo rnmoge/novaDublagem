@@ -36,7 +36,7 @@ export default function ListView({functionOnpressDetails, data}) {
                 <Model>{item.Model}</Model>
               </ContainerText>
               <ContainerButton>
-                <Button onPress={functionOnpressDetails(item.id)}>
+                <Button onPress={functionOnpressDetails}>
                   <Text>VER DETALHES</Text>
                 </Button>
               </ContainerButton>
