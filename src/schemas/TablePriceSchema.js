@@ -1,14 +1,13 @@
-export default class UserSchema {
-  static schema = {
-    name: 'novaDublagem',
-    primaryKey: 'id',
-    propertipes: {
-      id: {type: 'int', indexed: true},
-      table_price: {type: 'int', indexed: true},
-      comission_1: 'double',
-      comission_2: 'double',
-      comission_3: 'double',
-      update_at: 'date',
-    },
-  };
-}
+const TablePrice = {
+  name: 'novaDublagem',
+  primaryKey: 'id',
+  propertipes: {
+    table_price: 'string',
+    comission_1: 'string',
+    comission_2: 'string',
+    comission_3: 'string',
+    update_at: 'string',
+  },
+};
+
+export default TablePrice;

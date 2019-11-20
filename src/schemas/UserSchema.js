@@ -1,17 +1,17 @@
-export default class UserSchema {
-  static schema = {
-    name: 'novaDublagem',
-    primaryKey: 'id',
-    propertipes: {
-      id: {type: 'int', indexed: true},
-      user: {type: 'int', indexed: true},
-      password: 'string',
-      permission: 'int',
-      status: 'bool',
-      lastupdateapp: 'date',
-      user_id: 'int',
-      create_at: 'date',
-      update_at: 'date',
-    },
-  };
-}
+const User = {
+  name: 'novaDublagem',
+  primaryKey: 'id',
+  propertipes: {
+    id: {type: 'int', indexed: true},
+    username: 'string',
+    password: 'string',
+    permission: 'string',
+    status: 'string',
+    lastupdateapp: 'string',
+    user_id: 'string',
+    create_at: 'string',
+    update_at: 'string',
+    table_price: 'TablePrice[]',
+  },
+};
+export default User;

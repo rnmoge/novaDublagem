@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 // import {Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 import Header from '../../components/Header';
@@ -9,7 +9,24 @@ import * as DetailsProductActions from '../../store/modules/detailsproduct/actio
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
-
+  const [dataState, setDataState] = useState([
+    {
+      id: 1,
+      line: 'Linha 1',
+      model: '3101',
+      description: 'Bojo Liso',
+      feacture: 'Bojo Liso',
+    },
+  ]);
+  const [dataTableState, setDataTableState] = useState([
+    {id: 1, size: 'PP/38 - GG/46'},
+    {id: 2, size: 'PP/38 - XG/46'},
+    {id: 3, size: 'P/40 - GG/46'},
+    {id: 4, size: 'M/42 - XG/48'},
+    {id: 5, size: 'G/44 - GG/46'},
+    {id: 6, size: 'XG/48 - EEXG/54'},
+    {id: 7, size: 'XG/48 - EEXXG/54'},
+  ]);
   function backCatalogPage() {
     dispatch(DetailsProductActions.backCatalog());
   }
@@ -25,13 +42,8 @@ export default function ProductDetails() {
         }}
       />
       <ContainerBody>
-        <CardDetails
-          line="P.U"
-          model="3101"
-          description="3101 BJ LIS"
-          feacture="Liso com cabo"
-        />
-        <CardTablePrice />
+        <CardDetails data={dataState} />
+        <CardTablePrice data={dataTableState} />
       </ContainerBody>
     </Container>
   );

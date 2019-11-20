@@ -37,6 +37,7 @@ export default function ModalTeste2({
           </AreaIcon>
         </ContainerHeader>
         <FlatList
+          initialNumToRender={10}
           style={{flex: 1}}
           data={data}
           renderItem={({item}) => {

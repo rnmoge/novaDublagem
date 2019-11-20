@@ -12,13 +12,20 @@ import {
   Button,
   ContainerButton,
   Text,
+  TextInitial,
 } from './styles';
 import Bojo from '../../../assets/image/3101.jpg';
 
-export default function ListView({functionOnpresDetails, data}) {
+export default function ListView({functionOnpressDetails, data}) {
   return (
     <Container>
       <FlatList
+        initialNumToRender={10}
+        ListEmptyComponent={
+          <TextInitial>
+            Digite um dos filtros acima para acessar o catálogo
+          </TextInitial>
+        }
         data={data}
         renderItem={({item}) => {
           return (
@@ -29,7 +36,7 @@ export default function ListView({functionOnpresDetails, data}) {
                 <Model>{item.Model}</Model>
               </ContainerText>
               <ContainerButton>
-                <Button onPress={functionOnpresDetails}>
+                <Button onPress={functionOnpressDetails(item.id)}>
                   <Text>VER DETALHES</Text>
                 </Button>
               </ContainerButton>
@@ -41,8 +48,8 @@ export default function ListView({functionOnpresDetails, data}) {
   );
 }
 ListView.prototypes = {
-  functionOnpresDetails: PropTypes.func,
+  functionOnpressDetails: PropTypes.func,
 };
 ListView.defaultProps = {
-  functionOnpresDetails: () => {},
+  functionOnpressDetails: () => {},
 };

@@ -64,3 +64,10 @@ export const Text = styled.Text`
   font-weight: bold;
   text-align: center;
 `;
+export const TextInitial = styled.Text`
+  color: #212121;
+  font-size: 16px;
+  margin-top: 150px;
+  font-weight: bold;
+  text-align: center;
+`;

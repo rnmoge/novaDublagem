@@ -16,7 +16,7 @@ import {
   Prices,
 } from './styles';
 
-export default function CardTablePrice() {
+export default function CardTablePrice({data}) {
   return (
     <Container>
       <ContainerTitle>
@@ -26,24 +26,19 @@ export default function CardTablePrice() {
         <ContainerSize>
           <Text>Tamanhos:</Text>
           <FlatList
-            data={[
-              {id: 1, size: 'PP/38 - GG/46'},
-              {id: 2, size: 'PP/38 - XG/46'},
-              {id: 3, size: 'P/40 - GG/46'},
-              {id: 4, size: 'M/42 - XG/48'},
-              {id: 5, size: 'G/44 - GG/46'},
-              {id: 6, size: 'XG/48 - EEXG/54'},
-              {id: 7, size: 'XG/48 - EEXXG/54'},
-            ]}
+            data={data}
             renderItem={({item}) => {
               return <Sizes>{item.size}</Sizes>;
             }}
           />
         </ContainerSize>
         <ContainerPrice>
-          <ContainerComission>
-            <Comission>5,00%</Comission>
-          </ContainerComission>
+          <ContainerComission
+            data={data}
+            renderItem={({item}) => {
+              return <Comission>{item.comission1}</Comission>;
+            }}
+          />
           <FlatList
             data={[
               {id: 1, size: '2,06'},

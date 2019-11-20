@@ -23,10 +23,12 @@ export const Image = styled.Image`
   border-radius: 10px;
 `;
 
-export const AreaText = styled.View`
+export const AreaText = styled.FlatList`
   padding-left: 15px;
 `;
-
+export const ContainerText = styled.View`
+  flex: 1;
+`;
 export const Line = styled.Text`
   font-size: 14;
   padding: 3px;

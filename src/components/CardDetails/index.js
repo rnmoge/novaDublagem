@@ -1,6 +1,7 @@
 import React from 'react';
 // import {View} from 'react-native';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+
 import {
   Container,
   AreaImage,
@@ -10,33 +11,29 @@ import {
   Model,
   Description,
   Feacture,
+  ContainerText,
 } from './styles';
 import Bojo from '../../../assets/image/3101.jpg';
 
-export default function CardDetails({line, model, description, feacture}) {
+export default function CardDetails({data}) {
   return (
     <Container>
       <AreaImage>
         <Image source={Bojo} />
       </AreaImage>
-      <AreaText>
-        <Line>LInha: {line}</Line>
-        <Model>Modelo: {model}</Model>
-        <Description>Descrição: {description}</Description>
-        <Feacture>Caracteristica: {feacture}</Feacture>
-      </AreaText>
+      <AreaText
+        data={data}
+        renderItem={({item}) => {
+          return (
+            <ContainerText>
+              <Line>Linha: {item.line}</Line>
+              <Model>Modelo: {item.model}</Model>
+              <Description>Descrição: {item.description}</Description>
+              <Feacture>Caracteristica: {item.feacture}</Feacture>
+            </ContainerText>
+          );
+        }}
+      />
     </Container>
   );
 }
-CardDetails.propTypes = {
-  line: PropTypes.string,
-  model: PropTypes.string,
-  description: PropTypes.string,
-  feacture: PropTypes.string,
-};
-CardDetails.defaultProps = {
-  line: '',
-  model: '',
-  description: '',
-  feacture: '',
-};

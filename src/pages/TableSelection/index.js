@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-// import {View} from 'react-native';
 import {StatusBar} from 'react-native';
+
+// import {useSelector} from 'react-redux';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -9,9 +10,10 @@ import {navigate} from '../../services/navigation';
 import Modal from '../../components/Modalteste2';
 
 export default function TableSelection() {
+  // const {loading} = useSelector(state => state.common);
   const [modalState, setModalState] = useState(false);
-  const [inputState, setInputState] = useState();
-  const [dataState, setDataState] = useState([
+  const [inputState, setInputState] = useState('');
+  const [dataState] = useState([
     {id: 1, name: 'tabela1'},
     {id: 2, name: 'tabela2'},
     {id: 3, name: 'tabela3'},

@@ -24,8 +24,9 @@ export default function Catalog({navigation}) {
   ]);
   const [dataStateAux, setDataStateAux] = useState(dataState);
   const dispatch = useDispatch();
-  function handleMoreDetails() {
-    dispatch(CatalogActions.catalogMoreDetailsProduct());
+  function handleMoreDetails(id) {
+    console.tron.log(id);
+    dispatch(CatalogActions.catalogMoreDetailsProduct(id));
   }
   useEffect(() => {
     if (inputLineState === '' && inputModelState === '') {
@@ -76,15 +77,14 @@ export default function Catalog({navigation}) {
           areaIcon
         />
       </ContainerInput>
-      {setDataStateAux === [] ? (<Text>Yuri</Text>): (<ContainerList>
+      <ContainerList>
         <ListView
           data={dataStateAux}
-          functionOnpresDetails={() => {
+          functionOnpressDetails={() => {
             handleMoreDetails();
           }}
         />
-      </ContainerList>)}
-
+      </ContainerList>
     </Container>
   );
 }

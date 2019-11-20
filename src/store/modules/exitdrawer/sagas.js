@@ -12,7 +12,7 @@ function* exitAplicationSaga() {
   console.tron.log('entrou1');
   yield put(commonLoadingActivityOn(''));
   try {
-    yield call(AsyncStorage.removeItem, '@novaDublagem:user');
+    yield call(AsyncStorage.removeItem, '@novaDublagem:token');
     navigate('Login');
     console.tron.log('entrou1');
   } catch (err) {
