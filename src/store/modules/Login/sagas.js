@@ -51,21 +51,18 @@ function* loginRequestSaga(action) {
           realm.create('tablePrice', table, true);
         });
       }
-      const {} = data;
+      const {permission, status} = data;
       //   permission,
       //   status,
       //   last_update_app,
       //   created_at,
       //   updated_at,
 
-      // const objeto = {
-      //   permission: permission === undefined ? 'not' : username,
-      //   status: status === undefined ? 'not' : status,
-      //   lastupdateapp: last_update_app === null ? 'not' : last_update_app,
-      //   created_at: created_at === undefined ? 'not' : created_at,
-      //   updated_at: updated_at === undefined ? 'not' : updated_at,
-      // }
-      console.tron.log(data);
+      const objeto = {
+        permission,
+        status: status === null ? 'not' : status,
+      };
+      console.tron.log(objeto.status);
       // realm.write(() => {
       //   realm.create('User', objeto, true);
       // });
