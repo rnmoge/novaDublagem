@@ -1,8 +1,14 @@
+import produce from 'immer';
+
 const INITIAL_STATE = {
-  errorLogin: false,
+  data: [],
 };
-export default function Login(state = INITIAL_STATE, action) {
+export default function table(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@table/LOGIN_REQUEST_TABLE_PRICE_SUCESS':
+      return produce(state, draft => {
+        draft.data = action.payload.tablePrice;
+      });
     default:
       return state;
   }

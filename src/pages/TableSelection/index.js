@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'react-native';
-
+import {useDispatch, useSelector} from 'react-redux';
 // import {useSelector} from 'react-redux';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
@@ -8,8 +8,11 @@ import Button from '../../components/Button';
 import {Container, Text, ContainerScroll} from './styles';
 import {navigate} from '../../services/navigation';
 import Modal from '../../components/Modalteste2';
+import * as ActionsTable from '../../store/modules/table/actions';
 
 export default function TableSelection() {
+  const {data} = useSelector(state => state.table);
+  const dispatch = useDispatch();
   // const {loading} = useSelector(state => state.common);
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
@@ -22,21 +25,23 @@ export default function TableSelection() {
     {id: 6, name: 'tabela6'},
     {id: 7, name: 'tabela7'},
   ]);
+  // console.tron.log('tururu', data);
   const [dataStateAux, setDataStateAux] = useState(dataState);
   useEffect(() => {
-    if (inputState === '') {
-      setDataStateAux(dataState);
-    } else {
-      const orderArray = dataState
-        .filter(element => {
-          return element.name.indexOf(inputState) !== -1;
-        })
-        .map(element => {
-          return element;
-        });
-      setDataStateAux(orderArray);
-    }
-  }, [dataState, inputState]);
+    // if (inputState === '') {
+    //   setDataStateAux(dataState);
+    // } else {
+    //   const orderArray = dataState
+    //     .filter(element => {
+    //       return element.name.indexOf(inputState) !== -1;
+    //     })
+    //     .map(element => {
+    //       return element;
+    //     });
+    //   setDataStateAux(orderArray);
+    // }
+    dispatch(ActionsTable.requestTablePrice());
+  }, [dispatch]);
 
   return (
     <ContainerScroll
@@ -66,9 +71,9 @@ export default function TableSelection() {
         <Modal
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
-          data={dataStateAux}
           placeholder="Digite a tabela"
           modalVisible={modalState}
+          data={data}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}

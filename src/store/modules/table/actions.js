@@ -1,9 +1,13 @@
-export function loginRequest(username, password) {
+export function requestTablePrice(tabelaprecos) {
   return {
-    type: '@login/LOGIN_REQUEST',
-    payload: {
-      username,
-      password,
-    },
+    type: '@table/LOGIN_REQUEST_TABLE_PRICE',
+    payload: {tabelaprecos},
+  };
+}
+
+export function requestTablePriceSucess(tablePrice) {
+  return {
+    type: '@table/LOGIN_REQUEST_TABLE_PRICE_SUCESS',
+    payload: {tablePrice},
   };
 }

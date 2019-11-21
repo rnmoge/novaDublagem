@@ -15,6 +15,8 @@ import {navigate} from '../../../services/navigation';
 
 function* loginRequestSaga(action) {
   yield put(commonLoadingActivityOn(''));
+  const realm = yield getRealm();
+
   const {username, password} = action.payload;
   if (username && password) {
     try {
@@ -28,9 +30,53 @@ function* loginRequestSaga(action) {
         '@novaDublagem:token',
         JSON.stringify(data.token)
       );
+      for (let i = 0; i < data.tabelaprecos.length; i += 1) {
+        const {
+          id,
+          tabelapreco,
+          comissao1,
+          comissao2,
+          comissao3,
+          updated_at,
+        } = data.tabelaprecos[i];
+        const table = {
+          id: Number(id),
+          table_price: tabelapreco,
+          comission_1: comissao1 === undefined ? 'not' : comissao1,
+          comission_2: comissao2 === undefined ? 'not' : comissao2,
+          comission_3: comissao2 === undefined ? 'not' : comissao3,
+          update_at: updated_at,
+        };
+        realm.write(() => {
+          realm.create('tablePrice', table, true);
+        });
+      }
+      const {} = data;
+      //   permission,
+      //   status,
+      //   last_update_app,
+      //   created_at,
+      //   updated_at,
 
-      yield put(commonActionSucess(''));
-      navigate('TableSelection');
+      // const objeto = {
+      //   permission: permission === undefined ? 'not' : username,
+      //   status: status === undefined ? 'not' : status,
+      //   lastupdateapp: last_update_app === null ? 'not' : last_update_app,
+      //   created_at: created_at === undefined ? 'not' : created_at,
+      //   updated_at: updated_at === undefined ? 'not' : updated_at,
+      // }
+      console.tron.log(data);
+      // realm.write(() => {
+      //   realm.create('User', objeto, true);
+      // });
+      if (data.permission === 'Representante') {
+        yield put(commonActionSucess(''));
+        navigate('TableSelection');
+      } else {
+        yield put(commonActionSucess(''));
+        navigate('Home');
+        // console.tron.log('ENTROHOME');
+      }
     } catch (err) {
       yield put(commonActionFailure(err.response.data.message));
     }
@@ -55,7 +101,6 @@ function* loginRequestExistSaga() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.tron.log(token);
       navigate('TableSelection');
     }
   } catch (err) {

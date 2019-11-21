@@ -1,7 +1,8 @@
 const TablePrice = {
-  name: 'novaDublagem',
   primaryKey: 'id',
-  propertipes: {
+  name: 'tablePrice',
+  properties: {
+    id: {type: 'int', indexed: true},
     table_price: 'string',
     comission_1: 'string',
     comission_2: 'string',

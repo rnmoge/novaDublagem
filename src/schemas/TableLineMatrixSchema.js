@@ -1,5 +1,5 @@
 const TableLineMatrix = {
-  name: 'novaDublagem',
+  name: 'tableLineMatrix',
   primaryKey: 'id',
   propertipes: {
     id: {type: 'int', indexed: true},
@@ -8,7 +8,7 @@ const TableLineMatrix = {
     feature: 'string',
     image: 'string',
     update_at: 'string',
-    line: 'TableLine[]',
+    line: 'tableLine[]',
   },
 };
 

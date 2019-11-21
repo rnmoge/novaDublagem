@@ -1,12 +1,12 @@
 const TableLineMatrixColor = {
-  name: 'novaDublagem',
+  name: 'tableLineMatrixColor',
   primaryKey: 'id',
   propertipes: {
     id: {type: 'int', indexed: true},
     update_at: 'string',
-    line: 'TableLine[]',
-    color: 'TableColor[]',
-    matrix: 'TableLineMatrix[]',
+    line: 'tableLine[]',
+    color: 'tableColor[]',
+    matrix: 'tableLineMatrix[]',
   },
 };
 

@@ -1,5 +1,5 @@
 const TableColor = {
-  name: 'novaDublagem',
+  name: 'tablecolor',
   primaryKey: 'id',
   propertipes: {
     id: {type: 'int', indexed: true},

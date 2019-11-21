@@ -1,17 +1,15 @@
 const User = {
-  name: 'novaDublagem',
+  name: 'User',
   primaryKey: 'id',
-  propertipes: {
+  properties: {
     id: {type: 'int', indexed: true},
     username: 'string',
-    password: 'string',
     permission: 'string',
     status: 'string',
     lastupdateapp: 'string',
     user_id: 'string',
     create_at: 'string',
     update_at: 'string',
-    table_price: 'TablePrice[]',
   },
 };
 export default User;

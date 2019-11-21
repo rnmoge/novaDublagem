@@ -42,7 +42,9 @@ export default function ModalTeste2({
           data={data}
           renderItem={({item}) => {
             return (
-              <TextButton onPress={functionOnPressText}>{item.name}</TextButton>
+              <TextButton onPress={functionOnPressText}>
+                {item.table_price}
+              </TextButton>
             );
           }}
         />

@@ -8,13 +8,13 @@ import TableGroupSize from './TableGroupSizeSchema';
 import TableColor from './TableColorSchema';
 
 const Schemas = {
-  User,
   TablePrice,
-  TablePriceLineMatrix,
-  TableLine,
-  TableLineMatrix,
-  TableLineMatrixColor,
-  TableGroupSize,
-  TableColor,
+  User,
+  // TablePriceLineMatrix,
+  // TableLine,
+  // TableLineMatrix,
+  // TableLineMatrixColor,
+  // TableGroupSize,
+  // TableColor,
 };
 export default Schemas;

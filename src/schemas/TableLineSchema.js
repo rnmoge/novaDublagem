@@ -1,5 +1,5 @@
 const TableLine = {
-  name: 'novaDublagem',
+  name: 'tableLine',
   primaryKey: 'id',
   propertipes: {
     id: {type: 'int', indexed: true},

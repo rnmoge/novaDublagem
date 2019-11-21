@@ -1,5 +1,5 @@
 const TableGroupSize = {
-  name: 'novaDublagem',
+  name: 'tableGroupSize',
   primaryKey: 'id',
   propertipes: {
     id: {type: 'int', indexed: true},

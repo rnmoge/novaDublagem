@@ -14,7 +14,6 @@ function* exitAplicationSaga() {
   try {
     yield call(AsyncStorage.removeItem, '@novaDublagem:token');
     navigate('Login');
-    console.tron.log('entrou1');
   } catch (err) {
     yield put(commonActionFailure('error ao sair'));
   }
