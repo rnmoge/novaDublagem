@@ -1,14 +1,11 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  data: null,
+  data: [],
 };
-
-export default function login(state = INITIAL_STATE, action) {
+export default function table(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case '@login/MENU_SUCESS':
-      console.tron.log('action');
-      console.tron.log(action.payload.user);
+    case '@menu/MENU_SUCESS':
       return produce(state, draft => {
         draft.data = action.payload.user;
       });

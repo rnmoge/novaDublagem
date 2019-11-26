@@ -48,7 +48,7 @@ export default function Catalog({navigation}) {
         .map(element => {
           return element;
         });
-      console.tron.log(orderArray);
+
       setDataStateAux(orderArray);
     }
   }, [inputLineState, inputModelState]);//eslint-disable-line

@@ -7,7 +7,6 @@ export const Container = styled.View`
   justify-content: flex-start;
   align-items: flex-start;
   padding: 16px;
-  margin-top: 360px;
 `;
 
 export const TextFooter = styled.Text`

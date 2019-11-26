@@ -67,7 +67,6 @@ export default function Login() {
               (!passwordState || passwordState === null)
             }
             functionOnPress={() => handleSubmit()}
-            // functionOnPress={() => navigate('Home')}
             loading={loading}
           />
           {/* <Text

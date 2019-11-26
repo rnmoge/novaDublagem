@@ -28,3 +28,11 @@ export function loginforgotPassword() {
     type: '@login/LOGIN_FORGOT_PASSWORD',
   };
 }
+export function menuSucess(user) {
+  console.tron.log('user');
+  console.tron.log(user);
+  return {
+    type: '@login/MENU_SUCESS',
+    payload: {user},
+  };
+}

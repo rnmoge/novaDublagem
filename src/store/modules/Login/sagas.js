@@ -10,7 +10,7 @@ import {
   commonActionSucess,
   commonActionFailure,
 } from '../common/actions';
-
+import {menuSucess} from './actions';
 import {navigate} from '../../../services/navigation';
 
 function* loginRequestSaga(action) {
@@ -20,16 +20,26 @@ function* loginRequestSaga(action) {
   const {username, password} = action.payload;
   if (username && password) {
     try {
-      // const {username, password} = action.payload;
       const {data} = yield call(api.post, '/login', {
         username,
         password,
       });
+      yield put(menuSucess(data));
       yield call(
         AsyncStorage.setItem,
         '@novaDublagem:token',
         JSON.stringify(data.token)
       );
+      yield call(
+        AsyncStorage.setItem,
+        '@novaDublagem:user',
+        JSON.stringify(data)
+      );
+      if (data.status === true) {
+        yield put(commonActionFailure('entre em contato com o administrativo'));
+
+        yield cancel;
+      }
       for (let i = 0; i < data.tabelaprecos.length; i += 1) {
         const {
           id,
@@ -51,28 +61,12 @@ function* loginRequestSaga(action) {
           realm.create('tablePrice', table, true);
         });
       }
-      const {permission, status} = data;
-      //   permission,
-      //   status,
-      //   last_update_app,
-      //   created_at,
-      //   updated_at,
-
-      const objeto = {
-        permission,
-        status: status === null ? 'not' : status,
-      };
-      console.tron.log(objeto.status);
-      // realm.write(() => {
-      //   realm.create('User', objeto, true);
-      // });
       if (data.permission === 'Representante') {
         yield put(commonActionSucess(''));
         navigate('TableSelection');
       } else {
         yield put(commonActionSucess(''));
         navigate('Home');
-        // console.tron.log('ENTROHOME');
       }
     } catch (err) {
       yield put(commonActionFailure(err.response.data.message));
@@ -87,7 +81,10 @@ function* loginRequestExistSaga() {
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
+    let data = yield call(AsyncStorage.getItem, '@novaDublagem:user');
+    data = JSON.parse(data);
 
+    const {permission, status} = data;
     if (token === null) {
       yield put(commonActionFailure(''));
 
@@ -98,11 +95,23 @@ function* loginRequestExistSaga() {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate('TableSelection');
+
+      if (status === false) {
+        if (
+          permission.toLowerCase() === 'representante' ||
+          permission.toLowerCase() === 'administrador'
+        ) {
+          navigate('TableSelection');
+        } else {
+          navigate('Home');
+        }
+      } else {
+        yield call(AsyncStorage.removeItem, '@novaDublagem:token');
+        navigate('Login');
+      }
     }
   } catch (err) {
     yield put(commonActionFailure(''));
-    console.tron.log('catch');
   }
 }
 function* loginforgotPasswordSaga() {

@@ -21,14 +21,12 @@ export const TextAvatar = styled.Text`
   justify-content: center;
   text-align: center;
 `;
-export const ContainerUser = styled.View`
+export const ContainerUser = styled.FlatList`
+  height: 150px;
+  background: #f65;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
 `;
 export const ContainerName = styled.View`
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

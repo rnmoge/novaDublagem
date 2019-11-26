@@ -335,7 +335,6 @@ utilizando o Realm Studio no Android
 2-executar o comando
   adb pull /data/data/com.novadublagem/files/default.realm
 
-3-abrir o realmStudio
-  e abrir o arquivo
+3-abrir o realmStudio e abrir o arquivo
 4-excluir schema
   adb shell rm /data/data/com.novadublagem/files/default.realm

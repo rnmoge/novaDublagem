@@ -9,7 +9,6 @@ import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
 import {navigate} from '../../../services/navigation';
 
 function* exitAplicationSaga() {
-  console.tron.log('entrou1');
   yield put(commonLoadingActivityOn(''));
   try {
     yield call(AsyncStorage.removeItem, '@novaDublagem:token');

@@ -67,7 +67,7 @@ export const Text = styled.Text`
 export const TextInitial = styled.Text`
   color: #212121;
   font-size: 16px;
-  margin-top: 150px;
+  margin-top: 200px;
   font-weight: bold;
   text-align: center;
 `;
