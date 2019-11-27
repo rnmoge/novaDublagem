@@ -4,6 +4,7 @@ import {StatusBar} from 'react-native';
 import {Container, ContainerScroll, Loading} from './styles';
 // import * as CommonActions from '../../store/modules/common/actions';
 import * as LoginActions from '../../store/modules/login/actions';
+import * as MenuActions from '../../store/modules/menu/actions';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -19,6 +20,7 @@ export default function Login() {
   // função asssicrona que dispara as actions para os sagas
   function handleSubmit() {
     dispatch(LoginActions.loginRequest(userState, passwordState));
+    dispatch(MenuActions.menuRequest());
   }
   useEffect(() => {
     dispatch(LoginActions.loginRequestExist());

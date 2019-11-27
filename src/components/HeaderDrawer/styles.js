@@ -22,9 +22,8 @@ export const TextAvatar = styled.Text`
   text-align: center;
 `;
 export const ContainerUser = styled.FlatList`
-  height: 150px;
+  height: 150;
   background: #f65;
-  flex-direction: column;
 `;
 export const ContainerName = styled.View`
   justify-content: center;

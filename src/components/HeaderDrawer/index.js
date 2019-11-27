@@ -11,14 +11,16 @@ import {
   ContainerEmail,
   TextEmail,
 } from './styles';
-import * as ActionsLogin from '../../store/modules/login/actions';
+import * as MenuActions from '../../store/modules/menu/actions';
 // import store from '../../store/modules/login/reducers';
 
 export default function HeaderDrawer() {
-  console.tron.log('data');
+  const {data} = useSelector(state => state.table);
+  console.tron.log(data);
+  console.tron.log('dataHeader');
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(ActionsLogin.menuSucess());
+    dispatch(MenuActions.menuSucess());
   }, [dispatch]);
   return (
     <Container>
@@ -26,7 +28,7 @@ export default function HeaderDrawer() {
         <TextAvatar>U</TextAvatar>
       </ContainerAvatar>
       <ContainerUser
-        data={['data']}
+        data={data}
         renderItem={({item}) => {
           return (
             <>
