@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-// import {AsyncStorage} from 'react-native';
+// import {TouchableOpacity, Text} from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage';
 import {
   Container,
   ContainerAvatar,
@@ -11,37 +12,32 @@ import {
   ContainerEmail,
   TextEmail,
 } from './styles';
+import logo from '../../../assets/image/logo-azul.png';
 import * as MenuActions from '../../store/modules/menu/actions';
-// import store from '../../store/modules/login/reducers';
 
 export default function HeaderDrawer() {
-  const {data} = useSelector(state => state.table);
-  console.tron.log(data);
-  console.tron.log('dataHeader');
+  const {username, permission} = useSelector(state => state.menu);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(MenuActions.menuSucess());
-  }, [dispatch]);
+  function menuRender() {
+    dispatch(MenuActions.menuRequest());
+  }
+
   return (
-    <Container>
+    <Container
+      onLayout={() => {
+        menuRender();
+      }}>
       <ContainerAvatar>
-        <TextAvatar>U</TextAvatar>
+        <TextAvatar source={logo} />
       </ContainerAvatar>
-      <ContainerUser
-        data={data}
-        renderItem={({item}) => {
-          return (
-            <>
-              <ContainerName>
-                <TextName>{item.username}</TextName>
-              </ContainerName>
-              <ContainerEmail>
-                <TextEmail>user@email.com</TextEmail>
-              </ContainerEmail>
-            </>
-          );
-        }}
-      />
+      <ContainerUser>
+        <ContainerName>
+          <TextName>{username}</TextName>
+        </ContainerName>
+        <ContainerEmail>
+          <TextEmail>{permission}</TextEmail>
+        </ContainerEmail>
+      </ContainerUser>
     </Container>
   );
 }

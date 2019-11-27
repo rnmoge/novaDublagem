@@ -1,5 +1,6 @@
 import React from 'react';
 // import {Image} from 'react-native';
+// import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -20,20 +21,21 @@ export default function ListView({functionOnpressDetails, data}) {
   return (
     <Container>
       <FlatList
+        data={data}
         initialNumToRender={10}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <TextInitial>
             Digite um dos filtros acima para acessar o catálogo
           </TextInitial>
         }
-        data={data}
         renderItem={({item}) => {
           return (
             <ContainerList>
               <Image source={Bojo} />
               <ContainerText>
-                <Line>{item.Line}</Line>
-                <Model>{item.Model}</Model>
+                <Line>{item.linha}</Line>
+                <Model>{item.matriz}</Model>
               </ContainerText>
               <ContainerButton>
                 <Button onPress={functionOnpressDetails}>
@@ -49,6 +51,7 @@ export default function ListView({functionOnpressDetails, data}) {
 }
 ListView.prototypes = {
   functionOnpressDetails: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.object),
 };
 ListView.defaultProps = {
   functionOnpressDetails: () => {},

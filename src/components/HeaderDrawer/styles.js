@@ -12,18 +12,19 @@ export const ContainerAvatar = styled.View`
   border-radius: 45px;
   justify-content: center;
   align-items: center;
-  background: #fdca0b;
+  background: #fff;
   margin-bottom: 10px;
 `;
-export const TextAvatar = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
-  justify-content: center;
-  text-align: center;
+export const TextAvatar = styled.Image`
+  width: 51px;
+  height: 60px;
 `;
-export const ContainerUser = styled.FlatList`
-  height: 150;
-  background: #f65;
+export const ContainerUser = styled.View`
+  padding-top: 20px;
+  padding-left: 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 export const ContainerName = styled.View`
   justify-content: center;

@@ -1,8 +1,24 @@
+import produce from 'immer';
+
 const INITIAL_STATE = {
-  errorLogin: false,
+  data: [],
+  linha: '',
+  matriz: '',
+  descricao: '',
+  caracteristicas: '',
+  imagem: '',
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@catalog/PRODUCTS_CATALOG_SUCESS':
+      return produce(state, draft => {
+        draft.data = action.payload.data;
+        draft.linha = action.payload.data.linha;
+        draft.matriz = action.payload.data.matriz;
+        draft.descricao = action.payload.data.descricao;
+        draft.caracteristicas = action.payload.data.caracteristicas;
+        draft.imagem = action.payload.data.imagem;
+      });
     default:
       return state;
   }

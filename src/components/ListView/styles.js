@@ -22,10 +22,12 @@ export const ContainerList = styled.View`
   border-width: 0.1px;
 `;
 export const ContainerText = styled.View`
+  flex: 1;
   flex-direction: column;
   padding-left: 20px;
   justify-content: center;
   text-align: center;
+  margin-left: 10px;
 `;
 export const Line = styled.Text`
   font-size: 16;
@@ -43,17 +45,16 @@ export const Image = styled.Image`
   margin-left: 15px;
 `;
 
-export const ContainerButton = styled.View`
-  flex: 1;
-`;
+export const ContainerButton = styled.View``;
 
 export const Button = styled.TouchableOpacity`
   background: #fdca0b;
+  flex-direction: row;
   margin-top: 50px;
   height: 30px;
   width: 130px;
   border-radius: 5px;
-  margin-left: 20px;
+  margin-right: 5px;
   justify-content: center;
   align-items: center;
 `;

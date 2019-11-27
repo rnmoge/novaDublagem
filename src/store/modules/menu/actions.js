@@ -3,9 +3,9 @@ export function menuRequest() {
     type: '@menu/MENU_REQUEST',
   };
 }
-export function menuSucess(userName) {
+export function menuSucess(data) {
   return {
     type: '@menu/MENU_SUCESS',
-    payload: {userName},
+    payload: {data},
   };
 }

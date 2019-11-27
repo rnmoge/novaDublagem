@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 // import {Text} from 'react-native';
 
 // import {Item} from 'native-base';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Container, ContainerInput, ContainerList} from './styles';
 import Header from '../../components/Header';
 import ListView from '../../components/ListView';
@@ -13,36 +13,32 @@ import * as CatalogActions from '../../store/modules/catalog/actions';
 export default function Catalog({navigation}) {
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
-  const [dataState, setDataState] = useState([
-    {id: 1, Line: 'Linha: 1', Model: 'Modelo: 3101'},
-    {id: 2, Line: 'Linha: P.U', Model: 'Modelo: 3105'},
-    {id: 3, Line: 'Linha: P.U', Model: 'Modelo: 3106'},
-    {id: 4, Line: 'Linha: P.U', Model: 'Modelo: 3107'},
-    {id: 5, Line: 'Linha: P.U', Model: 'Modelo: 3108'},
-    {id: 6, Line: 'Linha: P.U', Model: 'Modelo: 3109'},
-    {id: 7, Line: 'Linha: P.U', Model: 'Modelo: 3111'},
-  ]);
-  const [dataStateAux, setDataStateAux] = useState(dataState);
+  const {data} = useSelector(state => state.catalog);
+  const [dataStateAux, setDataStateAux] = useState(data);
   const dispatch = useDispatch();
   function handleMoreDetails() {
-    dispatch(CatalogActions.catalogMoreDetailsProduct());
+    dispatch(CatalogActions.catalogMoreDetailsProduct(id));
+  }
+  function products1() {
+    dispatch(CatalogActions.requestProductsCatalog());
   }
   useEffect(() => {
     if (inputLineState === '' && inputModelState === '') {
       setDataStateAux([]);
     } else {
-      const orderArray = dataState
+      const orderArray = data
         .filter(element => {
           return (
-            element.Model.toLowerCase().indexOf(
-              inputModelState.toLowerCase()
-            ) !== -1
+            element.matriz
+              .toLowerCase()
+              .indexOf(inputModelState.toLowerCase()) !== -1
           );
         })
         .filter(element => {
           return (
-            element.Line.toLowerCase().indexOf(inputLineState.toLowerCase()) !==
-            -1
+            element.linha
+              .toLowerCase()
+              .indexOf(inputLineState.toLowerCase()) !== -1
           );
         })
         .map(element => {
@@ -53,7 +49,10 @@ export default function Catalog({navigation}) {
     }
   }, [inputLineState, inputModelState]);//eslint-disable-line
   return (
-    <Container>
+    <Container
+      onLayout={() => {
+        products1();
+      }}>
       <Header
         title="Catálogo"
         iconName="bars"
@@ -76,11 +75,12 @@ export default function Catalog({navigation}) {
           areaIcon
         />
       </ContainerInput>
+
       <ContainerList>
         <ListView
           data={dataStateAux}
           functionOnpressDetails={() => {
-            handleMoreDetails();
+            handleMoreDetails(id);
           }}
         />
       </ContainerList>

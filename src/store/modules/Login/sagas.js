@@ -10,7 +10,7 @@ import {
   commonActionSucess,
   commonActionFailure,
 } from '../common/actions';
-import {menuSucess} from '../menu/actions';
+// import {menuSucess} from '../menu/actions';
 import {navigate} from '../../../services/navigation';
 
 function* loginRequestSaga(action) {
@@ -118,24 +118,8 @@ function* loginforgotPasswordSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('ForgotPassword');
 }
-function* menuRequestSaga() {
-  yield put(commonLoadingActivityOn(''));
-  let data = yield call(AsyncStorage.getItem, '@novaDublagem:user');
-  data = JSON.parse(data);
-  console.tron.log('entroi');
-  try {
-    yield put(menuSucess(data));
-    console.tron.log(data);
-    console.tron.log('data');
-  } catch (err) {
-    yield put(commonActionFailure(''));
-
-    console.tron.log('entrou catch');
-  }
-}
 export default all([
   takeLatest('@login/LOGIN_REQUEST', loginRequestSaga),
   takeLatest('@login/LOGIN_REQUEST_EXIST', loginRequestExistSaga),
   takeLatest('@login/LOGIN_FORGOT_PASSWORD', loginforgotPasswordSaga),
-  takeLatest('@menu/MENU_REQUEST', menuRequestSaga),
 ]);
