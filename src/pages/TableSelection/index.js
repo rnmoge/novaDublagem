@@ -1,37 +1,43 @@
 import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-// import {useSelector} from 'react-redux';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import {Container, Text, ContainerScroll} from './styles';
-import {navigate} from '../../services/navigation';
+// import {navigate} from '../../services/navigation';
 import Modal from '../../components/Modalteste2';
 import * as ActionsTable from '../../store/modules/table/actions';
 
 export default function TableSelection() {
   const {data} = useSelector(state => state.table);
+
   const dispatch = useDispatch();
-  // const {loading} = useSelector(state => state.common);
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
+  const [dataStateAux, setDataStateAux] = useState(data);
   useEffect(() => {
     // if (inputState === '') {
-    //   setDataStateAux(dataState);
+    //   setDataStateAux(data);
     // } else {
-    //   const orderArray = dataState
+    //   const orderArray = data
     //     .filter(element => {
-    //       return element.name.indexOf(inputState) !== -1;
+    //       return (
+    //         element.table_price
+    //           .toLowerCase()
+    //           .indexOf(inputState.toLowerCase()) !== -1
+    //       );
     //     })
     //     .map(element => {
     //       return element;
     //     });
     //   setDataStateAux(orderArray);
-    // }
-    dispatch(ActionsTable.requestTablePrice());
-  }, [dispatch]);
 
+    dispatch(ActionsTable.requestTablePrice());
+  }, [ dispatch, inputState]); // eslint-disable-line
+  function selectTablePrice(id) {
+    dispatch(ActionsTable.selectTablePrice(id));
+  }
   return (
     <ContainerScroll
       contentContainerStyle={{
@@ -67,7 +73,7 @@ export default function TableSelection() {
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}
           functionOnPressText={() => {
-            navigate('Home');
+            selectTablePrice();
           }}
         />
       </Container>

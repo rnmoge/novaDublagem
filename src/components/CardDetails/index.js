@@ -1,7 +1,7 @@
 import React from 'react';
 // import {View} from 'react-native';
-// import PropTypes from 'prop-types';
-
+import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import {
   Container,
   AreaImage,
@@ -16,24 +16,24 @@ import {
 import Bojo from '../../../assets/image/3101.jpg';
 
 export default function CardDetails({data}) {
+  const {username, permission} = useSelector(state => state.menu);
   return (
     <Container>
       <AreaImage>
         <Image source={Bojo} />
       </AreaImage>
-      <AreaText
-        data={data}
-        renderItem={({item}) => {
-          return (
-            <ContainerText>
-              <Line>Linha: {item.line}</Line>
-              <Model>Modelo: {item.model}</Model>
-              <Description>Descrição: {item.description}</Description>
-              <Feacture>Caracteristica: {item.feacture}</Feacture>
-            </ContainerText>
-          );
-        }}
-      />
+      <AreaText>
+        <ContainerText>
+          <Line>Linha: {username}</Line>
+          <Model>Modelo: {username}</Model>
+          <Description>Descrição: {username}</Description>
+          <Feacture>Caracteristica: {username}</Feacture>
+        </ContainerText>
+      </AreaText>
     </Container>
   );
 }
+CardDetails.prototypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+};
+CardDetails.defaultProps = {};

@@ -1,23 +1,21 @@
 import React, {useEffect, useState} from 'react';
-// import {Text} from 'react-native';
-
-// import {Item} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {Container, ContainerInput, ContainerList} from './styles';
 import Header from '../../components/Header';
 import ListView from '../../components/ListView';
 import InputType from '../../components/InputType';
-// import Bojo from '../../../assets/image/3101.jpg';
 import * as CatalogActions from '../../store/modules/catalog/actions';
 
 export default function Catalog({navigation}) {
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
   const {data} = useSelector(state => state.catalog);
+  console.tron.log(data);
+  console.tron.log('data');
   const [dataStateAux, setDataStateAux] = useState(data);
   const dispatch = useDispatch();
   function handleMoreDetails() {
-    dispatch(CatalogActions.catalogMoreDetailsProduct(id));
+    dispatch(CatalogActions.catalogMoreDetailsProduct());
   }
   function products1() {
     dispatch(CatalogActions.requestProductsCatalog());
@@ -44,10 +42,9 @@ export default function Catalog({navigation}) {
         .map(element => {
           return element;
         });
-
       setDataStateAux(orderArray);
     }
-  }, [inputLineState, inputModelState]);//eslint-disable-line
+  }, [inputLineState, inputModelState]);// eslint-disable-line
   return (
     <Container
       onLayout={() => {
@@ -75,12 +72,11 @@ export default function Catalog({navigation}) {
           areaIcon
         />
       </ContainerInput>
-
       <ContainerList>
         <ListView
           data={dataStateAux}
           functionOnpressDetails={() => {
-            handleMoreDetails(id);
+            handleMoreDetails();
           }}
         />
       </ContainerList>

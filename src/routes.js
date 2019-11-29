@@ -98,9 +98,9 @@ const createDrawerNavigatorApp = createDrawerNavigator(
   }
 );
 const createAppNavigation = createSwitchNavigator({
-  Home: {screen: createDrawerNavigatorApp},
   Login,
   TableSelection,
+  Home: {screen: createDrawerNavigatorApp},
   ProductDetails,
   ForgotPassword,
 });

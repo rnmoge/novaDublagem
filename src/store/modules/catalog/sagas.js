@@ -31,7 +31,28 @@ function* moreDetailsProduct() {
   }
 }
 
+function* requestTablePriceSaga() {
+  yield put(commonLoadingActivityOn(''));
+  try {
+    let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+    token = JSON.parse(token);
+    const {data} = yield call(api.get, '/tabelaprecolinhamatriz', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    yield put(commonActionFailure('Verifique sua conexão'));
+  }
+}
+function* backCatalogSaga() {
+  yield put(commonLoadingActivityOn(''));
+  navigate('Catalogo');
+}
+
 export default all([
   takeLatest('@catalog/CATALOG_MORE_DETAILS_PRODUCT', moreDetailsProduct),
   takeLatest('@catalog/REQUEST_PRODUCT_CATALOG', requestProductCatalog),
+  takeLatest('@catalog/REQUEST_TABLE_PRICE', requestTablePriceSaga),
+  takeLatest('@catalog/BACK_CATALOG', backCatalogSaga),
 ]);

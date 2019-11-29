@@ -7,6 +7,7 @@ import {requestTablePriceSucess} from './actions';
 
 // import {loginRequest, loginSucess, loginFailure} from './actions';
 import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
+import {navigate} from '../../../services/navigation';
 
 // import {navigate} from '../../../services/navigation';
 
@@ -22,7 +23,25 @@ function* requestTableSaga() {
     yield put(commonActionFailure(err.response.data.message));
   }
 }
+function* selectTablePriceSaga() {
+  yield put(commonLoadingActivityOn(''));
+  // const realm = yield getRealm();
+
+  // const {
+  //   data2: {id},
+  // } = realm.objects('tablePrice').sorted('id', true);
+  // const data2 = realm.objects('tablePrice').sorted('id', true);
+  // const data4 = yield select(state =>
+  //  state.data.find(element => element.id === id)
+  // );
+  yield put(commonLoadingActivityOn(''));
+  // yield put(requestTablePriceSucess(id));
+
+  // console.tron.log(id);
+  navigate('Home');
+}
 
 export default all([
   takeLatest('@table/LOGIN_REQUEST_TABLE_PRICE', requestTableSaga),
+  takeLatest('@table/SELECT_TABLE_PRICE', selectTablePriceSaga),
 ]);

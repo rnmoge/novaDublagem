@@ -1,6 +1,8 @@
 import React from 'react';
 // import {View} from 'react-native';
-
+import {useDispatch, useSelector} from 'react-redux';
+import PropTypes from 'prop-types';
+import * as CatalogoActions from '../../store/modules/catalog/actions';
 import {
   Container,
   ContainerTitle,
@@ -17,8 +19,12 @@ import {
 } from './styles';
 
 export default function CardTablePrice({data}) {
+  const dispatch = useDispatch();
+  function tablePriceRequest() {
+    dispatch(CatalogoActions.requestTablePrice());
+  }
   return (
-    <Container>
+    <Container onLayout={() => tablePriceRequest()}>
       <ContainerTitle>
         <Title>Preços:</Title>
       </ContainerTitle>
@@ -33,6 +39,9 @@ export default function CardTablePrice({data}) {
           />
         </ContainerSize>
         <ContainerPrice>
+          <ContainerComission>
+            <Comission>5,00%</Comission>
+          </ContainerComission>
           <ContainerComission
             data={data}
             renderItem={({item}) => {
@@ -96,3 +105,7 @@ export default function CardTablePrice({data}) {
     </Container>
   );
 }
+CardTablePrice.prototypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+};
+CardTablePrice.defaultProps = {};

@@ -1,14 +1,24 @@
 import React, {useState} from 'react';
 // import {Text} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import CardDetails from '../../components/CardDetails';
 import CardTablePrice from '../../components/CardTablePrice';
 import {Container, ContainerBody} from './styles';
-import * as DetailsProductActions from '../../store/modules/detailsproduct/actions';
+import * as ActionsCatalog from '../../store/modules/catalog/actions';
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
+  const {data} = useSelector(state => state.catalog);
+  console.tron.log(data);
+  function informationProduct() {
+    dispatch(ActionsCatalog.catalogMoreDetailsProductSucess());
+    dispatch(ActionsCatalog.requestTablePrice());
+  }
+  function backCatalogPage() {
+    dispatch(ActionsCatalog.backCatalog());
+  }
+
   const [dataState, setDataState] = useState([
     {
       id: 1,
@@ -27,11 +37,8 @@ export default function ProductDetails() {
     {id: 6, size: 'XG/48 - EEXG/54'},
     {id: 7, size: 'XG/48 - EEXXG/54'},
   ]);
-  function backCatalogPage() {
-    dispatch(DetailsProductActions.backCatalog());
-  }
   return (
-    <Container>
+    <Container onLayout={() => informationProduct()}>
       <Header
         title="Detalhes"
         icoName="arrow-left"
@@ -41,8 +48,8 @@ export default function ProductDetails() {
           backCatalogPage();
         }}
       />
-      <ContainerBody>
-        <CardDetails data={dataState} />
+      <ContainerBody onLayout={() => {}}>
+        <CardDetails data={data} />
         <CardTablePrice data={dataTableState} />
       </ContainerBody>
     </Container>

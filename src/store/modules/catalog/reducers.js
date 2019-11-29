@@ -2,6 +2,7 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
   data: [],
+  id: '',
   linha: '',
   matriz: '',
   descricao: '',
@@ -13,6 +14,7 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@catalog/PRODUCTS_CATALOG_SUCESS':
       return produce(state, draft => {
         draft.data = action.payload.data;
+        draft.id = action.payload.data.id;
         draft.linha = action.payload.data.linha;
         draft.matriz = action.payload.data.matriz;
         draft.descricao = action.payload.data.descricao;

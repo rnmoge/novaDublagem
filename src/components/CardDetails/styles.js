@@ -23,8 +23,12 @@ export const Image = styled.Image`
   border-radius: 10px;
 `;
 
-export const AreaText = styled.FlatList`
+export const AreaText = styled.View`
+  flex: 1;
   padding-left: 15px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 export const ContainerText = styled.View`
   flex: 1;
