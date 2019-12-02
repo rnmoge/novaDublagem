@@ -33,6 +33,10 @@ export const AreaText = styled.View`
 export const ContainerText = styled.View`
   flex: 1;
 `;
+export const ContainerView = styled.View`
+  flex: 1;
+  background: #f90;
+`;
 export const Line = styled.Text`
   font-size: 14;
   padding: 3px;

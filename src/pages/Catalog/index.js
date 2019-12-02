@@ -7,15 +7,16 @@ import InputType from '../../components/InputType';
 import * as CatalogActions from '../../store/modules/catalog/actions';
 
 export default function Catalog({navigation}) {
+  const {data2} = useSelector(state => state.table);
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
   const {data} = useSelector(state => state.catalog);
   console.tron.log(data);
-  console.tron.log('data');
   const [dataStateAux, setDataStateAux] = useState(data);
   const dispatch = useDispatch();
-  function handleMoreDetails() {
-    dispatch(CatalogActions.catalogMoreDetailsProduct());
+  function handleMoreDetails(id) {
+    dispatch(CatalogActions.catalogMoreDetailsProduct(id, data));
+    dispatch(CatalogActions.requestTablePrice(id, data2.id));
   }
   function products1() {
     dispatch(CatalogActions.requestProductsCatalog());
@@ -75,8 +76,8 @@ export default function Catalog({navigation}) {
       <ContainerList>
         <ListView
           data={dataStateAux}
-          functionOnpressDetails={() => {
-            handleMoreDetails();
+          functionOnpressDetails={id => {
+            handleMoreDetails(id);
           }}
         />
       </ContainerList>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {StatusBar} from 'react-native';
+import {StatusBar, ActivityIndicator} from 'react-native';
 import {Container, ContainerScroll, Loading} from './styles';
 // import * as CommonActions from '../../store/modules/common/actions';
 import * as LoginActions from '../../store/modules/login/actions';
@@ -32,7 +32,11 @@ export default function Login() {
         flexDirection: 'column',
       }}>
       {loading ? (
-        <Loading>{loading}</Loading>
+        <Loading>
+          <ActivityIndicator color="#fff" size="large">
+            {loading}
+          </ActivityIndicator>
+        </Loading>
       ) : (
         <Container>
           <StatusBar barStyle="ligth-content" backgroundColor="#3f51b5" />

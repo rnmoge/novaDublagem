@@ -18,13 +18,15 @@ import {
   Prices,
 } from './styles';
 
-export default function CardTablePrice({data}) {
-  const dispatch = useDispatch();
-  function tablePriceRequest() {
-    dispatch(CatalogoActions.requestTablePrice());
-  }
+export default function CardTablePrice({
+  table,
+  commision,
+  price1,
+  price2,
+  price3,
+}) {
   return (
-    <Container onLayout={() => tablePriceRequest()}>
+    <Container>
       <ContainerTitle>
         <Title>Preços:</Title>
       </ContainerTitle>
@@ -32,72 +34,48 @@ export default function CardTablePrice({data}) {
         <ContainerSize>
           <Text>Tamanhos:</Text>
           <FlatList
-            data={data}
+            data={table}
             renderItem={({item}) => {
-              return <Sizes>{item.size}</Sizes>;
+              return <Sizes>{item.tamanho.descricao}</Sizes>;
             }}
           />
         </ContainerSize>
         <ContainerPrice>
           <ContainerComission>
-            <Comission>5,00%</Comission>
+            <Comission>{commision.comission_1}</Comission>
           </ContainerComission>
           <ContainerComission
-            data={data}
+            data={table}
             renderItem={({item}) => {
               return <Comission>{item.comission1}</Comission>;
             }}
           />
           <FlatList
-            data={[
-              {id: 1, size: '2,06'},
-              {id: 2, size: '2,20'},
-              {id: 3, size: '2,14'},
-              {id: 4, size: '2,38'},
-              {id: 5, size: '2,28'},
-              {id: 6, size: '3,18'},
-              {id: 7, size: '3,70'},
-            ]}
+            data={price1}
             renderItem={({item}) => {
-              return <Prices>{item.size}</Prices>;
+              return <Prices>{item.preco1}</Prices>;
             }}
           />
         </ContainerPrice>
         <ContainerPrice>
           <ContainerComission>
-            <Comission>4,00%</Comission>
+            <Comission>{commision.comission_2}</Comission>
           </ContainerComission>
           <FlatList
-            data={[
-              {id: 1, size: '1,92'},
-              {id: 2, size: '2,06'},
-              {id: 3, size: '2,02'},
-              {id: 4, size: '2,24'},
-              {id: 5, size: '2,14'},
-              {id: 6, size: '3,00'},
-              {id: 7, size: '3,48'},
-            ]}
+            data={price2}
             renderItem={({item}) => {
-              return <Prices>{item.size}</Prices>;
+              return <Prices>{item.preco2}</Prices>;
             }}
           />
         </ContainerPrice>
         <ContainerPrice>
           <ContainerComission>
-            <Comission>3,00%</Comission>
+            <Comission>{commision.comission_3}</Comission>
           </ContainerComission>
           <FlatList
-            data={[
-              {id: 1, size: '1,84'},
-              {id: 2, size: '1,98'},
-              {id: 3, size: '1,94'},
-              {id: 4, size: '2,14'},
-              {id: 5, size: '2,04'},
-              {id: 6, size: '2,86'},
-              {id: 7, size: '3,34'},
-            ]}
+            data={price3}
             renderItem={({item}) => {
-              return <Prices>{item.size}</Prices>;
+              return <Prices>{item.preco3}</Prices>;
             }}
           />
         </ContainerPrice>
@@ -106,6 +84,17 @@ export default function CardTablePrice({data}) {
   );
 }
 CardTablePrice.prototypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  table: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  commision: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  size: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  price1: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  price2: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  price3: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
 };
-CardTablePrice.defaultProps = {};
+CardTablePrice.defaultProps = {
+  commision: {
+    commision_1: '8%',
+    commision_2: '7%',
+    commision_3: '6%',
+  },
+};

@@ -8,3 +8,7 @@ export const ContainerBody = styled.View`
   flex: 1;
   padding: 10px;
 `;
+export const ContainerModal = styled.View`
+  padding-top: ${Platform.OS === 'ios' ? 0 : 0};
+  background: #3f51b5;
+`;

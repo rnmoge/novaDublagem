@@ -12,10 +12,10 @@ export function requestTablePriceSucess(tablePrice) {
   };
 }
 // actions para a selecão da tabela
-export function selectTablePrice(id) {
+export function selectTablePrice(id, tabelas) {
   return {
     type: '@table/SELECT_TABLE_PRICE',
-    payload: {id},
+    payload: {id, tabelas},
   };
 }
 

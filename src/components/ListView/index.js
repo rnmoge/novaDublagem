@@ -38,7 +38,7 @@ export default function ListView({functionOnpressDetails, data}) {
                 <Model>{item.matriz}</Model>
               </ContainerText>
               <ContainerButton>
-                <Button onPress={functionOnpressDetails}>
+                <Button onPress={() => functionOnpressDetails(item.id)}>
                   <Text>VER DETALHES</Text>
                 </Button>
               </ContainerButton>

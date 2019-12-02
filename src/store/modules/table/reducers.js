@@ -12,7 +12,7 @@ export default function table(state = INITIAL_STATE, action) {
       });
     case '@table/SELECT_TABLE_PRICE_SUCESS':
       return produce(state, draft => {
-        draft.data2 = action.payload.tabela;
+        draft.data2 = action.payload.id;
       });
     default:
       return state;

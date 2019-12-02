@@ -11,11 +11,10 @@ import * as ActionsTable from '../../store/modules/table/actions';
 
 export default function TableSelection() {
   const {data} = useSelector(state => state.table);
-
   const dispatch = useDispatch();
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
-  const [dataStateAux, setDataStateAux] = useState(data);
+  // const [dataStateAux, setDataStateAux] = useState(data);
   useEffect(() => {
     // if (inputState === '') {
     //   setDataStateAux(data);
@@ -36,7 +35,7 @@ export default function TableSelection() {
     dispatch(ActionsTable.requestTablePrice());
   }, [ dispatch, inputState]); // eslint-disable-line
   function selectTablePrice(id) {
-    dispatch(ActionsTable.selectTablePrice(id));
+    dispatch(ActionsTable.selectTablePrice(id, data));
   }
   return (
     <ContainerScroll
@@ -72,8 +71,8 @@ export default function TableSelection() {
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}
-          functionOnPressText={() => {
-            selectTablePrice();
+          functionOnPressText={id => {
+            selectTablePrice(id);
           }}
         />
       </Container>

@@ -15,8 +15,7 @@ import {
 } from './styles';
 import Bojo from '../../../assets/image/3101.jpg';
 
-export default function CardDetails({data}) {
-  const {username, permission} = useSelector(state => state.menu);
+export default function CardDetails({product}) {
   return (
     <Container>
       <AreaImage>
@@ -24,16 +23,23 @@ export default function CardDetails({data}) {
       </AreaImage>
       <AreaText>
         <ContainerText>
-          <Line>Linha: {username}</Line>
-          <Model>Modelo: {username}</Model>
-          <Description>Descrição: {username}</Description>
-          <Feacture>Caracteristica: {username}</Feacture>
+          <Line>Linha: {product.linha}</Line>
+          <Model>Modelo: {product.matriz}</Model>
+          <Description>Descrição: {product.descricao}</Description>
+          <Feacture>Caracteristica: {product.caracteristicas}</Feacture>
         </ContainerText>
       </AreaText>
     </Container>
   );
 }
 CardDetails.prototypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
+  product: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
 };
-CardDetails.defaultProps = {};
+CardDetails.defaultProps = {
+  product: {
+    linha: 'linha',
+    modelo: 'modelo',
+    descricao: 'descricao',
+    caracteristica: 'caracteristica',
+  },
+};

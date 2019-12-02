@@ -24,4 +24,6 @@ export const ContainerScroll = styled.ScrollView``;
 export const Loading = styled.View`
   flex: 1;
   background: #3f51b5;
+  justify-content: center;
+  align-items: center;
 `;

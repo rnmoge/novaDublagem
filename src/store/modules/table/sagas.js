@@ -3,7 +3,7 @@
 import {put, all, takeLatest} from 'redux-saga/effects';
 // import AsyncStorage from '@react-native-community/async-storage';
 import getRealm from '../../../services/realm';
-import {requestTablePriceSucess} from './actions';
+import {requestTablePriceSucess, selectTablePriceSucess} from './actions';
 
 // import {loginRequest, loginSucess, loginFailure} from './actions';
 import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
@@ -23,22 +23,19 @@ function* requestTableSaga() {
     yield put(commonActionFailure(err.response.data.message));
   }
 }
-function* selectTablePriceSaga() {
-  yield put(commonLoadingActivityOn(''));
-  // const realm = yield getRealm();
-
-  // const {
-  //   data2: {id},
-  // } = realm.objects('tablePrice').sorted('id', true);
-  // const data2 = realm.objects('tablePrice').sorted('id', true);
-  // const data4 = yield select(state =>
-  //  state.data.find(element => element.id === id)
-  // );
-  yield put(commonLoadingActivityOn(''));
-  // yield put(requestTablePriceSucess(id));
-
-  // console.tron.log(id);
-  navigate('Home');
+function* selectTablePriceSaga(action) {
+  try {
+    const {id, tabelas} = action.payload;
+    const tabela = tabelas.find(element => {
+      return element.id === id;
+    });
+    yield put(commonLoadingActivityOn(''));
+    yield put(selectTablePriceSucess(tabela));
+    yield put(commonLoadingActivityOn(''));
+    navigate('Home');
+  } catch (err) {
+    yield put(commonActionFailure(''));
+  }
 }
 
 export default all([

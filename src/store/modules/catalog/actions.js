@@ -13,34 +13,31 @@ export function ProductsCatalogSucess(data) {
 }
 
 // actions disparadas quando clica no botão de ver mais
-// navega usuário + puxa dados do estato + faz requisições para tabelaprecolinhamatriz
-export function catalogMoreDetailsProduct(id) {
+// navega usuário + puxa dados do estato
+export function catalogMoreDetailsProduct(id, products) {
   return {
     type: '@catalog/CATALOG_MORE_DETAILS_PRODUCT',
-    payload: {id},
+    payload: {id, products},
   };
 }
 
-export function catalogMoreDetailsProductSucess(
-  linha,
-  matriz,
-  descricao,
-  caracteristica
-) {
+export function catalogMoreDetailsProductSucess(product) {
   return {
     type: '@catalog/CATALOG_MORE_DETAILS_PRODUCT_SUCESS',
-    payload: {linha, matriz, descricao, caracteristica},
+    payload: {product},
   };
 }
-export function requestTablePrice() {
+// faz requisições para tabelaprecolinhamatriz
+export function requestTablePrice(idProduct, idTable) {
   return {
     type: '@catalog/REQUEST_TABLE_PRICE',
+    payload: {idProduct, idTable},
   };
 }
-export function requestTablePriceSucess(table) {
+export function requestTablePriceSucess(prices) {
   return {
     type: '@catalog/REQUEST_TABLE_PRICE_SUCESS',
-    payload: {table},
+    payload: {prices},
   };
 }
 

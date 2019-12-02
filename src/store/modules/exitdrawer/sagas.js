@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // import api from '../../../services/api';
 // import {loginRequest, loginSucess, loginFailure} from './actions';
 import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
-import getRealm from '../../../services/realm';
+// import getRealm from '../../../services/realm';
 import {navigate} from '../../../services/navigation';
 
 function* exitAplicationSaga() {

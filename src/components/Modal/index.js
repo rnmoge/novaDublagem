@@ -10,7 +10,7 @@ import {
   TextButton,
 } from './styles';
 
-export default function ModalTeste2({
+export default function ModalColor({
   nameIcon,
   nameIconTwo,
   placeholder,
@@ -39,11 +39,11 @@ export default function ModalTeste2({
         <FlatList
           initialNumToRender={10}
           style={{flex: 1}}
-          data={data}
+          // data={data}
           renderItem={({item}) => {
             return (
               <TextButton onPress={() => functionOnPressText(item.id)}>
-                {item.table_price}
+                yuri
               </TextButton>
             );
           }}

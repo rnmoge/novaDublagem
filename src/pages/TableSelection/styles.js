@@ -7,6 +7,12 @@ export const Container = styled.View`
   background: #3f51b5;
   padding: 15px;
 `;
+export const ConatinerText = styled.View`
+  flex: 1;
+  padding-top: ${Platform.OS === 'ios' ? 0 : 0};
+  background: #3f51b5;
+  padding: 15px;
+`;
 export const Text = styled.Text`
   justify-content: center;
   text-align: center;
@@ -20,4 +26,11 @@ export const TextButton = styled.Text`
   color: #eeeeee;
   margin-left: 328;
   padding: 2px;
+`;
+
+export const Loading = styled.View`
+  flex: 1;
+  background: #3f51b5;
+  justify-content: center;
+  align-items: center;
 `;
