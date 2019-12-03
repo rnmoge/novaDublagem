@@ -6,6 +6,7 @@ import exitdrawer from './exitdrawer/sagas';
 import catalog from './catalog/sagas';
 import table from './table/sagas';
 import menu from './menu/sagas';
+import order from './order/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     catalog,
     table,
     menu,
+    order,
     // adicione mais sagas
   ]);
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 // import {View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+// import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
-import * as CatalogoActions from '../../store/modules/catalog/actions';
+// import * as CatalogoActions from '../../store/modules/catalog/actions';
 import {
   Container,
   ContainerTitle,

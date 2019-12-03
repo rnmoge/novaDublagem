@@ -1,10 +1,22 @@
 import React from 'react';
-import {Text} from 'react-native';
-
-import {Container, TextInfo, ContainerPage} from './styles';
+// import {Text} from 'react-native';
+import {useDispatch} from 'react-redux';
+import CardRequest from '../../components/CardRequest';
+import {Container, ContainerPage} from './styles';
 import Header from '../../components/Header';
+import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function Request({navigation}) {
+  const dispatch = useDispatch();
+  function handleRegisterOrders() {
+    dispatch(ActionsOrder.handleRegisterOrder());
+  }
+  function handleQueryOrders() {
+    dispatch(ActionsOrder.handleQueryOrder());
+  }
+  function handleTransmitOrders() {
+    dispatch(ActionsOrder.handleTransmitOrder());
+  }
   return (
     <Container>
       <Header
@@ -14,10 +26,27 @@ export default function Request({navigation}) {
         functionOnpressIconLeft={() => navigation.openDrawer()}
       />
       <ContainerPage>
-        <TextInfo>
-          Tela em construção aguarde para quando ela estiver pronta você irá
-          receber uma atualização!
-        </TextInfo>
+        <CardRequest
+          text="Cadastrar Pedidos"
+          nameIcon="plus"
+          functionOnPress={() => {
+            handleRegisterOrders();
+          }}
+        />
+        <CardRequest
+          text="Consultar Pedidos"
+          nameIcon="search"
+          functionOnPress={() => {
+            handleQueryOrders();
+          }}
+        />
+        <CardRequest
+          text="Transmitir Pedidos"
+          nameIcon="rss"
+          functionOnPress={() => {
+            handleTransmitOrders();
+          }}
+        />
       </ContainerPage>
     </Container>
   );

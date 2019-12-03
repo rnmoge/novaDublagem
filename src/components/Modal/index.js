@@ -17,7 +17,6 @@ export default function ModalColor({
   modalVisible,
   functionOnPressLeft,
   functionOnPressRight,
-  functionOnPressText,
   functionOnChangeText,
   data,
 }) {
@@ -41,11 +40,7 @@ export default function ModalColor({
           style={{flex: 1}}
           // data={data}
           renderItem={({item}) => {
-            return (
-              <TextButton onPress={() => functionOnPressText(item.id)}>
-                yuri
-              </TextButton>
-            );
+            return <TextButton>{item.cores}</TextButton>;
           }}
         />
       </Modal>
@@ -59,7 +54,6 @@ Modal.propTypes = {
   modalVisible: PropTypes.bool,
   functionOnPressLeft: PropTypes.func,
   functionOnPressRight: PropTypes.func,
-  functionOnPressText: PropTypes.func,
   functionOnChangeText: PropTypes.func,
 };
 Modal.defaultProps = {
@@ -69,6 +63,5 @@ Modal.defaultProps = {
   modalVisible: false,
   functionOnPressLeft: () => {},
   functionOnPressRight: () => {},
-  functionOnPressText: () => {},
   functionOnChangeText: () => {},
 };

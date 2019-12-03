@@ -14,6 +14,9 @@ import HeaderDrawer from './components/HeaderDrawer';
 import FooterDrawer from './components/FooterDrawer';
 import Request from './pages/Request';
 import ProductDetails from './pages/ProductDetails';
+import RegisterOrder from './pages/RegisterOrder';
+import QueryOrder from './pages/QueryOrder';
+import TransmitOrder from './pages/TransmitOrder';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -102,6 +105,9 @@ const createAppNavigation = createSwitchNavigator({
   TableSelection,
   Home: {screen: createDrawerNavigatorApp},
   ProductDetails,
+  RegisterOrder,
+  QueryOrder,
+  TransmitOrder,
   ForgotPassword,
 });
 const Routes = createAppContainer(createAppNavigation);
