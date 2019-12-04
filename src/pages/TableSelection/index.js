@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Logo from '../../components/Logo';
-import Input from '../../components/Input';
+// import Input from '../../components/Input';
 import Button from '../../components/Button';
-import {Container, Text, ContainerScroll} from './styles';
+import {Container, Text, ContainerScroll, AreaButton} from './styles';
 // import {navigate} from '../../services/navigation';
 import Modal from '../../components/Modalteste2';
 import * as ActionsTable from '../../store/modules/table/actions';
@@ -47,19 +47,25 @@ export default function TableSelection() {
         <StatusBar barStyle="ligth-content" backgroundColor="#3f51b5" />
         <Logo />
         <Text>
-          Selecione a tabela que você estará utilizando, clique na lupa para
-          pesquisar
+          Selecione a tabela que você estará utilizando, clique em Selecionar
+          tabela para pesquisar suas tabelas
         </Text>
-        <Input
-          placeholder="Tabelas"
-          keyboardTypeInput="default"
-          areaIcon
-          icoName="search"
-          disabledButtonIcon={false}
-          valueInputText=""
-          functionOnPressIcon={() => setModalState(!modalState)}
+        <AreaButton onPress={() => setModalState(!modalState)}>
+          {/* <Input
+            placeholder="Tabelas"
+            keyboardTypeInput="default"
+            areaIcon
+            icoName="search"
+            disabledButtonIcon={false}
+            valueInputText=""
+            functionOnPressIcon={() => setModalState(!modalState)}
+          /> */}
+        </AreaButton>
+        <Button
+          titleButton="SELECIONAR TABELA"
+          functionOnPress={() => setModalState(!modalState)}
+          disabledButton={false}
         />
-        <Button titleButton="AVANÇAR" />
       </Container>
       <Container>
         <Modal

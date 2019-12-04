@@ -38,7 +38,7 @@ export default function ModalColor({
         <FlatList
           initialNumToRender={10}
           style={{flex: 1}}
-          // data={data}
+          data={data}
           renderItem={({item}) => {
             return <TextButton>{item.cores}</TextButton>;
           }}

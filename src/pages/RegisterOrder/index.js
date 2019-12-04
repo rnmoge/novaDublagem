@@ -1,5 +1,6 @@
 import React from 'react';
 // import {View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {
   Container,
   ContainerBody,
@@ -14,15 +15,26 @@ import Header from '../../components/Header';
 import InputType from '../../components/InputType';
 import Button from '../../components/Button';
 import Radius from '../../components/Radius';
+import * as ActionsOrder from '../../store/modules/order/actions';
 
-export default function RegisterOrder({navigation}) {
+export default function RegisterOrder() {
+  // const [selectStateOne, setSelectStateOne] = useState(false);
+  // const [selectStateTwo, setSelectStateTwo] = useState(false);
+  // const [selectStateThree, setSelectStateThree] = useState(false);
+  const dispatch = useDispatch();
+  function handleDeatilsClient() {
+    dispatch(ActionsOrder.handleDetailsClient());
+  }
+  function backOrder() {
+    dispatch(ActionsOrder.backOrder());
+  }
   return (
     <Container>
       <Header
         title="Seleção de cliente"
-        iconName="bars"
+        icoName="arrow-left"
         icoNameTwo="shopping-cart"
-        functionOnpressIconLeft={() => navigation.openDrawer()}
+        functionOnpressIconLeft={() => backOrder()}
       />
       <ContainerBody>
         <Container2>
@@ -37,10 +49,16 @@ export default function RegisterOrder({navigation}) {
           <ContainerRadius>
             <Radius nameIcon="circle" text="Ativos" />
             <Radius nameIcon="circle" text="Inativos" />
-            <Radius nameIcon="circle" text="Todos" />
+            <Radius nameIcon="dot-circle" text="Todos" />
           </ContainerRadius>
           <ContainerButton>
-            <Button titleButton="PESQUISAR" />
+            <Button
+              titleButton="PESQUISAR"
+              disabledButton={false}
+              functionOnPress={() => {
+                handleDeatilsClient();
+              }}
+            />
           </ContainerButton>
         </Container2>
       </ContainerBody>

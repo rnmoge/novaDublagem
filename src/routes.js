@@ -17,6 +17,7 @@ import ProductDetails from './pages/ProductDetails';
 import RegisterOrder from './pages/RegisterOrder';
 import QueryOrder from './pages/QueryOrder';
 import TransmitOrder from './pages/TransmitOrder';
+import DetailsClient from './pages/DetailsClient';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -45,7 +46,6 @@ import TransmitOrder from './pages/TransmitOrder';
 // });
 const customDrawer = props => (
   <SafeAreaView style={{flex: 1}}>
-    <StatusBar backgroundColor="#002984" />
     <View
       style={{
         justifyContent: 'flex-start',
@@ -101,13 +101,14 @@ const createDrawerNavigatorApp = createDrawerNavigator(
   }
 );
 const createAppNavigation = createSwitchNavigator({
+  Home: {screen: createDrawerNavigatorApp},
   Login,
   TableSelection,
-  Home: {screen: createDrawerNavigatorApp},
   ProductDetails,
   RegisterOrder,
   QueryOrder,
   TransmitOrder,
+  DetailsClient,
   ForgotPassword,
 });
 const Routes = createAppContainer(createAppNavigation);

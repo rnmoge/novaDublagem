@@ -34,3 +34,6 @@ export const Loading = styled.View`
   justify-content: center;
   align-items: center;
 `;
+export const AreaButton = styled.TouchableOpacity`
+  justify-content: center;
+`;

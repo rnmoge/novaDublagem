@@ -10,12 +10,17 @@ import {
   ContainerButton,
 } from './styles';
 
-export default function Radius({text, functionOnPress, nameIcon}) {
+export default function Radius({
+  text,
+  functionOnPress,
+  nameIcon,
+  IconAparence,
+}) {
   return (
     <Container>
       <ContainerButton>
         <AreaIcon onPress={functionOnPress}>
-          <Icon name={nameIcon} />
+          <Icon name={nameIcon} IconAparence={false} />
         </AreaIcon>
         <ContainerText>
           <TextInfo>{text}</TextInfo>
@@ -28,9 +33,11 @@ Radius.propTypes = {
   text: PropTypes.string,
   functionOnPress: PropTypes.func,
   nameIcon: PropTypes.string,
+  IconAparence: PropTypes.bool,
 };
 Radius.defaultProps = {
   text: 'Title',
   functionOnPress: () => {},
   nameIcon: 'fonticons',
+  IconAparence: false,
 };

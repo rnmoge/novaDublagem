@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import {Text} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import CardDetails from '../../components/CardDetails';
@@ -12,6 +12,7 @@ import Modal from '../../components/Modal';
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const {product, prices} = useSelector(state => state.catalog);
+  const {loading} = useSelector(state => state.common);
   const {data2} = useSelector(state => state.table);
   const [stateProduct, setStateProduct] = useState(product);
   const [stateSize, setStateSize] = useState(null);
@@ -43,22 +44,26 @@ export default function ProductDetails() {
           backCatalogPage();
         }}
       />
+      {loading ? (
+        <ContainerBody>
+          <CardDetails product={stateProduct} />
+          <CardTablePrice
+            table={stateSize}
+            commision={stateTableComission}
+            price1={statePriceOne}
+            price2={statePriceTwo}
+            price3={statePriceThree}
+          />
+          <Button
+            titleButton="VER CORES"
+            functionOnPress={() => setModalState(!modalState)}
+            disabledButton={false}
+          />
+        </ContainerBody>
+      ) : (
+        <ActivityIndicator />
+      )}
 
-      <ContainerBody>
-        <CardDetails product={stateProduct} />
-        <CardTablePrice
-          table={stateSize}
-          commision={stateTableComission}
-          price1={statePriceOne}
-          price2={statePriceTwo}
-          price3={statePriceThree}
-        />
-        <Button
-          titleButton="VER CORES"
-          functionOnPress={() => setModalState(!modalState)}
-          disabledButton={false}
-        />
-      </ContainerBody>
       <ContainerModal>
         <Modal
           // valueInputText={inputState}

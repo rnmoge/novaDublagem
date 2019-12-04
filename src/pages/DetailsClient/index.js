@@ -1,25 +1,25 @@
 import React from 'react';
 // import {View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import * as ActionsOrder from '../../store/modules/order/actions';
 import Header from '../../components/Header';
-import Radius from '../../components/Radius';
 import {Container} from './styles';
+import * as ActionsOrder from '../../store/modules/order/actions';
 
-export default function QueryOrder() {
+export default function DetailsClient() {
   const dispatch = useDispatch();
-  function backOrder() {
-    dispatch(ActionsOrder.backOrder());
+  function backRegisterOrder() {
+    dispatch(ActionsOrder.backRegisterOrder());
   }
   return (
     <Container>
       <Header
-        title="Consulta Pedido"
+        title="Consulta Cliente"
         icoName="arrow-left"
         icoNameTwo="shopping-cart"
-        functionOnpressIconLeft={() => backOrder()}
+        functionOnpressIconLeft={() => {
+          backRegisterOrder();
+        }}
       />
-      <Radius />
     </Container>
   );
 }
