@@ -19,7 +19,6 @@ export default function ProductDetails() {
   const [statePriceOne, setStatePriceOne] = useState(null);
   const [statePriceTwo, setStatePriceTwo] = useState(null);
   const [statePriceThree, setStatePriceThree] = useState(null);
-  // console.tron.log(product);
   const [stateTableComission, setStateTableComission] = useState(data2);
   const [modalState, setModalState] = useState(false);
   useEffect(() => {

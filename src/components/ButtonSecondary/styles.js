@@ -8,13 +8,15 @@ export const ButtonArea = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: #fdca0b;
+  background: #fff;
   border-radius: 8px;
   margin-top: 10px;
+  border-color: #3f51b5;
+  border-width: 2px;
 `;
 
 export const Text = styled.Text`
-  color: #000000;
+  color: #3f51b5;
   font-size: 16px;
   font-weight: bold;
   padding-right: 5px;

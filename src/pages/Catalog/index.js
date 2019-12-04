@@ -11,7 +11,6 @@ export default function Catalog({navigation}) {
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
   const {data} = useSelector(state => state.catalog);
-  console.tron.log(data);
   const [dataStateAux, setDataStateAux] = useState(data);
   const dispatch = useDispatch();
   function handleMoreDetails(id) {

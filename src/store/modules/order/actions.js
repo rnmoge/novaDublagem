@@ -24,10 +24,16 @@ export function backOrder() {
 
 // actions page RegisterOrder
 
-export function handleDetailsClient(data) {
+export function handleDetailsClient(id, data) {
   return {
     type: '@order/HANDLE_DETAILS_CLIENT',
-    payload: {data},
+    payload: {id, data},
+  };
+}
+export function handleDetailsClientSucess(client) {
+  return {
+    type: '@order/HANDLE_DETAILS_CLIENT_SUCESS',
+    payload: {client},
   };
 }
 export function backRegisterOrder() {

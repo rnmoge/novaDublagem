@@ -3,7 +3,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
-import {SafeAreaView, View, StatusBar} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -101,9 +101,9 @@ const createDrawerNavigatorApp = createDrawerNavigator(
   }
 );
 const createAppNavigation = createSwitchNavigator({
-  Home: {screen: createDrawerNavigatorApp},
   Login,
   TableSelection,
+  Home: {screen: createDrawerNavigatorApp},
   ProductDetails,
   RegisterOrder,
   QueryOrder,

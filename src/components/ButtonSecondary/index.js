@@ -3,19 +3,15 @@ import PropTypes from 'prop-types';
 import {ActivityIndicator} from 'react-native';
 import {Container, ButtonArea, Text} from './styles';
 
-export default function Button({
+export default function ButtonSecondary({
   titleButton,
   functionOnPress,
   disabledButton,
   loading,
-  colorButton,
 }) {
   return (
     <Container>
-      <ButtonArea
-        onPress={functionOnPress}
-        disabled={disabledButton}
-        color={colorButton}>
+      <ButtonArea onPress={functionOnPress} disabled={disabledButton}>
         {loading ? (
           <ActivityIndicator size="small" color="#000" />
         ) : (
@@ -25,16 +21,14 @@ export default function Button({
     </Container>
   );
 }
-Button.propTypes = {
+ButtonSecondary.propTypes = {
   titleButton: PropTypes.string,
-  colorButton: PropTypes.string,
   disabledButton: PropTypes.bool,
   loading: PropTypes.bool,
   functionOnPress: PropTypes.func,
 };
-Button.defaultProps = {
+ButtonSecondary.defaultProps = {
   titleButton: 'Title button',
-  colorButton: '#fdca0b',
   functionOnPress: () => {},
   disabledButton: true,
   loading: false,

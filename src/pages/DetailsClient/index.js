@@ -1,8 +1,22 @@
 import React from 'react';
-// import {View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {Text} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
-import {Container} from './styles';
+import Button from '../../components/Button';
+import ButtonSecundary from '../../components/ButtonSecondary';
+import DetailsClient1 from '../../components/DetailsClient';
+// import InputType from '../../components/InputType';
+import {
+  Container,
+  ContainerBody,
+  ContainerRepresentante,
+  ContainerUser,
+  ContainerClient,
+  TextInfo,
+  TextUser,
+  ContainerTotal,
+  ContainerButton,
+} from './styles';
 import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function DetailsClient() {
@@ -10,6 +24,8 @@ export default function DetailsClient() {
   function backRegisterOrder() {
     dispatch(ActionsOrder.backRegisterOrder());
   }
+  const {username} = useSelector(state => state.menu);
+  const {data} = useSelector(state => state.order);
   return (
     <Container>
       <Header
@@ -20,6 +36,25 @@ export default function DetailsClient() {
           backRegisterOrder();
         }}
       />
+      <ContainerBody>
+        <ContainerRepresentante>
+          <TextInfo>Representante:</TextInfo>
+          <ContainerUser>
+            <TextUser>{username}</TextUser>
+          </ContainerUser>
+        </ContainerRepresentante>
+        <ContainerClient>
+          <DetailsClient1 client={data} />
+          <ContainerTotal>
+            <ContainerButton>
+              <Button titleButton="NOVO PEDIDO" disabledButton={false} />
+            </ContainerButton>
+            <ContainerButton>
+              <Button titleButton="PEDIDOS ANTERIOR" disabledButton={false} />
+            </ContainerButton>
+          </ContainerTotal>
+        </ContainerClient>
+      </ContainerBody>
     </Container>
   );
 }

@@ -1,13 +1,14 @@
 // chama funções assincronas com respostas
 // select busca informações sobre o estado
-import {put, all, takeLatest} from 'redux-saga/effects';
+import {put, all, takeLatest, call} from 'redux-saga/effects';
 // import AsyncStorage from '@react-native-community/async-storage';
 // import getRealm from '../../../services/realm';
 // import api from '../../../services/api';
-// import {loginRequest, loginSucess, loginFailure} from './actions';
-import {commonLoadingActivityOn} from '../common/actions';
+import {handleDetailsClientSucess} from './actions';
+import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
 // import {menuSucess} from '../menu/actions';
 import {navigate} from '../../../services/navigation';
+// import api2 from '../../../services/api2';
 
 function* handleRegisterOrderSaga() {
   yield put(commonLoadingActivityOn(''));
@@ -21,9 +22,20 @@ function* handleTransmitOrderSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('TransmitOrder');
 }
-function* handleDetailsClientSaga() {
+function* handleDetailsClientSaga(action) {
   yield put(commonLoadingActivityOn(''));
-  navigate('DetailsClient');
+
+  try {
+    const {id, data} = action.payload;
+    const client = data.find(element => {
+      return element.id === id;
+    });
+
+    yield put(handleDetailsClientSucess(client));
+    navigate('DetailsClient');
+  } catch (err) {
+    yield put(commonActionFailure(''));
+  }
 }
 function* backOrderSaga() {
   yield put(commonLoadingActivityOn(''));
