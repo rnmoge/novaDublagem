@@ -40,7 +40,7 @@ export default function ModalColor({
           style={{flex: 1}}
           data={data}
           renderItem={({item}) => {
-            return <TextButton>{item.cores}</TextButton>;
+            return <TextButton>{item.descricao}</TextButton>;
           }}
         />
       </Modal>

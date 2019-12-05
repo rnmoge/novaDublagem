@@ -2,6 +2,7 @@
 // select busca informações sobre o estado
 import {call, put, all, takeLatest, cancel} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 import getRealm from '../../../services/realm';
 import api from '../../../services/api';
 // import {loginRequest, loginSucess, loginFailure} from './actions';
@@ -24,6 +25,7 @@ function* loginRequestSaga(action) {
         username,
         password,
       });
+
       yield call(
         AsyncStorage.setItem,
         '@novaDublagem:token',

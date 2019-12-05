@@ -7,6 +7,7 @@ import catalog from './catalog/sagas';
 import table from './table/sagas';
 import menu from './menu/sagas';
 import order from './order/sagas';
+import neworder from './neworder/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     table,
     menu,
     order,
+    neworder,
     // adicione mais sagas
   ]);
 }

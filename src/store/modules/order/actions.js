@@ -41,3 +41,11 @@ export function backRegisterOrder() {
     type: '@order/BACK_REGISTER_ORDER',
   };
 }
+// Actions page DetailsClient
+
+export function handleNewOrder(client) {
+  return {
+    type: '@order/HANDLE_NEW_ORDER',
+    payload: {client},
+  };
+}

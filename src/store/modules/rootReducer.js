@@ -5,6 +5,7 @@ import table from './table/reducers';
 import menu from './menu/reducers';
 import catalog from './catalog/reducers';
 import order from './order/reducers';
+import neworder from './neworder/reducers';
 
 export default combineReducers({
   common,
@@ -13,4 +14,5 @@ export default combineReducers({
   menu,
   catalog,
   order,
+  neworder,
 });

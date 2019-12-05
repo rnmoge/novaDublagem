@@ -1,6 +1,6 @@
 // chama funções assincronas com respostas
 // select busca informações sobre o estado
-import {put, all, takeLatest, call} from 'redux-saga/effects';
+import {put, all, takeLatest} from 'redux-saga/effects';
 // import AsyncStorage from '@react-native-community/async-storage';
 // import getRealm from '../../../services/realm';
 // import api from '../../../services/api';
@@ -45,6 +45,11 @@ function* backRegisterOrderSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('RegisterOrder');
 }
+function* handleNewOrderSaga() {
+  yield put(commonLoadingActivityOn(''));
+  navigate('NewOrder');
+}
+
 export default all([
   takeLatest('@order/HANDLE_REGISTER_ORDER', handleRegisterOrderSaga),
   takeLatest('@order/HANDLE_QUERY_ORDER', handleQueryOrderSaga),
@@ -52,4 +57,5 @@ export default all([
   takeLatest('@order/BACK_ORDER', backOrderSaga),
   takeLatest('@order/HANDLE_DETAILS_CLIENT', handleDetailsClientSaga),
   takeLatest('@order/BACK_REGISTER_ORDER', backRegisterOrderSaga),
+  takeLatest('@order/HANDLE_NEW_ORDER', handleNewOrderSaga),
 ]);

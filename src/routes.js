@@ -18,6 +18,7 @@ import RegisterOrder from './pages/RegisterOrder';
 import QueryOrder from './pages/QueryOrder';
 import TransmitOrder from './pages/TransmitOrder';
 import DetailsClient from './pages/DetailsClient';
+import NewOrder from './pages/NewOrder';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -102,8 +103,9 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 );
 const createAppNavigation = createSwitchNavigator({
   Login,
-  TableSelection,
+  NewOrder,
   Home: {screen: createDrawerNavigatorApp},
+  TableSelection,
   ProductDetails,
   RegisterOrder,
   QueryOrder,

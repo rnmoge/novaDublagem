@@ -1,9 +1,9 @@
-import React from 'react';
-import {Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+// import {Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
-import ButtonSecundary from '../../components/ButtonSecondary';
+// import ButtonSecundary from '../../components/ButtonSecondary';
 import DetailsClient1 from '../../components/DetailsClient';
 // import InputType from '../../components/InputType';
 import {
@@ -21,11 +21,18 @@ import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function DetailsClient() {
   const dispatch = useDispatch();
+  const {username} = useSelector(state => state.menu);
+  const {data} = useSelector(state => state.order);
+  const [stateUsername, setStateUsername] = useState(username);
   function backRegisterOrder() {
     dispatch(ActionsOrder.backRegisterOrder());
   }
-  const {username} = useSelector(state => state.menu);
-  const {data} = useSelector(state => state.order);
+  function handleNewOrder() {
+    dispatch(ActionsOrder.handleNewOrder());
+  }
+  useEffect(() => {
+    setStateUsername(username);
+  }, [username]);
   return (
     <Container>
       <Header
@@ -40,14 +47,20 @@ export default function DetailsClient() {
         <ContainerRepresentante>
           <TextInfo>Representante:</TextInfo>
           <ContainerUser>
-            <TextUser>{username}</TextUser>
+            <TextUser>{stateUsername}</TextUser>
           </ContainerUser>
         </ContainerRepresentante>
         <ContainerClient>
           <DetailsClient1 client={data} />
           <ContainerTotal>
             <ContainerButton>
-              <Button titleButton="NOVO PEDIDO" disabledButton={false} />
+              <Button
+                titleButton="NOVO PEDIDO"
+                disabledButton={false}
+                functionOnPress={() => {
+                  handleNewOrder();
+                }}
+              />
             </ContainerButton>
             <ContainerButton>
               <Button titleButton="PEDIDOS ANTERIOR" disabledButton={false} />

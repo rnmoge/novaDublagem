@@ -53,6 +53,7 @@ export default function ModalTeste2({
   );
 }
 Modal.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   placeholder: PropTypes.string,
   nameIcon: PropTypes.string,
   nameIconTwo: PropTypes.string,

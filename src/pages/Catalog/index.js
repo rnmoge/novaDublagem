@@ -21,29 +21,28 @@ export default function Catalog({navigation}) {
     dispatch(CatalogActions.requestProductsCatalog());
   }
   useEffect(() => {
-    if (inputLineState === '' && inputModelState === '') {
-      setDataStateAux([]);
-    } else {
-      const orderArray = data
-        .filter(element => {
-          return (
-            element.matriz
-              .toLowerCase()
-              .indexOf(inputModelState.toLowerCase()) !== -1
-          );
-        })
-        .filter(element => {
-          return (
-            element.linha
-              .toLowerCase()
-              .indexOf(inputLineState.toLowerCase()) !== -1
-          );
-        })
-        .map(element => {
-          return element;
-        });
-      setDataStateAux(orderArray);
-    }
+    // if (inputLineState === '' && inputModelState === '') {
+    //   setDataStateAux([]);
+    // } else {
+    const orderArray = data
+      .filter(element => {
+        return (
+          element.matriz
+            .toLowerCase()
+            .indexOf(inputModelState.toLowerCase()) !== -1
+        );
+      })
+      .filter(element => {
+        return (
+          element.linha.toLowerCase().indexOf(inputLineState.toLowerCase()) !==
+          -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setDataStateAux(orderArray);
+    // }
   }, [inputLineState, inputModelState]);// eslint-disable-line
   return (
     <Container

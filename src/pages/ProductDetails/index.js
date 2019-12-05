@@ -21,6 +21,10 @@ export default function ProductDetails() {
   const [statePriceThree, setStatePriceThree] = useState(null);
   const [stateTableComission, setStateTableComission] = useState(data2);
   const [modalState, setModalState] = useState(false);
+  const [inputState, setInputState] = useState('');
+  const [dataStateAux, setDataStateAux] = useState(product.cores);
+  const [colorsState, setColorsState] = useState(product.cores);
+
   useEffect(() => {
     setStateProduct(product);
     setStateTableComission(data2);
@@ -29,6 +33,21 @@ export default function ProductDetails() {
     setStatePriceTwo(prices);
     setStatePriceThree(prices);
   }, [prices, product,data2]); // eslint-disable-line
+
+  useEffect(() => {
+    const orderArray = colorsState
+      .filter(element => {
+        return (
+          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
+          -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setDataStateAux(orderArray);
+  }, [dispatch, inputState, colorsState]); // eslint-disable-line
+
   function backCatalogPage() {
     dispatch(ActionsCatalog.backCatalog());
   }
@@ -65,11 +84,11 @@ export default function ProductDetails() {
 
       <ContainerModal>
         <Modal
-          // valueInputText={inputState}
-          // functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a cor"
           modalVisible={modalState}
-          data={stateProduct}
+          data={dataStateAux}
+          valueInputText={inputState}
+          functionOnChangeText={text => setInputState(text)}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}
