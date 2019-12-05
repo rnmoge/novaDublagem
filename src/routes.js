@@ -103,9 +103,9 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 );
 const createAppNavigation = createSwitchNavigator({
   Login,
-  NewOrder,
-  Home: {screen: createDrawerNavigatorApp},
   TableSelection,
+  Home: {screen: createDrawerNavigatorApp},
+  NewOrder,
   ProductDetails,
   RegisterOrder,
   QueryOrder,

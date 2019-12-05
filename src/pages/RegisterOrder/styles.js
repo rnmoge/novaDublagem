@@ -43,7 +43,7 @@ export const ContainerInput = styled.View`
 export const TextInfoIcon = styled.Text``;
 
 export const ContainerRadius = styled.View`
-  padding-bottom: -30px;
+  /* padding-bottom: -20px; */
   flex-direction: row;
   justify-content: center;
 `;

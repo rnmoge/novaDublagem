@@ -18,15 +18,10 @@ import * as MenuActions from '../../store/modules/menu/actions';
 export default function HeaderDrawer() {
   const {username, permission} = useSelector(state => state.menu);
   const dispatch = useDispatch();
-  function menuRender() {
-    dispatch(MenuActions.menuRequest());
-  }
+  function menuRender() {}
 
   return (
-    <Container
-      onLayout={() => {
-        menuRender();
-      }}>
+    <Container>
       <ContainerAvatar>
         <TextAvatar source={logo} />
       </ContainerAvatar>

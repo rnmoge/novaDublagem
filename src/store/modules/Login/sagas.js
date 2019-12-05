@@ -2,7 +2,7 @@
 // select busca informações sobre o estado
 import {call, put, all, takeLatest, cancel} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
+// import axios from 'axios';
 import getRealm from '../../../services/realm';
 import api from '../../../services/api';
 // import {loginRequest, loginSucess, loginFailure} from './actions';
@@ -17,15 +17,16 @@ import {navigate} from '../../../services/navigation';
 function* loginRequestSaga(action) {
   yield put(commonLoadingActivityOn(''));
   const realm = yield getRealm();
-
   const {username, password} = action.payload;
+  console.log(username, password);
   if (username && password) {
     try {
+      console.log('aqui passou');
       const {data} = yield call(api.post, '/login', {
         username,
         password,
       });
-
+      console.log('data');
       yield call(
         AsyncStorage.setItem,
         '@novaDublagem:token',
@@ -36,6 +37,7 @@ function* loginRequestSaga(action) {
         '@novaDublagem:user',
         JSON.stringify(data)
       );
+
       if (data.status === true) {
         yield put(commonActionFailure('entre em contato com o administrativo'));
 
@@ -62,13 +64,8 @@ function* loginRequestSaga(action) {
           realm.create('tablePrice', table, true);
         });
       }
-      if (data.permission === 'Representante') {
-        yield put(commonActionSucess(''));
-        navigate('TableSelection');
-      } else {
-        yield put(commonActionSucess(''));
-        navigate('Home');
-      }
+
+      navigate('TableSelection');
     } catch (err) {
       yield put(commonActionFailure(err.response.data.message));
     }

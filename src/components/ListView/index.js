@@ -24,11 +24,6 @@ export default function ListView({functionOnpressDetails, data}) {
         data={data}
         initialNumToRender={10}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={
-          <TextInitial>
-            Digite um dos filtros acima para acessar o catálogo
-          </TextInitial>
-        }
         renderItem={({item}) => {
           return (
             <ContainerList>

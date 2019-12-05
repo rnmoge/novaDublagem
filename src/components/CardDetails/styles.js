@@ -12,14 +12,17 @@ export const Container = styled.View`
 `;
 
 export const AreaImage = styled.View`
-  height: 120px;
-  width: 120px;
+  flex-wrap: wrap;
+  height: 100px;
+  width: 100px;
   margin-left: 12px;
 `;
 
-export const Image = styled.Image`
-  height: 120px;
-  width: 120px;
+export const Image = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
 `;
 
