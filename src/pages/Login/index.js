@@ -20,7 +20,6 @@ export default function Login() {
   // função asssicrona que dispara as actions para os sagas
   function handleSubmit() {
     dispatch(LoginActions.loginRequest(userState, passwordState));
-    dispatch(MenuActions.menuRequest());
   }
   useEffect(() => {
     dispatch(LoginActions.loginRequestExist());

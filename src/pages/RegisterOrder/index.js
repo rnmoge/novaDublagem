@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import {View} from 'react-native';
+import {ScrollView} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {
   Container,
@@ -23,77 +23,77 @@ import Radius from '../../components/Radius';
 import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function RegisterOrder() {
-  // const [selectStateOne, setSelectStateOne] = useState(false);
-  // const [selectStateTwo, setSelectStateTwo] = useState(false);
-  // const [selectStateThree, setSelectStateThree] = useState(false);
+  const [selectStateOne, setSelectStateOne] = useState(false);
+  const [selectStateTwo, setSelectStateTwo] = useState(false);
+  const [selectStateThree, setSelectStateThree] = useState(false);
   const [inputReasonState, setInputReasonState] = useState('');
   const [inputCnpjState, setInputCnpjState] = useState('');
   const [dataState, setDataState] = useState([
     {
       id: 1,
-      cod: '45666',
-      razao: 'Debora LTDA',
+      cod: '11600',
+      razao: 'MANA MODA PRAIA ACESSORIOS E SERVICOS LT',
       rua: 'Rua Pio Avelino',
-      email: 'lavinia@incca.com.br',
-      cidade: 'Franca',
-      bairro: '2',
-      uf: 'SP',
-      cnpj: '41.569.52/0001-91',
+      email: 'manaModa@gmail.com',
+      cidade: 'SALVADOR',
+      bairro: 'PITUBA',
+      uf: 'BA',
+      cnpj: '23.397.131/0001-50',
     },
     {
       id: 2,
-      cod: '45667',
-      razao: 'Fransisco LTDA',
-      rua: 'Rua Pio Avelino',
-      email: 'lavinia@incca.com.br',
-      cidade: 'Franca',
-      bairro: '2',
-      uf: 'SP',
-      cnpj: '41.569.52/0001-91',
+      cod: '11601',
+      razao: 'INDUSTRIA CALCADOS FPX EIRELI',
+      rua: 'AGENOR OLIMPIO DE CARVALHO 335',
+      email: 'fpxeireli@gmail.com',
+      cidade: 'NOVA SERRANA',
+      bairro: 'PARQUE DONA GUIMERCINDA',
+      uf: 'MG',
+      cnpj: '17.921.111/0001-33',
     },
     {
       id: 3,
-      cod: '45698',
-      razao: 'Lavinia LTDA',
-      rua: ' Rua Pio Avelino',
-      email: 'lavinia@incca.com.br',
-      cidade: 'Franca',
-      bairro: '2',
+      cod: '11602',
+      razao: 'BURIGOTTO S/A IND E COM',
+      rua: 'RUA MARTINO DRAGONE 280 ',
+      email: 'burigotto@gmail.com',
+      cidade: 'LIMEIRA',
+      bairro: 'JARDIM SANTA BARBAR',
       uf: 'SP',
-      cnpj: '41.569.52/0001-91',
+      cnpj: '51.460.277/0001-38',
     },
     {
       id: 4,
-      cod: '45669',
-      razao: 'Celma LTDA',
-      rua: ' Rua Pio Avelino',
-      email: 'lavinia@incca.com.br',
-      cidade: 'Franca',
-      bairro: '2',
-      uf: 'SP',
-      cnpj: '41.569.52/0001-91',
+      cod: '11603',
+      razao: 'MAIA E SCHOTT COMERCIO DE TECIDOS E AV. LTDA',
+      rua: 'ESTRADA PARA BOA ESPERANÇA 1009',
+      email: 'maiaschott@gmail.com',
+      cidade: 'NOVA FRIBURGO',
+      bairro: 'LUMIAR',
+      uf: 'RJ',
+      cnpj: '13.316.715/0001-08',
     },
     {
       id: 5,
-      cod: '45670',
-      razao: 'Gleison LTDA',
-      rua: ' Rua Pio Avelino',
-      email: 'lavinia@incca.com.br',
-      cidade: 'Franca',
-      bairro: '2',
-      uf: 'SP',
-      cnpj: '41.569.52/0001-91',
+      cod: '11604',
+      razao: 'D M LOBO BOAZ',
+      rua: 'AVENIDA PRINCIPAL 1 LOJA  01',
+      email: 'loboboaz@gmail.com',
+      cidade: 'SÃO LUÍS  ',
+      bairro: 'SANTA EFIGÊNIA',
+      uf: 'MA',
+      cnpj: '29.832.955/0001-97',
     },
     {
       id: 6,
-      cod: '45630S',
-      razao: 'yuri LTDA',
+      cod: '11605',
+      razao: 'CYELLE BEACH WEAR CONFECAO EIRELI ME',
       rua: 'Rua Pio Avelino',
-      email: 'lavinia@incca.com.br',
-      cidade: 'Franca',
-      bairro: '2',
-      uf: 'SP',
-      cnpj: '41.569.52/0001-91',
+      email: 'cyellebeach@gmail.com',
+      cidade: 'GOIANA',
+      bairro: 'SETOR RECANTO DAS MINAS GERAIS',
+      uf: 'GO',
+      cnpj: '12.842.840/0001-80',
     },
   ]);
   const [dataStateAux, setDataStateAux] = useState([]);
@@ -129,6 +129,15 @@ export default function RegisterOrder() {
       setDataStateAux(orderArray);
     }
   }, [inputReasonState]);// eslint-disable-line
+  function trocaRadius1() {
+    setSelectStateOne(!selectStateOne);
+  }
+  function trocaRadius2() {
+    setSelectStateTwo(!selectStateTwo);
+  }
+  function trocaRadius3() {
+    setSelectStateThree(!selectStateThree);
+  }
   return (
     <Container>
       <Header
@@ -138,45 +147,66 @@ export default function RegisterOrder() {
         functionOnpressIconLeft={() => backOrder()}
       />
       <ContainerBody>
-        <Container2>
-          <ContainerInput>
-            <InputType
-              placeholder="Digite a Razão Social"
-              valueInputText={inputReasonState}
-              functionOnChangeText={text => {
-                setInputReasonState(text);
-              }}
-              icoName="search"
-              areaIcon
-            />
-            <InputType
-              placeholder="Digite o CNPJ"
-              valueInputText={inputCnpjState}
-              functionOnChangeText={text => {
-                setInputCnpjState(text);
-              }}
-              icoName="search"
-              areaIcon
-            />
-          </ContainerInput>
+        <ScrollView>
+          <Container2>
+            <ContainerInput>
+              <InputType
+                placeholder="Digite a Razão Social"
+                valueInputText={inputReasonState}
+                functionOnChangeText={text => {
+                  setInputReasonState(text);
+                }}
+                icoName="search"
+                areaIcon
+              />
+              <InputType
+                placeholder="Digite o CNPJ"
+                valueInputText={inputCnpjState}
+                functionOnChangeText={text => {
+                  setInputCnpjState(text);
+                }}
+                icoName="search"
+                areaIcon
+              />
+            </ContainerInput>
 
-          <ContainerText>
-            <TextInfo>Listar clientes:</TextInfo>
-          </ContainerText>
-          <ContainerRadius>
-            <Radius nameIcon="circle" text="Ativos" />
-            <Radius nameIcon="circle" text="Inativos" />
-            <Radius nameIcon="dot-circle" text="Todos" />
-          </ContainerRadius>
-        </Container2>
-        <ContainerList>
-          <CardClient
-            data={dataStateAux}
-            functionOnpressClient={id => {
-              handleDeatilsClient(id);
-            }}
-          />
-        </ContainerList>
+            <ContainerText>
+              <TextInfo>Listar clientes:</TextInfo>
+            </ContainerText>
+            <ContainerRadius>
+              <Radius
+                iconAparence={selectStateOne}
+                nameIcon={selectStateOne ? 'dot-circle' : 'circle'}
+                functionOnPress={() => {
+                  trocaRadius1();
+                }}
+                text="Ativos"
+              />
+              <Radius
+                text="Inativos"
+                nameIcon={selectStateTwo ? 'dot-circle' : 'circle'}
+                functionOnPress={() => {
+                  trocaRadius2();
+                }}
+              />
+              <Radius
+                text="Todos"
+                nameIcon={selectStateThree ? 'dot-circle' : 'circle'}
+                functionOnPress={() => {
+                  trocaRadius3();
+                }}
+              />
+            </ContainerRadius>
+          </Container2>
+          <ContainerList>
+            <CardClient
+              data={dataStateAux}
+              functionOnpressClient={id => {
+                handleDeatilsClient(id);
+              }}
+            />
+          </ContainerList>
+        </ScrollView>
       </ContainerBody>
     </Container>
   );

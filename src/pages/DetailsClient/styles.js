@@ -16,7 +16,7 @@ export const ContainerRepresentante = styled.View`
   elevation: 5;
 `;
 export const ContainerClient = styled.View`
-  height: 480px;
+  flex: 1;
   background: #fff;
   padding: 10px;
   border-radius: 8px;

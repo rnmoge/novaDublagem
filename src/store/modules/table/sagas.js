@@ -1,7 +1,7 @@
 // chama funções assincronas com respostas
 // select busca informações sobre o estado
-import {put, all, takeLatest} from 'redux-saga/effects';
-// import AsyncStorage from '@react-native-community/async-storage';
+import {put, all, takeLatest, call} from 'redux-saga/effects';
+import AsyncStorage from '@react-native-community/async-storage';
 import getRealm from '../../../services/realm';
 import {requestTablePriceSucess, selectTablePriceSucess} from './actions';
 
@@ -14,11 +14,14 @@ import {navigate} from '../../../services/navigation';
 function* requestTableSaga() {
   yield put(commonLoadingActivityOn(''));
   try {
-    const realm = yield getRealm();
+    let table2 = yield call(AsyncStorage.getItem, '@novaDublagem:userTable');
+    table2 = JSON.parse(table2);
 
-    const data = realm.objects('tablePrice').sorted('table_price', true);
-    yield put(commonLoadingActivityOn(''));
-    yield put(requestTablePriceSucess(data));
+    yield put(requestTablePriceSucess(table2));
+    // const realm = yield getRealm();
+
+    // const data = realm.objects('tablePrice').sorted('table_price', true);
+    // yield put(commonLoadingActivityOn(''));
   } catch (err) {
     yield put(commonActionFailure(err.response.data.message));
   }

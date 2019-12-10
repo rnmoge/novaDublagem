@@ -37,9 +37,12 @@ export const Model = styled.Text`
   font-size: 16;
   margin-bottom: 5px;
 `;
-export const Image = styled.Image`
-  height: 75;
-  width: 75;
+export const Image = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
+  flex-wrap: wrap;
+  height: 75px;
+  width: 75px;
   background: #707070;
   border-radius: 3px;
   margin-left: 15px;
@@ -71,4 +74,10 @@ export const TextInitial = styled.Text`
   margin-top: 200px;
   font-weight: bold;
   text-align: center;
+`;
+export const Loading = styled.View`
+  flex: 1;
+  background: #eee;
+  justify-content: center;
+  align-items: center;
 `;

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Logo from '../../components/Logo';
-import Input from '../../components/Input';
+// import Input from '../../components/Input';
 import Button from '../../components/Button';
 import {Container, Text, ContainerScroll, AreaButton} from './styles';
 // import {navigate} from '../../services/navigation';
@@ -20,7 +20,7 @@ export default function TableSelection() {
     const orderArray = table
       .filter(element => {
         return (
-          element.table_price
+          element.tabelapreco
             .toLowerCase()
             .indexOf(inputState.toLowerCase()) !== -1
         );

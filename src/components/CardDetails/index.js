@@ -1,7 +1,7 @@
 import React from 'react';
 // import {View} from 'react-native';
 import PropTypes from 'prop-types';
-import {useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
 import {
   Container,
   AreaImage,
@@ -13,13 +13,13 @@ import {
   Feacture,
   ContainerText,
 } from './styles';
-import Bojo from '../../../assets/image/3101.jpg';
+// import Bojo from '../../../assets/image/3101.jpg';
 
 export default function CardDetails({product}) {
   return (
     <Container>
       <AreaImage>
-        <Image source={Bojo} />
+        <Image source={{uri: product.imageUrl}} />
       </AreaImage>
       <AreaText>
         <ContainerText>
@@ -41,5 +41,6 @@ CardDetails.defaultProps = {
     modelo: 'modelo',
     descricao: 'descricao',
     caracteristica: 'caracteristica',
+    imagem: 'imagem.jpg',
   },
 };

@@ -19,3 +19,9 @@ export const ContainerList = styled.View`
 export const ContainerScroll = styled.View`
   flex: 1;
 `;
+export const Loading = styled.View`
+  flex: 1;
+  background: #eee;
+  justify-content: center;
+  align-items: center;
+`;

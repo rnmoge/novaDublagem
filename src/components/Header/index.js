@@ -50,7 +50,7 @@ Header.propTypes = {
 Header.defaultProps = {
   title: '',
   icoName: 'bars',
-  icoNameTwo: 'fonticons',
+  icoNameTwo: '',
   icoSize: 22,
   colorIcon: '#eeee',
   button: false,

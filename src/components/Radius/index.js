@@ -14,13 +14,17 @@ export default function Radius({
   text,
   functionOnPress,
   nameIcon,
-  IconAparence,
+  iconAparence,
 }) {
+  // passwordOption={notVisiblePasswordState}
+  //           keyboardTypeInput="default"
+  //           areaIcon
+  //           icoName={notVisiblePasswordState ? 'eye' : 'eye-slash'
   return (
     <Container>
-      <ContainerButton>
-        <AreaIcon onPress={functionOnPress}>
-          <Icon name={nameIcon} IconAparence={false} />
+      <ContainerButton onPress={functionOnPress}>
+        <AreaIcon>
+          <Icon name={nameIcon} iconAparence={false} />
         </AreaIcon>
         <ContainerText>
           <TextInfo>{text}</TextInfo>
@@ -33,11 +37,11 @@ Radius.propTypes = {
   text: PropTypes.string,
   functionOnPress: PropTypes.func,
   nameIcon: PropTypes.string,
-  IconAparence: PropTypes.bool,
+  iconAparence: PropTypes.bool,
 };
 Radius.defaultProps = {
   text: 'Title',
   functionOnPress: () => {},
   nameIcon: 'fonticons',
-  IconAparence: false,
+  iconAparence: false,
 };

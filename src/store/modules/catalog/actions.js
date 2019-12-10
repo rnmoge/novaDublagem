@@ -1,7 +1,8 @@
 // busca produtos na api para a pagina de catalogo
-export function requestProductsCatalog() {
+export function requestProductsCatalog(id) {
   return {
     type: '@catalog/REQUEST_PRODUCT_CATALOG',
+    payload: {id},
   };
 }
 
@@ -11,7 +12,12 @@ export function ProductsCatalogSucess(data) {
     payload: {data},
   };
 }
-
+export function ProductsCatalogSucessId(cores) {
+  return {
+    type: '@catalog/PRODUCTS_CATALOG_SUCESS_ID',
+    payload: {cores},
+  };
+}
 // actions disparadas quando clica no botão de ver mais
 // navega usuário + puxa dados do estato
 export function catalogMoreDetailsProduct(id, products) {
@@ -45,5 +51,17 @@ export function requestTablePriceSucess(prices) {
 export function backCatalog() {
   return {
     type: '@catalog/BACK_CATALOG',
+  };
+}
+export function searchDescription(id, description) {
+  return {
+    type: '@catalog/SEARCH_DESCRIPITION',
+    payload: {id, description},
+  };
+}
+export function searchDescriptionSucess(description2) {
+  return {
+    type: '@catalog/SEARCH_DESCRIPITION',
+    payload: {description2},
   };
 }

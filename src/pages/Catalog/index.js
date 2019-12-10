@@ -1,54 +1,67 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {ActivityIndicator} from 'react-native';
 import {Container, ContainerInput, ContainerList} from './styles';
 import Header from '../../components/Header';
 import ListView from '../../components/ListView';
 import InputType from '../../components/InputType';
+import ModalCatalog from '../../components/ModalCatalog';
 import * as CatalogActions from '../../store/modules/catalog/actions';
 
 export default function Catalog({navigation}) {
+  const {loading} = useSelector(state => state.common);
+  const [modalState, setModalState] = useState(true);
+  const [inputState, setInputState] = useState('');
   const {data2} = useSelector(state => state.table);
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
   const {data} = useSelector(state => state.catalog);
+  // const data1 = useSelector(state => state.catalog);
+
   const [dataStateAux, setDataStateAux] = useState(data);
+  // const [loadingState, setLoadingState] = useState(loading);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(CatalogActions.requestProductsCatalog(data2.id));
+  }, [dispatch]); // eslint-disable-line
+  useEffect(() => {
+    dispatch(CatalogActions.searchDescription(data2.id, inputState));
+  }, [data2.id, dispatch, inputState]);
   function handleMoreDetails(id) {
     dispatch(CatalogActions.catalogMoreDetailsProduct(id, data));
     dispatch(CatalogActions.requestTablePrice(id, data2.id));
   }
-  function products1() {
-    dispatch(CatalogActions.requestProductsCatalog());
-  }
+  // function searchDescription() {
+  //   dispatch(CatalogActions.searchDescription(data2.id, inputState));
+  // }
+
   useEffect(() => {
-    // if (inputLineState === '' && inputModelState === '') {
-    //   setDataStateAux([]);
-    // } else {
-    const orderArray = data
-      .filter(element => {
-        return (
-          element.matriz
-            .toLowerCase()
-            .indexOf(inputModelState.toLowerCase()) !== -1
-        );
-      })
-      .filter(element => {
-        return (
-          element.linha.toLowerCase().indexOf(inputLineState.toLowerCase()) !==
-          -1
-        );
-      })
-      .map(element => {
-        return element;
-      });
-    setDataStateAux(orderArray);
-    // }
+    if (inputLineState === '' && inputModelState === '') {
+      setDataStateAux([]);
+    } else {
+      const orderArray = data
+        .filter(element => {
+          return (
+            element.matriz
+              .toLowerCase()
+              .indexOf(inputModelState.toLowerCase()) !== -1
+          );
+        })
+        .filter(element => {
+          return (
+            element.linha
+              .toLowerCase()
+              .indexOf(inputLineState.toLowerCase()) !== -1
+          );
+        })
+        .map(element => {
+          return element;
+        });
+      setDataStateAux(orderArray);
+    }
   }, [inputLineState, inputModelState]);// eslint-disable-line
   return (
-    <Container
-      onLayout={() => {
-        products1();
-      }}>
+    <Container>
       <Header
         title="Catálogo"
         iconName="bars"
@@ -72,12 +85,34 @@ export default function Catalog({navigation}) {
         />
       </ContainerInput>
       <ContainerList>
-        <ListView
-          data={dataStateAux}
-          functionOnpressDetails={id => {
-            handleMoreDetails(id);
-          }}
-        />
+        {loading ? (
+          <ActivityIndicator color="#fff000" size="large" />
+        ) : (
+          <ListView
+            data={dataStateAux}
+            functionOnpressDetails={id => {
+              handleMoreDetails(id);
+            }}
+          />
+        )}
+        <Container>
+          <ModalCatalog
+            valueInputText={inputState}
+            functionOnChangeText={text => setInputState(text)}
+            placeholder="Digite a tabela"
+            modalVisible={modalState}
+            // data={tableStateAux}
+            nameIcon="times"
+            nameIconTwo="search"
+            functionOnPressLeft={() => setModalState(!modalState)}
+            // functionOnPressText={id => {
+            //   selectTablePrice(id);
+            // }}
+            functionOnPressRight={() => {
+              searchDescription();
+            }}
+          />
+        </Container>
       </ContainerList>
     </Container>
   );

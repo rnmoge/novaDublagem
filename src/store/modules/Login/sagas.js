@@ -16,17 +16,15 @@ import {navigate} from '../../../services/navigation';
 
 function* loginRequestSaga(action) {
   yield put(commonLoadingActivityOn(''));
-  const realm = yield getRealm();
+  // const realm = yield getRealm();
   const {username, password} = action.payload;
-  console.log(username, password);
+
   if (username && password) {
     try {
-      console.log('aqui passou');
       const {data} = yield call(api.post, '/login', {
         username,
         password,
       });
-      console.log('data');
       yield call(
         AsyncStorage.setItem,
         '@novaDublagem:token',
@@ -37,33 +35,37 @@ function* loginRequestSaga(action) {
         '@novaDublagem:user',
         JSON.stringify(data)
       );
-
+      yield call(
+        AsyncStorage.setItem,
+        '@novaDublagem:userTable',
+        JSON.stringify(data.tabelaprecos)
+      );
       if (data.status === true) {
         yield put(commonActionFailure('entre em contato com o administrativo'));
-
         yield cancel;
       }
-      for (let i = 0; i < data.tabelaprecos.length; i += 1) {
-        const {
-          id,
-          tabelapreco,
-          comissao1,
-          comissao2,
-          comissao3,
-          updated_at,
-        } = data.tabelaprecos[i];
-        const table = {
-          id: Number(id),
-          table_price: tabelapreco,
-          comission_1: comissao1 === undefined ? 'not' : comissao1,
-          comission_2: comissao2 === undefined ? 'not' : comissao2,
-          comission_3: comissao2 === undefined ? 'not' : comissao3,
-          update_at: updated_at,
-        };
-        realm.write(() => {
-          realm.create('tablePrice', table, true);
-        });
-      }
+
+      // for (let i = 0; i < data.tabelaprecos.length; i += 1) {
+      //   const {
+      //     id,
+      //     tabelapreco,
+      //     comissao1,
+      //     comissao2,
+      //     comissao3,
+      //     updated_at,
+      //   } = data.tabelaprecos[i];
+      //   const table = {
+      //     id: Number(id),
+      //     table_price: tabelapreco,
+      //     comission_1: comissao1 === undefined ? 'not' : comissao1,
+      //     comission_2: comissao2 === undefined ? 'not' : comissao2,
+      //     comission_3: comissao2 === undefined ? 'not' : comissao3,
+      //     update_at: updated_at,
+      //   };
+      //   realm.write(() => {
+      //     realm.create('tablePrice', table, true);
+      //   });
+      // }
 
       navigate('TableSelection');
     } catch (err) {
@@ -83,7 +85,7 @@ function* loginRequestExistSaga() {
     let data = yield call(AsyncStorage.getItem, '@novaDublagem:user');
     data = JSON.parse(data);
 
-    const {permission, status} = data;
+    const {status} = data;
     if (token === null) {
       yield put(commonActionFailure(''));
 
@@ -96,14 +98,7 @@ function* loginRequestExistSaga() {
       });
 
       if (status === false) {
-        if (
-          permission.toLowerCase() === 'representante' ||
-          permission.toLowerCase() === 'administrador'
-        ) {
-          navigate('TableSelection');
-        } else {
-          navigate('Home');
-        }
+        navigate('TableSelection');
       } else {
         yield call(AsyncStorage.removeItem, '@novaDublagem:token');
         navigate('Login');

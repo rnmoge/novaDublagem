@@ -338,3 +338,15 @@ utilizando o Realm Studio no Android
 3-abrir o realmStudio e abrir o arquivo
 4-excluir schema
   adb shell rm /data/data/com.novadublagem/files/default.realm
+#######################################################################################
+
+Problema com o MenuDrawer no apk-release
+
+Link solução: https://github.com/kmagiera/react-native-gesture-handler/issues/320
+
+Abra seu arquivo index.js da raiz do seu projeto
+
+1- importe:
+  import "react-native-gesture-handler";
+
+2- execute para gerar novamente seu apk

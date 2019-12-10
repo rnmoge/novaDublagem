@@ -10,7 +10,7 @@ import {
   TextButton,
 } from './styles';
 
-export default function ModalColor({
+export default function ModalCatalog({
   nameIcon,
   nameIconTwo,
   placeholder,
@@ -36,6 +36,11 @@ export default function ModalColor({
           </AreaIcon>
         </ContainerHeader>
         <FlatList
+          ListEmptyComponent={
+            <Text>
+              Digite algo para pesquisar a descrição do produto desejado
+            </Text>
+          }
           initialNumToRender={10}
           style={{flex: 1}}
           data={data}

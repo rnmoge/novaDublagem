@@ -1,85 +1,74 @@
 import React from 'react';
-// import {View} from 'react-native';
-// import {useDispatch, useSelector} from 'react-redux';
+import {ActivityIndicator} from 'react-native';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 // import * as CatalogoActions from '../../store/modules/catalog/actions';
 import {
   Container,
   ContainerTitle,
-  Title,
   ContainerSize,
   FlatList,
-  Sizes,
   Text,
   ContainerPrice,
-  AreaTable,
   ContainerComission,
-  Comission,
   Prices,
+  Sizes,
+  ContainerTotal,
+  ContainerTotal2,
+  TextComission,
 } from './styles';
 
-export default function CardTablePrice({
-  table,
-  commision,
-  price1,
-  price2,
-  price3,
-}) {
+export default function CardTablePrice({commision, loading}) {
+  const {prices} = useSelector(state => state.catalog);
   return (
     <Container>
       <ContainerTitle>
-        <Title>Preços:</Title>
+        <Text>Preço:</Text>
       </ContainerTitle>
-      <AreaTable>
+      <ContainerTotal>
         <ContainerSize>
-          <Text>Tamanhos:</Text>
-          <FlatList
-            data={table}
-            renderItem={({item}) => {
-              return <Sizes>{item.tamanho.descricao}</Sizes>;
-            }}
-          />
+          <Text>Tamanhos</Text>
         </ContainerSize>
-        <ContainerPrice>
-          <ContainerComission>
-            <Comission>{commision.comission_1}</Comission>
-          </ContainerComission>
-          <ContainerComission
-            data={table}
-            renderItem={({item}) => {
-              return <Comission>{item.comission1}</Comission>;
-            }}
-          />
-          <FlatList
-            data={price1}
-            renderItem={({item}) => {
-              return <Prices>{item.preco1}</Prices>;
-            }}
-          />
-        </ContainerPrice>
-        <ContainerPrice>
-          <ContainerComission>
-            <Comission>{commision.comission_2}</Comission>
-          </ContainerComission>
-          <FlatList
-            data={price2}
-            renderItem={({item}) => {
-              return <Prices>{item.preco2}</Prices>;
-            }}
-          />
-        </ContainerPrice>
-        <ContainerPrice>
-          <ContainerComission>
-            <Comission>{commision.comission_3}</Comission>
-          </ContainerComission>
-          <FlatList
-            data={price3}
-            renderItem={({item}) => {
-              return <Prices>{item.preco3}</Prices>;
-            }}
-          />
-        </ContainerPrice>
-      </AreaTable>
+        <ContainerComission>
+          <TextComission>{commision.comissao1}</TextComission>
+        </ContainerComission>
+        <ContainerComission>
+          <TextComission>{commision.comissao2}</TextComission>
+        </ContainerComission>
+        <ContainerComission>
+          <TextComission>{commision.comissao3}</TextComission>
+        </ContainerComission>
+      </ContainerTotal>
+      {loading ? (
+        <ActivityIndicator
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          size="large"
+          color="#fff000"
+        />
+      ) : (
+        <FlatList
+          data={prices}
+          initialNumToRender={10}
+          renderItem={({item}) => {
+            return (
+              <ContainerTotal2>
+                <ContainerSize>
+                  <Sizes>{item.tamanho.descricao}</Sizes>
+                </ContainerSize>
+                <ContainerPrice>
+                  <Prices>{item.preco1}</Prices>
+                </ContainerPrice>
+                <ContainerPrice>
+                  <Prices>{item.preco3}</Prices>
+                </ContainerPrice>
+                <ContainerPrice>
+                  <Prices>{item.preco2}</Prices>
+                </ContainerPrice>
+              </ContainerTotal2>
+            );
+          }}
+        />
+      )}
     </Container>
   );
 }

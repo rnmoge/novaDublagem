@@ -14,11 +14,12 @@ export const ContainerTotal = styled.TouchableOpacity`
 export const ContainerText = styled.View`
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 60px;
 `;
 
 export const ContainerClient = styled.View`
-  height: 108px;
+  height: 120px;
+  justify-content: center;
   background: #fff;
   padding: 8px;
   border-radius: 8px;
@@ -34,10 +35,14 @@ export const Text = styled.Text`
   padding: 2px;
   font-size: 16px;
 `;
-export const TextInfo = styled.Text`
+export const TextInfo = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   padding: 2px;
 `;
-export const TextInfo2 = styled.Text`
+export const TextInfo2 = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   padding: 2px;
   font-weight: bold;
 `;
@@ -45,4 +50,10 @@ export const TextInfo2 = styled.Text`
 export const Cod = styled.Text`
   padding: 2px;
   padding-right: 10px;
+`;
+export const Info = styled.Text`
+  text-align: center;
+  font-weight: bold;
+  padding: 2px;
+  font-size: 16px;
 `;

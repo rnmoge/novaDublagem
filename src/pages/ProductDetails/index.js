@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator} from 'react-native';
+// import {ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import CardDetails from '../../components/CardDetails';
@@ -11,42 +11,32 @@ import Modal from '../../components/Modal';
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
-  const {product, prices} = useSelector(state => state.catalog);
+  const {product, cores} = useSelector(state => state.catalog);
   const {loading} = useSelector(state => state.common);
   const {data2} = useSelector(state => state.table);
   const [stateProduct, setStateProduct] = useState(product);
-  const [stateSize, setStateSize] = useState(null);
-  const [statePriceOne, setStatePriceOne] = useState(null);
-  const [statePriceTwo, setStatePriceTwo] = useState(null);
-  const [statePriceThree, setStatePriceThree] = useState(null);
   const [stateTableComission, setStateTableComission] = useState(data2);
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
-  const [dataStateAux, setDataStateAux] = useState(product.cores);
-  const [colorsState, setColorsState] = useState(product.cores);
 
   useEffect(() => {
     setStateProduct(product);
     setStateTableComission(data2);
-    setStateSize(prices);
-    setStatePriceOne(prices);
-    setStatePriceTwo(prices);
-    setStatePriceThree(prices);
-  }, [prices, product,data2]); // eslint-disable-line
+  }, [product, data2]); // eslint-disable-line
 
-  useEffect(() => {
-    const orderArray = colorsState
-      .filter(element => {
-        return (
-          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
-          -1
-        );
-      })
-      .map(element => {
-        return element;
-      });
-    setDataStateAux(orderArray);
-  }, [dispatch, inputState, colorsState]); // eslint-disable-line
+  // useEffect(() => {
+  //   const orderArray = colorsState
+  //     .filter(element => {
+  //       return (
+  //         element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
+  //         -1
+  //       );
+  //     })
+  //     .map(element => {
+  //       return element;
+  //     });
+  //   setDataStateAux(orderArray);
+  // }, [dispatch, inputState, colorsState]); // eslint-disable-line
 
   function backCatalogPage() {
     dispatch(ActionsCatalog.backCatalog());
@@ -62,31 +52,21 @@ export default function ProductDetails() {
           backCatalogPage();
         }}
       />
-      {loading ? (
-        <ContainerBody>
-          <CardDetails product={stateProduct} />
-          <CardTablePrice
-            table={stateSize}
-            commision={stateTableComission}
-            price1={statePriceOne}
-            price2={statePriceTwo}
-            price3={statePriceThree}
-          />
-          <Button
-            titleButton="VER CORES"
-            functionOnPress={() => setModalState(!modalState)}
-            disabledButton={false}
-          />
-        </ContainerBody>
-      ) : (
-        <ActivityIndicator />
-      )}
 
+      <ContainerBody>
+        <CardDetails product={stateProduct} />
+        <CardTablePrice commision={stateTableComission} loading={loading} />
+        <Button
+          titleButton="VER CORES"
+          functionOnPress={() => setModalState(!modalState)}
+          disabledButton={false}
+        />
+      </ContainerBody>
       <ContainerModal>
         <Modal
           placeholder="Digite a cor"
           modalVisible={modalState}
-          data={dataStateAux}
+          data={cores}
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
           nameIcon="times"

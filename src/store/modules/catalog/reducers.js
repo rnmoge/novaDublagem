@@ -10,6 +10,8 @@ const INITIAL_STATE = {
   imagem: '',
   product: [],
   prices: [],
+  idProduto: '',
+  cores: [],
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -30,6 +32,10 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@catalog/REQUEST_TABLE_PRICE_SUCESS':
       return produce(state, draft => {
         draft.prices = action.payload.prices;
+      });
+    case '@catalog/PRODUCTS_CATALOG_SUCESS_ID':
+      return produce(state, draft => {
+        draft.cores = action.payload.cores;
       });
     default:
       return state;

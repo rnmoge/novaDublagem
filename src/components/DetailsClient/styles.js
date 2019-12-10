@@ -7,7 +7,7 @@ export const Container = styled.View`
   flex-direction: row;
 `;
 export const ContainerText = styled.View`
-  flex: 3;
+  flex: 2;
   padding: 10px;
 `;
 export const ContainerTextCamp = styled.View`
@@ -19,14 +19,16 @@ export const Text = styled.Text`
   font-weight: bold;
   color: #676767;
   font-size: 15px;
-  padding-top: 5px;
+  padding-top: 10px;
 `;
 export const TextInfo = styled.Text`
   font-weight: bold;
   font-size: 16px;
   padding-top: 10px;
 `;
-export const TextInfo2 = styled.Text`
+export const TextInfo2 = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-size: 16px;
   padding-top: 10px;
 `;

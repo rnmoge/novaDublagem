@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-// import {Text} from 'react-native';
+import {ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
@@ -50,23 +50,23 @@ export default function DetailsClient() {
             <TextUser>{stateUsername}</TextUser>
           </ContainerUser>
         </ContainerRepresentante>
-        <ContainerClient>
-          <DetailsClient1 client={data} />
-          <ContainerTotal>
-            <ContainerButton>
-              <Button
-                titleButton="NOVO PEDIDO"
-                disabledButton={false}
-                functionOnPress={() => {
-                  handleNewOrder();
-                }}
-              />
-            </ContainerButton>
-            <ContainerButton>
-              <Button titleButton="PEDIDOS ANTERIOR" disabledButton={false} />
-            </ContainerButton>
-          </ContainerTotal>
-        </ContainerClient>
+        <ScrollView indicatorStyle="white">
+          <ContainerClient>
+            <DetailsClient1 client={data} />
+            <ContainerTotal>
+              <ContainerButton>
+                <Button
+                  titleButton="NOVO PEDIDO"
+                  disabledButton={false}
+                  functionOnPress={() => {
+                    handleNewOrder();
+                  }}
+                />
+                <Button titleButton="PEDIDOS ANTERIOR" disabledButton={false} />
+              </ContainerButton>
+            </ContainerTotal>
+          </ContainerClient>
+        </ScrollView>
       </ContainerBody>
     </Container>
   );

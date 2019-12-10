@@ -24,6 +24,7 @@ export const Image = styled.Image.attrs({
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  background: #707070;
 `;
 
 export const AreaText = styled.View`

@@ -12,6 +12,7 @@ import {
   TextInfo2,
   ContainerText,
   Text,
+  Info,
 } from './styles';
 
 export default function CardClient({data, functionOnpressClient}) {
@@ -23,7 +24,7 @@ export default function CardClient({data, functionOnpressClient}) {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <ContainerText>
-            <Text>Digite um dos filtros acima para ver seus clientes</Text>
+            <Info>Digite um dos filtros acima para ver seus clientes</Info>
           </ContainerText>
         }
         renderItem={({item}) => {

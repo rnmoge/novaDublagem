@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import Icons from 'react-native-vector-icons/FontAwesome';
 
-export const Container = styled.View`
-  height: 40px;
+export const Container = styled.TouchableOpacity`
+  height: 60px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;

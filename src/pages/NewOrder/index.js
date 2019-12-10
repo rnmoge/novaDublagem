@@ -59,8 +59,8 @@ export default function NewOrder() {
           </ContainerInfo>
         </ContainerClient>
       </ContainerTotal>
-      <ContainerBody>
-        <ScrollView>
+      <ScrollView>
+        <ContainerBody>
           <ContainerOrder>
             <Text>Data de emissão:</Text>
             <InputType
@@ -117,8 +117,8 @@ export default function NewOrder() {
             />
             <Button titleButton="PROXIMO" />
           </ContainerOrder>
-        </ScrollView>
-      </ContainerBody>
+        </ContainerBody>
+      </ScrollView>
       <Modal
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}

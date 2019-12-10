@@ -15,7 +15,7 @@ import {
   Text,
   TextInitial,
 } from './styles';
-import Bojo from '../../../assets/image/3101.jpg';
+// import Bojo from '../../../assets/image/3101.jpg';
 
 export default function ListView({functionOnpressDetails, data}) {
   return (
@@ -23,11 +23,16 @@ export default function ListView({functionOnpressDetails, data}) {
       <FlatList
         data={data}
         initialNumToRender={10}
+        ListEmptyComponent={
+          <TextInitial>
+            Digite um dos filtros acima para acessar o catálogo
+          </TextInitial>
+        }
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => {
           return (
             <ContainerList>
-              <Image source={Bojo} />
+              <Image source={{uri: item.imageUrl}} />
               <ContainerText>
                 <Line>{item.linha}</Line>
                 <Model>{item.matriz}</Model>

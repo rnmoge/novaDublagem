@@ -11,9 +11,14 @@ export default function FooterDrawer() {
     dispatch(exitDrawerActions.exitAplication());
   }
   return (
-    <Container>
+    <Container onPress={() => handleExit()}>
       <AreaIcon>
-        <Icon name="times" size={25} colorIcon="#263238" />
+        <Icon
+          name="times"
+          size={25}
+          colorIcon="#263238"
+          onPress={() => handleExit()}
+        />
       </AreaIcon>
       <TextFooter onPress={() => handleExit()}>Sair</TextFooter>
     </Container>

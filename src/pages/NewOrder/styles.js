@@ -9,16 +9,14 @@ export const ContainerBody = styled.View`
   padding: 10px;
 `;
 export const ContainerOrder = styled.ScrollView`
-  height: 1000px;
   background: #fff;
   border-radius: 8px;
   padding: 10px;
+  elevation: 5px;
 `;
 
 export const ContainerTotal = styled.View`
-  height: 120px;
   padding: 10px;
-  margin-bottom: 8px;
 `;
 
 export const ContainerClient = styled.View`
