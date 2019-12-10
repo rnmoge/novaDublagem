@@ -31,8 +31,8 @@ export const Input = styled.View`
 `;
 
 export const TextInput = styled.Text`
-  font-size: 15px;
-  color: #707070;
+  font-size: 16px;
+  color: #717171;
 `;
 
 export const AreaIcon = styled.TouchableOpacity`

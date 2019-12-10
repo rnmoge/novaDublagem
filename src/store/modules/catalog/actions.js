@@ -59,9 +59,21 @@ export function searchDescription(id, description) {
     payload: {id, description},
   };
 }
-export function searchDescriptionSucess(description2) {
+export function searchDescriptionSucess(data) {
   return {
-    type: '@catalog/SEARCH_DESCRIPITION',
-    payload: {description2},
+    type: '@catalog/SEARCH_DESCRIPITION_SUCESS',
+    payload: {data},
+  };
+}
+export function searchModel(linha, id, model) {
+  return {
+    type: '@catalog/SEARCH_MODEL',
+    payload: {linha, id, model},
+  };
+}
+export function searchModelSucess(data) {
+  return {
+    type: '@catalog/SEARCH_MODEL_SUCESS',
+    payload: {data},
   };
 }

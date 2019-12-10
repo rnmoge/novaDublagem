@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, Modal, Text} from 'react-native';
+import {FlatList, Modal, Text, ActivityIndicator} from 'react-native';
 import {
   Input,
   Container,
@@ -19,6 +19,8 @@ export default function ModalCatalog({
   functionOnPressRight,
   functionOnChangeText,
   data,
+  loading,
+  functionOnPressText,
 }) {
   return (
     <Container>
@@ -35,19 +37,34 @@ export default function ModalCatalog({
             <Icon name={nameIconTwo} />
           </AreaIcon>
         </ContainerHeader>
-        <FlatList
-          ListEmptyComponent={
-            <Text>
-              Digite algo para pesquisar a descrição do produto desejado
-            </Text>
-          }
-          initialNumToRender={10}
-          style={{flex: 1}}
-          data={data}
-          renderItem={({item}) => {
-            return <TextButton>{item.descricao}</TextButton>;
-          }}
-        />
+        {loading ? (
+          <ActivityIndicator
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+            size="large"
+            color="#fff000"
+          />
+        ) : (
+          <FlatList
+            // ListEmptyComponent={
+            //   <Text>
+            //     Digite algo para pesquisar a descrição do produto desejado
+            //   </Text>
+            // }
+            initialNumToRender={10}
+            style={{flex: 1}}
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <TextButton
+                  onPress={() =>
+                    functionOnPressText(item.linha, item.descricao)
+                  }>
+                  {item.descricao}
+                </TextButton>
+              );
+            }}
+          />
+        )}
       </Modal>
     </Container>
   );
@@ -60,6 +77,8 @@ Modal.propTypes = {
   functionOnPressLeft: PropTypes.func,
   functionOnPressRight: PropTypes.func,
   functionOnChangeText: PropTypes.func,
+  functionOnPressText: PropTypes.func,
+  loading: PropTypes.bool,
 };
 Modal.defaultProps = {
   nameIcon: 'times',
@@ -69,4 +88,6 @@ Modal.defaultProps = {
   functionOnPressLeft: () => {},
   functionOnPressRight: () => {},
   functionOnChangeText: () => {},
+  functionOnPressText: () => {},
+  loading: false,
 };

@@ -12,6 +12,8 @@ const INITIAL_STATE = {
   prices: [],
   idProduto: '',
   cores: [],
+  descricao1: [],
+  model: [],
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -36,6 +38,14 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@catalog/PRODUCTS_CATALOG_SUCESS_ID':
       return produce(state, draft => {
         draft.cores = action.payload.cores;
+      });
+    case '@catalog/SEARCH_DESCRIPITION_SUCESS':
+      return produce(state, draft => {
+        draft.descricao1 = action.payload.data;
+      });
+    case '@catalog/SEARCH_MODEL_SUCESS':
+      return produce(state, draft => {
+        draft.model = action.payload.data;
       });
     default:
       return state;

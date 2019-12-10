@@ -63,7 +63,7 @@ InputClick.defaultProps = {
   // valueInputText: '',
   // keyboardTypeInput: 'email-address',
   // passwordOption: false,
-  icoName: 'fonticons',
+  icoName: 'search',
   // icoSize: 22,
   // areaIcon: false,
   // functionOnChangeText: () => {},
