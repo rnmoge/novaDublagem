@@ -4,7 +4,7 @@ import {Platform} from 'react-native';
 export const Container = styled.View`
   flex: 1;
   padding-top: ${Platform.OS === 'ios' ? 0 : 0};
-  background: #3f51b5;
+  background: #3f51b7;
   padding: 15px;
 `;
 export const Text = styled.Text`

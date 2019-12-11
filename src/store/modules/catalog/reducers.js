@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   cores: [],
   descricao1: [],
   model: [],
+  input: '',
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -46,6 +47,8 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@catalog/SEARCH_MODEL_SUCESS':
       return produce(state, draft => {
         draft.model = action.payload.data;
+        console.tron.log('draft.model');
+        console.tron.log(draft.model);
       });
     default:
       return state;

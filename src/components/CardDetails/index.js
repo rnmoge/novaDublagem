@@ -23,7 +23,7 @@ export default function CardDetails({product}) {
       </AreaImage>
       <AreaText>
         <ContainerText>
-          <Line>Linha: {product.linha}</Line>
+          <Line>Linha: {product.linha.descricao}</Line>
           <Model>Modelo: {product.matriz}</Model>
           <Description>Descrição: {product.descricao}</Description>
           <Feacture>Caracteristica: {product.caracteristicas}</Feacture>

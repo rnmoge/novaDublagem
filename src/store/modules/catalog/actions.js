@@ -1,17 +1,17 @@
 // busca produtos na api para a pagina de catalogo
-export function requestProductsCatalog(id) {
-  return {
-    type: '@catalog/REQUEST_PRODUCT_CATALOG',
-    payload: {id},
-  };
-}
+// export function requestProductsCatalog(id) {
+//   return {
+//     type: '@catalog/REQUEST_PRODUCT_CATALOG',
+//     payload: {id},
+//   };
+// }
 
-export function ProductsCatalogSucess(data) {
-  return {
-    type: '@catalog/PRODUCTS_CATALOG_SUCESS',
-    payload: {data},
-  };
-}
+// export function ProductsCatalogSucess(data) {
+//   return {
+//     type: '@catalog/PRODUCTS_CATALOG_SUCESS',
+//     payload: {data},
+//   };
+// }
 export function ProductsCatalogSucessId(cores) {
   return {
     type: '@catalog/PRODUCTS_CATALOG_SUCESS_ID',

@@ -1,6 +1,6 @@
 import React from 'react';
 // import {Image} from 'react-native';
-import {useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -18,8 +18,6 @@ import {
 // import Bojo from '../../../assets/image/3101.jpg';
 
 export default function ListView({functionOnpressDetails, data}) {
-  const {descricao1} = useSelector(state => state.catalog);
-  console.tron.log(descricao1);
   return (
     <Container>
       <FlatList
@@ -36,7 +34,7 @@ export default function ListView({functionOnpressDetails, data}) {
             <ContainerList>
               <Image source={{uri: item.imageUrl}} />
               <ContainerText>
-                <Line>{item.linha}</Line>
+                <Line>{item.linha.descricao}</Line>
                 <Model>{item.matriz}</Model>
               </ContainerText>
               <ContainerButton>

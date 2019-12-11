@@ -112,7 +112,6 @@ function* searchDescripitionSaga(action) {
 function* searchModelSaga(action) {
   yield put(commonLoadingActivityOn(''));
   const {linha, id, model} = action.payload;
-  console.tron.log(model);
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
@@ -133,7 +132,6 @@ function* searchModelSaga(action) {
 }
 export default all([
   takeLatest('@catalog/CATALOG_MORE_DETAILS_PRODUCT', moreDetailsProduct),
-  // takeLatest('@catalog/REQUEST_PRODUCT_CATALOG', requestProductCatalog),
   takeLatest('@catalog/REQUEST_TABLE_PRICE', requestTablePriceSaga),
   takeLatest('@catalog/BACK_CATALOG', backCatalogSaga),
   takeLatest('@catalog/SEARCH_DESCRIPITION', searchDescripitionSaga),

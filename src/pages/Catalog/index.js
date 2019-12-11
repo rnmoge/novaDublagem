@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, View, Text} from 'react-native';
 import {
   Container,
   ContainerInput,
@@ -21,25 +21,18 @@ export default function Catalog({navigation}) {
   const {data2} = useSelector(state => state.table);
   const [inputLineState, setInputLineState] = useState('Selecione a linha');
   const [inputModelState, setInputModelState] = useState('');
-  const {data, descricao1, model} = useSelector(state => state.catalog);
-
+  const {descricao1, model} = useSelector(state => state.catalog);
+  const [dataStateAux, setDataStateAux] = useState([]);
   console.tron.log(model);
-  // const [descriptionState, setDescriptionState] = useState(descricao);
-  // const [descriptionStateAux, setDescriptionStateAux] = useState(descricao);
-  // const data1 = useSelector(state => state.catalog);
-  // const [dataStateAux, setDataStateAux] = useState(data);
-  // const [loadingState, setLoadingState] = useState(loading);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(CatalogActions.requestProductsCatalog(data2.id));
-  }, [dispatch]); // eslint-disable-line
-
-  useEffect(() => {
-    dispatch(CatalogActions.searchDescription(data2.id, inputState));
+    dispatch(
+      CatalogActions.searchDescription(data2.id, inputState, inputLineState)
+    );
   }, [dispatch,inputState]);// eslint-disable-line
 
   function handleMoreDetails(id) {
-    dispatch(CatalogActions.catalogMoreDetailsProduct(id, data));
+    dispatch(CatalogActions.catalogMoreDetailsProduct(id, model));
     dispatch(CatalogActions.requestTablePrice(id, data2.id));
   }
   function searchDescription() {
@@ -52,40 +45,24 @@ export default function Catalog({navigation}) {
     setModalState(!modalState);
   }
   // useEffect(() => {
-  //   dispatch(CatalogActions.searchDescription(data2.id, inputState));
-  // }, [data2.id, dispatch, inputState]); // eslint-disable-line
-
+  //   setInputLineState(descricao);
+  // }, []);// eslint-disable-line
   function descripition() {
     setModalState(!modalState);
   }
+
   useEffect(() => {
-    dispatch(CatalogActions.searchModel(data2.id, inputModelState));
-  }, [dispatch, inputModelState]);// eslint-disable-line
-  // useEffect(() => {
-  //   if (inputLineState === '' && inputModelState === '') {
-  //     setDataStateAux([]);
-  //   } else {
-  //     const orderArray = data
-  //       .filter(element => {
-  //         return (
-  //           element.matriz
-  //             .toLowerCase()
-  //             .indexOf(inputModelState.toLowerCase()) !== -1
-  //         );
-  //       })
-  //       .filter(element => {
-  //         return (
-  //           element.linha
-  //             .toLowerCase()
-  //             .indexOf(inputLineState.toLowerCase()) !== -1
-  //         );
-  //       })
-  //       .map(element => {
-  //         return element;
-  //       });
-  //     setDataStateAux(orderArray);
-  //   }
-  // }, [inputLineState, inputModelState]);// eslint-disable-line
+    const orderArray = model
+      .filter(element => {
+        return element.matriz.indexOf(inputModelState) !== -1;
+      })
+
+      .map(element => {
+        return element;
+      });
+    setDataStateAux(orderArray);
+  }, [inputModelState, model]);
+
   return (
     <Container>
       <Header
@@ -111,6 +88,7 @@ export default function Catalog({navigation}) {
           areaIcon
         />
       </ContainerInput>
+
       <ContainerList>
         {loading ? (
           <ActivityIndicator
@@ -120,13 +98,14 @@ export default function Catalog({navigation}) {
           />
         ) : (
           <ListView
-            data={model}
+            data={dataStateAux}
             functionOnpressDetails={id => {
               handleMoreDetails(id);
             }}
           />
         )}
       </ContainerList>
+
       <ContainerModal>
         <ModalCatalog
           loading={loading}
@@ -140,7 +119,6 @@ export default function Catalog({navigation}) {
           functionOnPressLeft={() => setModalState(!modalState)}
           functionOnPressText={(linha, descricao) => {
             selectDescripition(linha, descricao);
-            console.tron.log(descricao);
           }}
           functionOnPressRight={() => {
             searchDescription();

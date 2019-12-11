@@ -2,11 +2,15 @@
 // select busca informações sobre o estado
 import {put, all, takeLatest, call} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
-import getRealm from '../../../services/realm';
+// import getRealm from '../../../services/realm';
 import {requestTablePriceSucess, selectTablePriceSucess} from './actions';
 
 // import {loginRequest, loginSucess, loginFailure} from './actions';
-import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
+import {
+  commonLoadingActivityOn,
+  commonActionFailure,
+  commonActionSucess,
+} from '../common/actions';
 import {navigate} from '../../../services/navigation';
 
 // import {navigate} from '../../../services/navigation';
@@ -27,14 +31,14 @@ function* requestTableSaga() {
   }
 }
 function* selectTablePriceSaga(action) {
+  yield put(commonLoadingActivityOn(''));
   try {
     const {id, tabelas} = action.payload;
     const tabela = tabelas.find(element => {
       return element.id === id;
     });
-    yield put(commonLoadingActivityOn(''));
     yield put(selectTablePriceSucess(tabela));
-    yield put(commonLoadingActivityOn(''));
+    yield put(commonActionSucess(''));
     navigate('Home');
   } catch (err) {
     yield put(commonActionFailure(''));
