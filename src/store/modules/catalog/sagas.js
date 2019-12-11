@@ -111,7 +111,7 @@ function* searchDescripitionSaga(action) {
 }
 function* searchModelSaga(action) {
   yield put(commonLoadingActivityOn(''));
-  const {linha, id, model} = action.payload;
+  const {linha, id, model, descricao} = action.payload;
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
@@ -124,7 +124,7 @@ function* searchModelSaga(action) {
         },
       }
     );
-    yield put(searchModelSucess(data));
+    yield put(searchModelSucess(data, descricao));
     yield put(commonActionSucess(''));
   } catch (err) {
     yield put(commonActionFailure('Verifique sua conexão'));

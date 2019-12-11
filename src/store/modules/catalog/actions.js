@@ -65,15 +65,15 @@ export function searchDescriptionSucess(data) {
     payload: {data},
   };
 }
-export function searchModel(linha, id, model) {
+export function searchModel(linha, id, model, descricao) {
   return {
     type: '@catalog/SEARCH_MODEL',
-    payload: {linha, id, model},
+    payload: {linha, id, model, descricao},
   };
 }
-export function searchModelSucess(data) {
+export function searchModelSucess(data, input) {
   return {
     type: '@catalog/SEARCH_MODEL_SUCESS',
-    payload: {data},
+    payload: {data, input},
   };
 }

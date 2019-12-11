@@ -47,8 +47,7 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@catalog/SEARCH_MODEL_SUCESS':
       return produce(state, draft => {
         draft.model = action.payload.data;
-        console.tron.log('draft.model');
-        console.tron.log(draft.model);
+        draft.input = action.payload.input;
       });
     default:
       return state;

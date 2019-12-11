@@ -8,6 +8,8 @@ import {
   AreaIcon,
   ContainerHeader,
   TextButton,
+  ContainerInitial,
+  TextInitial,
 } from './styles';
 
 export default function ModalCatalog({
@@ -45,11 +47,13 @@ export default function ModalCatalog({
           />
         ) : (
           <FlatList
-            // ListEmptyComponent={
-            //   <Text>
-            //     Digite algo para pesquisar a descrição do produto desejado
-            //   </Text>
-            // }
+            ListEmptyComponent={
+              <ContainerInitial>
+                <TextInitial>
+                  Digite algo para pesquisar a descrição do produto desejado
+                </TextInitial>
+              </ContainerInitial>
+            }
             initialNumToRender={10}
             style={{flex: 1}}
             data={data}

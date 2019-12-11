@@ -18,25 +18,27 @@ export default function ProductDetails() {
   const [stateTableComission, setStateTableComission] = useState(data2);
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
+  // const [colorsState, setColorState] = useState();
+  const [colorAux, setColorAux] = useState(cores);
 
   useEffect(() => {
     setStateProduct(product);
     setStateTableComission(data2);
-  }, [product, data2]); // eslint-disable-line
-
-  // useEffect(() => {
-  //   const orderArray = colorsState
-  //     .filter(element => {
-  //       return (
-  //         element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
-  //         -1
-  //       );
-  //     })
-  //     .map(element => {
-  //       return element;
-  //     });
-  //   setDataStateAux(orderArray);
-  // }, [dispatch, inputState, colorsState]); // eslint-disable-line
+    setColorAux(cores);
+  }, [product, data2, cores]); // eslint-disable-line
+  useEffect(() => {
+    const orderArray = cores
+      .filter(element => {
+        return (
+          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
+          -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setColorAux(orderArray);
+  }, [dispatch, inputState]); // eslint-disable-line
 
   function backCatalogPage() {
     dispatch(ActionsCatalog.backCatalog());
@@ -66,7 +68,7 @@ export default function ProductDetails() {
         <Modal
           placeholder="Digite a cor"
           modalVisible={modalState}
-          data={cores}
+          data={colorAux}
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
           nameIcon="times"

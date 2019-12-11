@@ -23,11 +23,11 @@ export default function CardTablePrice({commision, loading}) {
   return (
     <Container>
       <ContainerTitle>
-        <Text>Preço:</Text>
+        <Text>Preços:</Text>
       </ContainerTitle>
       <ContainerTotal>
         <ContainerSize>
-          <Text>Tamanhos</Text>
+          <Text>Tamanhos:</Text>
         </ContainerSize>
         <ContainerComission>
           <TextComission>{commision.comissao1}</TextComission>
@@ -59,10 +59,10 @@ export default function CardTablePrice({commision, loading}) {
                   <Prices>{item.preco1}</Prices>
                 </ContainerPrice>
                 <ContainerPrice>
-                  <Prices>{item.preco3}</Prices>
+                  <Prices>{item.preco2}</Prices>
                 </ContainerPrice>
                 <ContainerPrice>
-                  <Prices>{item.preco2}</Prices>
+                  <Prices>{item.preco3}</Prices>
                 </ContainerPrice>
               </ContainerTotal2>
             );

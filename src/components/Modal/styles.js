@@ -38,8 +38,9 @@ export const TextButton = styled.Text`
   font-size: 16px;
   color: #707070;
   font-weight: bold;
-  border: #707070;
-  border-top-color: #fff;
+  border: 0.2px;
   border-left-color: #fff;
   border-right-color: #fff;
+  border-top-color: #fff;
+  border-bottom-color: #707070;
 `;

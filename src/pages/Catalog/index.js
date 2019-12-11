@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {ActivityIndicator, View, Text} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {
   Container,
   ContainerInput,
@@ -19,17 +19,23 @@ export default function Catalog({navigation}) {
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
   const {data2} = useSelector(state => state.table);
-  const [inputLineState, setInputLineState] = useState('Selecione a linha');
+  const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
-  const {descricao1, model} = useSelector(state => state.catalog);
+  const {descricao1, model, input} = useSelector(state => state.catalog);
   const [dataStateAux, setDataStateAux] = useState([]);
-  console.tron.log(model);
+  const [dataModalState, setDataModalState] = useState([]);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       CatalogActions.searchDescription(data2.id, inputState, inputLineState)
     );
-  }, [dispatch,inputState]);// eslint-disable-line
+    if (input === '') {
+      setInputLineState('Selecione a linha');
+    } else {
+      setInputLineState(input);
+    }
+  }, [dispatch, inputState]); // eslint-disable-line
 
   function handleMoreDetails(id) {
     dispatch(CatalogActions.catalogMoreDetailsProduct(id, model));
@@ -41,12 +47,18 @@ export default function Catalog({navigation}) {
 
   function selectDescripition(linha, descricao) {
     setInputLineState(descricao);
-    dispatch(CatalogActions.searchModel(linha, data2.id, inputModelState));
+    dispatch(
+      CatalogActions.searchModel(linha, data2.id, inputModelState, descricao)
+    );
     setModalState(!modalState);
   }
-  // useEffect(() => {
-  //   setInputLineState(descricao);
-  // }, []);// eslint-disable-line
+  useEffect(() => {
+    if (inputState === '') {
+      setDataModalState([]);
+    } else {
+      setDataModalState(descricao1);
+    }
+  }, [descricao1, inputState]);
   function descripition() {
     setModalState(!modalState);
   }
@@ -113,7 +125,7 @@ export default function Catalog({navigation}) {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a linha"
           modalVisible={modalState}
-          data={descricao1}
+          data={dataModalState}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}

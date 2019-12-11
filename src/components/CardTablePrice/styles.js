@@ -17,15 +17,15 @@ export const ContainerTotal = styled.View`
 `;
 export const ContainerTotal2 = styled.View`
   flex-direction: row;
-  border: 0.2px;
-  border-color: #707070;
 `;
 
 export const AreaTable = styled.View`
   flex-direction: row;
 `;
 
-export const ContainerTitle = styled.View``;
+export const ContainerTitle = styled.View`
+  padding-top: 15px;
+`;
 export const Title = styled.Text`
   text-align: center;
   font-size: 16px;
