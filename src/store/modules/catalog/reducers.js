@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   descricao1: [],
   model: [],
   input: '',
+  input2: '',
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -48,6 +49,24 @@ export default function Login(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.model = action.payload.data;
         draft.input = action.payload.input;
+      });
+    case '@catalog/CATALOG_CLEAN':
+      return produce(state, draft => {
+        draft.data = [];
+        draft.id = '';
+        draft.linha = '';
+        draft.matriz = '';
+        draft.descricao = '';
+        draft.caracteristicas = '';
+        draft.imagem = '';
+        draft.product = [];
+        draft.prices = [];
+        draft.idProduto = '';
+        draft.cores = [];
+        draft.descricao1 = [];
+        draft.model = [];
+        draft.input = '';
+        draft.input2 = '';
       });
     default:
       return state;

@@ -1,6 +1,6 @@
 import React from 'react';
 // import {View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Container, TextFooter, AreaIcon, Icon} from './styles';
 // import {navigate} from '../../services/navigation';
 import * as exitDrawerActions from '../../store/modules/exitdrawer/actions';

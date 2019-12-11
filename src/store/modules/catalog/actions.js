@@ -12,6 +12,12 @@
 //     payload: {data},
 //   };
 // }
+export function CatalogClean() {
+  return {
+    type: '@catalog/CATALOG_CLEAN',
+  };
+}
+
 export function ProductsCatalogSucessId(cores) {
   return {
     type: '@catalog/PRODUCTS_CATALOG_SUCESS_ID',

@@ -34,6 +34,7 @@ export default function TableSelection() {
   }, [dispatch]);
   function selectTablePrice(id) {
     dispatch(ActionsTable.selectTablePrice(id, table));
+    setModalState(false);
   }
   return (
     <ContainerScroll

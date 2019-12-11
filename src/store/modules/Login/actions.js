@@ -28,3 +28,8 @@ export function loginforgotPassword() {
     type: '@login/LOGIN_FORGOT_PASSWORD',
   };
 }
+export function loginClean() {
+  return {
+    type: '@login/LOGIN_CLEAN',
+  };
+}

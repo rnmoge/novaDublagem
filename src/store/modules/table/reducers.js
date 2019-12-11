@@ -14,6 +14,11 @@ export default function table(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.data2 = action.payload.id;
       });
+    case '@table/TABLE_CLEAN':
+      return produce(state, draft => {
+        draft.table = [];
+        draft.data2 = [];
+      });
     default:
       return state;
   }

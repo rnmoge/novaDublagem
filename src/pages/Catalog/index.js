@@ -21,21 +21,27 @@ export default function Catalog({navigation}) {
   const {data2} = useSelector(state => state.table);
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
-  const {descricao1, model, input} = useSelector(state => state.catalog);
+  const {descricao1, model, input, input2} = useSelector(
+    state => state.catalog
+  );
+  const [inputModelStateAux, setInputModelStateAux] = useState(input2);
+  console.tron.log(input2);
   const [dataStateAux, setDataStateAux] = useState([]);
-  const [dataModalState, setDataModalState] = useState([]);
+  // const [dataModalState, setDataModalState] = useState([]);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      CatalogActions.searchDescription(data2.id, inputState, inputLineState)
-    );
     if (input === '') {
       setInputLineState('Selecione a linha');
     } else {
       setInputLineState(input);
     }
-  }, [dispatch, inputState]); // eslint-disable-line
+    if (input2 === '') {
+      setInputModelStateAux('Digite o modelo');
+    } else {
+      setInputModelStateAux(input2);
+    }
+  }, [inputState, input2, input]); // eslint-disable-line
 
   function handleMoreDetails(id) {
     dispatch(CatalogActions.catalogMoreDetailsProduct(id, model));
@@ -52,15 +58,12 @@ export default function Catalog({navigation}) {
     );
     setModalState(!modalState);
   }
-  useEffect(() => {
-    if (inputState === '') {
-      setDataModalState([]);
-    } else {
-      setDataModalState(descricao1);
-    }
-  }, [descricao1, inputState]);
+
   function descripition() {
     setModalState(!modalState);
+    dispatch(
+      CatalogActions.searchDescription(data2.id, inputState, inputLineState)
+    );
   }
 
   useEffect(() => {
@@ -95,7 +98,7 @@ export default function Catalog({navigation}) {
         <InputType
           valueInputText={inputModelState}
           functionOnChangeText={text => setInputModelState(text)}
-          placeholder="Digite o modelo"
+          placeholder={inputModelStateAux}
           icoName="search"
           areaIcon
         />
@@ -125,7 +128,7 @@ export default function Catalog({navigation}) {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a linha"
           modalVisible={modalState}
-          data={dataModalState}
+          data={descricao1}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}

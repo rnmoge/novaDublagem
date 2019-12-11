@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // import getRealm from '../../../services/realm';
 import {requestTablePriceSucess, selectTablePriceSucess} from './actions';
 
-// import {loginRequest, loginSucess, loginFailure} from './actions';
+import {CatalogClean} from '../catalog/actions';
 import {
   commonLoadingActivityOn,
   commonActionFailure,
@@ -39,6 +39,7 @@ function* selectTablePriceSaga(action) {
     });
     yield put(selectTablePriceSucess(tabela));
     yield put(commonActionSucess(''));
+
     navigate('Home');
   } catch (err) {
     yield put(commonActionFailure(''));

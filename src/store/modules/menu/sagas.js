@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {menuSucess} from './actions';
 
 // import {loginRequest, loginSucess, loginFailure} from './actions';
-import {commonLoadingActivityOn} from '../common/actions';
+import {commonLoadingActivityOn, commonActionSucess} from '../common/actions';
 
 // import {navigate} from '../../../services/navigation';
 
@@ -16,6 +16,7 @@ function* menuRequestSaga() {
   let data = yield call(AsyncStorage.getItem, '@novaDublagem:user');
   data = JSON.parse(data);
   yield put(menuSucess(data));
+  yield put(commonActionSucess(''));
 }
 
 export default all([takeLatest('@menu/MENU_REQUEST', menuRequestSaga)]);

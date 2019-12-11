@@ -10,6 +10,10 @@ export default function login(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.data = action.payload.user;
       });
+    case '@login/LOGIN_CLEAN':
+      return produce(state, draft => {
+        draft.data = null;
+      });
     default:
       return state;
   }

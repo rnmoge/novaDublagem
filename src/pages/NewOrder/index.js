@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,12 +23,16 @@ import * as ActionsNewOrder from '../../store/modules/neworder/actions';
 import * as ActionsTable from '../../store/modules/table/actions';
 
 export default function NewOrder() {
+  useEffect(() => {
+    const date = new Date().getDate();
+  });
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
   function backDetailsClient() {
     dispatch(ActionsNewOrder.backDetailsClient());
   }
   const [modalState, setModalState] = useState(false);
+  const [dateState, setDateState] = useState('24/11');
   const [inputState, setInputState] = useState('');
   const [inputDateState, setInputDateState] = useState('');
   const [inputClientState, setInputClientState] = useState('');
@@ -38,6 +42,11 @@ export default function NewOrder() {
   function selectTablePrice(id) {
     dispatch(ActionsTable.selectTablePrice(id, table));
   }
+
+  // function dateNew() {
+  //   const now = new `${Date}`();
+  //   setDateState(now);
+  // }
   return (
     <Container>
       <Header
@@ -64,11 +73,11 @@ export default function NewOrder() {
           <ContainerOrder>
             <Text>Data de emissão:</Text>
             <InputType
-              placeholder="Ex: 24/11/2019"
+              placeholder={dateState}
               areaIcon
               icoName="calendar"
               disabledButtonIcon
-              valueInputText={inputDateState}
+              valueInputText={dateState}
               functionOnChangeText={text => {
                 setInputDateState(text);
               }}

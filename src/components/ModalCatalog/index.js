@@ -47,13 +47,13 @@ export default function ModalCatalog({
           />
         ) : (
           <FlatList
-            ListEmptyComponent={
-              <ContainerInitial>
-                <TextInitial>
-                  Digite algo para pesquisar a descrição do produto desejado
-                </TextInitial>
-              </ContainerInitial>
-            }
+            // ListEmptyComponent={
+            //   <ContainerInitial>
+            //     <TextInitial>
+            //       Digite algo para pesquisar a descrição do produto desejado
+            //     </TextInitial>
+            //   </ContainerInitial>
+            // }
             initialNumToRender={10}
             style={{flex: 1}}
             data={data}

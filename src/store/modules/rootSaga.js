@@ -8,6 +8,7 @@ import table from './table/sagas';
 import menu from './menu/sagas';
 import order from './order/sagas';
 import neworder from './neworder/sagas';
+import home from './home/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     menu,
     order,
     neworder,
+    home,
     // adicione mais sagas
   ]);
 }

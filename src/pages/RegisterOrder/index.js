@@ -23,7 +23,7 @@ import Radius from '../../components/Radius';
 import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function RegisterOrder() {
-  const [selectStateOne, setSelectStateOne] = useState(false);
+  const [selectStateOne, setSelectStateOne] = useState(true);
   const [selectStateTwo, setSelectStateTwo] = useState(false);
   const [selectStateThree, setSelectStateThree] = useState(false);
   const [inputReasonState, setInputReasonState] = useState('');
@@ -131,12 +131,18 @@ export default function RegisterOrder() {
   }, [inputReasonState]);// eslint-disable-line
   function trocaRadius1() {
     setSelectStateOne(!selectStateOne);
+    setSelectStateTwo(false);
+    setSelectStateThree(false);
   }
   function trocaRadius2() {
     setSelectStateTwo(!selectStateTwo);
+    setSelectStateOne(false);
+    setSelectStateThree(false);
   }
   function trocaRadius3() {
     setSelectStateThree(!selectStateThree);
+    setSelectStateTwo(false);
+    setSelectStateOne(false);
   }
   return (
     <Container>

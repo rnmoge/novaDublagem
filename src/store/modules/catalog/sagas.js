@@ -34,7 +34,7 @@ import {navigate} from '../../../services/navigation';
 //     yield put(ProductsCatalogSucess(data));
 //     yield put(commonActionSucess(''));
 //   } catch (err) {
-//     yield put(commonActionFailure('Verifique sua conexão'));
+//     yield put(commonActionFailure('exão'));
 //   }
 // }
 
@@ -46,7 +46,7 @@ function* moreDetailsProduct(action) {
       return element.id === id;
     });
     yield put(catalogMoreDetailsProductSucess(product));
-    yield put(commonLoadingActivityOn(''));
+    yield put(commonActionSucess(''));
     navigate('ProductDetails');
   } catch (err) {
     yield put(commonActionFailure('Produto não encontrado'));
@@ -80,7 +80,7 @@ function* requestTablePriceSaga(action) {
     yield put(requestTablePriceSucess(data));
     yield put(commonActionSucess(''));
   } catch (err) {
-    yield put(commonActionFailure('Verifique sua conexão'));
+    yield put(commonActionFailure(''));
   }
 }
 function* backCatalogSaga() {
@@ -106,7 +106,7 @@ function* searchDescripitionSaga(action) {
     yield put(searchDescriptionSucess(data));
     yield put(commonActionSucess(''));
   } catch (err) {
-    yield put(commonActionFailure('Verifique sua conexão'));
+    yield put(commonActionFailure(''));
   }
 }
 function* searchModelSaga(action) {
@@ -127,7 +127,7 @@ function* searchModelSaga(action) {
     yield put(searchModelSucess(data, descricao));
     yield put(commonActionSucess(''));
   } catch (err) {
-    yield put(commonActionFailure('Verifique sua conexão'));
+    yield put(commonActionFailure(''));
   }
 }
 export default all([

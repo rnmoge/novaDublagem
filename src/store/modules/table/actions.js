@@ -25,3 +25,8 @@ export function selectTablePriceSucess(id) {
     payload: {id},
   };
 }
+export function tableClean() {
+  return {
+    type: '@table/TABLE_CLEAN',
+  };
+}
