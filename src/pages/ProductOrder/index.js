@@ -6,6 +6,7 @@ import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
 import Modal from '../../components/Modal';
 import ModalCatalog from '../../components/ModalCatalog';
+import CardSize from '../../components/CardSize';
 import ModalModel from '../../components/ModalModel';
 import Button from '../../components/Button';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
@@ -34,11 +35,17 @@ export default function ProductOrder() {
   const {data} = useSelector(state => state.order);
   const {loading} = useSelector(state => state.common);
   const {data2} = useSelector(state => state.table);
-  const {input, descricao1} = useSelector(state => state.catalog);
+  const {input, descricao1, model} = useSelector(state => state.catalog);
   const [inputState, setInputState] = useState('');
   const [inputLineState, setInputLineState] = useState('');
+  const [dateState, setDataState] = useState('12/12/2019');
+  const [dateValueState, setDataValueState] = useState('1,38');
+  const [dateCommisionState, setDataCommisionState] = useState('5.00');
   const {table, condition} = useSelector(state => state.neworder);
   const [modalState, setModalState] = useState(false);
+  const [modalModelState, setModalModelState] = useState(false);
+  const [modalSizeState, setModalSizeState] = useState(false);
+  const [modalColorState, setModalColorState] = useState(false);
   useEffect(() => {
     if (input === '') {
       setInputLineState('Selecione a linha');
@@ -101,6 +108,9 @@ export default function ProductOrder() {
                 textPrimary="Selecione o modelo:"
                 textSecundary="Modelo"
                 icoName="angle-down"
+                functionOnpressInput={() => {
+                  descripition();
+                }}
               />
               <InputClick
                 textPrimary="Selecione o tamanho:"
@@ -116,6 +126,28 @@ export default function ProductOrder() {
               <ContainerImagem>
                 <Image />
               </ContainerImagem>
+              <CardSize nameIcon="minus" nameIcon2="plus" />
+              <TextClient>Comissão:</TextClient>
+              <InputType
+                placeholder="Comissão"
+                valueInputText={dateCommisionState}
+              />
+              <TextClient>Valor real:</TextClient>
+              <InputType
+                placeholder="Valor Real"
+                valueInputText={dateValueState}
+              />
+              <TextClient>Data faturamento:</TextClient>
+              <InputType
+                placeholder="Yuri"
+                areaIcon
+                icoName="calendar"
+                disabledButtonIcon
+                valueInputText={dateState}
+                functionOnChangeText={text => {
+                  setDataState(text);
+                }}
+              />
               <TextClient>Observação:</TextClient>
               <InputType placeholder="Observação" />
               <ContainerButton2>
@@ -139,16 +171,6 @@ export default function ProductOrder() {
         </ScrollView>
       </ContainerBody>
       <ContainerModal>
-        {/* <Modal
-          placeholder="Digite a cor"
-          modalVisible={modalState}
-          // data={cores}
-          // valueInputText={inputState}
-          // functionOnChangeText={text => setInputState(text)}
-          nameIcon="times"
-          nameIconTwo="search"
-          functionOnPressLeft={() => setModalState(!modalState)}
-        /> */}
         <ModalCatalog
           loading={loading}
           valueInputText={inputState}
@@ -166,13 +188,14 @@ export default function ProductOrder() {
             searchDescription();
           }}
         />
+
         {/* <ModalModel
           loading={loading}
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a linha"
           modalVisible={modalState}
-          data={descricao1}
+          data={model}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}

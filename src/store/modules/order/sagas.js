@@ -7,6 +7,7 @@ import {put, all, takeLatest} from 'redux-saga/effects';
 import {handleDetailsClientSucess} from './actions';
 import {commonLoadingActivityOn, commonActionFailure} from '../common/actions';
 // import {menuSucess} from '../menu/actions';
+import {CatalogClean} from '../catalog/actions';
 import {navigate} from '../../../services/navigation';
 // import api2 from '../../../services/api2';
 
@@ -49,6 +50,9 @@ function* handleNewOrderSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('NewOrder');
 }
+function* cleanCatalogSaga() {
+  yield put(CatalogClean());
+}
 
 export default all([
   takeLatest('@order/HANDLE_REGISTER_ORDER', handleRegisterOrderSaga),
@@ -58,4 +62,5 @@ export default all([
   takeLatest('@order/HANDLE_DETAILS_CLIENT', handleDetailsClientSaga),
   takeLatest('@order/BACK_REGISTER_ORDER', backRegisterOrderSaga),
   takeLatest('@order/HANDLE_NEW_ORDER', handleNewOrderSaga),
+  takeLatest('@order/CLEAN_CATALOG', cleanCatalogSaga),
 ]);

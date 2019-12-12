@@ -49,3 +49,8 @@ export function handleNewOrder(client) {
     payload: {client},
   };
 }
+export function cleanCatalog() {
+  return {
+    type: '@order/CLEAN_CATALOG',
+  };
+}

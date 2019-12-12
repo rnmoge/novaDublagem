@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 // import {Text} from 'react-native';
 import {useDispatch} from 'react-redux';
 import CardRequest from '../../components/CardRequest';
@@ -8,6 +8,9 @@ import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function Request({navigation}) {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(ActionsOrder.cleanCatalog());
+  }, [dispatch]);
   function handleRegisterOrders() {
     dispatch(ActionsOrder.handleRegisterOrder());
   }

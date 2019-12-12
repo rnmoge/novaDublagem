@@ -60,13 +60,12 @@ export const ContainerImagem = styled.View`
   border-radius: 8px;
   justify-content: center;
   border: 0.5px;
-  border-color: #707070;
   align-items: center;
+  margin-bottom: 15px;
 `;
 export const Image = styled.Image`
   height: 75;
   width: 75;
-  background: #707070;
   border-radius: 3px;
   margin-left: 15px;
 `;

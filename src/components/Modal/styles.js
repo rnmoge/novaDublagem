@@ -30,7 +30,7 @@ export const Input = styled.TextInput`
   padding-bottom: 10px;
   padding: 10px;
 `;
-export const TextButton = styled.TouchableOpacity`
+export const TextButton = styled.Text`
   background: #fff;
   flex-direction: row;
   text-align: left;
