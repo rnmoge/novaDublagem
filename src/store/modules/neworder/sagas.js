@@ -12,7 +12,12 @@ function* backDetailsClientSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('DetailsClient');
 }
+function* handleProductSaga() {
+  yield put(commonLoadingActivityOn(''));
+  navigate('ProductOrder');
+}
 
 export default all([
   takeLatest('@neworder/BACK_DETAILS_CLIENT', backDetailsClientSaga),
+  takeLatest('@neworder/HANDLE_PRODUCTS', handleProductSaga),
 ]);

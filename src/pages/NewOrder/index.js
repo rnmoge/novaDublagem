@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -17,36 +17,105 @@ import Header from '../../components/Header';
 import Button from '../../components/Button';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
-import Modal from '../../components/Modalteste2';
-// import * as ActionsOrder from '../../store/modules/order/actions';
+import ModalPrice from '../../components/Modalteste2';
+import ModalCatalog from '../../components/ModalCatalog';
 import * as ActionsNewOrder from '../../store/modules/neworder/actions';
-import * as ActionsTable from '../../store/modules/table/actions';
 
 export default function NewOrder() {
-  useEffect(() => {
-    const date = new Date().getDate();
-  });
+  // useEffect(() => {
+  //   const date = new Date().getDate();
+  // });
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
-  function backDetailsClient() {
-    dispatch(ActionsNewOrder.backDetailsClient());
-  }
+  const [dataTypeCharge, setDataTypeCharge] = useState([
+    {id: 1, descricao: 'BANCÁRIA'},
+    {id: 2, descricao: 'DEPÓSITO'},
+    {id: 3, descricao: 'BNDES'},
+  ]);
+  const [dataPacking, setDataPacking] = useState([
+    {id: 1, descricao: 'INDIVIDUAL/ CX 60PRS'},
+  ]);
+  const [dataPagament, setDataPagament] = useState([
+    {id: 1, descricao: 'A VISTA'},
+    {id: 2, descricao: '28 / 42 / 56 '},
+    {id: 3, descricao: '28 / 56 / 84 '},
+    {id: 4, descricao: '30 / 60'},
+    {id: 5, descricao: '30 / 60 / 90 '},
+    {id: 6, descricao: ' 42 DD'},
+    {id: 7, descricao: ' 56 DD'},
+  ]);
+  const [dataBillings, setdataBillings] = useState([
+    {id: 1, descricao: 'SIM'},
+    {id: 2, descricao: 'NÃO'},
+  ]);
+
   const [modalState, setModalState] = useState(false);
-  const [dateState, setDateState] = useState('24/11');
+  const [inputTablePrice, setInputTablePrice] = useState('Selecione a tabela');
+  const [inputTypeCharge, setInputTypeCharge] = useState('Selecione o tipo');
+  const [inputPacking, setInputPacking] = useState('Selecione a embalagem');
+  const [inputPagament, setInputPagament] = useState('Selecione o pagamento');
+  const [inputBillings, setInputBillings] = useState('Selecione o faturamento');
+  const [modalStateType, setModalStateType] = useState(false);
+  const [modalStatePacking, setModalStatePacking] = useState(false);
+  const [modalStatePagament, setModalStatePagament] = useState(false);
+  const [modalStateBillings, setModalStateBillings] = useState(false);
+  const [dateState, setDateState] = useState('12/12/2019');
   const [inputState, setInputState] = useState('');
   const [inputDateState, setInputDateState] = useState('');
   const [inputClientState, setInputClientState] = useState('');
   const [inputNoteState, setInputNoteState] = useState('');
   const {table} = useSelector(state => state.table);
-  const [dataStateAux, setDataStateAux] = useState(table);
-  function selectTablePrice(id) {
-    dispatch(ActionsTable.selectTablePrice(id, table));
-  }
+  // const [dataStateAux, setDataStateAux] = useState(table);
 
-  // function dateNew() {
-  //   const now = new `${Date}`();
-  //   setDateState(now);
-  // }
+  // ->funções da pagina<-
+
+  // Função voltar
+  function backDetailsClient() {
+    dispatch(ActionsNewOrder.backDetailsClient());
+  }
+  // Funçoes do modal
+  function selectInputTablePrice() {
+    setModalState(!modalState);
+  }
+  function selectTablePrice(id, tabelapreco) {
+    setInputTablePrice(tabelapreco);
+    setModalState(!modalState);
+  }
+  // função de tipo de cobrança
+  function typeCharge() {
+    setModalStateType(!modalStateType);
+  }
+  function selectTypeCharge(id, descricao) {
+    setInputTypeCharge(descricao);
+    setModalStateType(!modalStateType);
+  }
+  // função de embalagem
+  function packing() {
+    setModalStatePacking(!modalStatePacking);
+  }
+  function selectPacking(id, descricao) {
+    setInputPacking(descricao);
+    setModalStatePacking(!modalStatePacking);
+  }
+  // função forma de pagamento
+  function pagament() {
+    setModalStatePagament(!modalStatePagament);
+  }
+  function selectPagament(id, descricao) {
+    setInputPagament(descricao);
+    setModalStatePagament(!modalStatePagament);
+  }
+  // função de faturamento antecipado
+  function billings() {
+    setModalStateBillings(!modalStateBillings);
+  }
+  function selectBillings(id, descricao) {
+    setInputBillings(descricao);
+    setModalStateBillings(!modalStateBillings);
+  }
+  function handleProducts() {
+    dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
+  }
   return (
     <Container>
       <Header
@@ -60,7 +129,7 @@ export default function NewOrder() {
       <ContainerTotal>
         <ContainerClient>
           <ContainerPlaceholder>
-            <Text>Cliente: </Text>
+            <Text>Cliente:</Text>
           </ContainerPlaceholder>
           <ContainerInfo>
             <TextClient>Pedido: 8096</TextClient>
@@ -84,19 +153,25 @@ export default function NewOrder() {
             />
             <InputClick
               textPrimary="Tipo de cobrança:"
-              textSecundary="Selecione o tipo"
+              textSecundary={inputTypeCharge}
               icoName="angle-down"
+              functionOnpressInput={() => {
+                typeCharge();
+              }}
             />
             <InputClick
               textPrimary="Embalagem:"
-              textSecundary="Selecione a embalagem"
+              textSecundary={inputPacking}
               icoName="angle-down"
+              functionOnpressInput={() => {
+                packing();
+              }}
             />
             <InputClick
               textPrimary="Tabela de preço:"
-              textSecundary="Selecione a tabela"
+              textSecundary={inputTablePrice}
               icoName="angle-down"
-              functionOnpressInput={() => setModalState(!modalState)}
+              functionOnpressInput={() => selectInputTablePrice()}
             />
             <Text>Pedido do cliente: </Text>
             <InputType
@@ -108,8 +183,11 @@ export default function NewOrder() {
             />
             <InputClick
               textPrimary="Condição de pagamento:"
-              textSecundary="Selecione o pagamento"
+              textSecundary={inputPagament}
               icoName="angle-down"
+              functionOnpressInput={() => {
+                pagament();
+              }}
             />
             <Text>Observação: </Text>
             <InputType
@@ -121,14 +199,23 @@ export default function NewOrder() {
             />
             <InputClick
               textPrimary="Permitir faturamento antecipado"
-              textSecundary="Selecione o faturamento"
+              textSecundary={inputBillings}
               icoName="angle-down"
+              functionOnpressInput={() => {
+                billings();
+              }}
             />
-            <Button titleButton="PROXIMO" />
+            <Button
+              titleButton="PROXIMO"
+              disabledButton={false}
+              functionOnPress={() => {
+                handleProducts();
+              }}
+            />
           </ContainerOrder>
         </ContainerBody>
       </ScrollView>
-      <Modal
+      <ModalPrice
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite a tabela"
@@ -137,8 +224,62 @@ export default function NewOrder() {
         nameIcon="times"
         nameIconTwo="search"
         functionOnPressLeft={() => setModalState(!modalState)}
-        functionOnPressText={id => {
-          selectTablePrice(id);
+        functionOnPressText={(id, tabelapreco) => {
+          selectTablePrice(id, tabelapreco);
+        }}
+      />
+
+      <ModalCatalog
+        valueInputText={inputState}
+        functionOnChangeText={text => setInputState(text)}
+        placeholder="Digite o tipo de cobrança"
+        modalVisible={modalStateType}
+        data={dataTypeCharge}
+        nameIcon="times"
+        nameIconTwo="search"
+        functionOnPressLeft={() => setModalStateType(!modalStateType)}
+        functionOnPressText={(id, descricao) => {
+          selectTypeCharge(id, descricao);
+        }}
+      />
+      <ModalCatalog
+        valueInputText={inputState}
+        functionOnChangeText={text => setInputState(text)}
+        placeholder="Digite a embalagem"
+        modalVisible={modalStatePacking}
+        data={dataPacking}
+        nameIcon="times"
+        nameIconTwo="search"
+        functionOnPressLeft={() => setModalStatePacking(!modalStatePacking)}
+        functionOnPressText={(id, descricao) => {
+          selectPacking(id, descricao);
+        }}
+      />
+      <ModalCatalog
+        valueInputText={inputState}
+        functionOnChangeText={text => setInputState(text)}
+        placeholder="Digite o pagamento"
+        modalVisible={modalStatePagament}
+        data={dataPagament}
+        nameIcon="times"
+        nameIconTwo="search"
+        functionOnPressLeft={() => setModalStatePagament(!modalStatePagament)}
+        functionOnPressText={(id, descricao) => {
+          selectPagament(id, descricao);
+        }}
+      />
+      {/* setModalStateBillings(!setModalStateBillings); */}
+      <ModalCatalog
+        valueInputText={inputState}
+        functionOnChangeText={text => setInputState(text)}
+        placeholder="Digite o faturamento"
+        modalVisible={modalStateBillings}
+        data={dataBillings}
+        nameIcon="times"
+        nameIconTwo="search"
+        functionOnPressLeft={() => setModalStateBillings(modalStateBillings)}
+        functionOnPressText={(id, descricao) => {
+          selectBillings(id, descricao);
         }}
       />
     </Container>

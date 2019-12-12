@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, Modal, Text} from 'react-native';
+import {FlatList, Modal, ActivityIndicator} from 'react-native';
 import {
   Input,
   Container,
@@ -10,7 +10,7 @@ import {
   TextButton,
 } from './styles';
 
-export default function ModalColor({
+export default function ModalPacking({
   nameIcon,
   nameIconTwo,
   placeholder,
@@ -18,8 +18,9 @@ export default function ModalColor({
   functionOnPressLeft,
   functionOnPressRight,
   functionOnChangeText,
-  functionOnPressText,
   data,
+  loading,
+  functionOnPressText,
 }) {
   return (
     <Container>
@@ -36,21 +37,33 @@ export default function ModalColor({
             <Icon name={nameIconTwo} />
           </AreaIcon>
         </ContainerHeader>
-        <FlatList
-          initialNumToRender={10}
-          style={{flex: 1}}
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <TextButton
-                onPress={() => {
-                  functionOnPressText(item.descricao);
-                }}>
-                {item.descricao}
-              </TextButton>
-            );
-          }}
-        />
+        {loading ? (
+          <ActivityIndicator
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+            size="large"
+            color="#fff000"
+          />
+        ) : (
+          <FlatList
+            // ListEmptyComponent={
+            //   <ContainerInitial>
+            //     <TextInitial>
+            //       Digite algo para pesquisar a descrição do produto desejado
+            //     </TextInitial>
+            //   </ContainerInitial>
+            // }
+            initialNumToRender={10}
+            style={{flex: 1}}
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <TextButton onPress={() => functionOnPressText(item.matriz)}>
+                  {item.matriz}
+                </TextButton>
+              );
+            }}
+          />
+        )}
       </Modal>
     </Container>
   );
@@ -64,6 +77,7 @@ Modal.propTypes = {
   functionOnPressRight: PropTypes.func,
   functionOnChangeText: PropTypes.func,
   functionOnPressText: PropTypes.func,
+  loading: PropTypes.bool,
 };
 Modal.defaultProps = {
   nameIcon: 'times',
@@ -74,4 +88,5 @@ Modal.defaultProps = {
   functionOnPressRight: () => {},
   functionOnChangeText: () => {},
   functionOnPressText: () => {},
+  loading: false,
 };
