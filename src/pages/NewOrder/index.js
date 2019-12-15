@@ -79,6 +79,7 @@ export default function NewOrder() {
   }
   function selectTablePrice(id, tabelapreco) {
     setInputTablePrice(tabelapreco);
+    dispatch(ActionsNewOrder.selectTableOrder(id));
     setModalState(!modalState);
   }
   // função de tipo de cobrança

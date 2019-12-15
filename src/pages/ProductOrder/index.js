@@ -4,13 +4,14 @@ import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../components/Header';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
-import Modal from '../../components/Modal';
+// import Modal from '../../components/Modal';
 import ModalCatalog from '../../components/ModalCatalog';
 import CardSize from '../../components/CardSize';
 import ModalModel from '../../components/ModalModel';
 import Button from '../../components/Button';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
 import * as CatalogActions from '../../store/modules/catalog/actions';
+import * as NewOrderActions from '../../store/modules/neworder/actions';
 import {
   Container,
   ContainerBody,
@@ -37,11 +38,18 @@ export default function ProductOrder() {
   const {data2} = useSelector(state => state.table);
   const {input, descricao1, model} = useSelector(state => state.catalog);
   const [inputState, setInputState] = useState('');
+  const [inputStateModel, setInputStateModel] = useState('');
   const [inputLineState, setInputLineState] = useState('');
+  const [inputModelState, setInputModelState] = useState('Selecione o modelo');
+  const [imageState, setImageState] = useState();
   const [dateState, setDataState] = useState('12/12/2019');
   const [dateValueState, setDataValueState] = useState('1,38');
   const [dateCommisionState, setDataCommisionState] = useState('5.00');
-  const {table, condition} = useSelector(state => state.neworder);
+  const {table, condition, idTable, dataDescription, line} = useSelector(
+    state => state.neworder
+  );
+  console.tron.log('dataDescription');
+  console.tron.log(dataDescription);
   const [modalState, setModalState] = useState(false);
   const [modalModelState, setModalModelState] = useState(false);
   const [modalSizeState, setModalSizeState] = useState(false);
@@ -56,19 +64,26 @@ export default function ProductOrder() {
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
-  function searchDescription() {
-    dispatch(CatalogActions.searchDescription(data2.id, inputState));
-  }
+  function searchDescription() {}
   function descripition() {
     setModalState(!modalState);
-    dispatch(
-      CatalogActions.searchDescription(data2.id, inputState, inputLineState)
-    );
+    dispatch(NewOrderActions.searchDescription(idTable, inputState));
   }
   function selectDescripition(linha, descricao) {
-    dispatch(CatalogActions.searchModel(linha, data2.id, descricao));
+    dispatch(
+      NewOrderActions.searchModel(linha, idTable, inputStateModel, descricao)
+    );
     setInputLineState(descricao);
     setModalState(!modalState);
+  }
+  function modelFunc() {
+    setModalModelState(!modalModelState);
+  }
+  function selectModel(id, matriz, imageUrl) {
+    setInputModelState(matriz);
+    setImageState(imageUrl);
+    setModalModelState(!modalModelState);
+    dispatch(NewOrderActions.colorAndSizes(idTable, id));
   }
   return (
     <Container>
@@ -106,10 +121,10 @@ export default function ProductOrder() {
               />
               <InputClick
                 textPrimary="Selecione o modelo:"
-                textSecundary="Modelo"
+                textSecundary={inputModelState}
                 icoName="angle-down"
                 functionOnpressInput={() => {
-                  descripition();
+                  modelFunc();
                 }}
               />
               <InputClick
@@ -124,7 +139,7 @@ export default function ProductOrder() {
               />
               <TextClient>Imagem:</TextClient>
               <ContainerImagem>
-                <Image />
+                <Image source={{uri: imageState}} />
               </ContainerImagem>
               <CardSize nameIcon="minus" nameIcon2="plus" />
               <TextClient>Comissão:</TextClient>
@@ -177,7 +192,7 @@ export default function ProductOrder() {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a linha"
           modalVisible={modalState}
-          data={descricao1}
+          data={dataDescription}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}
@@ -189,23 +204,23 @@ export default function ProductOrder() {
           }}
         />
 
-        {/* <ModalModel
+        <ModalModel
           loading={loading}
-          valueInputText={inputState}
-          functionOnChangeText={text => setInputState(text)}
+          valueInputText={inputStateModel}
+          functionOnChangeText={text => setInputStateModel(text)}
           placeholder="Digite a linha"
-          modalVisible={modalState}
-          data={model}
+          modalVisible={modalModelState}
+          data={line}
           nameIcon="times"
           nameIconTwo="search"
-          functionOnPressLeft={() => setModalState(!modalState)}
-          functionOnPressText={matriz => {
-            selectDescripition(matriz);
+          functionOnPressLeft={() => setModalModelState(!modalModelState)}
+          functionOnPressText={(id, matriz, imageUrl) => {
+            selectModel(id, matriz, imageUrl);
           }}
           functionOnPressRight={() => {
             searchDescription();
           }}
-        /> */}
+        />
       </ContainerModal>
     </Container>
   );

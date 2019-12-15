@@ -15,6 +15,7 @@ function* backNewOrderSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('NewOrder');
 }
+
 // function* requestProductCatalog(action) {
 //   const {id} = action.payload;
 //   try {

@@ -25,7 +25,7 @@ export default function Catalog({navigation}) {
     state => state.catalog
   );
   const [inputModelStateAux, setInputModelStateAux] = useState(input2);
-  console.tron.log(input2);
+
   const [dataStateAux, setDataStateAux] = useState([]);
   // const [dataModalState, setDataModalState] = useState([]);
 

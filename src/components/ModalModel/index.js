@@ -57,7 +57,10 @@ export default function ModalPacking({
             data={data}
             renderItem={({item}) => {
               return (
-                <TextButton onPress={() => functionOnPressText(item.matriz)}>
+                <TextButton
+                  onPress={() =>
+                    functionOnPressText(item.id, item.matriz, item.imageUrl)
+                  }>
                   {item.matriz}
                 </TextButton>
               );
