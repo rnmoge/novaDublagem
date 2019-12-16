@@ -10,6 +10,9 @@ import {
   colorsProduts,
   saveCommision,
   sizePriceOneSucess,
+  selectTypeChargeSucess,
+  selectPackingSucess,
+  selectPagamentSucess,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -36,7 +39,6 @@ function* selectTableOrderSaga(action) {
       return element.id === idTable;
     });
     yield put(saveCommision(tabela.comissao1));
-    console.tron.log(tabela.comissao1);
   } catch (err) {
     yield put(commonActionFailure(''));
   }
@@ -110,8 +112,7 @@ function* requestTablePriceSaga(action) {
         },
       }
     );
-    console.tron.log('data.tamanho');
-    console.tron.log(data);
+
     yield put(tablePriceSucess(data));
     yield put(commonActionSucess(''));
   } catch (err) {
@@ -121,6 +122,7 @@ function* requestTablePriceSaga(action) {
 function* backDetailsClientSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('DetailsClient');
+  yield put(commonActionSucess(''));
 }
 function* handleProductSaga() {
   yield put(commonLoadingActivityOn(''));
@@ -134,11 +136,33 @@ function* sizePriceSaga(action) {
       return element.id === id;
     });
 
-    console.tron.log(price1);
     yield put(sizePriceOneSucess(price1));
   } catch (err) {
     yield put(commonActionFailure(''));
   }
+}
+function* selectTypeChargeSaga() {
+  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  token = JSON.parse(token);
+
+  const charge = yield call(api.get, `/tipocobranca`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  yield put(selectTypeChargeSucess(charge.data));
+  const packing = yield call(api.get, `/embalagem`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  yield put(selectPackingSucess(packing.data));
+  const pagament = yield call(api.get, `/condicaopagamento`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  yield put(selectPagamentSucess(pagament.data));
 }
 export default all([
   takeLatest('@neworder/BACK_DETAILS_CLIENT', backDetailsClientSaga),
@@ -148,4 +172,5 @@ export default all([
   takeLatest('@newOrder/SEARCH_MODEL', searchModelSaga),
   takeLatest('@newOrder/COLOR_AND_SIZES', requestTablePriceSaga),
   takeLatest('@newOrder/SIZE_PRICE_ONE', sizePriceSaga),
+  takeLatest('@newOrder/SELECT_TYPE_CHARGE', selectTypeChargeSaga),
 ]);

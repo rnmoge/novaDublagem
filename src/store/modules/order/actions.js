@@ -54,3 +54,20 @@ export function cleanCatalog() {
     type: '@order/CLEAN_CATALOG',
   };
 }
+export function clients() {
+  return {
+    type: '@order/CLIENTS',
+  };
+}
+export function clientsSucess(data) {
+  return {
+    type: '@order/CLIENTS_SUCESS',
+    payload: {data},
+  };
+}
+export function clientsAddressSucess(data) {
+  return {
+    type: '@order/CLIENTS_ADDRESS_SUCESS',
+    payload: {data},
+  };
+}

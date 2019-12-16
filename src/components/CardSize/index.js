@@ -9,8 +9,6 @@ import {
   List,
   ContainerTotal2,
   Sizes,
-  ContainerQuant,
-  ContainerTam,
   AreaIcon,
   Quant,
   ContainerIcon,
@@ -23,7 +21,22 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
     {id: 2, size: 'M/42', quant: 0},
     {id: 3, size: 'G/44', quant: 0},
   ]);
-
+  function addRemoveList(add, index) {
+    const list = [...dataSize];
+    if (add) {
+      if (list[index].quant < 200) {
+        list[index].quant += 50;
+        setDataSize(list);
+      } else {
+        setDataSize(list);
+      }
+    } else if (list[index].quant === 0) {
+      list[index].quant = 0;
+    } else {
+      list[index].quant -= 50;
+      setDataSize(list);
+    }
+  }
   return (
     <Container>
       <ContainerTitle>
@@ -37,7 +50,7 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
       <List
         data={dataSize}
         initialNumToRender={10}
-        renderItem={({item}) => {
+        renderItem={({item, index}) => {
           return (
             <ContainerTotal2>
               <ContainerSize>
@@ -45,11 +58,11 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
               </ContainerSize>
               <ContainerSize>
                 <ContainerIcon>
-                  <AreaIcon>
+                  <AreaIcon onPress={() => addRemoveList(false, index)}>
                     <Icon name={nameIcon} iconAparence={false} />
                   </AreaIcon>
                   <Quant>{item.quant}</Quant>
-                  <AreaIcon>
+                  <AreaIcon onPress={() => addRemoveList(true, index)}>
                     <Icon name={nameIcon2} iconAparence={false} />
                   </AreaIcon>
                 </ContainerIcon>

@@ -23,27 +23,16 @@ import * as ActionsNewOrder from '../../store/modules/neworder/actions';
 
 export default function NewOrder() {
   const dispatch = useDispatch();
+  const {charges, packings, pagaments} = useSelector(state => state.neworder);
   const {data} = useSelector(state => state.order);
-  const [dataTypeCharge, setDataTypeCharge] = useState([
-    {id: 1, descricao: 'BANCÁRIA'},
-    {id: 2, descricao: 'DEPÓSITO'},
-    {id: 3, descricao: 'BNDES'},
-  ]);
-  const [dataPacking, setDataPacking] = useState([
-    {id: 1, descricao: 'INDIVIDUAL/ CX 60PRS'},
-  ]);
-  const [dataPagament, setDataPagament] = useState([
-    {id: 1, descricao: 'A VISTA'},
-    {id: 2, descricao: '28 / 42 / 56 '},
-    {id: 3, descricao: '28 / 56 / 84 '},
-    {id: 4, descricao: '30 / 60'},
-    {id: 5, descricao: '30 / 60 / 90 '},
-    {id: 6, descricao: ' 42 DD'},
-    {id: 7, descricao: ' 56 DD'},
-  ]);
+  const [number, setNumber] = useState(1000);
+
+  const [dataTypeCharge, setDataTypeCharge] = useState(charges);
+  const [dataPacking, setDataPacking] = useState(packings);
+  const [dataPagament, setDataPagament] = useState(pagaments);
   const [dataBillings, setdataBillings] = useState([
-    {id: 1, descricao: 'SIM'},
-    {id: 2, descricao: 'NÃO'},
+    {id: 0, descricao: 'SIM'},
+    {id: 1, descricao: 'NÃO'},
   ]);
   const day = new Date().getDate(); // Current Date
   const month = new Date().getMonth() + 1; // Current Month
@@ -52,7 +41,9 @@ export default function NewOrder() {
   const date = `${day}/${month}/${year}`;
   const [modalState, setModalState] = useState(false);
   const [inputTablePrice, setInputTablePrice] = useState('Selecione a tabela');
-  const [inputTypeCharge, setInputTypeCharge] = useState('Selecione o tipo');
+  const [inputTypeCharge, setInputTypeCharge] = useState(
+    'Selecione o tipo de cobrança'
+  );
   const [inputPacking, setInputPacking] = useState('Selecione a embalagem');
   const [inputPagament, setInputPagament] = useState('Selecione o pagamento');
   const [inputBillings, setInputBillings] = useState('Selecione o faturamento');
@@ -73,6 +64,9 @@ export default function NewOrder() {
   function backDetailsClient() {
     dispatch(ActionsNewOrder.backDetailsClient());
   }
+  // useEffect(() => {
+  //   setNumber(number + 1);
+  // }, [dispatch, number]); // eslint-disable-line
   // Funçoes do modal
   function selectInputTablePrice() {
     setModalState(!modalState);
@@ -84,6 +78,7 @@ export default function NewOrder() {
   }
   // função de tipo de cobrança
   function typeCharge() {
+    dispatch(ActionsNewOrder.selectTypeCharge());
     setModalStateType(!modalStateType);
   }
   function selectTypeCharge(id, descricao) {
@@ -91,7 +86,7 @@ export default function NewOrder() {
     setModalStateType(!modalStateType);
   }
   // função de embalagem
-  function packing() {
+  function packingTwo() {
     setModalStatePacking(!modalStatePacking);
   }
   function selectPacking(id, descricao) {
@@ -116,6 +111,16 @@ export default function NewOrder() {
   }
   function handleProducts() {
     dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
+    dispatch(
+      ActionsNewOrder.saveState(
+        inputTypeCharge,
+        inputTablePrice,
+        inputClientState,
+        inputPagament,
+        inputNoteState,
+        inputBillings
+      )
+    );
   }
 
   return (
@@ -134,8 +139,8 @@ export default function NewOrder() {
             <Text>Cliente:</Text>
           </ContainerPlaceholder>
           <ContainerInfo>
-            <TextClient>Pedido: 555</TextClient>
-            <TextClient>R. Social: {data.razao}</TextClient>
+            <TextClient>Pedido: {number}</TextClient>
+            <TextClient>R. Social: {data.nome_razao}</TextClient>
           </ContainerInfo>
         </ContainerClient>
       </ContainerTotal>
@@ -166,7 +171,7 @@ export default function NewOrder() {
               textSecundary={inputPacking}
               icoName="angle-down"
               functionOnpressInput={() => {
-                packing();
+                packingTwo();
               }}
             />
             <InputClick
@@ -217,6 +222,7 @@ export default function NewOrder() {
           </ContainerOrder>
         </ContainerBody>
       </ScrollView>
+      {/* charges, packings, pagaments */}
       <ModalPrice
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}
@@ -236,7 +242,7 @@ export default function NewOrder() {
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite o tipo de cobrança"
         modalVisible={modalStateType}
-        data={dataTypeCharge}
+        data={charges}
         nameIcon="times"
         nameIconTwo="search"
         functionOnPressLeft={() => setModalStateType(!modalStateType)}
@@ -249,7 +255,7 @@ export default function NewOrder() {
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite a embalagem"
         modalVisible={modalStatePacking}
-        data={dataPacking}
+        data={packings}
         nameIcon="times"
         nameIconTwo="search"
         functionOnPressLeft={() => setModalStatePacking(!modalStatePacking)}
@@ -262,7 +268,7 @@ export default function NewOrder() {
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite o pagamento"
         modalVisible={modalStatePagament}
-        data={dataPagament}
+        data={pagaments}
         nameIcon="times"
         nameIconTwo="search"
         functionOnPressLeft={() => setModalStatePagament(!modalStatePagament)}

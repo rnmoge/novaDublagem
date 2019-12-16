@@ -88,3 +88,46 @@ export function sizePriceOneSucess(price) {
     payload: {price},
   };
 }
+export function selectTypeCharge() {
+  return {
+    type: '@newOrder/SELECT_TYPE_CHARGE',
+  };
+}
+export function selectTypeChargeSucess(charge) {
+  return {
+    type: '@newOrder/SELECT_TYPE_CHARGE_SUCESS',
+    payload: {charge},
+  };
+}
+export function selectPackingSucess(packing) {
+  return {
+    type: '@newOrder/SELECT_PACKING_SUCESS',
+    payload: {packing},
+  };
+}
+export function selectPagamentSucess(pagament) {
+  return {
+    type: '@newOrder/SELECT_PAGAMENT_SUCESS',
+    payload: {pagament},
+  };
+}
+export function saveState(
+  inputTypeCharge,
+  inputBillings,
+  inputTablePrice,
+  inputClientState,
+  inputPagament,
+  inputNoteState
+) {
+  return {
+    type: '@newOrder/SAVE_PAGAMENT',
+    payload: {
+      inputTypeCharge,
+      inputTablePrice,
+      inputClientState,
+      inputPagament,
+      inputNoteState,
+      inputBillings,
+    },
+  };
+}

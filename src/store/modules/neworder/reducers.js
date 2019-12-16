@@ -10,6 +10,14 @@ const INITIAL_STATE = {
   cores: [],
   comission: [],
   price: [],
+  charges: [],
+  packings: [],
+  inputTypeCharge: '',
+  inputTablePrice: '',
+  inputClientState: '',
+  inputPagament: '',
+  inputNoteState: '',
+  inputBillings: '',
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -45,6 +53,28 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@newOrder/SIZE_PRICE_ONE_SUCESS':
       return produce(state, draft => {
         draft.price = action.payload.price;
+      });
+    case '@newOrder/SELECT_TYPE_CHARGE_SUCESS':
+      return produce(state, draft => {
+        draft.charges = action.payload.charge;
+      });
+    case '@newOrder/SELECT_PACKING_SUCESS':
+      return produce(state, draft => {
+        draft.packings = action.payload.packing;
+      });
+    case '@newOrder/SELECT_PAGAMENT_SUCESS':
+      return produce(state, draft => {
+        draft.pagaments = action.payload.pagament;
+      });
+    case '@newOrder/SAVE_PAGAMENT':
+      return produce(state, draft => {
+        draft.pagaments = action.payload.pagament;
+        draft.inputTypeCharge = action.payload.inputTypeCharge;
+        draft.inputTablePrice = action.payload.inputTablePrice;
+        draft.inputClientState = action.payload.inputClientState;
+        draft.inputPagament = action.payload.inputPagament;
+        draft.inputNoteState = action.payload.inputNoteState;
+        draft.inputBillings = action.payload.inputBillings;
       });
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from 'react';
-// import {Text} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -11,10 +11,11 @@ import {
   ContainerTextCamp,
 } from './styles';
 
-export default function DetailsClient({client}) {
+export default function DetailsClient({client, address}) {
   return (
     <Container2>
       <Text>Dados cadastrais do cliente</Text>
+
       <Container>
         <ContainerTextCamp>
           <TextInfo>Código: </TextInfo>
@@ -27,12 +28,12 @@ export default function DetailsClient({client}) {
           <TextInfo>E-mail: </TextInfo>
         </ContainerTextCamp>
         <ContainerText>
-          <TextInfo2>{client.cod}</TextInfo2>
-          <TextInfo2>{client.razao}</TextInfo2>
-          <TextInfo2>{client.rua}</TextInfo2>
-          <TextInfo2>{client.cidade}</TextInfo2>
-          <TextInfo2>{client.bairro}</TextInfo2>
-          <TextInfo2>{client.uf}</TextInfo2>
+          <TextInfo2>{client.cliente_cod}</TextInfo2>
+          <TextInfo2>{client.nome_razao}</TextInfo2>
+          <TextInfo2>{address.endereco}</TextInfo2>
+          <TextInfo2>{address.cidade}</TextInfo2>
+          <TextInfo2>{address.bairro}</TextInfo2>
+          <TextInfo2>{address.uf}</TextInfo2>
           <TextInfo2>{client.cnpj}</TextInfo2>
           <TextInfo2>{client.email}</TextInfo2>
         </ContainerText>
@@ -42,6 +43,7 @@ export default function DetailsClient({client}) {
 }
 DetailsClient.prototypes = {
   client: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  address: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
 };
 DetailsClient.defaultProps = {
   client: {

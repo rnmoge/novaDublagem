@@ -74,6 +74,7 @@ export default function ProductDetails() {
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}
+          functionOnPressText={() => setModalState(!modalState)}
         />
       </ContainerModal>
     </Container>

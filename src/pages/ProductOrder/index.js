@@ -27,8 +27,6 @@ import {
   ContainerList,
   Image,
   ContainerImagem,
-  ContainerButton,
-  TextButton,
   ContainerModal,
 } from './styles';
 // import Bojo from '../../../assets/image/3101.jpg';
@@ -48,7 +46,7 @@ export default function ProductOrder() {
   const [inputNoteState, setInputNoteState] = useState('');
   const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
-
+  const [snackVisible, setSnackVisible] = useState(false);
   const {
     table,
     condition,
@@ -60,8 +58,7 @@ export default function ProductOrder() {
     comission,
     price,
   } = useSelector(state => state.neworder);
-  console.tron.log('sizes');
-  console.tron.log(sizes);
+
   const [dateValueState, setDataValueState] = useState('0,00');
   const [modalState, setModalState] = useState(false);
   const [modalModelState, setModalModelState] = useState(false);
@@ -110,9 +107,9 @@ export default function ProductOrder() {
   }
   function selectSize(id, descricao) {
     setInputSizeState(descricao);
+    setDataValueState(price.preco1);
     setModalSizeState(!modalSizeState);
     dispatch(NewOrderActions.sizePriceOne(id, sizes));
-    setDataValueState(price.preco1);
   }
   function colorFunc() {
     setColorModalState(!colorModalState);
@@ -120,6 +117,17 @@ export default function ProductOrder() {
   function selectColor(descricao) {
     setInputColorState(descricao);
     setColorModalState(!colorModalState);
+  }
+
+  function completeOrder() {
+    setSnackVisible(!snackVisible);
+    setInputLineState('Selecione a linha');
+    setInputModelState('Selecione o modelo');
+    setInputSizeState('Grupo de tamanho');
+    setInputColorState('Cor');
+    setInputNoteState('');
+    setImageState();
+    setDataValueState('0,00');
   }
   return (
     <Container>
@@ -138,7 +146,7 @@ export default function ProductOrder() {
               <Text>Cliente: </Text>
             </ContainerPlaceholder>
             <ContainerInfo>
-              <TextClient>{data.razao}</TextClient>
+              <TextClient>{data.nome_razao}</TextClient>
               <TextClient>Tabela de preço: {table}</TextClient>
               <TextClient>Condição de pagamento: {condition}</TextClient>
             </ContainerInfo>
@@ -211,11 +219,14 @@ export default function ProductOrder() {
                 functionOnChangeText={text => setInputNoteState(text)}
                 valueInputText={inputNoteState}
               />
-              <Button titleButton="Adicionar" />
+              <Button
+                titleButton="Adicionar"
+                disabledButton={false}
+                functionOnPress={() => {
+                  completeOrder();
+                }}
+              />
               <ButtonSecondary titleButton="Finalizar Pedido" />
-              {/* <ContainerButton>
-                <TextButton>Trocar tabela de preço</TextButton>
-              </ContainerButton> */}
             </ContainerList>
           </List>
         </ScrollView>
