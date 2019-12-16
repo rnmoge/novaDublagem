@@ -6,6 +6,10 @@ const INITIAL_STATE = {
   idTable: '',
   dataDescription: [],
   line: [],
+  sizes: [],
+  cores: [],
+  comission: [],
+  price: [],
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -25,6 +29,22 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@newOrder/SEARCH_MODEL_SUCESS':
       return produce(state, draft => {
         draft.line = action.payload.data;
+      });
+    case '@newOrder/TABLE_PRICE_SUCESS':
+      return produce(state, draft => {
+        draft.sizes = action.payload.data;
+      });
+    case '@newOrder/COLORS_PRODUCTS':
+      return produce(state, draft => {
+        draft.cores = action.payload.cores;
+      });
+    case '@newOrder/SAVE_COMISSION':
+      return produce(state, draft => {
+        draft.comission = action.payload.comission;
+      });
+    case '@newOrder/SIZE_PRICE_ONE_SUCESS':
+      return produce(state, draft => {
+        draft.price = action.payload.price;
       });
     default:
       return state;

@@ -6,6 +6,10 @@ import {
   selectTableOrderSucess,
   searchDescriptionSucess,
   searchModelSucess,
+  tablePriceSucess,
+  colorsProduts,
+  saveCommision,
+  sizePriceOneSucess,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -21,6 +25,18 @@ function* selectTableOrderSaga(action) {
 
   try {
     yield put(selectTableOrderSucess(idTable));
+    let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+    token = JSON.parse(token);
+    const {data} = yield call(api.get, `/tabelapreco`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const tabela = data.find(element => {
+      return element.id === idTable;
+    });
+    yield put(saveCommision(tabela.comissao1));
+    console.tron.log(tabela.comissao1);
   } catch (err) {
     yield put(commonActionFailure(''));
   }
@@ -28,6 +44,7 @@ function* selectTableOrderSaga(action) {
 function* searchDescripitionOrder(action) {
   yield put(commonLoadingActivityOn(''));
   const {id, description} = action.payload;
+
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
@@ -40,7 +57,6 @@ function* searchDescripitionOrder(action) {
         },
       }
     );
-    console.tron.log(data);
     yield put(searchDescriptionSucess(data));
     yield put(commonActionSucess(''));
   } catch (err) {
@@ -63,8 +79,6 @@ function* searchModelSaga(action) {
         },
       }
     );
-    console.tron.log('data');
-    console.tron.log(data, descricao);
     yield put(searchModelSucess(data));
     yield put(commonActionSucess(''));
   } catch (err) {
@@ -83,8 +97,7 @@ function* requestTablePriceSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.tron.log(cores);
-    // yield put(ProductsCatalogSucessId(cores.data.cores));
+    yield put(colorsProduts(cores.data.cores));
 
     const {
       data: {data},
@@ -97,8 +110,9 @@ function* requestTablePriceSaga(action) {
         },
       }
     );
-    console.tron.log(data.data);
-    // yield put(requestTablePriceSucess(data));
+    console.tron.log('data.tamanho');
+    console.tron.log(data);
+    yield put(tablePriceSucess(data));
     yield put(commonActionSucess(''));
   } catch (err) {
     yield put(commonActionFailure(''));
@@ -112,7 +126,20 @@ function* handleProductSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('ProductOrder');
 }
+function* sizePriceSaga(action) {
+  yield put(commonLoadingActivityOn(''));
+  const {id, sizes} = action.payload;
+  try {
+    const price1 = sizes.find(element => {
+      return element.id === id;
+    });
 
+    console.tron.log(price1);
+    yield put(sizePriceOneSucess(price1));
+  } catch (err) {
+    yield put(commonActionFailure(''));
+  }
+}
 export default all([
   takeLatest('@neworder/BACK_DETAILS_CLIENT', backDetailsClientSaga),
   takeLatest('@neworder/HANDLE_PRODUCTS', handleProductSaga),
@@ -120,4 +147,5 @@ export default all([
   takeLatest('@newOrder/SEARCH_DESCRIPITION', searchDescripitionOrder),
   takeLatest('@newOrder/SEARCH_MODEL', searchModelSaga),
   takeLatest('@newOrder/COLOR_AND_SIZES', requestTablePriceSaga),
+  takeLatest('@newOrder/SIZE_PRICE_ONE', sizePriceSaga),
 ]);

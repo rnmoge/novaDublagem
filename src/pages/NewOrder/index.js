@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,9 +22,6 @@ import ModalCatalog from '../../components/ModalCatalog';
 import * as ActionsNewOrder from '../../store/modules/neworder/actions';
 
 export default function NewOrder() {
-  // useEffect(() => {
-  //   const date = new Date().getDate();
-  // });
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
   const [dataTypeCharge, setDataTypeCharge] = useState([
@@ -48,7 +45,11 @@ export default function NewOrder() {
     {id: 1, descricao: 'SIM'},
     {id: 2, descricao: 'NÃO'},
   ]);
-
+  const day = new Date().getDate(); // Current Date
+  const month = new Date().getMonth() + 1; // Current Month
+  const year = new Date().getFullYear(); // Current Year
+  // const date = Date.now();
+  const date = `${day}/${month}/${year}`;
   const [modalState, setModalState] = useState(false);
   const [inputTablePrice, setInputTablePrice] = useState('Selecione a tabela');
   const [inputTypeCharge, setInputTypeCharge] = useState('Selecione o tipo');
@@ -59,7 +60,7 @@ export default function NewOrder() {
   const [modalStatePacking, setModalStatePacking] = useState(false);
   const [modalStatePagament, setModalStatePagament] = useState(false);
   const [modalStateBillings, setModalStateBillings] = useState(false);
-  const [dateState, setDateState] = useState('12/12/2019');
+  const [dateState, setDateState] = useState(date);
   const [inputState, setInputState] = useState('');
   const [inputDateState, setInputDateState] = useState('');
   const [inputClientState, setInputClientState] = useState('');
@@ -68,7 +69,6 @@ export default function NewOrder() {
   // const [dataStateAux, setDataStateAux] = useState(table);
 
   // ->funções da pagina<-
-
   // Função voltar
   function backDetailsClient() {
     dispatch(ActionsNewOrder.backDetailsClient());
@@ -117,6 +117,7 @@ export default function NewOrder() {
   function handleProducts() {
     dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
   }
+
   return (
     <Container>
       <Header
@@ -133,7 +134,7 @@ export default function NewOrder() {
             <Text>Cliente:</Text>
           </ContainerPlaceholder>
           <ContainerInfo>
-            <TextClient>Pedido: 8096</TextClient>
+            <TextClient>Pedido: 555</TextClient>
             <TextClient>R. Social: {data.razao}</TextClient>
           </ContainerInfo>
         </ContainerClient>

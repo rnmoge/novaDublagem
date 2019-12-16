@@ -42,8 +42,11 @@ export default function ModalColor({
           data={data}
           renderItem={({item}) => {
             return (
-              <TextButton onPress={() => functionOnPressText(item.descricao)}>
-                {item.descricao}
+              <TextButton
+                onPress={() =>
+                  functionOnPressText(item.id, item.tamanho.descricao)
+                }>
+                {item.tamanho.descricao}
               </TextButton>
             );
           }}

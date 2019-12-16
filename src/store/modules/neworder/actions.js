@@ -52,9 +52,39 @@ export function colorAndSizes(idTable, idProduct) {
   };
 }
 
-export function colorAndSizesSucess(cores, data) {
+// export function colorAndSizesSucess(cores, data) {
+//   return {
+//     type: '@newOrder/COLOR_AND_SIZES',
+//     payload: {},
+//   };
+// }
+export function tablePriceSucess(data) {
   return {
-    type: '@newOrder/COLOR_AND_SIZES',
-    payload: {cores, data},
+    type: '@newOrder/TABLE_PRICE_SUCESS',
+    payload: {data},
+  };
+}
+export function colorsProduts(cores) {
+  return {
+    type: '@newOrder/COLORS_PRODUCTS',
+    payload: {cores},
+  };
+}
+export function saveCommision(comission) {
+  return {
+    type: '@newOrder/SAVE_COMISSION',
+    payload: {comission},
+  };
+}
+export function sizePriceOne(id, sizes) {
+  return {
+    type: '@newOrder/SIZE_PRICE_ONE',
+    payload: {id, sizes},
+  };
+}
+export function sizePriceOneSucess(price) {
+  return {
+    type: '@newOrder/SIZE_PRICE_ONE_SUCESS',
+    payload: {price},
   };
 }

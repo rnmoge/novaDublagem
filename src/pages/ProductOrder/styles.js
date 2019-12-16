@@ -69,12 +69,19 @@ export const Image = styled.Image`
   border-radius: 3px;
   margin-left: 15px;
 `;
-export const ContainerButton2 = styled.View`
-  flex-direction: column;
-`;
+
 export const ContainerButton = styled.View`
-  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
+export const TextButton = styled.Text`
+  padding-top: 20px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+`;
+
 export const ContainerModal = styled.View`
   padding-top: ${Platform.OS === 'ios' ? 0 : 0};
   background: #3f51b5;

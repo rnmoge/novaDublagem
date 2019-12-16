@@ -4,13 +4,15 @@ import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../components/Header';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
-// import Modal from '../../components/Modal';
+import Modal from '../../components/Modal';
 import ModalCatalog from '../../components/ModalCatalog';
 import CardSize from '../../components/CardSize';
 import ModalModel from '../../components/ModalModel';
+import ModalSize from '../../components/ModalSize';
 import Button from '../../components/Button';
+import ButtonSecondary from '../../components/ButtonSecondary';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
-import * as CatalogActions from '../../store/modules/catalog/actions';
+// import * as CatalogActions from '../../store/modules/catalog/actions';
 import * as NewOrderActions from '../../store/modules/neworder/actions';
 import {
   Container,
@@ -26,7 +28,7 @@ import {
   Image,
   ContainerImagem,
   ContainerButton,
-  ContainerButton2,
+  TextButton,
   ContainerModal,
 } from './styles';
 // import Bojo from '../../../assets/image/3101.jpg';
@@ -35,32 +37,50 @@ export default function ProductOrder() {
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
   const {loading} = useSelector(state => state.common);
-  const {data2} = useSelector(state => state.table);
-  const {input, descricao1, model} = useSelector(state => state.catalog);
+  // const {data2} = useSelector(state => state.table);
+  const {input} = useSelector(state => state.catalog);
   const [inputState, setInputState] = useState('');
   const [inputStateModel, setInputStateModel] = useState('');
-  const [inputLineState, setInputLineState] = useState('');
+  const [inputLineState, setInputLineState] = useState('Selecione a linha');
   const [inputModelState, setInputModelState] = useState('Selecione o modelo');
+  const [inputSizeState, setInputSizeState] = useState('Grupo de tamanho');
+  const [inputColorState, setInputColorState] = useState('Cor');
+  const [inputNoteState, setInputNoteState] = useState('');
+  const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
-  const [dateState, setDataState] = useState('12/12/2019');
-  const [dateValueState, setDataValueState] = useState('1,38');
-  const [dateCommisionState, setDataCommisionState] = useState('5.00');
-  const {table, condition, idTable, dataDescription, line} = useSelector(
-    state => state.neworder
-  );
-  console.tron.log('dataDescription');
-  console.tron.log(dataDescription);
+
+  const {
+    table,
+    condition,
+    idTable,
+    dataDescription,
+    line,
+    cores,
+    sizes,
+    comission,
+    price,
+  } = useSelector(state => state.neworder);
+  console.tron.log('sizes');
+  console.tron.log(sizes);
+  const [dateValueState, setDataValueState] = useState('0,00');
   const [modalState, setModalState] = useState(false);
   const [modalModelState, setModalModelState] = useState(false);
   const [modalSizeState, setModalSizeState] = useState(false);
-  const [modalColorState, setModalColorState] = useState(false);
+  const [colorModalState, setColorModalState] = useState(false);
+  const day = new Date().getDate(); // Current Date
+  const month = new Date().getMonth() + 1; // Current Month
+  const year = new Date().getFullYear(); // Current Year
+  // const date = Date.now();
+  const date = `${day}/${month}/${year}`;
+  const [dateState, setDataState] = useState(date);
   useEffect(() => {
-    if (input === '') {
-      setInputLineState('Selecione a linha');
-    } else {
-      setInputLineState(input);
-    }
-  }, [input]);
+    // if (input === '') {
+    //   setInputLineState('Selecione a linha');
+    // } else {
+    //   setInputLineState(input);
+    // }
+    setInputComissionState(comission);
+  }, [comission, input]);
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
@@ -84,6 +104,22 @@ export default function ProductOrder() {
     setImageState(imageUrl);
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
+  }
+  function sizeFunc() {
+    setModalSizeState(!modalSizeState);
+  }
+  function selectSize(id, descricao) {
+    setInputSizeState(descricao);
+    setModalSizeState(!modalSizeState);
+    dispatch(NewOrderActions.sizePriceOne(id, sizes));
+    setDataValueState(price.preco1);
+  }
+  function colorFunc() {
+    setColorModalState(!colorModalState);
+  }
+  function selectColor(descricao) {
+    setInputColorState(descricao);
+    setColorModalState(!colorModalState);
   }
   return (
     <Container>
@@ -129,13 +165,19 @@ export default function ProductOrder() {
               />
               <InputClick
                 textPrimary="Selecione o tamanho:"
-                textSecundary="Grupos de tamanhos"
+                textSecundary={inputSizeState}
                 icoName="angle-down"
+                functionOnpressInput={() => {
+                  sizeFunc();
+                }}
               />
               <InputClick
                 textPrimary="Selecione a cor:"
-                textSecundary="Cor"
+                textSecundary={inputColorState}
                 icoName="angle-down"
+                functionOnpressInput={() => {
+                  colorFunc();
+                }}
               />
               <TextClient>Imagem:</TextClient>
               <ContainerImagem>
@@ -145,7 +187,7 @@ export default function ProductOrder() {
               <TextClient>Comissão:</TextClient>
               <InputType
                 placeholder="Comissão"
-                valueInputText={dateCommisionState}
+                valueInputText={inputComissionState}
               />
               <TextClient>Valor real:</TextClient>
               <InputType
@@ -164,23 +206,16 @@ export default function ProductOrder() {
                 }}
               />
               <TextClient>Observação:</TextClient>
-              <InputType placeholder="Observação" />
-              <ContainerButton2>
-                <ContainerButton>
-                  <Button titleButton="Adicionar" />
-                </ContainerButton>
-                <ContainerButton>
-                  <Button titleButton="Adicionar" />
-                </ContainerButton>
-              </ContainerButton2>
-              <ContainerButton2>
-                <ContainerButton>
-                  <Button titleButton="Adicionar" />
-                </ContainerButton>
-                <ContainerButton>
-                  <Button titleButton="Adicionar" />
-                </ContainerButton>
-              </ContainerButton2>
+              <InputType
+                placeholder="Observação"
+                functionOnChangeText={text => setInputNoteState(text)}
+                valueInputText={inputNoteState}
+              />
+              <Button titleButton="Adicionar" />
+              <ButtonSecondary titleButton="Finalizar Pedido" />
+              {/* <ContainerButton>
+                <TextButton>Trocar tabela de preço</TextButton>
+              </ContainerButton> */}
             </ContainerList>
           </List>
         </ScrollView>
@@ -198,6 +233,40 @@ export default function ProductOrder() {
           functionOnPressLeft={() => setModalState(!modalState)}
           functionOnPressText={(linha, descricao) => {
             selectDescripition(linha, descricao);
+          }}
+          functionOnPressRight={() => {
+            searchDescription();
+          }}
+        />
+        <Modal
+          loading={loading}
+          valueInputText={inputState}
+          functionOnChangeText={text => setInputState(text)}
+          placeholder="Digite a cor"
+          modalVisible={colorModalState}
+          data={cores}
+          nameIcon="times"
+          nameIconTwo="search"
+          functionOnPressLeft={() => setColorModalState(!colorModalState)}
+          functionOnPressText={descricao => {
+            selectColor(descricao);
+          }}
+          functionOnPressRight={() => {
+            searchDescription();
+          }}
+        />
+        <ModalSize
+          loading={loading}
+          valueInputText={inputState}
+          functionOnChangeText={text => setInputState(text)}
+          placeholder="Digite a linha"
+          modalVisible={modalSizeState}
+          data={sizes}
+          nameIcon="times"
+          nameIconTwo="search"
+          functionOnPressLeft={() => setModalSizeState(!modalSizeState)}
+          functionOnPressText={(id, descricao) => {
+            selectSize(id, descricao);
           }}
           functionOnPressRight={() => {
             searchDescription();
