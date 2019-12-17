@@ -23,7 +23,7 @@ export default function Radius({
   return (
     <Container>
       <ContainerButton onPress={functionOnPress}>
-        <AreaIcon>
+        <AreaIcon onPress={functionOnPress}>
           <Icon name={nameIcon} iconAparence={false} />
         </AreaIcon>
         <ContainerText>

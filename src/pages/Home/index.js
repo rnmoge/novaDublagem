@@ -11,6 +11,9 @@ import * as ActionsHome from '../../store/modules/home/actions';
 export default function Home({navigation}) {
   const {data2} = useSelector(state => state.table);
   const dispatch = useDispatch();
+  function handleCart() {
+    dispatch(ActionsHome.handleCart());
+  }
   useEffect(() => {
     dispatch(ActionsHome.homeClean());
   }, [data2.id]); // eslint-disable-line
@@ -21,6 +24,9 @@ export default function Home({navigation}) {
         iconName="bars"
         icoNameTwo="shopping-cart"
         functionOnpressIconLeft={() => navigation.openDrawer()}
+        functionOnpressIconRigth={() => {
+          handleCart();
+        }}
       />
       <ContainerImage>
         <Image source={logo} />

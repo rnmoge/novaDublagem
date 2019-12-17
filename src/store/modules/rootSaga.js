@@ -10,6 +10,7 @@ import order from './order/sagas';
 import neworder from './neworder/sagas';
 import home from './home/sagas';
 import productorder from './productorder/sagas';
+import cart from './cart/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -24,6 +25,7 @@ export default function* rootSaga() {
     neworder,
     home,
     productorder,
+    cart,
     // adicione mais sagas
   ]);
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -27,9 +27,9 @@ export default function NewOrder() {
   const {data} = useSelector(state => state.order);
   const [number, setNumber] = useState(1000);
 
-  const [dataTypeCharge, setDataTypeCharge] = useState(charges);
-  const [dataPacking, setDataPacking] = useState(packings);
-  const [dataPagament, setDataPagament] = useState(pagaments);
+  // const [dataTypeCharge, setDataTypeCharge] = useState(charges);
+  // const [dataPacking, setDataPacking] = useState(packings);
+  // const [dataPagament, setDataPagament] = useState(pagaments);
   const [dataBillings, setdataBillings] = useState([
     {id: 0, descricao: 'SIM'},
     {id: 1, descricao: 'NÃO'},

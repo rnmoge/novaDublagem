@@ -43,3 +43,10 @@ export const ContainerTotal = styled.View`
 `;
 
 export const ContainerButton = styled.View``;
+
+export const ContainerRadius = styled.View`
+  padding-top: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;

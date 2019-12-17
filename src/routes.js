@@ -1,6 +1,6 @@
 import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-// import {createStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import {SafeAreaView, View} from 'react-native';
@@ -21,26 +21,25 @@ import DetailsClient from './pages/DetailsClient';
 import NewOrder from './pages/NewOrder';
 import Testestando from './pages/Testestando';
 import ProductOrder from './pages/ProductOrder';
+import Cart from './pages/Cart';
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
 //   Home,
 // });
 // const createStackNavigatorApp = createStackNavigator({
-//  Catalogo: {
-//    screen: Catalogo,
-//
-//    navigationOptions: {
-//      title: 'Catalogo',
-//      headerStyle: {
-//        backgroundColor: '#f4511e',
-//      },
-//      headerTintColor: '#fff',
-//      headerTitleStyle: {
-//        fontWeight: 'bold',
-//      },
-//    },
-//  },
-//  Home,
+//   Cart: {
+//     screen: Cart,
+//     navigationOptions: {
+//       title: 'Carrinho',
+//       headerStyle: {
+//         backgroundColor: '#3f51b5',
+//       },
+//       headerTintColor: '#fff',
+//       headerTitleStyle: {
+//         fontWeight: 'bold',
+//       },
+//     },
+//   },
 // });
 // const createBottomTabNavigatorApp = createBottomTabNavigator({
 //  Login,
@@ -113,6 +112,7 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 const createAppNavigation = createSwitchNavigator({
   Login,
   Home: {screen: createDrawerNavigatorApp},
+  Cart,
   ProductDetails,
   RegisterOrder,
   ProductOrder,

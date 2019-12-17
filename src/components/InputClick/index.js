@@ -31,7 +31,7 @@ export default function InputClick({
             <TextInput>{textSecundary}</TextInput>
           </Input>
         </AreaInput>
-        <AreaIcon>
+        <AreaIcon onPress={functionOnpressInput}>
           <Icon name={icoName} />
         </AreaIcon>
       </ContainerInput>

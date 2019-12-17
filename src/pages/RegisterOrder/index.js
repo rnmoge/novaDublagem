@@ -190,11 +190,12 @@ export default function RegisterOrder() {
                 text="Ativos"
               />
               <Radius
-                text="Inativos"
+                iconAparence={selectStateTwo}
                 nameIcon={selectStateTwo ? 'dot-circle' : 'circle'}
                 functionOnPress={() => {
                   trocaRadius2();
                 }}
+                text="Inativos"
               />
               <Radius
                 text="Todos"
