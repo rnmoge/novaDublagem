@@ -15,9 +15,10 @@ export default function InputType({
   valueInputText,
   functionOnPressIcon,
   disabledButtonIcon,
+  error,
 }) {
   return (
-    <Container>
+    <Container error={error}>
       <AreaInput>
         <Input
           value={valueInputText}

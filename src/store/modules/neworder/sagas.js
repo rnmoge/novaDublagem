@@ -13,6 +13,7 @@ import {
   selectTypeChargeSucess,
   selectPackingSucess,
   selectPagamentSucess,
+  detailsProduct,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -25,7 +26,6 @@ import {navigate} from '../../../services/navigation';
 function* selectTableOrderSaga(action) {
   yield put(commonLoadingActivityOn(''));
   const {idTable} = action.payload;
-
   try {
     yield put(selectTableOrderSucess(idTable));
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
@@ -38,7 +38,7 @@ function* selectTableOrderSaga(action) {
     const tabela = data.find(element => {
       return element.id === idTable;
     });
-    yield put(saveCommision(tabela.comissao1));
+    yield put(saveCommision(tabela));
   } catch (err) {
     yield put(commonActionFailure(''));
   }
@@ -100,6 +100,7 @@ function* requestTablePriceSaga(action) {
       },
     });
     yield put(colorsProduts(cores.data.cores));
+    yield put(detailsProduct(cores.data));
 
     const {
       data: {data},
@@ -124,8 +125,17 @@ function* backDetailsClientSaga() {
   navigate('DetailsClient');
   yield put(commonActionSucess(''));
 }
-function* handleProductSaga() {
+function* handleProductSaga(action) {
   yield put(commonLoadingActivityOn(''));
+  // const {condition, table} = action.payload;
+  // if (condition === 'A VISTA') {
+  //   let tabelas = yield call(AsyncStorage.getItem, '@novaDublagem:userTable');
+  //   tabelas = JSON.parse(tabelas);
+  //   const tabela = tabelas.find(element => {
+  //     return element.tabelapreco === table;
+  //   });
+  //
+  // }
   navigate('ProductOrder');
 }
 function* sizePriceSaga(action) {

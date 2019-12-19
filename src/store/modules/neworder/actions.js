@@ -131,3 +131,14 @@ export function saveState(
     },
   };
 }
+export function detailsProduct(cores) {
+  return {
+    type: '@newOrder/DETAILS_PRODUCT',
+    payload: {cores},
+  };
+}
+export function cleanState() {
+  return {
+    type: '@newOrder/CLEAN_STATE',
+  };
+}

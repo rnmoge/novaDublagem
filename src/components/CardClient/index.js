@@ -36,10 +36,10 @@ export default function CardClient({data, functionOnpressClient}) {
               <ContainerClient>
                 <ConatinerCod>
                   <Cod>
-                    Cód: <TextInfo2>{item.cliente_cod}</TextInfo2>
+                    <TextInfo2>{item.cliente_cod}</TextInfo2>
                   </Cod>
                   <TextInfo>
-                    Razão: <TextInfo2>{item.nome_razao}</TextInfo2>
+                    <TextInfo2>{item.nome_razao}</TextInfo2>
                   </TextInfo>
                 </ConatinerCod>
                 {/* <TextInfo>
@@ -47,10 +47,10 @@ export default function CardClient({data, functionOnpressClient}) {
                   <TextInfo2>{item.}</TextInfo2>
                 </TextInfo> */}
                 <TextInfo>
-                  Email: <TextInfo2>{item.email}</TextInfo2>
+                  <TextInfo2>{item.email}</TextInfo2>
                 </TextInfo>
                 <TextInfo>
-                  CNPJ: <TextInfo2>{item.cnpj}</TextInfo2>
+                  <TextInfo2>{item.cnpj}</TextInfo2>
                 </TextInfo>
               </ContainerClient>
             </ContainerTotal>

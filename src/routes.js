@@ -1,6 +1,6 @@
 import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+// import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import {SafeAreaView, View} from 'react-native';
@@ -111,12 +111,12 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 );
 const createAppNavigation = createSwitchNavigator({
   Login,
-  Home: {screen: createDrawerNavigatorApp},
+  NewOrder,
+  ProductOrder,
   Cart,
+  Home: {screen: createDrawerNavigatorApp},
   ProductDetails,
   RegisterOrder,
-  ProductOrder,
-  NewOrder,
   TableSelection,
   DetailsClient,
   TransmitOrder,

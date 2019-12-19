@@ -25,7 +25,7 @@ export default function Request({navigation}) {
       <Header
         title="Pedidos"
         iconName="bars"
-        icoNameTwo="shopping-cart"
+        icoNameTwo=""
         functionOnpressIconLeft={() => navigation.openDrawer()}
       />
       <ContainerPage>

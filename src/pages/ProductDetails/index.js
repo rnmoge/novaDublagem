@@ -7,11 +7,15 @@ import Button from '../../components/Button';
 import CardTablePrice from '../../components/CardTablePrice';
 import {Container, ContainerBody, ContainerModal} from './styles';
 import * as ActionsCatalog from '../../store/modules/catalog/actions';
+import * as ActionsCart from '../../store/modules/cart/actions';
 import Modal from '../../components/Modal';
+import Cart from '../../components/Cart';
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
-  const {product, cores} = useSelector(state => state.catalog);
+  // const {prices} = useSelector(state => state.catalog);
+  const {product, cores, prices} = useSelector(state => state.catalog);
+
   const {loading} = useSelector(state => state.common);
   const {data2} = useSelector(state => state.table);
   const [stateProduct, setStateProduct] = useState(product);
@@ -20,7 +24,7 @@ export default function ProductDetails() {
   const [inputState, setInputState] = useState('');
   // const [colorsState, setColorState] = useState();
   const [colorAux, setColorAux] = useState(cores);
-
+  const {stateModal} = useSelector(state => state.cart);
   useEffect(() => {
     setStateProduct(product);
     setStateTableComission(data2);
@@ -43,6 +47,9 @@ export default function ProductDetails() {
   function backCatalogPage() {
     dispatch(ActionsCatalog.backCatalog());
   }
+  function handleCart() {
+    dispatch(ActionsCart.cartOpen(true));
+  }
   return (
     <Container>
       <Header
@@ -53,11 +60,18 @@ export default function ProductDetails() {
         functionOnpressIconLeft={() => {
           backCatalogPage();
         }}
+        functionOnpressIconRigth={() => {
+          handleCart();
+        }}
       />
 
       <ContainerBody>
         <CardDetails product={stateProduct} />
-        <CardTablePrice commision={stateTableComission} loading={loading} />
+        <CardTablePrice
+          commision={stateTableComission}
+          loading={loading}
+          data={prices}
+        />
         <Button
           titleButton="VER CORES"
           functionOnPress={() => setModalState(!modalState)}
@@ -76,6 +90,7 @@ export default function ProductDetails() {
           functionOnPressLeft={() => setModalState(!modalState)}
           functionOnPressText={() => setModalState(!modalState)}
         />
+        <Cart modalVisible={stateModal} />
       </ContainerModal>
     </Container>
   );

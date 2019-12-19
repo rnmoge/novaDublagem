@@ -18,14 +18,14 @@ export default function DetailsClient({client, address}) {
 
       <Container>
         <ContainerTextCamp>
-          <TextInfo>Código: </TextInfo>
-          <TextInfo>R. Social:</TextInfo>
-          <TextInfo>Endereço: </TextInfo>
-          <TextInfo>Cidade: </TextInfo>
-          <TextInfo>Bairro: </TextInfo>
-          <TextInfo>UF: </TextInfo>
-          <TextInfo>CNPJ: </TextInfo>
-          <TextInfo>E-mail: </TextInfo>
+          <TextInfo>Código</TextInfo>
+          <TextInfo>R. Social</TextInfo>
+          <TextInfo>Endereço</TextInfo>
+          <TextInfo>Cidade</TextInfo>
+          <TextInfo>Bairro</TextInfo>
+          <TextInfo>UF</TextInfo>
+          <TextInfo>CNPJ</TextInfo>
+          <TextInfo>E-mail</TextInfo>
         </ContainerTextCamp>
         <ContainerText>
           <TextInfo2>{client.cliente_cod}</TextInfo2>

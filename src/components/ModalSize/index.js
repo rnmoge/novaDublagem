@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, Modal} from 'react-native';
+import {FlatList, Modal, ActivityIndicator} from 'react-native';
 import {
   Input,
   Container,
@@ -20,6 +20,7 @@ export default function ModalColor({
   functionOnChangeText,
   functionOnPressText,
   data,
+  loading,
 }) {
   return (
     <Container>
@@ -36,21 +37,29 @@ export default function ModalColor({
             <Icon name={nameIconTwo} />
           </AreaIcon>
         </ContainerHeader>
-        <FlatList
-          initialNumToRender={10}
-          style={{flex: 1}}
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <TextButton
-                onPress={() =>
-                  functionOnPressText(item.id, item.tamanho.descricao)
-                }>
-                {item.tamanho.descricao}
-              </TextButton>
-            );
-          }}
-        />
+        {loading ? (
+          <ActivityIndicator
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+            size="large"
+            color="#fff000"
+          />
+        ) : (
+          <FlatList
+            initialNumToRender={10}
+            style={{flex: 1}}
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <TextButton
+                  onPress={() =>
+                    functionOnPressText(item.id, item.tamanho.descricao)
+                  }>
+                  {item.tamanho.descricao}
+                </TextButton>
+              );
+            }}
+          />
+        )}
       </Modal>
     </Container>
   );
@@ -64,6 +73,7 @@ Modal.propTypes = {
   functionOnPressRight: PropTypes.func,
   functionOnChangeText: PropTypes.func,
   functionOnPressText: PropTypes.func,
+  loading: PropTypes.bool,
 };
 Modal.defaultProps = {
   nameIcon: 'times',
@@ -74,4 +84,5 @@ Modal.defaultProps = {
   functionOnPressRight: () => {},
   functionOnChangeText: () => {},
   functionOnPressText: () => {},
+  loading: false,
 };

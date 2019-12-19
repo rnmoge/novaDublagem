@@ -10,6 +10,7 @@ export const Container = styled.View`
   background: #fff;
   border-radius: 8px;
   padding-left: 8px;
+  border-color: ${props => (props.error ? '#f00' : '#707070')};
 `;
 
 export const AreaInput = styled.View`
@@ -20,6 +21,7 @@ export const Input = styled.TextInput.attrs(props => {
   return {
     secureTextEntry: props.passwordOption,
     placeholder: props.placeholder,
+    placeholderTextColor: props.colorPlaceholder,
     autoCompleteType: 'off',
     autoCorrect: false,
     autoCapitalize: 'none',

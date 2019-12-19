@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {TextInputMask} from 'react-native-masked-text';
 
 export const Container = styled.View`
   flex: 1;
@@ -70,10 +71,13 @@ export const Image = styled.Image`
   margin-left: 15px;
 `;
 
-export const ContainerButton = styled.View`
+export const ContainerButton = styled.TouchableOpacity`
   flex: 1;
+  height: 48px;
   justify-content: center;
-  align-items: center;
+  margin-top: 15px;
+  padding-left: 20px;
+  border: 0.5px;
 `;
 export const TextButton = styled.Text`
   padding-top: 20px;
@@ -85,4 +89,7 @@ export const TextButton = styled.Text`
 export const ContainerModal = styled.View`
   padding-top: ${Platform.OS === 'ios' ? 0 : 0};
   background: #3f51b5;
+`;
+export const InputMask = styled(TextInputMask)`
+  border: 0.5px;
 `;

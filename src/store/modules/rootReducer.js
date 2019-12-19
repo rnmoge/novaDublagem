@@ -8,6 +8,7 @@ import order from './order/reducers';
 import neworder from './neworder/reducers';
 import productorder from './productorder/reducers';
 import cart from './cart/reducers';
+import home from './home/reducers';
 
 export default combineReducers({
   common,
@@ -19,4 +20,5 @@ export default combineReducers({
   neworder,
   productorder,
   cart,
+  home,
 });

@@ -18,8 +18,8 @@ import {
   TextComission,
 } from './styles';
 
-export default function CardTablePrice({commision, loading}) {
-  const {prices} = useSelector(state => state.catalog);
+export default function CardTablePrice({commision, loading, data}) {
+  const {price} = useSelector(state => state.neworder);
   return (
     <Container>
       <ContainerTitle>
@@ -47,7 +47,7 @@ export default function CardTablePrice({commision, loading}) {
         />
       ) : (
         <FlatList
-          data={prices}
+          data={data}
           initialNumToRender={10}
           renderItem={({item}) => {
             return (
@@ -56,13 +56,13 @@ export default function CardTablePrice({commision, loading}) {
                   <Sizes>{item.tamanho.descricao}</Sizes>
                 </ContainerSize>
                 <ContainerPrice>
-                  <Prices>{item.preco1}</Prices>
+                  <Prices>{Number(item.preco1)}</Prices>
                 </ContainerPrice>
                 <ContainerPrice>
-                  <Prices>{item.preco2}</Prices>
+                  <Prices>{Number(item.preco2)}</Prices>
                 </ContainerPrice>
                 <ContainerPrice>
-                  <Prices>{item.preco3}</Prices>
+                  <Prices>{Number(item.preco3)}</Prices>
                 </ContainerPrice>
               </ContainerTotal2>
             );

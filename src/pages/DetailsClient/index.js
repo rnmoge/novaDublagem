@@ -28,7 +28,7 @@ export default function DetailsClient() {
   const {username} = useSelector(state => state.menu);
   const {loading} = useSelector(state => state.common);
   const {data, address} = useSelector(state => state.order);
-  console.tron.log(address);
+
   const [stateUsername, setStateUsername] = useState(username);
   function backRegisterOrder() {
     dispatch(ActionsOrder.backRegisterOrder());
@@ -52,7 +52,7 @@ export default function DetailsClient() {
       <Header
         title="Consulta Cliente"
         icoName="arrow-left"
-        icoNameTwo="shopping-cart"
+        icoNameTwo=""
         functionOnpressIconLeft={() => {
           backRegisterOrder();
         }}

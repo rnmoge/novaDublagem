@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -18,18 +18,16 @@ import Button from '../../components/Button';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
 import ModalPrice from '../../components/Modalteste2';
+import Cart from '../../components/Cart';
 import ModalCatalog from '../../components/ModalCatalog';
 import * as ActionsNewOrder from '../../store/modules/neworder/actions';
+import * as ActionsCart from '../../store/modules/cart/actions';
 
 export default function NewOrder() {
   const dispatch = useDispatch();
   const {charges, packings, pagaments} = useSelector(state => state.neworder);
   const {data} = useSelector(state => state.order);
   const [number, setNumber] = useState(1000);
-
-  // const [dataTypeCharge, setDataTypeCharge] = useState(charges);
-  // const [dataPacking, setDataPacking] = useState(packings);
-  // const [dataPagament, setDataPagament] = useState(pagaments);
   const [dataBillings, setdataBillings] = useState([
     {id: 0, descricao: 'SIM'},
     {id: 1, descricao: 'NÃO'},
@@ -57,6 +55,7 @@ export default function NewOrder() {
   const [inputClientState, setInputClientState] = useState('');
   const [inputNoteState, setInputNoteState] = useState('');
   const {table} = useSelector(state => state.table);
+  const {stateModal} = useSelector(state => state.cart);
   // const [dataStateAux, setDataStateAux] = useState(table);
 
   // ->funções da pagina<-
@@ -64,9 +63,6 @@ export default function NewOrder() {
   function backDetailsClient() {
     dispatch(ActionsNewOrder.backDetailsClient());
   }
-  // useEffect(() => {
-  //   setNumber(number + 1);
-  // }, [dispatch, number]); // eslint-disable-line
   // Funçoes do modal
   function selectInputTablePrice() {
     setModalState(!modalState);
@@ -109,6 +105,9 @@ export default function NewOrder() {
     setInputBillings(descricao);
     setModalStateBillings(!modalStateBillings);
   }
+  function handleCart() {
+    dispatch(ActionsCart.cartOpen(true));
+  }
   function handleProducts() {
     dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
     dispatch(
@@ -131,6 +130,9 @@ export default function NewOrder() {
         icoNameTwo="shopping-cart"
         functionOnpressIconLeft={() => {
           backDetailsClient();
+        }}
+        functionOnpressIconRigth={() => {
+          handleCart();
         }}
       />
       <ContainerTotal>
@@ -285,11 +287,12 @@ export default function NewOrder() {
         data={dataBillings}
         nameIcon="times"
         nameIconTwo="search"
-        functionOnPressLeft={() => setModalStateBillings(modalStateBillings)}
+        functionOnPressLeft={() => setModalStateBillings(!modalStateBillings)}
         functionOnPressText={(id, descricao) => {
           selectBillings(id, descricao);
         }}
       />
+      <Cart modalVisible={stateModal} />
     </Container>
   );
 }

@@ -25,7 +25,7 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
     const list = [...dataSize];
     if (add) {
       if (list[index].quant < 200) {
-        list[index].quant += 50;
+        list[index].quant += 60;
         setDataSize(list);
       } else {
         setDataSize(list);
@@ -33,7 +33,7 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
     } else if (list[index].quant === 0) {
       list[index].quant = 0;
     } else {
-      list[index].quant -= 50;
+      list[index].quant -= 60;
       setDataSize(list);
     }
   }

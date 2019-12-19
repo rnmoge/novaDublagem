@@ -17,8 +17,9 @@ export const ContainerTotal = styled.View`
 `;
 
 export const AreaIcon = styled.TouchableOpacity`
-  padding-right: 10px;
-  background: #990;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
 `;
 export const Icon = styled(Icons)`
   font-size: 22px;
@@ -30,16 +31,26 @@ export const List = styled.FlatList``;
 
 export const ContainerProduct = styled.View`
   flex: 1;
-  background: #f56;
+
   justify-content: center;
   align-items: center;
 `;
 
 export const ContainerQuant = styled.View`
   flex: 1;
-  background: #456;
+
   justify-content: center;
   align-items: center;
 `;
 
-export const TextInfo = styled.Text``;
+export const TextInfo = styled.Text`
+  text-align: center;
+`;
+export const TextTitle = styled.Text`
+  font-weight: bold;
+`;
+
+export const ContainerIcon = styled.View`
+  flex-direction: column;
+  justify-content: center;
+`;

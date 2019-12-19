@@ -7,7 +7,7 @@ export const Container = styled.View`
   flex-direction: row;
 `;
 export const ContainerText = styled.View`
-  flex: 2;
+  flex: 3;
   padding: 10px;
 `;
 export const ContainerTextCamp = styled.View`

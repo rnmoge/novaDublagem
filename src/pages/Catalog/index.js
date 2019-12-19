@@ -12,10 +12,13 @@ import ListView from '../../components/ListView';
 import InputType from '../../components/InputType';
 import InputClick from '../../components/InputClick';
 import ModalCatalog from '../../components/ModalCatalog';
+import Cart from '../../components/Cart';
 import * as CatalogActions from '../../store/modules/catalog/actions';
+import * as ActionsCart from '../../store/modules/cart/actions';
 
 export default function Catalog({navigation}) {
   const {loading} = useSelector(state => state.common);
+  const {stateModal} = useSelector(state => state.cart);
   const [modalState, setModalState] = useState(false);
   const [inputState, setInputState] = useState('');
   const {data2} = useSelector(state => state.table);
@@ -77,7 +80,9 @@ export default function Catalog({navigation}) {
       });
     setDataStateAux(orderArray);
   }, [inputModelState, model]);
-
+  function handleCart() {
+    dispatch(ActionsCart.cartOpen(true));
+  }
   return (
     <Container>
       <Header
@@ -85,6 +90,9 @@ export default function Catalog({navigation}) {
         iconName="bars"
         icoNameTwo="shopping-cart"
         functionOnpressIconLeft={() => navigation.openDrawer()}
+        functionOnpressIconRigth={() => {
+          handleCart();
+        }}
       />
       <ContainerInput>
         <InputClick
@@ -139,6 +147,7 @@ export default function Catalog({navigation}) {
             searchDescription();
           }}
         />
+        <Cart modalVisible={stateModal} />
       </ContainerModal>
     </Container>
   );

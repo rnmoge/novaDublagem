@@ -27,7 +27,6 @@ export const InputText = styled.TextInput.attrs(props => {
   };
 })`
   flex: 1;
-
   font-size: 16px;
   padding-left: 18;
 `;

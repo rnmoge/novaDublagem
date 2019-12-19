@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+// import {Snackbar} from 'react-native-paper';
+import {TextInputMask} from 'react-native-masked-text';
 import Header from '../../components/Header';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
@@ -8,12 +10,16 @@ import Modal from '../../components/Modal';
 import ModalCatalog from '../../components/ModalCatalog';
 import CardSize from '../../components/CardSize';
 import ModalModel from '../../components/ModalModel';
+import ModalTransport from '../../components/ModalTransport';
+import ModalDetails from '../../components/ModalDetails';
 import ModalSize from '../../components/ModalSize';
+import Cart from '../../components/Cart';
 import Button from '../../components/Button';
 import ButtonSecondary from '../../components/ButtonSecondary';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
 // import * as CatalogActions from '../../store/modules/catalog/actions';
 import * as NewOrderActions from '../../store/modules/neworder/actions';
+import * as ActionsCart from '../../store/modules/cart/actions';
 import {
   Container,
   ContainerBody,
@@ -28,13 +34,15 @@ import {
   Image,
   ContainerImagem,
   ContainerModal,
+  ContainerButton,
+  InputMask,
 } from './styles';
 // import Bojo from '../../../assets/image/3101.jpg';
 
 export default function ProductOrder() {
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
-  const {loading} = useSelector(state => state.common);
+  const {loading, error} = useSelector(state => state.common);
   // const {data2} = useSelector(state => state.table);
   const {input} = useSelector(state => state.catalog);
   const [inputState, setInputState] = useState('');
@@ -47,6 +55,7 @@ export default function ProductOrder() {
   const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
   const [snackVisible, setSnackVisible] = useState(false);
+  const {stateModal, products} = useSelector(state => state.cart);
   const {
     table,
     condition,
@@ -57,8 +66,16 @@ export default function ProductOrder() {
     sizes,
     comission,
     price,
+    idProduct,
   } = useSelector(state => state.neworder);
-
+  function handleCart() {
+    dispatch(ActionsCart.cartOpen(true));
+  }
+  const [stateError, setStateError] = useState(false);
+  const [modalDetails, setModalDetails] = useState(false);
+  const [dataStateAuxModel, setDataStateAuxModel] = useState([]);
+  const [dataStateAuxLine, setDataStateAuxLine] = useState([]);
+  const [dataStateAuxColor, setDataStateAuxColor] = useState([]);
   const [dateValueState, setDataValueState] = useState('0,00');
   const [modalState, setModalState] = useState(false);
   const [modalModelState, setModalModelState] = useState(false);
@@ -70,14 +87,79 @@ export default function ProductOrder() {
   // const date = Date.now();
   const date = `${day}/${month}/${year}`;
   const [dateState, setDataState] = useState(date);
+  const [inputMask, setInputMask] = useState();
   useEffect(() => {
     // if (input === '') {
     //   setInputLineState('Selecione a linha');
     // } else {
     //   setInputLineState(input);
     // }
-    setInputComissionState(comission);
-  }, [comission, input]);
+    setInputComissionState(comission.comissao1);
+  }, [comission]);
+  const priceReal = dateValueState;
+  useEffect(() => {
+    if (priceReal === '') {
+      setInputComissionState('Digite um preço');
+      setStateError(true);
+    }
+    if (priceReal >= price.preco1) {
+      setInputComissionState(comission.comissao1);
+      setStateError(false);
+    } else if (priceReal < price.preco1 && priceReal >= price.preco2) {
+      setInputComissionState(comission.comissao2);
+      setStateError(false);
+    } else if (priceReal < price.preco2 && priceReal >= price.preco3) {
+      setInputComissionState(comission.comissao3);
+      setStateError(false);
+    } else if (
+      priceReal < price.preco3 &&
+      priceReal !== '' &&
+      priceReal !== 0
+    ) {
+      setInputComissionState('0.00 - situação especial');
+      setStateError(false);
+    } else if (priceReal === 0.0) {
+      setStateError(true);
+      setDataValueState('digite um valor');
+    }
+  }, [dateValueState, price.preco1, price.preco2]);// eslint-disable-line
+
+  useEffect(() => {
+    const orderArrayLine = dataDescription
+      .filter(element => {
+        return element.descricao.indexOf(inputState) !== -1;
+      })
+
+      .map(element => {
+        return element;
+      });
+    setDataStateAuxLine(orderArrayLine);
+  }, [dataDescription, inputState]);
+  useEffect(() => {
+    const orderArrayModel = line
+      .filter(element => {
+        return element.matriz.indexOf(inputStateModel) !== -1;
+      })
+
+      .map(element => {
+        return element;
+      });
+    setDataStateAuxModel(orderArrayModel);
+  }, [inputStateModel, line]); // eslint-disable-line
+  useEffect(() => {
+    const orderArrayColor = cores
+      .filter(element => {
+        return (
+          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
+          -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setDataStateAuxColor(orderArrayColor);
+  }, [inputState, cores]); // eslint-disable-line
+  // function conditionVista() {}
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
@@ -88,7 +170,7 @@ export default function ProductOrder() {
   }
   function selectDescripition(linha, descricao) {
     dispatch(
-      NewOrderActions.searchModel(linha, idTable, inputStateModel, descricao)
+      NewOrderActions.searchModel(linha, idTable, inputState, descricao)
     );
     setInputLineState(descricao);
     setModalState(!modalState);
@@ -114,20 +196,65 @@ export default function ProductOrder() {
   function colorFunc() {
     setColorModalState(!colorModalState);
   }
+
   function selectColor(descricao) {
     setInputColorState(descricao);
     setColorModalState(!colorModalState);
   }
 
-  function completeOrder() {
-    setSnackVisible(!snackVisible);
+  function addProduct() {
+    const productExist = products.findIndex(product => {
+      return product.id === idProduct;
+    });
+
+    if (productExist !== -1) {
+      const newList = products.map((element, index) => {
+        if (index === productExist) {
+          return {
+            quant: element.quant + 120,
+            id: element.id,
+            produto: element.produto,
+            descricao: element.descricao,
+            value: Number(element.value) + Number(dateValueState),
+          };
+        }
+        return {
+          quant: element.quant,
+          id: element.id,
+          produto: element.produto,
+          descricao: element.descricao,
+          value: element.value,
+        };
+      });
+      dispatch(ActionsCart.addToCart([...newList]));
+    } else {
+      dispatch(
+        ActionsCart.addToCart([
+          ...products,
+          {
+            id: idProduct,
+            produto: inputLineState,
+            descricao: inputModelState,
+            quant: 120,
+            value: dateValueState,
+          },
+        ])
+      );
+    }
     setInputLineState('Selecione a linha');
     setInputModelState('Selecione o modelo');
     setInputSizeState('Grupo de tamanho');
     setInputColorState('Cor');
-    setInputNoteState('');
+    setInputNoteState();
     setImageState();
-    setDataValueState('0,00');
+    setInputComissionState(comission.comissao1);
+    setDataValueState();
+    dispatch(NewOrderActions.cleanState());
+  }
+  function excluirProductList(index) {
+    const newList = [...products];
+    const newProductList = newList.splice(1, index);
+    dispatch(ActionsCart.removeToCart([...newProductList]));
   }
   return (
     <Container>
@@ -137,6 +264,9 @@ export default function ProductOrder() {
         icoNameTwo="shopping-cart"
         functionOnpressIconLeft={() => {
           backNewOrder();
+        }}
+        functionOnpressIconRigth={() => {
+          handleCart();
         }}
       />
       <ContainerBody>
@@ -154,6 +284,18 @@ export default function ProductOrder() {
         </ContainerTotal>
         <ScrollView>
           <List>
+            <InputMask />
+            <TextInputMask
+              type="datetime"
+              options={{
+                format: 'DD-MM-YYYY'
+              }}
+              value={inputMask}
+              onChangeText={text => {
+                setInputMask(text);
+              }}
+            />
+
             <ContainerList>
               <InputClick
                 textPrimary="Selecione a linha:"
@@ -199,12 +341,16 @@ export default function ProductOrder() {
               />
               <TextClient>Valor real:</TextClient>
               <InputType
+                functionOnChangeText={text => {
+                  setDataValueState(text);
+                }}
                 placeholder="Valor Real"
                 valueInputText={dateValueState}
+                error={stateError}
               />
               <TextClient>Data faturamento:</TextClient>
               <InputType
-                placeholder="Yuri"
+                placeholder="Data"
                 areaIcon
                 icoName="calendar"
                 disabledButtonIcon
@@ -223,10 +369,16 @@ export default function ProductOrder() {
                 titleButton="Adicionar"
                 disabledButton={false}
                 functionOnPress={() => {
-                  completeOrder();
+                  addProduct();
                 }}
               />
               <ButtonSecondary titleButton="Finalizar Pedido" />
+              <ContainerButton
+                onPress={() => {
+                  setModalDetails(!modalDetails);
+                }}>
+                <Text>Tabela de preço</Text>
+              </ContainerButton>
             </ContainerList>
           </List>
         </ScrollView>
@@ -238,7 +390,7 @@ export default function ProductOrder() {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a linha"
           modalVisible={modalState}
-          data={dataDescription}
+          data={dataStateAuxLine}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalState(!modalState)}
@@ -255,7 +407,7 @@ export default function ProductOrder() {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a cor"
           modalVisible={colorModalState}
-          data={cores}
+          data={dataStateAuxColor}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setColorModalState(!colorModalState)}
@@ -270,7 +422,7 @@ export default function ProductOrder() {
           loading={loading}
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
-          placeholder="Digite a linha"
+          placeholder="Digite o tamanho"
           modalVisible={modalSizeState}
           data={sizes}
           nameIcon="times"
@@ -288,9 +440,9 @@ export default function ProductOrder() {
           loading={loading}
           valueInputText={inputStateModel}
           functionOnChangeText={text => setInputStateModel(text)}
-          placeholder="Digite a linha"
+          placeholder="Digite o modelo"
           modalVisible={modalModelState}
-          data={line}
+          data={dataStateAuxModel}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalModelState(!modalModelState)}
@@ -301,6 +453,19 @@ export default function ProductOrder() {
             searchDescription();
           }}
         />
+        <ModalDetails
+          modalVisible={modalDetails}
+          nameIcon="arrow-left"
+          functionOnPressLeft={() => setModalDetails(!modalDetails)}
+        />
+        <Cart
+          modalVisible={stateModal}
+          functionOnPressIcon={() => {
+            excluirProductList();
+          }}
+        />
+        {/* snackVisible, setSnackVisible */}
+        <ModalTransport />
       </ContainerModal>
     </Container>
   );
