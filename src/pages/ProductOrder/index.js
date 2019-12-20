@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 // import {Snackbar} from 'react-native-paper';
-import {TextInputMask} from 'react-native-masked-text';
+// import {TextInputMask} from 'react-native-masked-text';
 import Header from '../../components/Header';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
@@ -13,6 +13,7 @@ import ModalModel from '../../components/ModalModel';
 import ModalTransport from '../../components/ModalTransport';
 import ModalDetails from '../../components/ModalDetails';
 import ModalSize from '../../components/ModalSize';
+import ModalInfo from '../../components/ModalInfo';
 import Cart from '../../components/Cart';
 import Button from '../../components/Button';
 import ButtonSecondary from '../../components/ButtonSecondary';
@@ -35,7 +36,10 @@ import {
   ContainerImagem,
   ContainerModal,
   ContainerButton,
+  AreaIcon,
   InputMask,
+  AreaInput,
+  Icon,
 } from './styles';
 // import Bojo from '../../../assets/image/3101.jpg';
 
@@ -44,7 +48,7 @@ export default function ProductOrder() {
   const {data} = useSelector(state => state.order);
   const {loading, error} = useSelector(state => state.common);
   // const {data2} = useSelector(state => state.table);
-  const {input} = useSelector(state => state.catalog);
+  // const {input} = useSelector(state => state.catalog);
   const [inputState, setInputState] = useState('');
   const [inputStateModel, setInputStateModel] = useState('');
   const [inputLineState, setInputLineState] = useState('Selecione a linha');
@@ -54,8 +58,9 @@ export default function ProductOrder() {
   const [inputNoteState, setInputNoteState] = useState('');
   const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
-  const [snackVisible, setSnackVisible] = useState(false);
+  // const [snackVisible, setSnackVisible] = useState(false);
   const {stateModal, products} = useSelector(state => state.cart);
+
   const {
     table,
     condition,
@@ -68,11 +73,22 @@ export default function ProductOrder() {
     price,
     idProduct,
   } = useSelector(state => state.neworder);
+
+  // useEffect(() => {
+  //   if(condition === 'A VISTA') {
+  //     table
+  //   }
+  // })
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
   }
   const [stateError, setStateError] = useState(false);
   const [modalDetails, setModalDetails] = useState(false);
+  const [modalInfoOne, setModalInfoOne] = useState(false);
+  const [modalInfoTwo, setModalInfoTwo] = useState(false);
+  const [textPrimary, setTextPrimary] = useState('Data Faturamento');
+  const [errorTwo, setErrorTwo] = useState(false);
+  // const [stateIcon, setStateIcon] = useState(message);
   const [dataStateAuxModel, setDataStateAuxModel] = useState([]);
   const [dataStateAuxLine, setDataStateAuxLine] = useState([]);
   const [dataStateAuxColor, setDataStateAuxColor] = useState([]);
@@ -81,19 +97,14 @@ export default function ProductOrder() {
   const [modalModelState, setModalModelState] = useState(false);
   const [modalSizeState, setModalSizeState] = useState(false);
   const [colorModalState, setColorModalState] = useState(false);
-  const day = new Date().getDate(); // Current Date
-  const month = new Date().getMonth() + 1; // Current Month
-  const year = new Date().getFullYear(); // Current Year
-  // const date = Date.now();
-  const date = `${day}/${month}/${year}`;
-  const [dateState, setDataState] = useState(date);
+  // const day = new Date().getDate(); // Current Date
+  // const month = new Date().getMonth() + 1; // Current Month
+  // const year = new Date().getFullYear(); // Current Year
+  // // const date = Date.now();
+  // const date = `${day}/${month}/${year}`;
+  // const [dateState, setDataState] = useState(date);
   const [inputMask, setInputMask] = useState();
   useEffect(() => {
-    // if (input === '') {
-    //   setInputLineState('Selecione a linha');
-    // } else {
-    //   setInputLineState(input);
-    // }
     setInputComissionState(comission.comissao1);
   }, [comission]);
   const priceReal = dateValueState;
@@ -122,7 +133,7 @@ export default function ProductOrder() {
       setStateError(true);
       setDataValueState('digite um valor');
     }
-  }, [dateValueState, price.preco1, price.preco2]);// eslint-disable-line
+  }, [dateValueState, price.preco1, price.preco2, price.preco3]);// eslint-disable-line
 
   useEffect(() => {
     const orderArrayLine = dataDescription
@@ -189,9 +200,9 @@ export default function ProductOrder() {
   }
   function selectSize(id, descricao) {
     setInputSizeState(descricao);
+    dispatch(NewOrderActions.sizePriceOne(id, sizes));
     setDataValueState(price.preco1);
     setModalSizeState(!modalSizeState);
-    dispatch(NewOrderActions.sizePriceOne(id, sizes));
   }
   function colorFunc() {
     setColorModalState(!colorModalState);
@@ -247,14 +258,40 @@ export default function ProductOrder() {
     setInputColorState('Cor');
     setInputNoteState();
     setImageState();
+    setInputMask('Data faturamento');
     setInputComissionState(comission.comissao1);
     setDataValueState();
     dispatch(NewOrderActions.cleanState());
+    setModalInfoOne(!modalInfoOne);
   }
   function excluirProductList(index) {
     const newList = [...products];
     const newProductList = newList.splice(1, index);
     dispatch(ActionsCart.removeToCart([...newProductList]));
+  }
+  // const [textPrimary, setTextPrimary] = useState('Data Faturamento');
+  // message: true,
+  // errorDate: false,
+  // messageDate: '',
+  // modal: false,
+  // const [errorTwo, setErrorTwo] = useState(false);
+  const {message, errorDate, messageDate, modal} = useSelector(
+    state => state.productorder
+  );
+  function dateValidator() {
+    dispatch(ActionsProduct.dateValidator(idProduct, inputMask));
+    if (message) {
+      setModalInfoTwo(modal);
+      setTextPrimary('Data Faturamento');
+      setErrorTwo(errorDate);
+    } else {
+      setErrorTwo(errorDate);
+      setTextPrimary('Data faturamento invalida');
+      setInputMask('Data faturamento');
+    }
+  }
+  function completeDate() {
+    setModalInfoTwo(!modalInfoTwo);
   }
   return (
     <Container>
@@ -284,18 +321,6 @@ export default function ProductOrder() {
         </ContainerTotal>
         <ScrollView>
           <List>
-            <InputMask />
-            <TextInputMask
-              type="datetime"
-              options={{
-                format: 'DD-MM-YYYY'
-              }}
-              value={inputMask}
-              onChangeText={text => {
-                setInputMask(text);
-              }}
-            />
-
             <ContainerList>
               <InputClick
                 textPrimary="Selecione a linha:"
@@ -344,21 +369,35 @@ export default function ProductOrder() {
                 functionOnChangeText={text => {
                   setDataValueState(text);
                 }}
+                keyboardTypeInput="numeric"
                 placeholder="Valor Real"
                 valueInputText={dateValueState}
                 error={stateError}
               />
-              <TextClient>Data faturamento:</TextClient>
-              <InputType
-                placeholder="Data"
-                areaIcon
-                icoName="calendar"
-                disabledButtonIcon
-                valueInputText={dateState}
-                functionOnChangeText={text => {
-                  setDataState(text);
-                }}
-              />
+
+              <TextClient error={errorTwo}>{textPrimary}</TextClient>
+              <ContainerButton error={errorTwo}>
+                <AreaInput>
+                  <InputMask
+                    type="datetime"
+                    options={{
+                      format: 'DD-MM-YYYY',
+                    }}
+                    placeholder="Data Faturamento"
+                    value={inputMask}
+                    onChangeText={text => {
+                      setInputMask(text);
+                    }}
+                    onEndEditing={() => dateValidator()}
+                  />
+                </AreaInput>
+                <AreaIcon
+                  onPress={() => {
+                    dateValidator();
+                  }}>
+                  <Icon name="search" />
+                </AreaIcon>
+              </ContainerButton>
               <TextClient>Observação:</TextClient>
               <InputType
                 placeholder="Observação"
@@ -366,19 +405,21 @@ export default function ProductOrder() {
                 valueInputText={inputNoteState}
               />
               <Button
-                titleButton="Adicionar"
+                titleButton="ADICIONAR"
                 disabledButton={false}
                 functionOnPress={() => {
                   addProduct();
                 }}
               />
-              <ButtonSecondary titleButton="Finalizar Pedido" />
-              <ContainerButton
-                onPress={() => {
+              <Button titleButton="FINALIZAR PEDIDO" />
+              {/* <ButtonSecondary titleButton="FINALIZAR/TRANSMITIR" /> */}
+              <ButtonSecondary
+                disabledButton={false}
+                titleButton="TABELA DE PREÇO"
+                functionOnPress={() => {
                   setModalDetails(!modalDetails);
-                }}>
-                <Text>Tabela de preço</Text>
-              </ContainerButton>
+                }}
+              />
             </ContainerList>
           </List>
         </ScrollView>
@@ -464,8 +505,22 @@ export default function ProductOrder() {
             excluirProductList();
           }}
         />
-        {/* snackVisible, setSnackVisible */}
         <ModalTransport />
+        <ModalInfo
+          text="Produto Adicionado ao carrinho!"
+          modalVisible={modalInfoOne}
+          functionOnPressText={() => {
+            setModalInfoOne(!modalInfoOne);
+          }}
+        />
+        <ModalInfo
+          icoName="check-circle"
+          text={messageDate}
+          modalVisible={modalInfoTwo}
+          functionOnPressText={() => {
+            completeDate();
+          }}
+        />
       </ContainerModal>
     </Container>
   );

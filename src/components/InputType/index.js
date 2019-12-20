@@ -25,7 +25,7 @@ export default function InputType({
           placeholder={placeholder}
           editable={disabledInput}
           passwordOption={passwordOption}
-          keyboardTypeInput={keyboardTypeInput}
+          keyboardType={keyboardTypeInput}
           onChangeText={text => functionOnChangeText(text)}
         />
       </AreaInput>

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {TextInputMask} from 'react-native-masked-text';
+import Icons from 'react-native-vector-icons/FontAwesome';
 
 export const Container = styled.View`
   flex: 1;
@@ -44,6 +45,7 @@ export const TextClient = styled.Text.attrs({
   padding: 2px;
   font-size: 15px;
   font-weight: bold;
+  color: ${props => (props.error ? '#f00' : '#020202')};
 `;
 export const List = styled.View`
   flex: 1;
@@ -71,25 +73,42 @@ export const Image = styled.Image`
   margin-left: 15px;
 `;
 
-export const ContainerButton = styled.TouchableOpacity`
-  flex: 1;
-  height: 48px;
-  justify-content: center;
-  margin-top: 15px;
-  padding-left: 20px;
-  border: 0.5px;
-`;
-export const TextButton = styled.Text`
-  padding-top: 20px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: bold;
-`;
-
 export const ContainerModal = styled.View`
   padding-top: ${Platform.OS === 'ios' ? 0 : 0};
   background: #3f51b5;
 `;
-export const InputMask = styled(TextInputMask)`
-  border: 0.5px;
+// textInputMask
+export const ContainerButton = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  border-width: 0.5px;
+  margin-bottom: 20px;
+  height: 48px;
+  background: #fff;
+  border-radius: 8px;
+  padding-left: 8px;
+  border-color: ${props => (props.error ? '#f00' : '#707070')};
+`;
+
+export const AreaInput = styled.View`
+  flex: 5;
+`;
+export const InputMask = styled(TextInputMask).attrs(props => {
+  return {
+    placeholder: props.placeholder,
+  };
+})`
+  flex: 1;
+  font-size: 16px;
+`;
+export const AreaIcon = styled.TouchableOpacity`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Icon = styled(Icons)`
+  font-size: 22px;
+  font-weight: bold;
+  color: #707070;
 `;

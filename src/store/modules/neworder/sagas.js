@@ -28,6 +28,7 @@ function* selectTableOrderSaga(action) {
   const {idTable} = action.payload;
   try {
     yield put(selectTableOrderSucess(idTable));
+
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
     const {data} = yield call(api.get, `/tabelapreco`, {
@@ -35,6 +36,7 @@ function* selectTableOrderSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
+    
     const tabela = data.find(element => {
       return element.id === idTable;
     });

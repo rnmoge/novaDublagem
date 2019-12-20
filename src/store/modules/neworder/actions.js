@@ -120,7 +120,7 @@ export function saveState(
   inputNoteState
 ) {
   return {
-    type: '@newOrder/SAVE_PAGAMENT',
+    type: '@newOrder/SAVE_STATE',
     payload: {
       inputTypeCharge,
       inputTablePrice,

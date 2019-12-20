@@ -21,7 +21,7 @@ import DetailsClient from './pages/DetailsClient';
 import NewOrder from './pages/NewOrder';
 import Testestando from './pages/Testestando';
 import ProductOrder from './pages/ProductOrder';
-import Cart from './pages/Cart';
+
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
 //   Home,
@@ -113,10 +113,9 @@ const createAppNavigation = createSwitchNavigator({
   Login,
   NewOrder,
   ProductOrder,
-  Cart,
   Home: {screen: createDrawerNavigatorApp},
-  ProductDetails,
   RegisterOrder,
+  ProductDetails,
   TableSelection,
   DetailsClient,
   TransmitOrder,
