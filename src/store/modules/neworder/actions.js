@@ -111,13 +111,14 @@ export function selectPagamentSucess(pagament) {
     payload: {pagament},
   };
 }
+
 export function saveState(
   inputTypeCharge,
-  inputBillings,
   inputTablePrice,
   inputClientState,
   inputPagament,
-  inputNoteState
+  inputNoteState,
+  inputBillings
 ) {
   return {
     type: '@newOrder/SAVE_STATE',

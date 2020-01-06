@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -35,7 +35,6 @@ export default function NewOrder() {
   const day = new Date().getDate(); // Current Date
   const month = new Date().getMonth() + 1; // Current Month
   const year = new Date().getFullYear(); // Current Year
-  // const date = Date.now();
   const date = `${day}/${month}/${year}`;
   const [modalState, setModalState] = useState(false);
   const [inputTablePrice, setInputTablePrice] = useState('Selecione a tabela');

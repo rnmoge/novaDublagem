@@ -32,7 +32,6 @@ function* dateValidatorSaga(action) {
         },
       }
     );
-    // yield put(dateValidatorSucess(repost.data));
     if (repost.data.dataValida === true) {
       yield put(dateValidatorSucess(true));
     } else {
@@ -42,7 +41,21 @@ function* dateValidatorSaga(action) {
     yield put(commonActionFailure('Error ao bsucar uma data válida'));
   }
 }
-
+function* selectTransportSaga() {
+  yield put(commonLoadingActivityOn(''));
+  try {
+    let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+    token = JSON.parse(token);
+    const transport = yield call(api.get, `cliente?transportadora=`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    yield put(commonActionSucess(''));
+  } catch (err) {
+    yield put(commonActionFailure('Error ao buscar a transportadora'));
+  }
+}
 export default all([
   takeLatest('@productorder/BACK_NEW_ORDER', backNewOrderSaga),
   takeLatest('@productorder/DATE_VALIDATOR', dateValidatorSaga),

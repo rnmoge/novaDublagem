@@ -36,7 +36,6 @@ function* selectTableOrderSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    
     const tabela = data.find(element => {
       return element.id === idTable;
     });

@@ -20,3 +20,8 @@ export function cleanValidator() {
     type: '@productorder/CLEAN_VALIDATOR',
   };
 }
+export function selectTransport() {
+  return {
+    type: '@productorder/SELECT_TRANSPORT',
+  };
+}

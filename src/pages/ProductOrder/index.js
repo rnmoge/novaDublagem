@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-// import {Snackbar} from 'react-native-paper';
-// import {TextInputMask} from 'react-native-masked-text';
 import Header from '../../components/Header';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
@@ -15,10 +13,10 @@ import ModalDetails from '../../components/ModalDetails';
 import ModalSize from '../../components/ModalSize';
 import ModalInfo from '../../components/ModalInfo';
 import Cart from '../../components/Cart';
+import InputMask from '../../components/InputMask';
 import Button from '../../components/Button';
 import ButtonSecondary from '../../components/ButtonSecondary';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
-// import * as CatalogActions from '../../store/modules/catalog/actions';
 import * as NewOrderActions from '../../store/modules/neworder/actions';
 import * as ActionsCart from '../../store/modules/cart/actions';
 import {
@@ -35,20 +33,14 @@ import {
   Image,
   ContainerImagem,
   ContainerModal,
-  ContainerButton,
-  AreaIcon,
-  InputMask,
-  AreaInput,
-  Icon,
 } from './styles';
-// import Bojo from '../../../assets/image/3101.jpg';
+
+import functions from '../../functions/index';
 
 export default function ProductOrder() {
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
   const {loading, error} = useSelector(state => state.common);
-  // const {data2} = useSelector(state => state.table);
-  // const {input} = useSelector(state => state.catalog);
   const [inputState, setInputState] = useState('');
   const [inputStateModel, setInputStateModel] = useState('');
   const [inputLineState, setInputLineState] = useState('Selecione a linha');
@@ -58,7 +50,6 @@ export default function ProductOrder() {
   const [inputNoteState, setInputNoteState] = useState('');
   const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
-  // const [snackVisible, setSnackVisible] = useState(false);
   const {stateModal, products} = useSelector(state => state.cart);
 
   const {
@@ -73,12 +64,6 @@ export default function ProductOrder() {
     price,
     idProduct,
   } = useSelector(state => state.neworder);
-
-  // useEffect(() => {
-  //   if(condition === 'A VISTA') {
-  //     table
-  //   }
-  // })
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
   }
@@ -88,53 +73,89 @@ export default function ProductOrder() {
   const [modalInfoTwo, setModalInfoTwo] = useState(false);
   const [textPrimary, setTextPrimary] = useState('Data Faturamento');
   const [errorTwo, setErrorTwo] = useState(false);
-  // const [stateIcon, setStateIcon] = useState(message);
   const [dataStateAuxModel, setDataStateAuxModel] = useState([]);
   const [dataStateAuxLine, setDataStateAuxLine] = useState([]);
   const [dataStateAuxColor, setDataStateAuxColor] = useState([]);
-  const [dateValueState, setDataValueState] = useState('0,00');
+  const [dataValueState, setDataValueState] = useState('0,00');
   const [modalState, setModalState] = useState(false);
   const [modalModelState, setModalModelState] = useState(false);
   const [modalSizeState, setModalSizeState] = useState(false);
   const [colorModalState, setColorModalState] = useState(false);
-  // const day = new Date().getDate(); // Current Date
-  // const month = new Date().getMonth() + 1; // Current Month
-  // const year = new Date().getFullYear(); // Current Year
-  // // const date = Date.now();
-  // const date = `${day}/${month}/${year}`;
-  // const [dateState, setDataState] = useState(date);
-  const [inputMask, setInputMask] = useState();
+  const [inputMask, setInputMask] = useState('');
+  console.tron.log(inputMask);
+  function testeInput(text) {
+    console.tron.log(text);
+  }
   useEffect(() => {
     setInputComissionState(comission.comissao1);
   }, [comission]);
-  const priceReal = dateValueState;
   useEffect(() => {
-    if (priceReal === '') {
-      setInputComissionState('Digite um preço');
-      setStateError(true);
-    }
-    if (priceReal >= price.preco1) {
-      setInputComissionState(comission.comissao1);
-      setStateError(false);
-    } else if (priceReal < price.preco1 && priceReal >= price.preco2) {
-      setInputComissionState(comission.comissao2);
-      setStateError(false);
-    } else if (priceReal < price.preco2 && priceReal >= price.preco3) {
-      setInputComissionState(comission.comissao3);
-      setStateError(false);
-    } else if (
-      priceReal < price.preco3 &&
-      priceReal !== '' &&
-      priceReal !== 0
-    ) {
-      setInputComissionState('0.00 - situação especial');
-      setStateError(false);
-    } else if (priceReal === 0.0) {
-      setStateError(true);
-      setDataValueState('digite um valor');
-    }
-  }, [dateValueState, price.preco1, price.preco2, price.preco3]);// eslint-disable-line
+    const value = comission.desconto_vista_percent;
+    let priceNew = (price.preco1 - (price.preco1 * value) / 100).toFixed(2);
+    priceNew = priceNew.toString();
+    let priceNew2 = (price.preco2 - (price.preco2 * value) / 100).toFixed(2);
+    priceNew2 = priceNew2.toString();
+    let priceNew3 = (price.preco3 - (price.preco3 * value) / 100).toFixed(2);
+    priceNew3 = priceNew3.toString();
 
+    if (condition === 'A VISTA' || condition === '7 DD') {
+      if (dataValueState === '') {
+        setInputComissionState('Digite um preço');
+        setStateError(true);
+      }
+      if (dataValueState >= priceNew) {
+        setInputComissionState(comission.comissao1);
+        setStateError(false);
+      } else if (dataValueState < priceNew && dataValueState >= priceNew2) {
+        setInputComissionState(comission.comissao2);
+        setStateError(false);
+      } else if (dataValueState < priceNew2 && dataValueState >= priceNew3) {
+        setInputComissionState(comission.comissao3);
+        setStateError(false);
+      } else if (
+        dataValueState < priceNew3 &&
+        dataValueState !== '' &&
+        dataValueState !== 0
+      ) {
+        setInputComissionState('0.00 - situação especial');
+        setStateError(false);
+      } else if (dataValueState === 0.0) {
+        setStateError(true);
+        setDataValueState('digite um valor');
+      }
+    } else {
+      if (dataValueState === '') {
+        setInputComissionState('Digite um preço');
+        setStateError(true);
+      }
+      if (dataValueState >= price.preco1) {
+        setInputComissionState(comission.comissao1);
+        setStateError(false);
+      } else if (
+        dataValueState < price.preco1 &&
+        dataValueState >= price.preco2
+      ) {
+        setInputComissionState(comission.comissao2);
+        setStateError(false);
+      } else if (
+        dataValueState < price.preco2 &&
+        dataValueState >= price.preco3
+      ) {
+        setInputComissionState(comission.comissao3);
+        setStateError(false);
+      } else if (
+        dataValueState < price.preco3 &&
+        dataValueState !== '' &&
+        dataValueState !== 0
+      ) {
+        setInputComissionState('0.00 - situação especial');
+        setStateError(false);
+      } else if (dataValueState === 0.0) {
+        setStateError(true);
+        setDataValueState('digite um valor');
+      }
+    }
+  }, [dataValueState, price.preco1, price.preco2, price.preco3]);// eslint-disable-line
   useEffect(() => {
     const orderArrayLine = dataDescription
       .filter(element => {
@@ -170,7 +191,6 @@ export default function ProductOrder() {
       });
     setDataStateAuxColor(orderArrayColor);
   }, [inputState, cores]); // eslint-disable-line
-  // function conditionVista() {}
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
@@ -198,10 +218,22 @@ export default function ProductOrder() {
   function sizeFunc() {
     setModalSizeState(!modalSizeState);
   }
+  useEffect(() => {
+    if (price.preco1 === undefined || price.preco1 === null) {
+      setDataValueState('Valor Real');
+    } else if (condition === 'A VISTA' || condition === '7 DD') {
+      const value = comission.desconto_vista_percent;
+      let priceNew1 = (price.preco1 - (price.preco1 * value) / 100).toFixed(2);
+      priceNew1 = priceNew1.toString();
+      setDataValueState(priceNew1);
+      setInputComissionState(comission.comissao1);
+    } else {
+      setDataValueState(price.preco1);
+    }
+  }, [price.preco1]);// eslint-disable-line
   function selectSize(id, descricao) {
     setInputSizeState(descricao);
     dispatch(NewOrderActions.sizePriceOne(id, sizes));
-    setDataValueState(price.preco1);
     setModalSizeState(!modalSizeState);
   }
   function colorFunc() {
@@ -226,7 +258,7 @@ export default function ProductOrder() {
             id: element.id,
             produto: element.produto,
             descricao: element.descricao,
-            value: Number(element.value) + Number(dateValueState),
+            value: Number(element.value) + Number(dataValueState),
           };
         }
         return {
@@ -247,7 +279,7 @@ export default function ProductOrder() {
             produto: inputLineState,
             descricao: inputModelState,
             quant: 120,
-            value: dateValueState,
+            value: dataValueState,
           },
         ])
       );
@@ -269,12 +301,6 @@ export default function ProductOrder() {
     const newProductList = newList.splice(1, index);
     dispatch(ActionsCart.removeToCart([...newProductList]));
   }
-  // const [textPrimary, setTextPrimary] = useState('Data Faturamento');
-  // message: true,
-  // errorDate: false,
-  // messageDate: '',
-  // modal: false,
-  // const [errorTwo, setErrorTwo] = useState(false);
   const {message, errorDate, messageDate, modal} = useSelector(
     state => state.productorder
   );
@@ -371,33 +397,29 @@ export default function ProductOrder() {
                 }}
                 keyboardTypeInput="numeric"
                 placeholder="Valor Real"
-                valueInputText={dateValueState}
+                valueInputText={dataValueState}
                 error={stateError}
               />
 
               <TextClient error={errorTwo}>{textPrimary}</TextClient>
-              <ContainerButton error={errorTwo}>
-                <AreaInput>
-                  <InputMask
-                    type="datetime"
-                    options={{
-                      format: 'DD-MM-YYYY',
-                    }}
-                    placeholder="Data Faturamento"
-                    value={inputMask}
-                    onChangeText={text => {
-                      setInputMask(text);
-                    }}
-                    onEndEditing={() => dateValidator()}
-                  />
-                </AreaInput>
-                <AreaIcon
-                  onPress={() => {
-                    dateValidator();
-                  }}>
-                  <Icon name="search" />
-                </AreaIcon>
-              </ContainerButton>
+
+              <InputMask
+                error={errorTwo}
+                areaIcon
+                icoName="search"
+                value={inputMask}
+                placeholder="Data Faturamento"
+                valueInput={inputMask}
+                onChangeText={text => {
+                  setInputMask(text);
+                }}
+                onEndEditing={() => {
+                  dateValidator();
+                }}
+                functionOnPressIcon={() => {
+                  dateValidator();
+                }}
+              />
               <TextClient>Observação:</TextClient>
               <InputType
                 placeholder="Observação"
