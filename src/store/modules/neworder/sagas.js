@@ -146,7 +146,6 @@ function* sizePriceSaga(action) {
     const price1 = sizes.find(element => {
       return element.id === id;
     });
-
     yield put(sizePriceOneSucess(price1));
   } catch (err) {
     yield put(commonActionFailure(''));

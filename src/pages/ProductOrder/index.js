@@ -527,7 +527,7 @@ export default function ProductOrder() {
             excluirProductList();
           }}
         />
-        <ModalTransport />
+        <ModalTransport modalVisible={false} />
         <ModalInfo
           text="Produto Adicionado ao carrinho!"
           modalVisible={modalInfoOne}

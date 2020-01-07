@@ -10,7 +10,13 @@ import {
   commonActionSucess,
 } from '../common/actions';
 import {navigate} from '../../../services/navigation';
-import {dateValidatorSucess, cleanValidator} from './actions';
+import {
+  dateValidatorSucess,
+  cleanValidator,
+  selectTransportSucess,
+  selectTransportInputSucess,
+  selectDespachInputSucess,
+} from './actions';
 
 function* backNewOrderSaga() {
   yield put(commonLoadingActivityOn(''));
@@ -51,16 +57,48 @@ function* selectTransportSaga() {
         Authorization: `Bearer ${token}`,
       },
     });
+    yield put(selectTransportSucess(transport.data));
     yield put(commonActionSucess(''));
+    console.tron.log(transport.data);
   } catch (err) {
     yield put(commonActionFailure('Error ao buscar a transportadora'));
+  }
+}
+// const {id, sizes} = action.payload;
+//   try {
+//     const price1 = sizes.find(element => {
+//       return element.id === id;
+//     });
+function* selectTransportInput(action) {
+  yield put(commonLoadingActivityOn(''));
+  const {id, transports} = action.payload;
+  try {
+    const transport = transports.find(element => {
+      return element.id === id;
+    });
+    yield put(selectTransportInputSucess(transport));
+  } catch (err) {
+    console.tron.log('entrou catch');
+  }
+}
+function* selectDespachInput(action) {
+  yield put(commonLoadingActivityOn(''));
+  const {id, despachs} = action.payload;
+  try {
+    const despach = despachs.find(element => {
+      return element.id === id;
+    });
+    yield put(selectDespachInputSucess(despach));
+  } catch (err) {
+    console.tron.log('entrou catch');
   }
 }
 export default all([
   takeLatest('@productorder/BACK_NEW_ORDER', backNewOrderSaga),
   takeLatest('@productorder/DATE_VALIDATOR', dateValidatorSaga),
-  // takeLatest('@catalog/REQUEST_TABLE_PRICE', requestTablePriceSaga),
-  // takeLatest('@catalog/BACK_CATALOG', backCatalogSaga),
+  takeLatest('@productorder/SELECT_TRANSPORT', selectTransportSaga),
+  takeLatest('@productorder/SELECT_TRANSPORT_INPUT', selectTransportInput),
+  takeLatest('@productorder/SELECT_DESPACH_INPUT', selectDespachInput),
   // takeLatest('@catalog/SEARCH_DESCRIPITION', searchDescripitionSaga),
   // takeLatest('@catalog/SEARCH_MODEL', searchModelSaga),
 ]);

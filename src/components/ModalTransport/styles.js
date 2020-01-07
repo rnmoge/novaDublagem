@@ -35,10 +35,33 @@ export const Icon = styled(Icons)`
 `;
 export const Input = styled.TextInput`
   flex: 6;
-  background: #eee;
   text-align: left;
   color: #707070;
   font-size: 20px;
   padding-bottom: 10px;
   padding: 10px;
 `;
+export const List = styled.View`
+  flex: 1;
+  background: #e4e4e4;
+  padding: 10px;
+`;
+export const ContainerTotal = styled.TouchableOpacity``;
+
+export const FlatList = styled.FlatList``;
+
+export const ContainerList = styled.View`
+  height: 100px;
+  background: #fff;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 10px;
+  elevation: 5px;
+`;
+
+export const Reason = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+export const Cod = styled.Text``;
