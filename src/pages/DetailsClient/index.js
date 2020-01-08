@@ -20,21 +20,25 @@ import {
   ContainerRadius,
 } from './styles';
 import * as ActionsOrder from '../../store/modules/order/actions';
+import * as ActionsFinalize from '../../store/modules/finalizeorder/actions';
 
 export default function DetailsClient() {
   const dispatch = useDispatch();
   const [selectStateOne, setSelectStateOne] = useState(true);
   const [selectStateTwo, setSelectStateTwo] = useState(false);
+  const [typeOrderId, setTypeOrderId] = useState(0);
   const {username} = useSelector(state => state.menu);
   const {loading} = useSelector(state => state.common);
   const {data, address} = useSelector(state => state.order);
-
   const [stateUsername, setStateUsername] = useState(username);
   function backRegisterOrder() {
     dispatch(ActionsOrder.backRegisterOrder());
   }
   function handleNewOrder() {
     dispatch(ActionsOrder.handleNewOrder());
+    dispatch(
+      ActionsFinalize.saveClient(data.id, data.representante_id, typeOrderId)
+    );
   }
   useEffect(() => {
     setStateUsername(username);
@@ -42,10 +46,12 @@ export default function DetailsClient() {
   function trocaRadius1() {
     setSelectStateOne(!selectStateOne);
     setSelectStateTwo(false);
+    setTypeOrderId(0);
   }
   function trocaRadius2() {
     setSelectStateTwo(!selectStateTwo);
     setSelectStateOne(false);
+    setTypeOrderId(1);
   }
   return (
     <Container>

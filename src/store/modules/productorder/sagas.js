@@ -59,7 +59,6 @@ function* selectTransportSaga() {
     });
     yield put(selectTransportSucess(transport.data));
     yield put(commonActionSucess(''));
-    console.tron.log(transport.data);
   } catch (err) {
     yield put(commonActionFailure('Error ao buscar a transportadora'));
   }

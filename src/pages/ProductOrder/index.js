@@ -82,10 +82,6 @@ export default function ProductOrder() {
   const [modalSizeState, setModalSizeState] = useState(false);
   const [colorModalState, setColorModalState] = useState(false);
   const [inputMask, setInputMask] = useState('');
-  console.tron.log(inputMask);
-  function testeInput(text) {
-    console.tron.log(text);
-  }
   useEffect(() => {
     setInputComissionState(comission.comissao1);
   }, [comission]);

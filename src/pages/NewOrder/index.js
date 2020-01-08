@@ -19,13 +19,16 @@ import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
 import ModalPrice from '../../components/Modalteste2';
 import Cart from '../../components/Cart';
-import ModalCatalog from '../../components/ModalCatalog';
+import ModalTypeCharge from '../../components/ModalTypeCharge';
 import * as ActionsNewOrder from '../../store/modules/neworder/actions';
 import * as ActionsCart from '../../store/modules/cart/actions';
+import * as ActionsFinalize from '../../store/modules/finalizeorder/actions';
 
 export default function NewOrder() {
   const dispatch = useDispatch();
-  const {charges, packings, pagaments} = useSelector(state => state.neworder);
+  const {charges, packings, pagaments, idTable, comission} = useSelector(
+    state => state.neworder
+  );
   const {data} = useSelector(state => state.order);
   const [number, setNumber] = useState(1000);
   const [dataBillings, setdataBillings] = useState([
@@ -41,6 +44,10 @@ export default function NewOrder() {
   const [inputTypeCharge, setInputTypeCharge] = useState(
     'Selecione o tipo de cobrança'
   );
+  const [typeChargeId, setTypeChargeId] = useState(null);
+  const [packingId, setPackingId] = useState(null);
+  const [pagamentId, setPagamentId] = useState(null);
+  const [billingId, setBillingId] = useState(null);
   const [inputPacking, setInputPacking] = useState('Selecione a embalagem');
   const [inputPagament, setInputPagament] = useState('Selecione o pagamento');
   const [inputBillings, setInputBillings] = useState('Selecione o faturamento');
@@ -62,7 +69,7 @@ export default function NewOrder() {
   function backDetailsClient() {
     dispatch(ActionsNewOrder.backDetailsClient());
   }
-  // Funçoes do modal
+  // Funçoes do modal tabela preço
   function selectInputTablePrice() {
     setModalState(!modalState);
   }
@@ -79,6 +86,7 @@ export default function NewOrder() {
   function selectTypeCharge(id, descricao) {
     setInputTypeCharge(descricao);
     setModalStateType(!modalStateType);
+    setTypeChargeId(id);
   }
   // função de embalagem
   function packingTwo() {
@@ -87,6 +95,7 @@ export default function NewOrder() {
   function selectPacking(id, descricao) {
     setInputPacking(descricao);
     setModalStatePacking(!modalStatePacking);
+    setPackingId(id);
   }
   // função forma de pagamento
   function pagament() {
@@ -95,6 +104,7 @@ export default function NewOrder() {
   function selectPagament(id, descricao) {
     setInputPagament(descricao);
     setModalStatePagament(!modalStatePagament);
+    setPagamentId(id);
   }
   // função de faturamento antecipado
   function billings() {
@@ -103,6 +113,7 @@ export default function NewOrder() {
   function selectBillings(id, descricao) {
     setInputBillings(descricao);
     setModalStateBillings(!modalStateBillings);
+    setBillingId(id);
   }
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
@@ -119,8 +130,32 @@ export default function NewOrder() {
         inputBillings
       )
     );
+    if (inputNoteState === '') {
+      setInputNoteState(null);
+    }
+    dispatch(
+      ActionsFinalize.saveNewOrder(
+        dateState,
+        number,
+        typeChargeId,
+        packingId,
+        idTable,
+        comission.desconto_vista_percent,
+        pagamentId,
+        inputNoteState,
+        billingId
+      )
+    );
   }
-
+  // Info para salvar para mandar para a API
+  // dateState === ok
+  // inputTypeCharge - id === ok
+  // inputPacking - id === ok
+  // inputTablePrice - id + desconto === ok
+  // inputPagament - id === ok
+  // inputNoteState - id === ok
+  // inputBillings - id
+  // number - numero do pedido
   return (
     <Container>
       <Header
@@ -238,7 +273,7 @@ export default function NewOrder() {
         }}
       />
 
-      <ModalCatalog
+      <ModalTypeCharge
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite o tipo de cobrança"
@@ -251,7 +286,7 @@ export default function NewOrder() {
           selectTypeCharge(id, descricao);
         }}
       />
-      <ModalCatalog
+      <ModalTypeCharge
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite a embalagem"
@@ -264,7 +299,7 @@ export default function NewOrder() {
           selectPacking(id, descricao);
         }}
       />
-      <ModalCatalog
+      <ModalTypeCharge
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite o pagamento"
@@ -278,7 +313,7 @@ export default function NewOrder() {
         }}
       />
       {/* setModalStateBillings(!setModalStateBillings); */}
-      <ModalCatalog
+      <ModalTypeCharge
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}
         placeholder="Digite o faturamento"
