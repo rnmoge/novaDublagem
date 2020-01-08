@@ -11,9 +11,6 @@ export function cartClose(state) {
   };
 }
 export function addToCart(list) {
-  // const productExist = data.find(product => {
-  //   if(product.)
-  // })
   return {
     type: '@cart/ADD_TO_CART',
     payload: {list},

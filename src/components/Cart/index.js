@@ -9,16 +9,10 @@ import CardCart from '../CardCart';
 import Button from '../Button';
 import * as ActionsCart from '../../store/modules/cart/actions';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
-// esse aqui é minha pagina de carrinho que é um componente que chamo em diversas partes do app
-// o que o data mostra ?
-// só um ?copia do reactotron xD
-// {descricao: '3101', }perai
-// mas cade a lista ? o flatlist -> ta dentro do component cardCart
-// vai pra la cardCart
+
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
-  const {modalTransport} = useSelector(state => state.productorder);
-
+  console.tron.log(products);
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));

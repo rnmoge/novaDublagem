@@ -43,7 +43,7 @@ export default function CardCart({
                 <TextTitle>Produto</TextTitle>
                 <TextInfo>{item.produto}</TextInfo>
                 <TextTitle>Descrição</TextTitle>
-                <TextInfo>{item.descricao}</TextInfo>
+                <TextInfo>{item.matriz_cod}</TextInfo>
               </ContainerProduct>
               <ContainerQuant>
                 <TextTitle>Quantidade</TextTitle>

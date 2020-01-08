@@ -35,12 +35,10 @@ import {
   ContainerModal,
 } from './styles';
 
-import functions from '../../functions/index';
-
 export default function ProductOrder() {
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.order);
-  const {loading, error} = useSelector(state => state.common);
+  const {loading} = useSelector(state => state.common);
   const [inputState, setInputState] = useState('');
   const [inputStateModel, setInputStateModel] = useState('');
   const [inputLineState, setInputLineState] = useState('Selecione a linha');
@@ -51,7 +49,7 @@ export default function ProductOrder() {
   const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
   const {stateModal, products} = useSelector(state => state.cart);
-
+  const {codPedido} = useSelector(state => state.finalizeorder);
   const {
     table,
     condition,
@@ -63,6 +61,7 @@ export default function ProductOrder() {
     comission,
     price,
     idProduct,
+    details,
   } = useSelector(state => state.neworder);
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
@@ -73,6 +72,7 @@ export default function ProductOrder() {
   const [modalInfoTwo, setModalInfoTwo] = useState(false);
   const [textPrimary, setTextPrimary] = useState('Data Faturamento');
   const [errorTwo, setErrorTwo] = useState(false);
+  const [colorId, setColorId] = useState(null);
   const [dataStateAuxModel, setDataStateAuxModel] = useState([]);
   const [dataStateAuxLine, setDataStateAuxLine] = useState([]);
   const [dataStateAuxColor, setDataStateAuxColor] = useState([]);
@@ -157,7 +157,6 @@ export default function ProductOrder() {
       .filter(element => {
         return element.descricao.indexOf(inputState) !== -1;
       })
-
       .map(element => {
         return element;
       });
@@ -168,7 +167,6 @@ export default function ProductOrder() {
       .filter(element => {
         return element.matriz.indexOf(inputStateModel) !== -1;
       })
-
       .map(element => {
         return element;
       });
@@ -210,6 +208,7 @@ export default function ProductOrder() {
     setImageState(imageUrl);
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
+    console.tron.log(matriz);
   }
   function sizeFunc() {
     setModalSizeState(!modalSizeState);
@@ -236,33 +235,45 @@ export default function ProductOrder() {
     setColorModalState(!colorModalState);
   }
 
-  function selectColor(descricao) {
+  function selectColor(id, descricao) {
     setInputColorState(descricao);
     setColorModalState(!colorModalState);
+    setColorId(id);
+    console.tron.log(id);
   }
-
   function addProduct() {
     const productExist = products.findIndex(product => {
       return product.id === idProduct;
     });
-
     if (productExist !== -1) {
       const newList = products.map((element, index) => {
         if (index === productExist) {
           return {
-            quant: element.quant + 120,
+            cod_pedido: element.codPedido,
             id: element.id,
             produto: element.produto,
-            descricao: element.descricao,
+            quant: element.quant + 120,
             value: Number(element.value) + Number(dataValueState),
+            observavao_item: element.observavao_item,
+            comissao: element.comissao,
+            data_faturamento: element.data_faturamento,
+            color_id: element.color_id,
+            linha_cod: element.linha_cod,
+            matriz_cod: element.matriz_cod,
           };
         }
         return {
+          cod_pedido: element.codPedido,
           quant: element.quant,
-          id: element.id,
           produto: element.produto,
-          descricao: element.descricao,
+          id: element.id,
           value: element.value,
+          observavao_item: element.observavao_item,
+          comissao: element.comissao,
+          data_faturamento: element.data_faturamento,
+          color_id: element.color_id,
+          linha_cod: element.linha_cod,
+          matriz_cod: element.matriz_cod,
         };
       });
       dispatch(ActionsCart.addToCart([...newList]));
@@ -271,11 +282,17 @@ export default function ProductOrder() {
         ActionsCart.addToCart([
           ...products,
           {
+            cod_pedido: codPedido,
             id: idProduct,
             produto: inputLineState,
-            descricao: inputModelState,
             quant: 120,
             value: dataValueState,
+            observavao_item: inputNoteState,
+            comissao: inputComissionState,
+            data_faturamento: inputMask,
+            color_id: colorId,
+            matriz_cod: details.matriz,
+            linha_cod: details.linha,
           },
         ])
       );
@@ -470,8 +487,8 @@ export default function ProductOrder() {
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setColorModalState(!colorModalState)}
-          functionOnPressText={descricao => {
-            selectColor(descricao);
+          functionOnPressText={(id, descricao) => {
+            selectColor(id, descricao);
           }}
           functionOnPressRight={() => {
             searchDescription();
@@ -494,7 +511,6 @@ export default function ProductOrder() {
             searchDescription();
           }}
         />
-
         <ModalModel
           loading={loading}
           valueInputText={inputStateModel}

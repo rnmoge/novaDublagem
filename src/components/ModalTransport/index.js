@@ -6,6 +6,7 @@ import Header from '../Header';
 import InputClick from '../InputClick';
 import Button from '../Button';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
+import * as ActionsFinalize from '../../store/modules/finalizeorder/actions';
 import {
   Container,
   ContainerHeader,
@@ -31,6 +32,23 @@ export default function ModalTransport({
   data,
 }) {
   const {transport, modalTransport} = useSelector(state => state.productorder);
+  const {products} = useSelector(state => state.cart);
+  const {
+    emissao,
+    codPedido,
+    typeChargeId,
+    packingId,
+    idTable,
+    descont,
+    pagamentId,
+    note,
+    billingId,
+    clientId,
+    representativeId,
+    typeOrder,
+    transpoId,
+    despachId,
+  } = useSelector(state => state.finalizeorder);
   const {loading} = useSelector(state => state.common);
   const [transState, setTransState] = useState(false);
   const [despachState, setDespachState] = useState(false);
@@ -61,14 +79,37 @@ export default function ModalTransport({
     setTransState(!transState);
     dispatch(ActionsProduct.selectTransportInput(id, transport));
     setInputTrans(nome_razao);
+    dispatch(ActionsFinalize.selectTranspoId(id));
   }
   function selectDespach(nome_razao, id) {
     setDespachState(!despachState);
     dispatch(ActionsProduct.selectDespachInput(id, transport));
     setInputDespacho(nome_razao);
+    dispatch(ActionsFinalize.selectDespachId(id));
   }
   function transportClose() {
     dispatch(ActionsProduct.closeTransport(false));
+  }
+  function saveOrderTotal() {
+    dispatch(
+      ActionsFinalize.saveOrderTotal(
+        emissao,
+        codPedido,
+        typeChargeId,
+        packingId,
+        idTable,
+        descont,
+        pagamentId,
+        note,
+        billingId,
+        clientId,
+        representativeId,
+        typeOrder,
+        transpoId,
+        despachId,
+        products
+      )
+    );
   }
   return (
     <Container>
@@ -97,7 +138,13 @@ export default function ModalTransport({
               Transport2();
             }}
           />
-          <Button titleButton="CONFIRMAR" />
+          <Button
+            titleButton="CONFIRMAR"
+            disabledButton={false}
+            functionOnPress={() => {
+              saveOrderTotal();
+            }}
+          />
         </ContainerBody>
       </Modal>
       <Modal visible={transState} animationType="slide">

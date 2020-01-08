@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 // import {Text} from 'react-native';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -16,27 +17,28 @@ import {
 } from './styles';
 
 export default function CardSize({data, nameIcon, nameIcon2}) {
-  const [dataSize, setDataSize] = useState([
-    {id: 1, size: 'P/40', quant: 0},
-    {id: 2, size: 'M/42', quant: 0},
-    {id: 3, size: 'G/44', quant: 0},
-  ]);
+  const {details} = useSelector(state => state.neworder);
+  console.tron.log(details);
+  const [dataSize, setDataSize] = useState(0);
   function addRemoveList(add, index) {
-    const list = [...dataSize];
-    if (add) {
-      if (list[index].quant < 200) {
-        list[index].quant += 60;
-        setDataSize(list);
-      } else {
-        setDataSize(list);
-      }
-    } else if (list[index].quant === 0) {
-      list[index].quant = 0;
-    } else {
-      list[index].quant -= 60;
-      setDataSize(list);
-    }
+    const list = dataSize;
+    console.tron.log(list);
+    // if (add) {
+    //   list[index] += 60;
+    //   //   if (list[index] < 200) {
+    //   //     list[index].quant += 60;
+    //   setDataSize(list);
+    //   //   } else {
+    //   //     setDataSize(list);
+    //   //   }
+    //   // } else if (list[index].quant === 0) {
+    //   //   list[index].quant = 0;
+    //   // } else {
+    //   //   list[index].quant -= 60;
+    //   //   setDataSize(list);
+    // }
   }
+
   return (
     <Container>
       <ContainerTitle>
@@ -48,20 +50,20 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
         </ContainerSize>
       </ContainerTitle>
       <List
-        data={dataSize}
+        data={details.tamanhos}
         initialNumToRender={10}
         renderItem={({item, index}) => {
           return (
             <ContainerTotal2>
               <ContainerSize>
-                <Sizes>{item.size}</Sizes>
+                <Sizes>{item.descricao}</Sizes>
               </ContainerSize>
               <ContainerSize>
                 <ContainerIcon>
                   <AreaIcon onPress={() => addRemoveList(false, index)}>
                     <Icon name={nameIcon} iconAparence={false} />
                   </AreaIcon>
-                  <Quant>{item.quant}</Quant>
+                  <Quant>{dataSize}</Quant>
                   <AreaIcon onPress={() => addRemoveList(true, index)}>
                     <Icon name={nameIcon2} iconAparence={false} />
                   </AreaIcon>

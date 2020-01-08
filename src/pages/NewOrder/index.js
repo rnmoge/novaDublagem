@@ -39,6 +39,9 @@ export default function NewOrder() {
   const month = new Date().getMonth() + 1; // Current Month
   const year = new Date().getFullYear(); // Current Year
   const date = `${day}/${month}/${year}`;
+  const hours = new Date().getHours();
+  const minutes = new Date().getMinutes();
+  const complete = `${day}/${month}/${year}T${hours}:${minutes}`;
   const [modalState, setModalState] = useState(false);
   const [inputTablePrice, setInputTablePrice] = useState('Selecione a tabela');
   const [inputTypeCharge, setInputTypeCharge] = useState(
@@ -56,6 +59,7 @@ export default function NewOrder() {
   const [modalStatePagament, setModalStatePagament] = useState(false);
   const [modalStateBillings, setModalStateBillings] = useState(false);
   const [dateState, setDateState] = useState(date);
+  const [completeState, setCompleteState] = useState(complete);
   const [inputState, setInputState] = useState('');
   const [inputDateState, setInputDateState] = useState('');
   const [inputClientState, setInputClientState] = useState('');
@@ -118,6 +122,7 @@ export default function NewOrder() {
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
   }
+  console.tron.log(complete);
   function handleProducts() {
     dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
     dispatch(
@@ -135,7 +140,7 @@ export default function NewOrder() {
     }
     dispatch(
       ActionsFinalize.saveNewOrder(
-        dateState,
+        completeState,
         number,
         typeChargeId,
         packingId,

@@ -96,6 +96,7 @@ export default function Login(state = INITIAL_STATE, action) {
         draft.price = [];
         draft.charges = [];
         draft.packings = [];
+        draft.details = [];
       });
     default:
       return state;

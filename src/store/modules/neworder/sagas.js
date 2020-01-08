@@ -68,7 +68,7 @@ function* searchDescripitionOrder(action) {
 }
 function* searchModelSaga(action) {
   yield put(commonLoadingActivityOn(''));
-  const {linha, id, model, descricao} = action.payload;
+  const {linha, id, model} = action.payload;
 
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
@@ -102,7 +102,6 @@ function* requestTablePriceSaga(action) {
     });
     yield put(colorsProduts(cores.data.cores));
     yield put(detailsProduct(cores.data));
-
     const {
       data: {data},
     } = yield call(
@@ -126,17 +125,8 @@ function* backDetailsClientSaga() {
   navigate('DetailsClient');
   yield put(commonActionSucess(''));
 }
-function* handleProductSaga(action) {
+function* handleProductSaga() {
   yield put(commonLoadingActivityOn(''));
-  // const {condition, table} = action.payload;
-  // if (condition === 'A VISTA') {
-  //   let tabelas = yield call(AsyncStorage.getItem, '@novaDublagem:userTable');
-  //   tabelas = JSON.parse(tabelas);
-  //   const tabela = tabelas.find(element => {
-  //     return element.tabelapreco === table;
-  //   });
-  //
-  // }
   navigate('ProductOrder');
 }
 function* sizePriceSaga(action) {
