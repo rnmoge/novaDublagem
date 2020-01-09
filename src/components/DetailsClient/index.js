@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -30,10 +30,10 @@ export default function DetailsClient({client, address}) {
         <ContainerText>
           <TextInfo2>{client.cliente_cod}</TextInfo2>
           <TextInfo2>{client.nome_razao}</TextInfo2>
-          <TextInfo2>{address.endereco}</TextInfo2>
-          <TextInfo2>{address.cidade}</TextInfo2>
-          <TextInfo2>{address.bairro}</TextInfo2>
-          <TextInfo2>{address.uf}</TextInfo2>
+          <TextInfo2>{client.clienteEnderecos[0].endereco}</TextInfo2>
+          <TextInfo2>{client.clienteEnderecos[0].cidade}</TextInfo2>
+          <TextInfo2>{client.clienteEnderecos[0].bairro}</TextInfo2>
+          <TextInfo2>{client.clienteEnderecos[0].uf}</TextInfo2>
           <TextInfo2>{client.cnpj}</TextInfo2>
           <TextInfo2>{client.email}</TextInfo2>
         </ContainerText>

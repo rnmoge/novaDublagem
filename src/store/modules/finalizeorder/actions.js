@@ -80,3 +80,20 @@ export function saveOrderTotal(
     },
   };
 }
+export function cleanFinalizeOrder() {
+  return {
+    type: '@finalizeorder/CLEAN_FINALIZE_ORDER',
+  };
+}
+export function changeQuant(newQuant) {
+  return {
+    type: '@finalizeorder/CHANGE_QUANT',
+    payload: {newQuant},
+  };
+}
+export function addRemoveQuant(newQuant) {
+  return {
+    type: '@finalizeorder/ADD_REMOVE_QUANT',
+    payload: {newQuant},
+  };
+}

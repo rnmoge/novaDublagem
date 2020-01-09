@@ -30,6 +30,7 @@ export default function DetailsClient() {
   const {username} = useSelector(state => state.menu);
   const {loading} = useSelector(state => state.common);
   const {data, address} = useSelector(state => state.order);
+
   const [stateUsername, setStateUsername] = useState(username);
   function backRegisterOrder() {
     dispatch(ActionsOrder.backRegisterOrder());

@@ -25,6 +25,7 @@ function* saveOrderTotalSaga(action) {
     despachId,
     products,
   } = action.payload;
+
   const data2 = {
     embalagem_id: Number(packingId),
     condicao_pagamento_id: Number(pagamentId),
@@ -94,6 +95,7 @@ function* saveOrderTotalSaga(action) {
       },
     ],
   };
+  const produtos = products;
   // const data3 = {};
   // for (let i = 0; i < action.payload.length; i += 1) {
   //   const {
@@ -120,17 +122,15 @@ function* saveOrderTotalSaga(action) {
   //     tabela_preco_id: idTable,
   //     cliente_id: 1,
   //   };
-  //   console.tron.log(data4);
   // }
-  console.tron.log(data2);
-  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
-  token = JSON.parse(token);
-  const response = yield call(api.post, '/pedido', data2, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  console.tron.log(response);
+
+  // let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  // token = JSON.parse(token);
+  // const response = yield call(api.post, '/pedido', data2, {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
 }
 
 export default all([

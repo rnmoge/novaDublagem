@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   idProduct: '',
   line: [],
   sizes: [],
-  cores: [],
+  colors: [],
   comission: [],
   price: [],
   charges: [],
@@ -19,7 +19,9 @@ const INITIAL_STATE = {
   inputPagament: '',
   inputNoteState: '',
   inputBillings: '',
+  tamanhos: [],
   details: [],
+  amount: [],
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -31,6 +33,10 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@neworder/SELECT_TABLE_ORDER_SUCESS':
       return produce(state, draft => {
         draft.idTable = action.payload.idTable;
+      });
+    case 'newOrder/SIZES_SUCESS':
+      return produce(state, draft => {
+        draft.tamanhos = action.payload.size;
       });
     case '@newOrder/SEARCH_DESCRIPITION_SUCESS':
       return produce(state, draft => {
@@ -46,7 +52,7 @@ export default function Login(state = INITIAL_STATE, action) {
       });
     case '@newOrder/COLORS_PRODUCTS':
       return produce(state, draft => {
-        draft.cores = action.payload.cores;
+        draft.colors = action.payload.cores;
       });
     case '@newOrder/SAVE_COMISSION':
       return produce(state, draft => {
@@ -76,6 +82,10 @@ export default function Login(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.idProduct = action.payload.idProduct;
       });
+    case 'newOrder/CHANGE_DETAILS':
+      return produce(state, draft => {
+        draft.tamanhos = action.payload.newDetails;
+      });
 
     case '@newOrder/SAVE_PAGAMENT':
       return produce(state, draft => {
@@ -97,6 +107,7 @@ export default function Login(state = INITIAL_STATE, action) {
         draft.charges = [];
         draft.packings = [];
         draft.details = [];
+        draft.tamanhos = [];
       });
     default:
       return state;

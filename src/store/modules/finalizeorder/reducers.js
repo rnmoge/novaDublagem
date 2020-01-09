@@ -1,20 +1,21 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  emissao: '',
-  codPedido: '',
-  typeChargeId: '',
-  packingId: '',
-  idTable: '',
-  descont: '',
-  pagamentId: '',
-  note: '',
-  billingId: '',
-  clientId: '',
-  representativeId: '',
-  typeOrder: '',
-  transpoId: '',
-  despachId: '',
+  emissao: null,
+  codPedido: null,
+  typeChargeId: null,
+  packingId: null,
+  idTable: null,
+  descont: null,
+  pagamentId: null,
+  note: null,
+  billingId: null,
+  clientId: null,
+  representativeId: null,
+  typeOrder: null,
+  transpoId: null,
+  despachId: null,
+  quant: null,
   body: [],
 };
 export default function Common(state = INITIAL_STATE, action) {
@@ -44,6 +45,27 @@ export default function Common(state = INITIAL_STATE, action) {
     case '@finalizeorder/SELECT_DESPACH_ID':
       return produce(state, draft => {
         draft.despachId = action.payload.despachId;
+      });
+    case '@finalizeorder/CLEAN_FINALIZE_ORDER':
+      return produce(state, draft => {
+        draft.emissao = null;
+        draft.codPedido = null;
+        draft.typeChargeId = null;
+        draft.packingId = null;
+        draft.idTable = null;
+        draft.descont = null;
+        draft.pagamentId = null;
+        draft.note = null;
+        draft.billingId = null;
+        draft.clientId = null;
+        draft.representativeId = null;
+        draft.typeOrder = null;
+        draft.transpoId = null;
+        draft.despachId = null;
+      });
+    case '@finalizeorder/CHANGE_QUANT':
+      return produce(state, draft => {
+        draft.quant = action.payload.newQuant;
       });
     default:
       return state;

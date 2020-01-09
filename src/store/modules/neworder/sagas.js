@@ -14,6 +14,7 @@ import {
   selectPackingSucess,
   selectPagamentSucess,
   detailsProduct,
+  sizesSucess,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -131,11 +132,27 @@ function* handleProductSaga() {
 }
 function* sizePriceSaga(action) {
   yield put(commonLoadingActivityOn(''));
-  const {id, sizes} = action.payload;
+  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  token = JSON.parse(token);
+  const {id, idGroup, sizes, idProduct} = action.payload;
   try {
     const price1 = sizes.find(element => {
       return element.id === id;
     });
+    const data = yield call(
+      api.get,
+      `/linhamatriz/${idProduct}?grupotamanhoid=${idGroup}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.tron.log('dataSize');
+    console.tron.log(data.data.tamanhos);
+    yield put(sizesSucess(data.data.tamanhos));
+    console.tron.log(sizesSucess);
+
     yield put(sizePriceOneSucess(price1));
   } catch (err) {
     yield put(commonActionFailure(''));

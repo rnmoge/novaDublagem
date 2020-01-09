@@ -61,13 +61,11 @@ export default function NewOrder() {
   const [dateState, setDateState] = useState(date);
   const [completeState, setCompleteState] = useState(complete);
   const [inputState, setInputState] = useState('');
-  const [inputDateState, setInputDateState] = useState('');
+  const [inputDateState, setInputDateState] = useState(dateState);
   const [inputClientState, setInputClientState] = useState('');
   const [inputNoteState, setInputNoteState] = useState('');
   const {table} = useSelector(state => state.table);
   const {stateModal} = useSelector(state => state.cart);
-  // const [dataStateAux, setDataStateAux] = useState(table);
-
   // ->funções da pagina<-
   // Função voltar
   function backDetailsClient() {
@@ -122,7 +120,6 @@ export default function NewOrder() {
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
   }
-  console.tron.log(complete);
   function handleProducts() {
     dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
     dispatch(
@@ -141,7 +138,7 @@ export default function NewOrder() {
     dispatch(
       ActionsFinalize.saveNewOrder(
         completeState,
-        number,
+        inputClientState,
         typeChargeId,
         packingId,
         idTable,
@@ -152,15 +149,6 @@ export default function NewOrder() {
       )
     );
   }
-  // Info para salvar para mandar para a API
-  // dateState === ok
-  // inputTypeCharge - id === ok
-  // inputPacking - id === ok
-  // inputTablePrice - id + desconto === ok
-  // inputPagament - id === ok
-  // inputNoteState - id === ok
-  // inputBillings - id
-  // number - numero do pedido
   return (
     <Container>
       <Header
@@ -180,7 +168,6 @@ export default function NewOrder() {
             <Text>Cliente:</Text>
           </ContainerPlaceholder>
           <ContainerInfo>
-            <TextClient>Pedido: {number}</TextClient>
             <TextClient>R. Social: {data.nome_razao}</TextClient>
           </ContainerInfo>
         </ContainerClient>

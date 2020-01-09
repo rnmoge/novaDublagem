@@ -76,10 +76,10 @@ export function saveCommision(comission) {
     payload: {comission},
   };
 }
-export function sizePriceOne(id, sizes) {
+export function sizePriceOne(id, idGroup, sizes, idProduct) {
   return {
     type: '@newOrder/SIZE_PRICE_ONE',
-    payload: {id, sizes},
+    payload: {id, idGroup, sizes, idProduct},
   };
 }
 export function sizePriceOneSucess(price) {
@@ -141,5 +141,23 @@ export function detailsProduct(cores) {
 export function cleanState() {
   return {
     type: '@newOrder/CLEAN_STATE',
+  };
+}
+export function saveSizesQuant(newQuant) {
+  return {
+    type: 'newOrder/SAVE_SIZES_QUANT',
+    payload: {newQuant},
+  };
+}
+export function sizesSucess(size) {
+  return {
+    type: 'newOrder/SIZES_SUCESS',
+    payload: {size},
+  };
+}
+export function changeDetails(newDetails) {
+  return {
+    type: 'newOrder/CHANGE_DETAILS',
+    payload: {newDetails},
   };
 }

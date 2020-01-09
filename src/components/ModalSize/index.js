@@ -10,7 +10,7 @@ import {
   TextButton,
 } from './styles';
 
-export default function ModalColor({
+export default function ModalSize({
   nameIcon,
   nameIconTwo,
   placeholder,
@@ -54,6 +54,7 @@ export default function ModalColor({
                   onPress={() =>
                     functionOnPressText(
                       item.id,
+                      item.grupotamanho_id,
                       item.tamanho.descricao,
                       item.preco1,
                       item.preco2,
@@ -70,7 +71,7 @@ export default function ModalColor({
     </Container>
   );
 }
-Modal.propTypes = {
+ModalSize.propTypes = {
   placeholder: PropTypes.string,
   nameIcon: PropTypes.string,
   nameIconTwo: PropTypes.string,
@@ -81,7 +82,7 @@ Modal.propTypes = {
   functionOnPressText: PropTypes.func,
   loading: PropTypes.bool,
 };
-Modal.defaultProps = {
+ModalSize.defaultProps = {
   nameIcon: 'times',
   nameIconTwo: 'search',
   placeholder: 'TesteModal',

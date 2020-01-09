@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-// import {Text} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, {useState, useMemo, useEffect} from 'react';
+import {Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -16,28 +15,32 @@ import {
   Icon,
 } from './styles';
 
-export default function CardSize({data, nameIcon, nameIcon2}) {
-  const {details} = useSelector(state => state.neworder);
-  console.tron.log(details);
-  const [dataSize, setDataSize] = useState(0);
-  function addRemoveList(add, index) {
-    const list = dataSize;
-    console.tron.log(list);
-    // if (add) {
-    //   list[index] += 60;
-    //   //   if (list[index] < 200) {
-    //   //     list[index].quant += 60;
-    //   setDataSize(list);
-    //   //   } else {
-    //   //     setDataSize(list);
-    //   //   }
-    //   // } else if (list[index].quant === 0) {
-    //   //   list[index].quant = 0;
-    //   // } else {
-    //   //   list[index].quant -= 60;
-    //   //   setDataSize(list);
-    // }
-  }
+export default function CardSize({
+  data,
+  nameIcon,
+  nameIcon2,
+  functionOnpressIconLeft,
+}) {
+  // function addRemoveList(add, index) {
+
+  //   const newQuant = listStateSizes.map((amount, currencyIndex) => {
+  //     if (index === currencyIndex) {
+  //       if (add) {
+  //         return Number(amount.quant) + 60;
+  //       }
+  //       if (amount.quant >= 60) {
+  //         return Number(amount.quant) - 60;
+  //       }
+  //       return 0;
+  //     }
+  //     return amount.quant;
+  //   });
+  //
+  //
+  //   dispatch(ActionsFinalize.changeQuant(newQuant));
+  //   // setListStateSizes(newQuant);
+  //   setListStateSizes(newQuant);
+  // }
 
   return (
     <Container>
@@ -49,44 +52,58 @@ export default function CardSize({data, nameIcon, nameIcon2}) {
           <TextInfo>Quantidades:</TextInfo>
         </ContainerSize>
       </ContainerTitle>
-      <List
-        data={details.tamanhos}
-        initialNumToRender={10}
-        renderItem={({item, index}) => {
-          return (
-            <ContainerTotal2>
-              <ContainerSize>
-                <Sizes>{item.descricao}</Sizes>
-              </ContainerSize>
-              <ContainerSize>
-                <ContainerIcon>
-                  <AreaIcon onPress={() => addRemoveList(false, index)}>
-                    <Icon name={nameIcon} iconAparence={false} />
-                  </AreaIcon>
-                  <Quant>{dataSize}</Quant>
-                  <AreaIcon onPress={() => addRemoveList(true, index)}>
-                    <Icon name={nameIcon2} iconAparence={false} />
-                  </AreaIcon>
-                </ContainerIcon>
-              </ContainerSize>
-            </ContainerTotal2>
-          );
-        }}
-      />
+
+      {data.length === 0 || data === null ? (
+        <Text>Yuri</Text>
+      ) : (
+        <List
+          data={data}
+          initialNumToRender={10}
+          renderItem={({item, index}) => {
+            return (
+              <ContainerTotal2>
+                <ContainerSize>
+                  <Sizes>{item.descricao}</Sizes>
+                </ContainerSize>
+                <ContainerSize>
+                  <ContainerIcon>
+                    <AreaIcon
+                      onPress={() => {
+                        functionOnpressIconLeft(index, false);
+                      }}>
+                      <Icon name={nameIcon} iconAparence={false} />
+                    </AreaIcon>
+                    <Quant>{item.quant}</Quant>
+                    <AreaIcon
+                      onPress={() => {
+                        functionOnpressIconLeft(index, true);
+                      }}>
+                      <Icon name={nameIcon2} iconAparence={false} />
+                    </AreaIcon>
+                  </ContainerIcon>
+                </ContainerSize>
+              </ContainerTotal2>
+            );
+          }}
+        />
+      )}
     </Container>
   );
 }
-CardSize.prototypes = {
-  data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+CardSize.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
   nameIcon: PropTypes.string,
   nameIcon2: PropTypes.string,
-  functionOnpressIconRigth: PropTypes.func,
   functionOnpressIconLeft: PropTypes.func,
 };
 CardSize.defaultProps = {
-  data: [],
+  data: [
+    {
+      descricao: 'Yuri 123',
+      quant: 0,
+    },
+  ],
   nameIcon: 'fonticons',
   nameIcon2: 'fonticons',
-  functionOnpressIconRigth: () => {},
   functionOnpressIconLeft: () => {},
 };

@@ -19,6 +19,7 @@ import ButtonSecondary from '../../components/ButtonSecondary';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
 import * as NewOrderActions from '../../store/modules/neworder/actions';
 import * as ActionsCart from '../../store/modules/cart/actions';
+
 import {
   Container,
   ContainerBody,
@@ -56,16 +57,21 @@ export default function ProductOrder() {
     idTable,
     dataDescription,
     line,
-    cores,
+    colors,
     sizes,
     comission,
     price,
     idProduct,
     details,
+    tamanhos,
   } = useSelector(state => state.neworder);
+  console.tron.log(tamanhos);
+  console.tron.log(tamanhos);
+  console.tron.log('tamanhos');
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
   }
+  // const {quant} = useSelector(state => state.finalizeorder);
   const [stateError, setStateError] = useState(false);
   const [modalDetails, setModalDetails] = useState(false);
   const [modalInfoOne, setModalInfoOne] = useState(false);
@@ -85,6 +91,96 @@ export default function ProductOrder() {
   useEffect(() => {
     setInputComissionState(comission.comissao1);
   }, [comission]);
+
+  function changeQuant(index, add) {
+    console.tron.log('foi');
+    const newSizes = tamanhos.map((element, elementIndex) => {
+      if (add) {
+        if (index === elementIndex) {
+          const {
+            id,
+            tamanho_cod,
+            descricao,
+            created_at,
+            updated_at,
+            quant,
+            pivot,
+          } = element;
+          return {
+            id,
+            tamanho_cod,
+            descricao,
+            created_at,
+            updated_at,
+            quant: Number(quant) + 60,
+            pivot,
+          };
+        }
+        const {
+          id,
+          tamanho_cod,
+          descricao,
+          created_at,
+          updated_at,
+          quant,
+          pivot,
+        } = element;
+        return {
+          id,
+          tamanho_cod,
+          descricao,
+          created_at,
+          updated_at,
+          quant,
+          pivot,
+        };
+      }
+
+      if (element.quant >= 60) {
+        const {
+          id,
+          tamanho_cod,
+          descricao,
+          created_at,
+          updated_at,
+          quant,
+          pivot,
+        } = element;
+        return {
+          id,
+          tamanho_cod,
+          descricao,
+          created_at,
+          updated_at,
+          quant: Number(quant) - 60,
+          pivot,
+        };
+      }
+
+      const {
+        id,
+        tamanho_cod,
+        descricao,
+        created_at,
+        updated_at,
+        quant,
+        pivot,
+      } = element;
+      return {
+        id,
+        tamanho_cod,
+        descricao,
+        created_at,
+        updated_at,
+        quant: Number(quant) + 60,
+        pivot,
+      };
+    });
+    const newDetails = newSizes;
+
+    console.tron.log(newDetails);
+    dispatch(NewOrderActions.changeDetails(newDetails));
+  }
   useEffect(() => {
     const value = comission.desconto_vista_percent;
     let priceNew = (price.preco1 - (price.preco1 * value) / 100).toFixed(2);
@@ -172,19 +268,19 @@ export default function ProductOrder() {
       });
     setDataStateAuxModel(orderArrayModel);
   }, [inputStateModel, line]); // eslint-disable-line
-  useEffect(() => {
-    const orderArrayColor = cores
-      .filter(element => {
-        return (
-          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
-          -1
-        );
-      })
-      .map(element => {
-        return element;
-      });
-    setDataStateAuxColor(orderArrayColor);
-  }, [inputState, cores]); // eslint-disable-line
+  // useEffect(() => {
+  //   const orderArrayColor = colors
+  //     .filter(element => {
+  //       return (
+  //         element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
+  //         -1
+  //       );
+  //     })
+  //     .map(element => {
+  //       return element;
+  //     });
+  //   setDataStateAuxColor(orderArrayColor);
+  // }, [inputState, colors]); // eslint-disable-line
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
@@ -208,7 +304,6 @@ export default function ProductOrder() {
     setImageState(imageUrl);
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
-    console.tron.log(matriz);
   }
   function sizeFunc() {
     setModalSizeState(!modalSizeState);
@@ -226,9 +321,11 @@ export default function ProductOrder() {
       setDataValueState(price.preco1);
     }
   }, [price.preco1]);// eslint-disable-line
-  function selectSize(id, descricao) {
+  function selectSize(id, grupotamanho_id, descricao) {
     setInputSizeState(descricao);
-    dispatch(NewOrderActions.sizePriceOne(id, sizes));
+    dispatch(
+      NewOrderActions.sizePriceOne(id, grupotamanho_id, sizes, idProduct)
+    );
     setModalSizeState(!modalSizeState);
   }
   function colorFunc() {
@@ -239,7 +336,6 @@ export default function ProductOrder() {
     setInputColorState(descricao);
     setColorModalState(!colorModalState);
     setColorId(id);
-    console.tron.log(id);
   }
   function addProduct() {
     const productExist = products.findIndex(product => {
@@ -260,6 +356,7 @@ export default function ProductOrder() {
             color_id: element.color_id,
             linha_cod: element.linha_cod,
             matriz_cod: element.matriz_cod,
+            TAMANHO: [],
           };
         }
         return {
@@ -274,6 +371,7 @@ export default function ProductOrder() {
           color_id: element.color_id,
           linha_cod: element.linha_cod,
           matriz_cod: element.matriz_cod,
+          TAMANHO: [],
         };
       });
       dispatch(ActionsCart.addToCart([...newList]));
@@ -293,6 +391,7 @@ export default function ProductOrder() {
             color_id: colorId,
             matriz_cod: details.matriz,
             linha_cod: details.linha,
+            TAMANHO: [],
           },
         ])
       );
@@ -317,6 +416,9 @@ export default function ProductOrder() {
   const {message, errorDate, messageDate, modal} = useSelector(
     state => state.productorder
   );
+  // useEffect(() => {
+  //   dispatch(NewOrderActions.saveSizesQuant(newQuant));
+  // }, [details]); // eslint-disable-line
   function dateValidator() {
     dispatch(ActionsProduct.dateValidator(idProduct, inputMask));
     if (message) {
@@ -378,7 +480,7 @@ export default function ProductOrder() {
                 }}
               />
               <InputClick
-                textPrimary="Selecione o tamanho:"
+                textPrimary="Selecione o grupo de tamanho:"
                 textSecundary={inputSizeState}
                 icoName="angle-down"
                 functionOnpressInput={() => {
@@ -397,7 +499,16 @@ export default function ProductOrder() {
               <ContainerImagem>
                 <Image source={{uri: imageState}} />
               </ContainerImagem>
-              <CardSize nameIcon="minus" nameIcon2="plus" />
+
+              <CardSize
+                data={tamanhos}
+                functionOnpressIconLeft={(index, add) => {
+                  changeQuant(index, add);
+                }}
+                nameIcon="minus"
+                nameIcon2="plus"
+              />
+
               <TextClient>Comissão:</TextClient>
               <InputType
                 placeholder="Comissão"
@@ -483,7 +594,7 @@ export default function ProductOrder() {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a cor"
           modalVisible={colorModalState}
-          data={dataStateAuxColor}
+          data={colors}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setColorModalState(!colorModalState)}
@@ -504,8 +615,8 @@ export default function ProductOrder() {
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalSizeState(!modalSizeState)}
-          functionOnPressText={(id, descricao) => {
-            selectSize(id, descricao);
+          functionOnPressText={(id, grupotamanho_id, descricao) => {
+            selectSize(id, grupotamanho_id, descricao);
           }}
           functionOnPressRight={() => {
             searchDescription();
