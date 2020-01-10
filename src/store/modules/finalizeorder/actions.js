@@ -97,3 +97,10 @@ export function addRemoveQuant(newQuant) {
     payload: {newQuant},
   };
 }
+
+export function reponseApi(response) {
+  return {
+    type: '@finalizeorder/RESPONSE_API',
+    payload: {response},
+  };
+}

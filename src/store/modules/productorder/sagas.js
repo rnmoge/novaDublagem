@@ -77,7 +77,7 @@ function* selectTransportInput(action) {
     });
     yield put(selectTransportInputSucess(transport));
   } catch (err) {
-    console.tron.log('entrou catch');
+    yield put(commonActionFailure('Error ao buscar a transportadora'));
   }
 }
 function* selectDespachInput(action) {
@@ -89,7 +89,7 @@ function* selectDespachInput(action) {
     });
     yield put(selectDespachInputSucess(despach));
   } catch (err) {
-    console.tron.log('entrou catch');
+    yield put(commonActionFailure('Error ao buscar a transportadora'));
   }
 }
 export default all([

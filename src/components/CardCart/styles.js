@@ -48,6 +48,7 @@ export const TextInfo = styled.Text`
 `;
 export const TextTitle = styled.Text`
   font-weight: bold;
+  padding: 2px;
 `;
 
 export const ContainerIcon = styled.View`

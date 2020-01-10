@@ -65,9 +65,7 @@ export default function ProductOrder() {
     details,
     tamanhos,
   } = useSelector(state => state.neworder);
-  console.tron.log(tamanhos);
-  console.tron.log(tamanhos);
-  console.tron.log('tamanhos');
+
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
   }
@@ -79,6 +77,7 @@ export default function ProductOrder() {
   const [textPrimary, setTextPrimary] = useState('Data Faturamento');
   const [errorTwo, setErrorTwo] = useState(false);
   const [colorId, setColorId] = useState(null);
+  const [groupId, setGroupId] = useState(null);
   const [dataStateAuxModel, setDataStateAuxModel] = useState([]);
   const [dataStateAuxLine, setDataStateAuxLine] = useState([]);
   const [dataStateAuxColor, setDataStateAuxColor] = useState([]);
@@ -93,92 +92,81 @@ export default function ProductOrder() {
   }, [comission]);
 
   function changeQuant(index, add) {
-    console.tron.log('foi');
     const newSizes = tamanhos.map((element, elementIndex) => {
       if (add) {
         if (index === elementIndex) {
           const {
             id,
-            tamanho_cod,
+            tamanho_order,
             descricao,
             created_at,
             updated_at,
             quant,
-            pivot,
           } = element;
           return {
             id,
-            tamanho_cod,
+            tamanho_order,
             descricao,
             created_at,
             updated_at,
             quant: Number(quant) + 60,
-            pivot,
           };
         }
         const {
           id,
-          tamanho_cod,
+          tamanho_order,
           descricao,
           created_at,
           updated_at,
           quant,
-          pivot,
         } = element;
         return {
           id,
-          tamanho_cod,
+          tamanho_order,
           descricao,
           created_at,
           updated_at,
           quant,
-          pivot,
         };
-      }
-
-      if (element.quant >= 60) {
-        const {
-          id,
-          tamanho_cod,
-          descricao,
-          created_at,
-          updated_at,
-          quant,
-          pivot,
-        } = element;
-        return {
-          id,
-          tamanho_cod,
-          descricao,
-          created_at,
-          updated_at,
-          quant: Number(quant) - 60,
-          pivot,
-        };
-      }
-
+      } // else
+      if (index === elementIndex) {
+        if (element.quant >= 60) {
+          const {
+            id,
+            tamanho_order,
+            descricao,
+            created_at,
+            updated_at,
+            quant,
+          } = element;
+          return {
+            id,
+            tamanho_order,
+            descricao,
+            created_at,
+            updated_at,
+            quant: Number(quant) - 60,
+          };
+        }
+      } // else
       const {
         id,
-        tamanho_cod,
+        tamanho_order,
         descricao,
         created_at,
         updated_at,
         quant,
-        pivot,
       } = element;
       return {
         id,
-        tamanho_cod,
+        tamanho_order,
         descricao,
         created_at,
         updated_at,
-        quant: Number(quant) + 60,
-        pivot,
+        quant,
       };
     });
     const newDetails = newSizes;
-
-    console.tron.log(newDetails);
     dispatch(NewOrderActions.changeDetails(newDetails));
   }
   useEffect(() => {
@@ -327,6 +315,8 @@ export default function ProductOrder() {
       NewOrderActions.sizePriceOne(id, grupotamanho_id, sizes, idProduct)
     );
     setModalSizeState(!modalSizeState);
+    setGroupId(grupotamanho_id);
+    // groupId, setGroupId
   }
   function colorFunc() {
     setColorModalState(!colorModalState);
@@ -348,30 +338,38 @@ export default function ProductOrder() {
             cod_pedido: element.codPedido,
             id: element.id,
             produto: element.produto,
+            descricao: element.descricao,
             quant: element.quant + 120,
             value: Number(element.value) + Number(dataValueState),
-            observavao_item: element.observavao_item,
+            observacao_item: element.observavao_item,
             comissao: element.comissao,
             data_faturamento: element.data_faturamento,
             color_id: element.color_id,
+            grupotamanho_id: element.grupotamanho_id,
             linha_cod: element.linha_cod,
             matriz_cod: element.matriz_cod,
-            TAMANHO: [],
+            grupo_tamanho_cod: element.grupo_tamanho_cod,
+            cor_cod: element.cor_cod,
+            pedidoItemTamanhos: element.pedidoItemTamanhos,
           };
         }
         return {
           cod_pedido: element.codPedido,
           quant: element.quant,
           produto: element.produto,
+          descricao: element.descricao,
           id: element.id,
           value: element.value,
-          observavao_item: element.observavao_item,
+          observacao_item: element.observavao_item,
           comissao: element.comissao,
           data_faturamento: element.data_faturamento,
           color_id: element.color_id,
-          linha_cod: element.linha_cod,
+          grupotamanho_id: element.grupotamanho_id,
           matriz_cod: element.matriz_cod,
-          TAMANHO: [],
+          linha_cod: element.linha_cod,
+          grupo_tamanho_cod: element.grupo_tamanho_cod,
+          cor_cod: element.cor_cod,
+          pedidoItemTamanhos: element.pedidoItemTamanhos,
         };
       });
       dispatch(ActionsCart.addToCart([...newList]));
@@ -384,14 +382,18 @@ export default function ProductOrder() {
             id: idProduct,
             produto: inputLineState,
             quant: 120,
+            descricao: details.matriz,
             value: dataValueState,
-            observavao_item: inputNoteState,
+            observacao_item: inputNoteState,
             comissao: inputComissionState,
             data_faturamento: inputMask,
             color_id: colorId,
-            matriz_cod: details.matriz,
-            linha_cod: details.linha,
-            TAMANHO: [],
+            grupotamanho_id: groupId,
+            matriz_cod: null,
+            linha_cod: null,
+            grupo_tamanho_cod: null,
+            cor_cod: null,
+            pedidoItemTamanhos: tamanhos,
           },
         ])
       );
@@ -405,6 +407,7 @@ export default function ProductOrder() {
     setInputMask('Data faturamento');
     setInputComissionState(comission.comissao1);
     setDataValueState();
+    setGroupId(null);
     dispatch(NewOrderActions.cleanState());
     setModalInfoOne(!modalInfoOne);
   }

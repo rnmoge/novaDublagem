@@ -177,10 +177,10 @@ export default function RegisterOrder() {
               />
             </ContainerInput>
 
-            <ContainerText>
+            {/* <ContainerText>
               <TextInfo>Listar clientes:</TextInfo>
-            </ContainerText>
-            <ContainerRadius>
+            </ContainerText> */}
+            {/* <ContainerRadius>
               <Radius
                 iconAparence={selectStateOne}
                 nameIcon={selectStateOne ? 'dot-circle' : 'circle'}
@@ -204,7 +204,7 @@ export default function RegisterOrder() {
                   trocaRadius3();
                 }}
               />
-            </ContainerRadius>
+            </ContainerRadius> */}
           </Container2>
           <ContainerList>
             <CardClient

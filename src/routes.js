@@ -21,6 +21,7 @@ import DetailsClient from './pages/DetailsClient';
 import NewOrder from './pages/NewOrder';
 import Testestando from './pages/Testestando';
 import ProductOrder from './pages/ProductOrder';
+import FinalOrder from './pages/FinalOrder';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -111,6 +112,7 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 );
 const createAppNavigation = createSwitchNavigator({
   Login,
+  FinalOrder,
   NewOrder,
   ProductOrder,
   Home: {screen: createDrawerNavigatorApp},

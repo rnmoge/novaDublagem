@@ -54,7 +54,7 @@ export default function CardSize({
       </ContainerTitle>
 
       {data.length === 0 || data === null ? (
-        <Text>Yuri</Text>
+        <Text />
       ) : (
         <List
           data={data}

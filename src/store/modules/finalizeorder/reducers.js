@@ -17,6 +17,13 @@ const INITIAL_STATE = {
   despachId: null,
   quant: null,
   body: [],
+  response: [],
+  client: '',
+  tabelaPreco: '',
+  tipoCobranca: '',
+  condicaoPagamento: '',
+  pedidoItens: [],
+  pedidoItemTamanhos: [],
 };
 export default function Common(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -66,6 +73,10 @@ export default function Common(state = INITIAL_STATE, action) {
     case '@finalizeorder/CHANGE_QUANT':
       return produce(state, draft => {
         draft.quant = action.payload.newQuant;
+      });
+    case '@finalizeorder/RESPONSE_API':
+      return produce(state, draft => {
+        draft.response = action.payload.response;
       });
     default:
       return state;

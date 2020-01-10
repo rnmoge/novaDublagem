@@ -43,7 +43,9 @@ export default function CardCart({
                 <TextTitle>Produto</TextTitle>
                 <TextInfo>{item.produto}</TextInfo>
                 <TextTitle>Descrição</TextTitle>
-                <TextInfo>{item.matriz_cod}</TextInfo>
+                <TextInfo>{item.descricao}</TextInfo>
+                <TextTitle>Tamanhos</TextTitle>
+                <TextInfo>{item.pedidoItemTamanhos.descricao}</TextInfo>
               </ContainerProduct>
               <ContainerQuant>
                 <TextTitle>Quantidade</TextTitle>

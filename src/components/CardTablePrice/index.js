@@ -19,7 +19,6 @@ import {
 } from './styles';
 
 export default function CardTablePrice({commision, loading, data}) {
-  const {price} = useSelector(state => state.neworder);
   return (
     <Container>
       <ContainerTitle>
@@ -56,13 +55,13 @@ export default function CardTablePrice({commision, loading, data}) {
                   <Sizes>{item.tamanho.descricao}</Sizes>
                 </ContainerSize>
                 <ContainerPrice>
-                  <Prices>{Number(item.preco1)}</Prices>
+                  <Prices>{item.preco1}</Prices>
                 </ContainerPrice>
                 <ContainerPrice>
-                  <Prices>{Number(item.preco2)}</Prices>
+                  <Prices>{item.preco2}</Prices>
                 </ContainerPrice>
                 <ContainerPrice>
-                  <Prices>{Number(item.preco3)}</Prices>
+                  <Prices>{item.preco3}</Prices>
                 </ContainerPrice>
               </ContainerTotal2>
             );

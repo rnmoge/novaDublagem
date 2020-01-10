@@ -32,8 +32,8 @@ export default function NewOrder() {
   const {data} = useSelector(state => state.order);
   const [number, setNumber] = useState(1000);
   const [dataBillings, setdataBillings] = useState([
-    {id: 0, descricao: 'SIM'},
-    {id: 1, descricao: 'NÃO'},
+    {id: 1, descricao: 'SIM'},
+    {id: 2, descricao: 'NÃO'},
   ]);
   const day = new Date().getDate(); // Current Date
   const month = new Date().getMonth() + 1; // Current Month
@@ -148,6 +148,7 @@ export default function NewOrder() {
         billingId
       )
     );
+    console.tron.log(inputNoteState);
   }
   return (
     <Container>

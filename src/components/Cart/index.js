@@ -12,7 +12,7 @@ import * as ActionsProduct from '../../store/modules/productorder/actions';
 
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
-
+  console.tron.log(products);
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));
