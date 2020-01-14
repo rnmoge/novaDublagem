@@ -22,9 +22,21 @@ export default function Common(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.products = action.payload.list;
       });
+    case '@cart/ADD_TO_CART_SUCESS':
+      return produce(state, draft => {
+        draft.products = action.payload.list;
+      });
     case '@cart/REMOVE_TO_CART':
       return produce(state, draft => {
         draft.products = action.payload.list;
+      });
+    case '@car/CLEAN_CART':
+      return produce(state, draft => {
+        draft.stateModal = false;
+        draft.product = '';
+        draft.description = '';
+        draft.valueReal = '';
+        draft.products = [];
       });
     default:
       return state;

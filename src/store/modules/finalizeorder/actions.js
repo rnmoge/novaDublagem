@@ -7,7 +7,10 @@ export function saveNewOrder(
   descont,
   pagamentId,
   note,
-  billingId
+  billingId,
+  clientId,
+  representativeId,
+  typeOrder
 ) {
   return {
     type: '@finalizeorder/SAVE_NEW_ORDER',
@@ -21,6 +24,9 @@ export function saveNewOrder(
       pagamentId,
       note,
       billingId,
+      clientId,
+      representativeId,
+      typeOrder,
     },
   };
 }

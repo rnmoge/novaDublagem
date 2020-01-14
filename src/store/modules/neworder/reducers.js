@@ -98,16 +98,26 @@ export default function Login(state = INITIAL_STATE, action) {
       });
     case '@newOrder/CLEAN_STATE':
       return produce(state, draft => {
-        draft.dataDescription = [];
-        draft.idProduct = '';
-        draft.line = [];
-        draft.sizes = [];
-        draft.cores = [];
-        draft.price = [];
-        draft.charges = [];
-        draft.packings = [];
-        draft.details = [];
+        //     draft.condition = '';
+        //     draft.idTable = '';
+        //     draft.dataDescription = [];
+        //     draft.idProduct = '';
+        //     draft.line = [];
+        //     draft.sizes = [];
+        //     draft.colors = [];
+        //     draft.comission = [];
+        //     draft.price = [];
+        //     draft.charges = [];
+        //     draft.packings = [];
+        //     draft.inputTypeCharge = '';
+        //     draft.inputTablePrice = '';
+        //     draft.inputClientState = '';
+        //     draft.inputPagament = '';
+        //     draft.inputNoteState = '';
+        //     draft.inputBillings = '';
         draft.tamanhos = [];
+        //     draft.details = [];
+        //     draft.amount = [];
       });
     default:
       return state;

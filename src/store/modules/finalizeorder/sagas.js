@@ -3,7 +3,8 @@
 import {all, takeLatest, call, put} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../../services/api';
-
+import {cleanCart} from '../cart/actions';
+import {cleanState} from '../neworder/actions';
 import {
   commonLoadingActivityOn,
   commonActionFailure,
@@ -12,36 +13,55 @@ import {
 import {reponseApi} from './actions';
 import {navigate} from '../../../services/navigation';
 // import {navigate} from '../../../services/navigation';
+
+function* saveNewOrderSaga(action) {
+  yield put(commonLoadingActivityOn(''));
+  yield call(
+    AsyncStorage.setItem,
+    '@novaDublagem:newOrder',
+    JSON.stringify(action.payload)
+  );
+  let data = yield call(AsyncStorage.getItem, '@novaDublagem:newOrder');
+  data = JSON.parse(data);
+  console.tron.log(data);
+  yield put(commonActionSucess());
+}
+
 function* saveOrderTotalSaga(action) {
+  let data = yield call(AsyncStorage.getItem, '@novaDublagem:newOrder');
+  data = JSON.parse(data);
+  console.tron.log(data);
+  let product = yield call(AsyncStorage.getItem, '@novaDublagem:Products');
+  product = JSON.parse(product);
+  console.tron.log('productAsync');
+  console.tron.log(product);
+  const {
+    emissao,
+    codPedido,
+    typeChargeId,
+    packingId,
+    idTable,
+    descont,
+    pagamentId,
+    note,
+    billingId,
+    clientId,
+    representativeId,
+    typeOrder,
+  } = data;
   try {
     yield put(commonLoadingActivityOn(''));
     navigate('FinalOrder');
-    const {
-      codEmissao,
-      codPedido,
-      typeChargeId,
-      packingId,
-      idTable,
-      descont,
-      pagamentId,
-      note,
-      billingId,
-      clientId,
-      representativeId,
-      typeOrder,
-      transpoId,
-      despachId,
-      products,
-    } = action.payload;
     const newProducts = [];
-    for (let i = 0; i < products.length; i += 1) {
+    const {transpoId} = action.payload;
+    for (let i = 0; i < product.length; i += 1) {
       const pedidoItemTamanhos = [];
-      for (let j = 0; j < products[i].pedidoItemTamanhos.length; j += 1) {
+      for (let j = 0; j < product[i].pedidoItemTamanhos.length; j += 1) {
         const {
           id: tamanho_id,
           tamanho_order: tamanho_cod,
           quant: quantidade,
-        } = products[i].pedidoItemTamanhos[j];
+        } = product[i].pedidoItemTamanhos[j];
         const pedidoItemTamanhos2 = {
           tamanho_id: Number(tamanho_id),
           tamanho_cod,
@@ -58,7 +78,8 @@ function* saveOrderTotalSaga(action) {
         data_faturamento,
         color_id: cor_id,
         grupotamanho_id,
-      } = products[i];
+      } = product[i];
+
       const pedidoItens = {
         pedido_cod,
         linha_matriz_id: Number(linha_matriz_id),
@@ -78,7 +99,7 @@ function* saveOrderTotalSaga(action) {
       tipo_cobranca_id: Number(typeChargeId),
       tabela_preco_id: Number(idTable),
       cliente_id: Number(clientId),
-      emissao: codEmissao,
+      emissao,
       pedido_cod: codPedido,
       observacao: note,
       taxa_cotacao: '12.00000',
@@ -168,9 +189,14 @@ function* saveOrderTotalSaga(action) {
 }
 function* handleOrderSaga() {
   yield put(commonLoadingActivityOn());
+  yield put(cleanCart());
+  yield put(cleanState());
+  yield call(AsyncStorage.removeItem, '@novaDublagem:newOrder');
+  yield call(AsyncStorage.removeItem, '@novaDublagem:Products');
   navigate('Request');
 }
 export default all([
+  takeLatest('@finalizeorder/SAVE_NEW_ORDER', saveNewOrderSaga),
   takeLatest('@finalizeorder/SAVE_ORDER_TOTAL', saveOrderTotalSaga),
   takeLatest('@finalizeorder/handleOrder', handleOrderSaga),
 ]);

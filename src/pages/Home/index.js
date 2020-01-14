@@ -17,6 +17,7 @@ export default function Home({navigation}) {
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
+    dispatch(ActionsCart.requestCart());
   }
   useEffect(() => {
     dispatch(ActionsHome.homeClean());

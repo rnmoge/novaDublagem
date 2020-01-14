@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,7 +12,18 @@ import * as ActionsProduct from '../../store/modules/productorder/actions';
 
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
-  console.tron.log(products);
+  const [disable, setDisable] = useState();
+
+  // useEffect(() => {
+  //   if (products.length !== 0) {
+  //     setDisable(false);
+  //   } else {
+  //     setDisable(true);
+  //   }
+  //  }, [products]); // eslint-disable-line
+  // useEffect(() => {
+
+  // })
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));
@@ -45,6 +56,7 @@ export default function({functionOnPressIcon}) {
               excluirProductList(index);
             }}
           />
+
           <Button
             titleButton="SALVAR E ENVIAR"
             disabledButton={false}

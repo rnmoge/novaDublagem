@@ -17,15 +17,25 @@ export function addToCart(list) {
   };
 }
 
-export function addToCartSucess(idProduct, produto, descricao, valorReal) {
+export function addToCartSucess(list) {
   return {
     type: '@cart/ADD_TO_CART_SUCESS',
-    payload: {idProduct, produto, descricao, valorReal},
+    payload: {list},
   };
 }
 export function removeToCart(list) {
   return {
     type: '@cart/REMOVE_TO_CART',
     payload: {list},
+  };
+}
+export function cleanCart() {
+  return {
+    type: '@car/CLEAN_CART',
+  };
+}
+export function requestCart() {
+  return {
+    type: '@cart/REQUEST_CART',
   };
 }

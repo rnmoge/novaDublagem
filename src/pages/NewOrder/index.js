@@ -29,6 +29,9 @@ export default function NewOrder() {
   const {charges, packings, pagaments, idTable, comission} = useSelector(
     state => state.neworder
   );
+  const {clientId, representativeId, typeOrder} = useSelector(
+    state => state.finalizeorder
+  );
   const {data} = useSelector(state => state.order);
   const [number, setNumber] = useState(1000);
   const [dataBillings, setdataBillings] = useState([
@@ -47,6 +50,7 @@ export default function NewOrder() {
   const [inputTypeCharge, setInputTypeCharge] = useState(
     'Selecione o tipo de cobrança'
   );
+  const [disableButton, setDisableButton] = useState(true);
   const [typeChargeId, setTypeChargeId] = useState(null);
   const [packingId, setPackingId] = useState(null);
   const [pagamentId, setPagamentId] = useState(null);
@@ -119,6 +123,7 @@ export default function NewOrder() {
   }
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
+    dispatch(ActionsCart.requestCart());
   }
   function handleProducts() {
     dispatch(ActionsNewOrder.handleProducts(inputTablePrice, inputPagament));
@@ -145,10 +150,12 @@ export default function NewOrder() {
         comission.desconto_vista_percent,
         pagamentId,
         inputNoteState,
-        billingId
+        billingId,
+        clientId,
+        representativeId,
+        typeOrder
       )
     );
-    console.tron.log(inputNoteState);
   }
   return (
     <Container>

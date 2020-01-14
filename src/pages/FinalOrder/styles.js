@@ -48,10 +48,9 @@ export const ContainerOrder = styled.View`
   height: 280px;
   background: #fff;
   padding-left: 20px;
-  padding-top: 20px;
   elevation: 5px;
   border-radius: 6px;
-  margin-bottom: 20px;
+  justify-content: center;
 `;
 
 export const TextBold = styled.Text`
@@ -78,6 +77,7 @@ export const Card = styled.View`
   justify-content: center;
   padding-left: 20px;
   elevation: 5px;
+  margin-bottom: 20px;
 `;
 
 export const Line = styled.Text``;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Container,
   ContainerTotal,
+  ContainerTotal2,
   Icon,
   AreaIcon,
   ContainerProduct,
@@ -12,6 +13,8 @@ import {
   List,
   ContainerIcon,
   TextTitle,
+  ContainerQuant2,
+  Line,
 } from './styles';
 
 export default function CardCart({
@@ -44,15 +47,21 @@ export default function CardCart({
                 <TextInfo>{item.produto}</TextInfo>
                 <TextTitle>Descrição</TextTitle>
                 <TextInfo>{item.descricao}</TextInfo>
-                <TextTitle>Tamanhos</TextTitle>
-                <TextInfo>{item.pedidoItemTamanhos.descricao}</TextInfo>
               </ContainerProduct>
               <ContainerQuant>
-                <TextTitle>Quantidade</TextTitle>
-                <TextInfo>{item.quant}</TextInfo>
                 <TextTitle>Valor Real</TextTitle>
                 <TextInfo>R${item.value}</TextInfo>
               </ContainerQuant>
+              <ContainerTotal2>
+                {item.pedidoItemTamanhos.map(tamanhos => {
+                  return (
+                    <ContainerQuant2>
+                      <Line>{tamanhos.descricao}- </Line>
+                      <Line> {tamanhos.quant} uni.</Line>
+                    </ContainerQuant2>
+                  );
+                })}
+              </ContainerTotal2>
               <ContainerIcon>
                 <AreaIcon>
                   <Icon name={nameIconOne} />

@@ -68,6 +68,7 @@ export default function ProductOrder() {
 
   function handleCart() {
     dispatch(ActionsCart.cartOpen(true));
+    dispatch(ActionsCart.requestCart());
   }
   // const {quant} = useSelector(state => state.finalizeorder);
   const [stateError, setStateError] = useState(false);
@@ -327,6 +328,8 @@ export default function ProductOrder() {
     setColorModalState(!colorModalState);
     setColorId(id);
   }
+  console.tron.log('products');
+  console.tron.log(products);
   function addProduct() {
     const productExist = products.findIndex(product => {
       return product.id === idProduct;

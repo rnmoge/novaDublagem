@@ -90,10 +90,10 @@ export default function DetailsClient() {
                       handleNewOrder();
                     }}
                   />
-                  <Button
+                  {/* <Button
                     titleButton="PEDIDOS ANTERIOR"
                     disabledButton={false}
-                  />
+                  /> */}
                 </ContainerButton>
               </ContainerTotal>
               <ContainerRadius>

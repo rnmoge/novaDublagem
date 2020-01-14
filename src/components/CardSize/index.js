@@ -21,27 +21,6 @@ export default function CardSize({
   nameIcon2,
   functionOnpressIconLeft,
 }) {
-  // function addRemoveList(add, index) {
-
-  //   const newQuant = listStateSizes.map((amount, currencyIndex) => {
-  //     if (index === currencyIndex) {
-  //       if (add) {
-  //         return Number(amount.quant) + 60;
-  //       }
-  //       if (amount.quant >= 60) {
-  //         return Number(amount.quant) - 60;
-  //       }
-  //       return 0;
-  //     }
-  //     return amount.quant;
-  //   });
-  //
-  //
-  //   dispatch(ActionsFinalize.changeQuant(newQuant));
-  //   // setListStateSizes(newQuant);
-  //   setListStateSizes(newQuant);
-  // }
-
   return (
     <Container>
       <ContainerTitle>
