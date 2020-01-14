@@ -13,8 +13,9 @@ import {reponseApi} from './actions';
 import {navigate} from '../../../services/navigation';
 // import {navigate} from '../../../services/navigation';
 function* saveOrderTotalSaga(action) {
-  yield put(commonLoadingActivityOn(''));
   try {
+    yield put(commonLoadingActivityOn(''));
+    navigate('FinalOrder');
     const {
       codEmissao,
       codPedido,
@@ -149,15 +150,15 @@ function* saveOrderTotalSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.tron.log(response);
-    navigate('FinalOrder');
     yield put(
       reponseApi(
+        response.data.id,
         response.data.cliente.nome_razao,
         response.data.tabelaPreco.tabelapreco,
         response.data.tipoCobranca.descricao,
         response.data.condicaoPagamento.descricao,
-        response.data.pedidoItens.data_faturamento
+        response.data.pedidoItens[0].data_faturamento,
+        response.data.pedidoItens
       )
     );
     yield put(commonActionSucess());
@@ -165,7 +166,11 @@ function* saveOrderTotalSaga(action) {
     yield put(commonActionFailure('Erro ao Gravar o pedido'));
   }
 }
-
+function* handleOrderSaga() {
+  yield put(commonLoadingActivityOn());
+  navigate('Request');
+}
 export default all([
   takeLatest('@finalizeorder/SAVE_ORDER_TOTAL', saveOrderTotalSaga),
+  takeLatest('@finalizeorder/handleOrder', handleOrderSaga),
 ]);

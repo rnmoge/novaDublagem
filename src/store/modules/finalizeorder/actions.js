@@ -98,9 +98,30 @@ export function addRemoveQuant(newQuant) {
   };
 }
 
-export function reponseApi(response) {
+export function reponseApi(
+  id,
+  client,
+  table,
+  charge,
+  conditionPagament,
+  billingDate,
+  pedidoItens
+) {
   return {
     type: '@finalizeorder/RESPONSE_API',
-    payload: {response},
+    payload: {
+      id,
+      client,
+      table,
+      charge,
+      conditionPagament,
+      billingDate,
+      pedidoItens,
+    },
+  };
+}
+export function handleOrder() {
+  return {
+    type: '@finalizeorder/handleOrder',
   };
 }

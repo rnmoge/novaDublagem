@@ -18,10 +18,12 @@ const INITIAL_STATE = {
   quant: null,
   body: [],
   response: [],
+  id: '',
   client: '',
-  tabelaPreco: '',
-  tipoCobranca: '',
-  condicaoPagamento: '',
+  table: '',
+  charge: '',
+  conditionPagament: '',
+  billingDate: '',
   pedidoItens: [],
   pedidoItemTamanhos: [],
 };
@@ -76,7 +78,41 @@ export default function Common(state = INITIAL_STATE, action) {
       });
     case '@finalizeorder/RESPONSE_API':
       return produce(state, draft => {
-        draft.response = action.payload.response;
+        draft.id = action.payload.id;
+        draft.client = action.payload.client;
+        draft.table = action.payload.table;
+        draft.charge = action.payload.charge;
+        draft.conditionPagament = action.payload.conditionPagament;
+        draft.billingDate = action.payload.billingDate;
+        draft.pedidoItens = action.payload.pedidoItens;
+      });
+    case '@finalizeorder/handleOrder':
+      return produce(state, draft => {
+        draft.emissao = null;
+        draft.codPedido = null;
+        draft.typeChargeId = null;
+        draft.packingId = null;
+        draft.idTable = null;
+        draft.descont = null;
+        draft.pagamentId = null;
+        draft.note = null;
+        draft.billingId = null;
+        draft.clientId = null;
+        draft.representativeId = null;
+        draft.typeOrder = null;
+        draft.transpoId = null;
+        draft.despachId = null;
+        draft.quant = null;
+        draft.body = [];
+        draft.response = [];
+        draft.id = '';
+        draft.client = '';
+        draft.table = '';
+        draft.charge = '';
+        draft.conditionPagament = '';
+        draft.billingDate = '';
+        draft.pedidoItens = [];
+        draft.pedidoItemTamanhos = [];
       });
     default:
       return state;

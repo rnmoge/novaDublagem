@@ -411,11 +411,6 @@ export default function ProductOrder() {
     dispatch(NewOrderActions.cleanState());
     setModalInfoOne(!modalInfoOne);
   }
-  function excluirProductList(index) {
-    const newList = [...products];
-    const newProductList = newList.splice(1, index);
-    dispatch(ActionsCart.removeToCart([...newProductList]));
-  }
   const {message, errorDate, messageDate, modal} = useSelector(
     state => state.productorder
   );
@@ -647,12 +642,7 @@ export default function ProductOrder() {
           nameIcon="arrow-left"
           functionOnPressLeft={() => setModalDetails(!modalDetails)}
         />
-        <Cart
-          modalVisible={stateModal}
-          functionOnPressIcon={() => {
-            excluirProductList();
-          }}
-        />
+        <Cart modalVisible={stateModal} />
         <ModalTransport modalVisible={false} />
         <ModalInfo
           text="Produto Adicionado ao carrinho!"

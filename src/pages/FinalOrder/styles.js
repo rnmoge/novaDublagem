@@ -66,17 +66,42 @@ export const TextRegular = styled.Text`
 `;
 export const ContainerProducts = styled.View`
   flex: 1;
-  background: #f56;
   padding: 8px;
 `;
 
 export const ListProducts = styled.FlatList``;
 
 export const Card = styled.View`
-  background: #456;
-  height: 100px;
+  background: #fff;
+  border-radius: 8px;
+  height: 160px;
   justify-content: center;
   padding-left: 20px;
+  elevation: 5px;
 `;
 
 export const Line = styled.Text``;
+
+export const ListSizes = styled.View`
+  background: #f65;
+`;
+
+export const Sizes = styled.View`
+  flex-direction: row;
+  background: #f09;
+`;
+export const TotalSizes = styled.View`
+  flex-direction: row;
+`;
+
+export const ContainerInfo = styled.View`
+  flex: 2;
+  flex-direction: row;
+`;
+export const TextSizes = styled.Text`
+  text-align: center;
+`;
+export const TextBoldSizes = styled.Text`
+  text-align: center;
+  font-weight: bold;
+`;

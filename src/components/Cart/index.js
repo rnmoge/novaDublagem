@@ -20,6 +20,12 @@ export default function({functionOnPressIcon}) {
   function transportOpen() {
     dispatch(ActionsProduct.openTransport(true));
   }
+  function excluirProductList(index) {
+    console.tron.log('entoru1');
+    const newList = [...products];
+    const newProductList = newList.splice(1, index);
+    dispatch(ActionsCart.removeToCart([...newProductList]));
+  }
   return (
     <Container>
       <Modal visible={stateModal} animationType="slide">
@@ -35,8 +41,8 @@ export default function({functionOnPressIcon}) {
             nameIconOne="pen"
             nameIconTwo="times"
             data={products}
-            functionOnpressIconDelete={() => {
-              functionOnPressIcon();
+            functionOnpressIconDelete={index => {
+              excluirProductList(index);
             }}
           />
           <Button

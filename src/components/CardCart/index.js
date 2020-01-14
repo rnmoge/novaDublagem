@@ -60,7 +60,9 @@ export default function CardCart({
                 <AreaIcon>
                   <Icon
                     name={nameIconTwo}
-                    onPress={functionOnpressIconDelete}
+                    onPress={() => {
+                      functionOnpressIconDelete(index);
+                    }}
                   />
                 </AreaIcon>
               </ContainerIcon>
