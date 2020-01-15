@@ -13,17 +13,15 @@ import * as ActionsProduct from '../../store/modules/productorder/actions';
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
   const [disable, setDisable] = useState();
+  console.tron.log(products);
+  useEffect(() => {
+    if (products.length !== 0) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+   }, [products]); // eslint-disable-line
 
-  // useEffect(() => {
-  //   if (products.length !== 0) {
-  //     setDisable(false);
-  //   } else {
-  //     setDisable(true);
-  //   }
-  //  }, [products]); // eslint-disable-line
-  // useEffect(() => {
-
-  // })
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));
@@ -32,7 +30,6 @@ export default function({functionOnPressIcon}) {
     dispatch(ActionsProduct.openTransport(true));
   }
   function excluirProductList(index) {
-    console.tron.log('entoru1');
     const newList = [...products];
     const newProductList = newList.splice(1, index);
     dispatch(ActionsCart.removeToCart([...newProductList]));
@@ -56,10 +53,9 @@ export default function({functionOnPressIcon}) {
               excluirProductList(index);
             }}
           />
-
           <Button
             titleButton="SALVAR E ENVIAR"
-            disabledButton={false}
+            disabledButton={disable}
             functionOnPress={() => {
               transportOpen();
             }}

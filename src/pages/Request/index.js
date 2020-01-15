@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 // import {Text} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import CardRequest from '../../components/CardRequest';
 import {Container, ContainerPage} from './styles';
 import Header from '../../components/Header';

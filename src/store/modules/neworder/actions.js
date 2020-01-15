@@ -118,7 +118,12 @@ export function saveState(
   inputClientState,
   inputPagament,
   inputNoteState,
-  inputBillings
+  inputBillings,
+  inputPacking,
+  typeChargeId,
+  packingId,
+  pagamentId,
+  billingId
 ) {
   return {
     type: '@newOrder/SAVE_STATE',
@@ -129,6 +134,11 @@ export function saveState(
       inputPagament,
       inputNoteState,
       inputBillings,
+      inputPacking,
+      typeChargeId,
+      packingId,
+      pagamentId,
+      billingId,
     },
   };
 }
@@ -159,5 +169,10 @@ export function changeDetails(newDetails) {
   return {
     type: 'newOrder/CHANGE_DETAILS',
     payload: {newDetails},
+  };
+}
+export function cleanTotal() {
+  return {
+    type: '@neworder/CLEAN_TOTAL',
   };
 }

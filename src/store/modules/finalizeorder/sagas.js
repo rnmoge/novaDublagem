@@ -3,8 +3,9 @@
 import {all, takeLatest, call, put} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../../services/api';
-import {cleanCart} from '../cart/actions';
-import {cleanState} from '../neworder/actions';
+import {cleanCart, cartCloseFinalize} from '../cart/actions';
+import {cleanState, cleanTotal} from '../neworder/actions';
+
 import {
   commonLoadingActivityOn,
   commonActionFailure,
@@ -171,6 +172,7 @@ function* saveOrderTotalSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.tron.log(response.data);
     yield put(
       reponseApi(
         response.data.id,
@@ -190,7 +192,8 @@ function* saveOrderTotalSaga(action) {
 function* handleOrderSaga() {
   yield put(commonLoadingActivityOn());
   yield put(cleanCart());
-  yield put(cleanState());
+  yield put(cleanTotal());
+  yield put(cartCloseFinalize());
   yield call(AsyncStorage.removeItem, '@novaDublagem:newOrder');
   yield call(AsyncStorage.removeItem, '@novaDublagem:Products');
   navigate('Request');

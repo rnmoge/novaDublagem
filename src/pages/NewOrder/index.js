@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,14 +26,28 @@ import * as ActionsFinalize from '../../store/modules/finalizeorder/actions';
 
 export default function NewOrder() {
   const dispatch = useDispatch();
-  const {charges, packings, pagaments, idTable, comission} = useSelector(
-    state => state.neworder
-  );
+  const {
+    charges,
+    packings,
+    pagaments,
+    idTable,
+    comission,
+    valueTypeCharge,
+    valueTablePrice,
+    valueClientState,
+    valuePagament,
+    valueNoteState,
+    valueBillings,
+    valuePacking,
+    idTypeCharge,
+    idPacking,
+    idPagament,
+    idBilling,
+  } = useSelector(state => state.neworder);
   const {clientId, representativeId, typeOrder} = useSelector(
     state => state.finalizeorder
   );
   const {data} = useSelector(state => state.order);
-  const [number, setNumber] = useState(1000);
   const [dataBillings, setdataBillings] = useState([
     {id: 1, descricao: 'SIM'},
     {id: 2, descricao: 'NÃO'},
@@ -70,10 +84,92 @@ export default function NewOrder() {
   const [inputNoteState, setInputNoteState] = useState('');
   const {table} = useSelector(state => state.table);
   const {stateModal} = useSelector(state => state.cart);
+  console.tron.log(valueTypeCharge);
+  useEffect(() => {
+    if (valueTypeCharge !== '') {
+      setInputTypeCharge(valueTypeCharge);
+    } else {
+      setInputTypeCharge('Selecione o tipo de cobrança');
+    }
+    if (valueTablePrice !== '') {
+      setInputTablePrice(valueTablePrice);
+    } else {
+      setInputTablePrice('Selecione a tabela');
+    }
+    if (valueClientState !== '') {
+      setInputClientState(valueClientState);
+    } else {
+      setInputClientState('');
+    }
+    if (valuePagament !== '') {
+      setInputPagament(valuePagament);
+    } else {
+      setInputPagament('Selecione o pagamento');
+    }
+    if (valueNoteState !== '') {
+      setInputNoteState(valueNoteState);
+    } else if (valueNoteState === null) {
+      setInputNoteState('');
+    } else {
+      setInputNoteState('');
+    }
+    if (valueBillings !== '') {
+      setInputBillings(valueBillings);
+    } else {
+      setInputBillings('Selecione o faturamento');
+    }
+    if (valuePacking !== '') {
+      setInputPacking(valuePacking);
+    } else {
+      setInputPacking('Selecione a embalagem');
+    }
+  }, [
+    valueBillings,
+    valueClientState,
+    valueNoteState,
+    valuePacking,
+    valuePagament,
+    valueTablePrice,
+    valueTypeCharge,
+  ]);
+  useEffect(() => {
+    if (
+      inputTablePrice === 'Selecione a tabela' ||
+      inputTypeCharge === 'Selecione o tipo de cobrança' ||
+      inputPacking === 'Selecione a embalagem' ||
+      inputPagament === 'Selecione o pagamento' ||
+      inputBillings === 'Selecione o faturamento'
+    ) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+    }
+  }, [
+    inputBillings,
+    inputPacking,
+    inputPagament,
+    inputTablePrice,
+    inputTypeCharge,
+  ]);
+  useEffect(() => {
+    if (idPacking !== '' || idPacking !== null) {
+      setPackingId(idPacking);
+    }
+    if (idTypeCharge !== '' || idTypeCharge !== null) {
+      setTypeChargeId(idTypeCharge);
+    }
+    if (idPagament !== '' || idPagament !== null) {
+      setPagamentId(idPagament);
+    }
+    if (idBilling !== '' || idBilling !== null) {
+      setBillingId(idBilling);
+    }
+  }, [idBilling, idPacking, idPagament, idTypeCharge]);
   // ->funções da pagina<-
   // Função voltar
   function backDetailsClient() {
     dispatch(ActionsNewOrder.backDetailsClient());
+    // dispatch(ActionsNewOrder.cleanTotal());
   }
   // Funçoes do modal tabela preço
   function selectInputTablePrice() {
@@ -134,7 +230,12 @@ export default function NewOrder() {
         inputClientState,
         inputPagament,
         inputNoteState,
-        inputBillings
+        inputBillings,
+        inputPacking,
+        typeChargeId,
+        packingId,
+        pagamentId,
+        billingId
       )
     );
     if (inputNoteState === '') {
@@ -250,7 +351,7 @@ export default function NewOrder() {
             />
             <Button
               titleButton="PROXIMO"
-              disabledButton={false}
+              disabledButton={disableButton}
               functionOnPress={() => {
                 handleProducts();
               }}
@@ -312,7 +413,6 @@ export default function NewOrder() {
           selectPagament(id, descricao);
         }}
       />
-      {/* setModalStateBillings(!setModalStateBillings); */}
       <ModalTypeCharge
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}

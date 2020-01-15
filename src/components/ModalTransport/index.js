@@ -56,7 +56,14 @@ export default function ModalTransport({
   const [inputDespacho, setInputDespacho] = useState('Nome da empresa, código');
   const [dataStateAux, setDataStateAux] = useState(transport);
   const [inputModal, setInputModal] = useState();
+  console.tron.log(transport);
   useEffect(() => {
+    setDataStateAux([...transport]);
+  }, [transport]);
+  console.tron.log('dataStateAux');
+  console.tron.log(dataStateAux);
+  useEffect(() => {
+    setDataStateAux(transport);
     const orderArray = transport
       .filter(element => {
         return element.nome_razao.indexOf(inputModal) !== -1;
@@ -80,12 +87,14 @@ export default function ModalTransport({
     dispatch(ActionsProduct.selectTransportInput(id, transport));
     setInputTrans(nome_razao);
     dispatch(ActionsFinalize.selectTranspoId(id));
+    setInputModal('');
   }
   function selectDespach(nome_razao, id) {
     setDespachState(!despachState);
     dispatch(ActionsProduct.selectDespachInput(id, transport));
     setInputDespacho(nome_razao);
     dispatch(ActionsFinalize.selectDespachId(id));
+    setInputModal('');
   }
   function transportClose() {
     dispatch(ActionsProduct.closeTransport(false));
@@ -110,6 +119,7 @@ export default function ModalTransport({
         products
       )
     );
+    dispatch(ActionsProduct.closeTransport(false));
   }
   return (
     <Container>

@@ -2,6 +2,9 @@ import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 // import {createStackNavigator} from 'react-navigation-stack';
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch';
+import {Transition} from 'react-native-reanimated';
+
 import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import {SafeAreaView, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -46,6 +49,7 @@ import FinalOrder from './pages/FinalOrder';
 //  Login,
 //  Menu,
 // });
+
 const customDrawer = props => (
   <SafeAreaView style={{flex: 1}}>
     <View
@@ -110,6 +114,35 @@ const createDrawerNavigatorApp = createDrawerNavigator(
     },
   }
 );
+const MySwitch = createAnimatedSwitchNavigator(
+  {
+    Login,
+    FinalOrder,
+    NewOrder,
+    ProductOrder,
+    Home: {screen: createDrawerNavigatorApp},
+    RegisterOrder,
+    ProductDetails,
+    TableSelection,
+    DetailsClient,
+    TransmitOrder,
+    QueryOrder,
+    ForgotPassword,
+    Testestando,
+  },
+  {
+    transition: (
+      <Transition.Together>
+        <Transition.Out
+          type="slide-left"
+          durationMs={200}
+          interpolation="easeIn"
+        />
+        <Transition.In type="fade" durationMs={300} />
+      </Transition.Together>
+    ),
+  }
+);
 const createAppNavigation = createSwitchNavigator({
   Login,
   FinalOrder,
@@ -125,6 +158,6 @@ const createAppNavigation = createSwitchNavigator({
   ForgotPassword,
   Testestando,
 });
-const Routes = createAppContainer(createAppNavigation);
+const Routes = createAppContainer(MySwitch);
 
 export default Routes;

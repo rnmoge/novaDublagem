@@ -13,12 +13,17 @@ const INITIAL_STATE = {
   price: [],
   charges: [],
   packings: [],
-  inputTypeCharge: '',
-  inputTablePrice: '',
-  inputClientState: '',
-  inputPagament: '',
-  inputNoteState: '',
-  inputBillings: '',
+  valueTypeCharge: '',
+  valueTablePrice: '',
+  valueClientState: '',
+  valuePagament: '',
+  valueNoteState: '',
+  valueBillings: '',
+  valuePacking: '',
+  idTypeCharge: '',
+  idPacking: '',
+  idPagament: '',
+  idBilling: '',
   tamanhos: [],
   details: [],
   amount: [],
@@ -87,37 +92,53 @@ export default function Login(state = INITIAL_STATE, action) {
         draft.tamanhos = action.payload.newDetails;
       });
 
-    case '@newOrder/SAVE_PAGAMENT':
+    case '@newOrder/SAVE_STATE':
       return produce(state, draft => {
-        draft.inputTypeCharge = action.payload.inputTypeCharge;
-        draft.inputTablePrice = action.payload.inputTablePrice;
-        draft.inputClientState = action.payload.inputClientState;
-        draft.inputPagament = action.payload.inputPagament;
-        draft.inputNoteState = action.payload.inputNoteState;
-        draft.inputBillings = action.payload.inputBillings;
+        draft.valueTypeCharge = action.payload.inputTypeCharge;
+        draft.valueTablePrice = action.payload.inputTablePrice;
+        draft.valueClientState = action.payload.inputClientState;
+        draft.valuePagament = action.payload.inputPagament;
+        draft.valueNoteState = action.payload.inputNoteState;
+        draft.valueBillings = action.payload.inputBillings;
+        draft.valuePacking = action.payload.inputPacking;
+        draft.idTypeCharge = action.payload.typeChargeId;
+        draft.idPacking = action.payload.packingId;
+        draft.idPagament = action.payload.pagamentId;
+        draft.idBilling = action.payload.billingId;
       });
     case '@newOrder/CLEAN_STATE':
       return produce(state, draft => {
-        //     draft.condition = '';
-        //     draft.idTable = '';
-        //     draft.dataDescription = [];
-        //     draft.idProduct = '';
-        //     draft.line = [];
-        //     draft.sizes = [];
-        //     draft.colors = [];
-        //     draft.comission = [];
-        //     draft.price = [];
-        //     draft.charges = [];
-        //     draft.packings = [];
-        //     draft.inputTypeCharge = '';
-        //     draft.inputTablePrice = '';
-        //     draft.inputClientState = '';
-        //     draft.inputPagament = '';
-        //     draft.inputNoteState = '';
-        //     draft.inputBillings = '';
         draft.tamanhos = [];
-        //     draft.details = [];
-        //     draft.amount = [];
+      });
+    case '@neworder/CLEAN_TOTAL':
+      console.tron.log('entrou aqyu');
+      return produce(state, draft => {
+        draft.table = '';
+        draft.condition = '';
+        draft.idTable = '';
+        draft.dataDescription = [];
+        draft.idProduct = '';
+        draft.line = [];
+        draft.sizes = [];
+        draft.colors = [];
+        draft.comission = [];
+        draft.price = [];
+        draft.charges = [];
+        draft.packings = [];
+        draft.valueTypeCharge = '';
+        draft.valueTablePrice = '';
+        draft.valueClientState = '';
+        draft.valuePagament = '';
+        draft.valueNoteState = '';
+        draft.valueBillings = '';
+        draft.valuePacking = '';
+        draft.idTypeCharge = '';
+        draft.idPacking = '';
+        draft.idPagament = '';
+        draft.idBilling = '';
+        draft.tamanhos = [];
+        draft.details = [];
+        draft.amount = [];
       });
     default:
       return state;

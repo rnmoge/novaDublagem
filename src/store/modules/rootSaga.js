@@ -12,6 +12,7 @@ import home from './home/sagas';
 import productorder from './productorder/sagas';
 import cart from './cart/sagas';
 import finalizeorder from './finalizeorder/sagas';
+import queryorder from './queryorder/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     productorder,
     cart,
     finalizeorder,
+    queryorder,
     // adicione mais sagas
   ]);
 }

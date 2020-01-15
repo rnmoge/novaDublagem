@@ -30,9 +30,12 @@ export default function Common(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.products = action.payload.list;
       });
-    case '@car/CLEAN_CART':
+    case '@cart/CART_CLOSE_FINALIZE':
       return produce(state, draft => {
         draft.stateModal = false;
+      });
+    case '@cart/CLEAN_CART':
+      return produce(state, draft => {
         draft.product = '';
         draft.description = '';
         draft.valueReal = '';

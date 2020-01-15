@@ -88,10 +88,32 @@ export default function ProductOrder() {
   const [modalSizeState, setModalSizeState] = useState(false);
   const [colorModalState, setColorModalState] = useState(false);
   const [inputMask, setInputMask] = useState('');
+  const [disable, setDisable] = useState(true);
+  console.tron.log(textPrimary);
   useEffect(() => {
     setInputComissionState(comission.comissao1);
   }, [comission]);
-
+  useEffect(() => {
+    if (
+      inputLineState === 'Selecione a linha' ||
+      inputModelState === 'Selecione o modelo' ||
+      inputSizeState === 'Grupo de tamanho' ||
+      inputColorState === 'Cor' ||
+      inputMask === ''
+    ) {
+      console.tron.log('entrou');
+      setDisable(true);
+    } else {
+      console.tron.log('entrou2');
+      setDisable(false);
+    }
+  }, [
+    inputColorState,
+    inputLineState,
+    inputMask,
+    inputModelState,
+    inputSizeState,
+  ]);
   function changeQuant(index, add) {
     const newSizes = tamanhos.map((element, elementIndex) => {
       if (add) {
@@ -257,19 +279,19 @@ export default function ProductOrder() {
       });
     setDataStateAuxModel(orderArrayModel);
   }, [inputStateModel, line]); // eslint-disable-line
-  // useEffect(() => {
-  //   const orderArrayColor = colors
-  //     .filter(element => {
-  //       return (
-  //         element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
-  //         -1
-  //       );
-  //     })
-  //     .map(element => {
-  //       return element;
-  //     });
-  //   setDataStateAuxColor(orderArrayColor);
-  // }, [inputState, colors]); // eslint-disable-line
+  useEffect(() => {
+    const orderArrayColor = colors
+      .filter(element => {
+        return (
+          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
+          -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setDataStateAuxColor(orderArrayColor);
+  }, [inputState, colors]); // eslint-disable-line
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
@@ -417,9 +439,6 @@ export default function ProductOrder() {
   const {message, errorDate, messageDate, modal} = useSelector(
     state => state.productorder
   );
-  // useEffect(() => {
-  //   dispatch(NewOrderActions.saveSizesQuant(newQuant));
-  // }, [details]); // eslint-disable-line
   function dateValidator() {
     dispatch(ActionsProduct.dateValidator(idProduct, inputMask));
     if (message) {
@@ -553,7 +572,7 @@ export default function ProductOrder() {
               />
               <Button
                 titleButton="ADICIONAR"
-                disabledButton={false}
+                disabledButton={disable}
                 functionOnPress={() => {
                   addProduct();
                 }}
@@ -561,7 +580,7 @@ export default function ProductOrder() {
               <Button titleButton="FINALIZAR PEDIDO" />
               {/* <ButtonSecondary titleButton="FINALIZAR/TRANSMITIR" /> */}
               <ButtonSecondary
-                disabledButton={false}
+                disabledButton={disable}
                 titleButton="TABELA DE PREÇO"
                 functionOnPress={() => {
                   setModalDetails(!modalDetails);
@@ -595,7 +614,7 @@ export default function ProductOrder() {
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a cor"
           modalVisible={colorModalState}
-          data={colors}
+          data={dataStateAuxColor}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setColorModalState(!colorModalState)}
@@ -646,7 +665,7 @@ export default function ProductOrder() {
           functionOnPressLeft={() => setModalDetails(!modalDetails)}
         />
         <Cart modalVisible={stateModal} />
-        <ModalTransport modalVisible={false} />
+
         <ModalInfo
           text="Produto Adicionado ao carrinho!"
           modalVisible={modalInfoOne}

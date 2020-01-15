@@ -51,6 +51,7 @@ export default function FinalOrder() {
         />
       ) : (
         <Container>
+          {}
           <ContainerHeader>
             <AreaIcon>
               <Icon name="check-circle" />
@@ -102,7 +103,7 @@ export default function FinalOrder() {
                               <Line>Quantidade: </Line>
                               <TextBoldSizes>
                                 {' '}
-                                {tamanhos.quantidade}
+                                {tamanhos.quantidade} uni.
                               </TextBoldSizes>
                             </ContainerInfo>
                             <Sizes />

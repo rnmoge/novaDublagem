@@ -31,11 +31,16 @@ export function removeToCart(list) {
 }
 export function cleanCart() {
   return {
-    type: '@car/CLEAN_CART',
+    type: '@cart/CLEAN_CART',
   };
 }
 export function requestCart() {
   return {
     type: '@cart/REQUEST_CART',
+  };
+}
+export function cartCloseFinalize() {
+  return {
+    type: '@cart/CART_CLOSE_FINALIZE',
   };
 }
