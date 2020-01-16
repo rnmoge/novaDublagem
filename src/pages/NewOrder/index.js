@@ -84,7 +84,7 @@ export default function NewOrder() {
   const [inputNoteState, setInputNoteState] = useState('');
   const {table} = useSelector(state => state.table);
   const {stateModal} = useSelector(state => state.cart);
-  console.tron.log(valueTypeCharge);
+
   useEffect(() => {
     if (valueTypeCharge !== '') {
       setInputTypeCharge(valueTypeCharge);
@@ -274,11 +274,8 @@ export default function NewOrder() {
       <ContainerTotal>
         <ContainerClient>
           <ContainerPlaceholder>
-            <Text>Cliente:</Text>
+            <Text>Cliente: {data.nome_razao}</Text>
           </ContainerPlaceholder>
-          <ContainerInfo>
-            <TextClient>R. Social: {data.nome_razao}</TextClient>
-          </ContainerInfo>
         </ContainerClient>
       </ContainerTotal>
       <ScrollView>
@@ -359,7 +356,7 @@ export default function NewOrder() {
           </ContainerOrder>
         </ContainerBody>
       </ScrollView>
-      {/* charges, packings, pagaments */}
+
       <ModalPrice
         valueInputText={inputState}
         functionOnChangeText={text => setInputState(text)}

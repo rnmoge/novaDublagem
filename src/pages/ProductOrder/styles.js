@@ -22,7 +22,6 @@ export const ContainerClient = styled.View`
 
 export const ContainerPlaceholder = styled.View`
   justify-content: center;
-  padding-bottom: 10px;
 `;
 
 export const ContainerInfo = styled.View`
@@ -33,7 +32,9 @@ export const ContainerInfo = styled.View`
   border-color: #707070;
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-size: 14px;
   color: #020202;
   font-weight: bold;

@@ -24,18 +24,17 @@ function* saveNewOrderSaga(action) {
   );
   let data = yield call(AsyncStorage.getItem, '@novaDublagem:newOrder');
   data = JSON.parse(data);
-  console.tron.log(data);
+
   yield put(commonActionSucess());
 }
 
 function* saveOrderTotalSaga(action) {
   let data = yield call(AsyncStorage.getItem, '@novaDublagem:newOrder');
   data = JSON.parse(data);
-  console.tron.log(data);
+
   let product = yield call(AsyncStorage.getItem, '@novaDublagem:Products');
   product = JSON.parse(product);
-  console.tron.log('productAsync');
-  console.tron.log(product);
+
   const {
     emissao,
     codPedido,
@@ -164,7 +163,7 @@ function* saveOrderTotalSaga(action) {
       ],
     };
     data2.pedidoItens = newProducts;
-    console.tron.log(data2);
+
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
     const response = yield call(api.post, '/pedido', data2, {
@@ -172,7 +171,7 @@ function* saveOrderTotalSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.tron.log(response.data);
+
     yield put(
       reponseApi(
         response.data.id,

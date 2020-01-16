@@ -1,5 +1,5 @@
-import React from 'react';
-import {ActivityIndicator} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Button from '../../components/Button';
 import * as ActionsFinalize from '../../store/modules/finalizeorder/actions';
@@ -27,6 +27,7 @@ import {
 export default function FinalOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
+  const [date, setDate] = useState();
   const {
     id,
     client,
@@ -36,11 +37,27 @@ export default function FinalOrder() {
     billingDate,
     pedidoItens,
   } = useSelector(state => state.finalizeorder);
-  console.tron.log('pedidoItens');
-  console.tron.log(pedidoItens);
   function handleOrder() {
     dispatch(ActionsFinalize.handleOrder());
   }
+  // function totalTudo() {
+  //   const total = [...pedidoItens];
+
+  //   total.pedidoItemTamanhos
+  //     .map(element => element)
+  //     .reduce((acumulador, element) => {
+  //       const li = (acumulador += Number(element.quantidade));
+  //       console.tron.log(li);
+  //   });
+  // }
+  const data = billingDate;
+  data.substring(0, 10);
+  console.tron.log(data);
+  useEffect(() => {
+    setDate(data.substring(0, 10));
+    // totalTudo();
+  }, [data]); // eslint-disable-line
+
   return (
     <Container>
       {loading ? (
@@ -51,78 +68,99 @@ export default function FinalOrder() {
         />
       ) : (
         <Container>
-          {}
           <ContainerHeader>
             <AreaIcon>
               <Icon name="check-circle" />
             </AreaIcon>
             <Text>O número do seu pedido é: {id}</Text>
           </ContainerHeader>
-          <ContainerBody>
-            <ContainerClient>
-              <TextBold>Cliente:</TextBold>
-              <TextRegular>{client}</TextRegular>
-            </ContainerClient>
-            <ContainerOrder>
-              <TextBold>Tabela de preço:</TextBold>
-              <TextRegular>{table}</TextRegular>
-              <TextBold>Condição de pagamento:</TextBold>
-              <TextRegular>{charge}</TextRegular>
-              <TextBold>Tipo de cobrança:</TextBold>
-              <TextRegular>{conditionPagament}</TextRegular>
-              <TextBold>Data faturamento:</TextBold>
-              <TextRegular>{billingDate}</TextRegular>
-            </ContainerOrder>
-            <ContainerProducts>
-              <ListProducts
-                data={pedidoItens}
-                initialNumToRender={10}
-                renderItem={({item}) => {
-                  console.tron.log('item');
-                  console.tron.log(item);
-                  return (
-                    <Card>
-                      <Line>
-                        Linha: <TextBoldSizes>{item.linha_cod}</TextBoldSizes>
-                      </Line>
-                      <Line>
-                        Matriz: <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
-                      </Line>
+          <ScrollView>
+            <ContainerBody>
+              <ContainerClient>
+                <TextBold>Cliente:</TextBold>
+                <TextRegular>{client}</TextRegular>
+              </ContainerClient>
+              <ContainerOrder>
+                <TextBold>Tabela de preço:</TextBold>
+                <TextRegular>{table}</TextRegular>
+                <TextBold>Condição de pagamento:</TextBold>
+                <TextRegular>{conditionPagament}</TextRegular>
+                <TextBold>Tipo de cobrança:</TextBold>
+                <TextRegular>{charge}</TextRegular>
+                <TextBold>Data faturamento:</TextBold>
+                <TextRegular>{date}</TextRegular>
+              </ContainerOrder>
 
-                      {item.pedidoItemTamanhos.map(tamanhos => {
-                        return (
-                          <TotalSizes>
-                            <ContainerInfo>
-                              <Line>Tamanho: </Line>
-                              <TextBoldSizes>
-                                {' '}
-                                {tamanhos.tamanho.descricao}
-                              </TextBoldSizes>
-                            </ContainerInfo>
-                            <ContainerInfo>
-                              <Line>Quantidade: </Line>
-                              <TextBoldSizes>
-                                {' '}
-                                {tamanhos.quantidade} uni.
-                              </TextBoldSizes>
-                            </ContainerInfo>
-                            <Sizes />
-                          </TotalSizes>
-                        );
-                      })}
-                    </Card>
-                  );
+              <ContainerProducts>
+                <ListProducts
+                  data={pedidoItens}
+                  initialNumToRender={10}
+                  renderItem={({item}) => {
+                    return (
+                      <Card>
+                        <Line>
+                          Linha: <TextBoldSizes>{item.linha_cod}</TextBoldSizes>
+                        </Line>
+                        <Line>
+                          Matriz:{' '}
+                          <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
+                        </Line>
+
+                        {item.pedidoItemTamanhos.map(tamanhos => {
+                          return (
+                            <TotalSizes>
+                              <ContainerInfo>
+                                <Line>Tamanho: </Line>
+                                <TextBoldSizes>
+                                  {' '}
+                                  {tamanhos.tamanho.descricao}
+                                </TextBoldSizes>
+                              </ContainerInfo>
+                              <ContainerInfo>
+                                <Line>Quantidade: </Line>
+                                <TextBoldSizes>
+                                  {' '}
+                                  {tamanhos.quantidade} uni.
+                                </TextBoldSizes>
+                              </ContainerInfo>
+                              <Sizes />
+                            </TotalSizes>
+                          );
+                        })
+                        //
+                        }
+                        {/* {item.pedidoItemTamanhos
+                          .map(tamanhos => tamanhos)
+                          .reduce((acumulador, tamanhos) => {
+                            const tamanho = Number(tamanhos.quantidade);
+                            const total = tamanho + acumulador;
+                            console.tron.log(total);
+                            console.tron.log(tamanhos.quantidade);
+                            console.tron.log('acumulador');
+                            console.tron.log(acumulador);
+                            console.tron.log(
+                              (acumulador += Number(tamanhos.quantidade))
+                            );
+                            return (
+                              <TotalSizes>
+                                <Line>{total}</Line>
+                              </TotalSizes>
+                            );
+                          }, 0)} */}
+                      </Card>
+                    );
+                  }}
+                />
+              </ContainerProducts>
+              <Button
+                titleButton="CONFIRMAR"
+                disabledButton={false}
+                functionOnPress={() => {
+                  handleOrder();
                 }}
               />
-            </ContainerProducts>
-            <Button
-              titleButton="CONFIRMAR"
-              disabledButton={false}
-              functionOnPress={() => {
-                handleOrder();
-              }}
-            />
-          </ContainerBody>
+            </ContainerBody>
+          </ScrollView>
         </Container>
       )}
     </Container>

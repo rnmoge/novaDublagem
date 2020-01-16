@@ -13,7 +13,7 @@ import * as ActionsProduct from '../../store/modules/productorder/actions';
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
   const [disable, setDisable] = useState();
-  console.tron.log(products);
+
   useEffect(() => {
     if (products.length !== 0) {
       setDisable(false);

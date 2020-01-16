@@ -62,7 +62,7 @@ function* handleDetailsClientSaga(action) {
     });
     yield put(commonLoadingActivityOn(''));
     yield put(handleDetailsClientSucess(data));
-   
+
     // yield put(clientsAddressSucess(data.clienteEnderecos[0]));
     yield put(commonActionSucess());
   } catch (err) {

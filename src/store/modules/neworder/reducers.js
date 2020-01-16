@@ -111,7 +111,6 @@ export default function Login(state = INITIAL_STATE, action) {
         draft.tamanhos = [];
       });
     case '@neworder/CLEAN_TOTAL':
-      console.tron.log('entrou aqyu');
       return produce(state, draft => {
         draft.table = '';
         draft.condition = '';

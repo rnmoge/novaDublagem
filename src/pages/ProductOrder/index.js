@@ -75,7 +75,7 @@ export default function ProductOrder() {
   const [modalDetails, setModalDetails] = useState(false);
   const [modalInfoOne, setModalInfoOne] = useState(false);
   const [modalInfoTwo, setModalInfoTwo] = useState(false);
-  const [textPrimary, setTextPrimary] = useState('Data Faturamento');
+  const [textPrimary, setTextPrimary] = useState('Data de Entrega');
   const [errorTwo, setErrorTwo] = useState(false);
   const [colorId, setColorId] = useState(null);
   const [groupId, setGroupId] = useState(null);
@@ -89,7 +89,8 @@ export default function ProductOrder() {
   const [colorModalState, setColorModalState] = useState(false);
   const [inputMask, setInputMask] = useState('');
   const [disable, setDisable] = useState(true);
-  console.tron.log(textPrimary);
+  const [idSize, setIdSize] = useState('');
+
   useEffect(() => {
     setInputComissionState(comission.comissao1);
   }, [comission]);
@@ -101,10 +102,8 @@ export default function ProductOrder() {
       inputColorState === 'Cor' ||
       inputMask === ''
     ) {
-      console.tron.log('entrou');
       setDisable(true);
     } else {
-      console.tron.log('entrou2');
       setDisable(false);
     }
   }, [
@@ -315,9 +314,11 @@ export default function ProductOrder() {
     setImageState(imageUrl);
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
+    setIdSize(id);
   }
   function sizeFunc() {
     setModalSizeState(!modalSizeState);
+    dispatch(NewOrderActions.colorAndSizes(idTable, idSize));
   }
   useEffect(() => {
     if (price.preco1 === undefined || price.preco1 === null) {
@@ -350,8 +351,7 @@ export default function ProductOrder() {
     setColorModalState(!colorModalState);
     setColorId(id);
   }
-  console.tron.log('products');
-  console.tron.log(products);
+
   function addProduct() {
     const productExist = products.findIndex(product => {
       return product.id === idProduct;
@@ -429,7 +429,6 @@ export default function ProductOrder() {
     setInputColorState('Cor');
     setInputNoteState();
     setImageState();
-    setInputMask('Data faturamento');
     setInputComissionState(comission.comissao1);
     setDataValueState();
     setGroupId(null);
@@ -471,13 +470,13 @@ export default function ProductOrder() {
         <ContainerTotal>
           <ContainerClient>
             <ContainerPlaceholder>
-              <Text>Cliente: </Text>
+              <Text>Cliente: {data.nome_razao}</Text>
             </ContainerPlaceholder>
-            <ContainerInfo>
+            {/* <ContainerInfo>
               <TextClient>{data.nome_razao}</TextClient>
               <TextClient>Tabela de preço: {table}</TextClient>
               <TextClient>Condição de pagamento: {condition}</TextClient>
-            </ContainerInfo>
+            </ContainerInfo> */}
           </ContainerClient>
         </ContainerTotal>
         <ScrollView>
@@ -552,7 +551,7 @@ export default function ProductOrder() {
                 areaIcon
                 icoName="search"
                 value={inputMask}
-                placeholder="Data Faturamento"
+                placeholder="Data de Entrega"
                 valueInput={inputMask}
                 onChangeText={text => {
                   setInputMask(text);
@@ -577,7 +576,7 @@ export default function ProductOrder() {
                   addProduct();
                 }}
               />
-              <Button titleButton="FINALIZAR PEDIDO" />
+              {/* <Button titleButton="FINALIZAR PEDIDO" /> */}
               {/* <ButtonSecondary titleButton="FINALIZAR/TRANSMITIR" /> */}
               <ButtonSecondary
                 disabledButton={disable}
@@ -637,9 +636,6 @@ export default function ProductOrder() {
           functionOnPressLeft={() => setModalSizeState(!modalSizeState)}
           functionOnPressText={(id, grupotamanho_id, descricao) => {
             selectSize(id, grupotamanho_id, descricao);
-          }}
-          functionOnPressRight={() => {
-            searchDescription();
           }}
         />
         <ModalModel

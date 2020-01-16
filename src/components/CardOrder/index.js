@@ -32,7 +32,7 @@ export default function CardOrder({
           return (
             <ContainerButton
               onPress={() => {
-                functionOnpress();
+                functionOnpress(item.id);
               }}>
               <Card>
                 <TextBold>{item.cliente.nome_razao}</TextBold>
@@ -43,7 +43,8 @@ export default function CardOrder({
                   Cod. pedido: <TextBold>{item.pedido_cod}</TextBold>
                 </TextRegular>
                 <TextRegular>
-                  Data Emissão: <TextBold>{item.emissao}</TextBold>
+                  Data Emissão:{' '}
+                  <TextBold>{item.emissao.substring(0, 10)}</TextBold>
                 </TextRegular>
               </Card>
             </ContainerButton>

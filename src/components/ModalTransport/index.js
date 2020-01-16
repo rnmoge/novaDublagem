@@ -56,17 +56,19 @@ export default function ModalTransport({
   const [inputDespacho, setInputDespacho] = useState('Nome da empresa, código');
   const [dataStateAux, setDataStateAux] = useState(transport);
   const [inputModal, setInputModal] = useState();
-  console.tron.log(transport);
+
   useEffect(() => {
     setDataStateAux([...transport]);
   }, [transport]);
-  console.tron.log('dataStateAux');
-  console.tron.log(dataStateAux);
+
   useEffect(() => {
     setDataStateAux(transport);
     const orderArray = transport
       .filter(element => {
-        return element.nome_razao.indexOf(inputModal) !== -1;
+        return (
+          element.nome_razao.toLowerCase().indexOf(inputModal.toLowerCase()) !==
+          -1
+        );
       })
       .map(element => {
         return element;

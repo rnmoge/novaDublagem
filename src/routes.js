@@ -25,6 +25,8 @@ import NewOrder from './pages/NewOrder';
 import Testestando from './pages/Testestando';
 import ProductOrder from './pages/ProductOrder';
 import FinalOrder from './pages/FinalOrder';
+import DetailsOrder from './pages/DetailsOrder';
+import CustomerRegistration from './pages/CustomerRegistration';
 
 // const createSwitchNavigatorApp = createSwitchNavigator({
 //   Login,
@@ -76,28 +78,35 @@ const createDrawerNavigatorApp = createDrawerNavigator(
       screen: Home,
       navigationOptions: {
         title: 'Home',
-        drawerIcon: <Icon name="home" size={25} color="#263238" />,
+        drawerIcon: <Icon name="home" size={20} color="#263238" />,
       },
     },
     Catalogo: {
       screen: Catalogo,
       navigationOptions: {
         title: 'Catálogo',
-        drawerIcon: <Icon name="bookmark" size={25} color="#263238" />,
+        drawerIcon: <Icon name="bookmark" size={20} color="#263238" />,
       },
     },
     Request: {
       screen: Request,
       navigationOptions: {
         title: 'Pedidos',
-        drawerIcon: <Icon name="shopping-bag" size={25} color="#263238" />,
+        drawerIcon: <Icon name="shopping-bag" size={20} color="#263238" />,
+      },
+    },
+    CustomerRegistration: {
+      screen: CustomerRegistration,
+      navigationOptions: {
+        title: 'Cadastrar Cliente',
+        drawerIcon: <Icon name="user-plus" size={20} color="#263238" />,
       },
     },
     TableSelection: {
       screen: TableSelection,
       navigationOptions: {
         title: 'Selecionar Tabela',
-        drawerIcon: <Icon name="table" size={25} color="#263238" />,
+        drawerIcon: <Icon name="table" size={20} color="#263238" />,
       },
     },
   },
@@ -117,6 +126,7 @@ const createDrawerNavigatorApp = createDrawerNavigator(
 const MySwitch = createAnimatedSwitchNavigator(
   {
     Login,
+    DetailsOrder,
     FinalOrder,
     NewOrder,
     ProductOrder,

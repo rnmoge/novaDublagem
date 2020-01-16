@@ -14,7 +14,7 @@ import {
 function* requestCartSga() {
   let product = yield call(AsyncStorage.getItem, '@novaDublagem:Products');
   product = JSON.parse(product);
-  console.tron.log(product);
+
   if (product === null) {
     yield put(addToCartSucess([]));
   } else {

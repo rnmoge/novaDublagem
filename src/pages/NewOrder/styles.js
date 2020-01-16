@@ -38,7 +38,9 @@ export const ContainerInfo = styled.View`
   border-color: #707070;
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-size: 14px;
   color: #020202;
   font-weight: bold;

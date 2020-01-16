@@ -19,6 +19,7 @@ export default function QueryOrder() {
   function backOrder() {
     dispatch(ActionsOrder.backOrder());
   }
+
   // useEffect(() => {
   //   const orderArray = orders
   //     .filter(element => {
@@ -40,8 +41,8 @@ export default function QueryOrder() {
   //     });
   //   setDataStateAux(orderArray);
   // }, [inputRazao, inputCodPedido]); // eslint-disable-line
-  function selectorder() {
-    console.tron.log('entrou');
+  function selectorder(id) {
+    dispatch(ActionsQuery.selectOrder(id));
   }
   function loadOrders() {
     dispatch(ActionsQuery.requestOrders(page));
@@ -72,8 +73,8 @@ export default function QueryOrder() {
         </ContainerInput>
         <CardOrder
           orders={orders}
-          functionOnpress={() => {
-            selectorder();
+          functionOnpress={id => {
+            selectorder(id);
           }}
           functionOnEndReached={() => {
             loadOrders();

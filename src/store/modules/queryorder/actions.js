@@ -10,3 +10,20 @@ export function requestOrdersSucess(orders) {
     payload: {orders},
   };
 }
+export function selectOrder(id) {
+  return {
+    type: '@queryorder/SELECT_ORDER',
+    payload: {id},
+  };
+}
+export function selectOrderSucess(order) {
+  return {
+    type: '@queryorder/SELECT_ORDER_SUCESS',
+    payload: {order},
+  };
+}
+export function backQueryOrder() {
+  return {
+    type: '@queryorder/BACK_QUERY_ORDER',
+  };
+}
