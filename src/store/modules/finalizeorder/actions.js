@@ -131,3 +131,9 @@ export function handleOrder() {
     type: '@finalizeorder/handleOrder',
   };
 }
+export function priceTotal(price, quantTotal) {
+  return {
+    type: '@finalizeorder/PRICE_TOTAL',
+    payload: {price, quantTotal},
+  };
+}

@@ -11,8 +11,7 @@ export const Card = styled.View`
   height: 120px;
   background: #fff;
   justify-content: center;
-
-  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 15px;
   border-radius: 8px;
 `;

@@ -159,6 +159,18 @@ export function saveSizesQuant(newQuant) {
     payload: {newQuant},
   };
 }
+export function billingDate(id) {
+  return {
+    type: 'newOrder/BILLING_DATE',
+    payload: {id},
+  };
+}
+export function billingDateSucess(dateBillingNew) {
+  return {
+    type: '@newOrder/BILLING_DATE_SUCESS',
+    payload: {dateBillingNew},
+  };
+}
 export function sizesSucess(size) {
   return {
     type: 'newOrder/SIZES_SUCESS',

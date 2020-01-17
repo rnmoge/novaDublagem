@@ -64,6 +64,7 @@ export default function ProductOrder() {
     idProduct,
     details,
     tamanhos,
+    dateBillingNew,
   } = useSelector(state => state.neworder);
 
   function handleCart() {
@@ -75,6 +76,7 @@ export default function ProductOrder() {
   const [modalDetails, setModalDetails] = useState(false);
   const [modalInfoOne, setModalInfoOne] = useState(false);
   const [modalInfoTwo, setModalInfoTwo] = useState(false);
+  const [modalInfoTheere, setModalInfoTheere] = useState(false);
   const [textPrimary, setTextPrimary] = useState('Data de Entrega');
   const [errorTwo, setErrorTwo] = useState(false);
   const [colorId, setColorId] = useState(null);
@@ -90,10 +92,39 @@ export default function ProductOrder() {
   const [inputMask, setInputMask] = useState('');
   const [disable, setDisable] = useState(true);
   const [idSize, setIdSize] = useState('');
-
+  const [errorDate, setErrorDate] = useState(false);
+  const dateNew = dateBillingNew.split('/');
+  const dateInput = inputMask.split('/');
   useEffect(() => {
     setInputComissionState(comission.comissao1);
-  }, [comission]);
+    if (dateBillingNew !== undefined || dateBillingNew !== null) {
+      if (inputMask !== '') {
+        console.tron.log('inputmask');
+        setInputMask(inputMask);
+      } else {
+        console.tron.log('inputmask232');
+        setInputMask(dateBillingNew);
+      }
+    }
+  }, [comission, dateBillingNew]);// eslint-disable-line
+  useEffect(() => {
+    console.tron.log(dateInput[0]);
+    if (
+      dateInput[0] < dateNew[0] &&
+      dateInput[1] <= dateNew[1] &&
+      dateInput[2] === dateNew[2]
+    ) {
+      setInputMask(dateBillingNew);
+      setModalInfoTwo(!modalInfoTwo);
+    } else if (
+      dateInput[0] > dateNew[0] &&
+      dateInput[1] >= dateNew[1] &&
+      dateInput[2] === dateNew[2]
+    ) {
+      setInputMask(inputMask);
+      setModalInfoTheere(!modalInfoTheere);
+    }
+  }, [inputMask, dateBillingNew]); // eslint-disable-line
   useEffect(() => {
     if (
       inputLineState === 'Selecione a linha' ||
@@ -314,6 +345,8 @@ export default function ProductOrder() {
     setImageState(imageUrl);
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
+    dispatch(NewOrderActions.billingDate(id));
+    console.tron.log(id);
     setIdSize(id);
   }
   function sizeFunc() {
@@ -353,76 +386,76 @@ export default function ProductOrder() {
   }
 
   function addProduct() {
-    const productExist = products.findIndex(product => {
-      return product.id === idProduct;
-    });
-    if (productExist !== -1) {
-      const newList = products.map((element, index) => {
-        if (index === productExist) {
-          return {
-            cod_pedido: element.codPedido,
-            id: element.id,
-            produto: element.produto,
-            descricao: element.descricao,
-            quant: element.quant + 120,
-            value: Number(element.value) + Number(dataValueState),
-            observacao_item: element.observavao_item,
-            comissao: element.comissao,
-            data_faturamento: element.data_faturamento,
-            color_id: element.color_id,
-            grupotamanho_id: element.grupotamanho_id,
-            linha_cod: element.linha_cod,
-            matriz_cod: element.matriz_cod,
-            grupo_tamanho_cod: element.grupo_tamanho_cod,
-            cor_cod: element.cor_cod,
-            pedidoItemTamanhos: element.pedidoItemTamanhos,
-          };
-        }
-        return {
-          cod_pedido: element.codPedido,
-          quant: element.quant,
-          produto: element.produto,
-          descricao: element.descricao,
-          id: element.id,
-          value: element.value,
-          observacao_item: element.observavao_item,
-          comissao: element.comissao,
-          data_faturamento: element.data_faturamento,
-          color_id: element.color_id,
-          grupotamanho_id: element.grupotamanho_id,
-          matriz_cod: element.matriz_cod,
-          linha_cod: element.linha_cod,
-          grupo_tamanho_cod: element.grupo_tamanho_cod,
-          cor_cod: element.cor_cod,
-          pedidoItemTamanhos: element.pedidoItemTamanhos,
-        };
-      });
-      dispatch(ActionsCart.addToCart([...newList]));
-    } else {
-      dispatch(
-        ActionsCart.addToCart([
-          ...products,
-          {
-            cod_pedido: codPedido,
-            id: idProduct,
-            produto: inputLineState,
-            quant: 120,
-            descricao: details.matriz,
-            value: dataValueState,
-            observacao_item: inputNoteState,
-            comissao: inputComissionState,
-            data_faturamento: inputMask,
-            color_id: colorId,
-            grupotamanho_id: groupId,
-            matriz_cod: null,
-            linha_cod: null,
-            grupo_tamanho_cod: null,
-            cor_cod: null,
-            pedidoItemTamanhos: tamanhos,
-          },
-        ])
-      );
-    }
+    // const productExist = products.findIndex(product => {
+    //   return product.id === idProduct;
+    // });
+    // if (productExist !== -1) {
+    //   const newList = products.map((element, index) => {
+    //     if (index === productExist) {
+    //       return {
+    //         cod_pedido: element.codPedido,
+    //         id: element.id,
+    //         produto: element.produto,
+    //         descricao: element.descricao,
+    //         quant: element.quant + 120,
+    //         value: Number(element.value) + Number(dataValueState),
+    //         observacao_item: element.observavao_item,
+    //         comissao: element.comissao,
+    //         data_faturamento: element.data_faturamento,
+    //         color_id: element.color_id,
+    //         grupotamanho_id: element.grupotamanho_id,
+    //         linha_cod: element.linha_cod,
+    //         matriz_cod: element.matriz_cod,
+    //         grupo_tamanho_cod: element.grupo_tamanho_cod,
+    //         cor_cod: element.cor_cod,
+    //         pedidoItemTamanhos: element.pedidoItemTamanhos,
+    //       };
+    //     }
+    //     return {
+    //       cod_pedido: element.codPedido,
+    //       quant: element.quant,
+    //       produto: element.produto,
+    //       descricao: element.descricao,
+    //       id: element.id,
+    //       value: element.value,
+    //       observacao_item: element.observavao_item,
+    //       comissao: element.comissao,
+    //       data_faturamento: element.data_faturamento,
+    //       color_id: element.color_id,
+    //       grupotamanho_id: element.grupotamanho_id,
+    //       matriz_cod: element.matriz_cod,
+    //       linha_cod: element.linha_cod,
+    //       grupo_tamanho_cod: element.grupo_tamanho_cod,
+    //       cor_cod: element.cor_cod,
+    //       pedidoItemTamanhos: element.pedidoItemTamanhos,
+    //     };
+    //   });
+    //   dispatch(ActionsCart.addToCart([...newList]));
+    // } else {
+    dispatch(
+      ActionsCart.addToCart([
+        ...products,
+        {
+          cod_pedido: codPedido,
+          id: idProduct,
+          produto: inputLineState,
+          quant: 120,
+          descricao: details.matriz,
+          value: dataValueState,
+          observacao_item: inputNoteState,
+          comissao: inputComissionState,
+          data_faturamento: inputMask,
+          color_id: colorId,
+          grupotamanho_id: groupId,
+          matriz_cod: null,
+          linha_cod: null,
+          grupo_tamanho_cod: null,
+          cor_cod: null,
+          pedidoItemTamanhos: tamanhos,
+        },
+      ])
+    );
+
     setInputLineState('Selecione a linha');
     setInputModelState('Selecione o modelo');
     setInputSizeState('Grupo de tamanho');
@@ -435,21 +468,7 @@ export default function ProductOrder() {
     dispatch(NewOrderActions.cleanState());
     setModalInfoOne(!modalInfoOne);
   }
-  const {message, errorDate, messageDate, modal} = useSelector(
-    state => state.productorder
-  );
-  function dateValidator() {
-    dispatch(ActionsProduct.dateValidator(idProduct, inputMask));
-    if (message) {
-      setModalInfoTwo(modal);
-      setTextPrimary('Data Faturamento');
-      setErrorTwo(errorDate);
-    } else {
-      setErrorTwo(errorDate);
-      setTextPrimary('Data faturamento invalida');
-      setInputMask('Data faturamento');
-    }
-  }
+
   function completeDate() {
     setModalInfoTwo(!modalInfoTwo);
   }
@@ -472,11 +491,6 @@ export default function ProductOrder() {
             <ContainerPlaceholder>
               <Text>Cliente: {data.nome_razao}</Text>
             </ContainerPlaceholder>
-            {/* <ContainerInfo>
-              <TextClient>{data.nome_razao}</TextClient>
-              <TextClient>Tabela de preço: {table}</TextClient>
-              <TextClient>Condição de pagamento: {condition}</TextClient>
-            </ContainerInfo> */}
           </ContainerClient>
         </ContainerTotal>
         <ScrollView>
@@ -548,19 +562,12 @@ export default function ProductOrder() {
 
               <InputMask
                 error={errorTwo}
-                areaIcon
                 icoName="search"
                 value={inputMask}
                 placeholder="Data de Entrega"
                 valueInput={inputMask}
                 onChangeText={text => {
                   setInputMask(text);
-                }}
-                onEndEditing={() => {
-                  dateValidator();
-                }}
-                functionOnPressIcon={() => {
-                  dateValidator();
                 }}
               />
               <TextClient>Observação:</TextClient>
@@ -670,11 +677,19 @@ export default function ProductOrder() {
           }}
         />
         <ModalInfo
-          icoName="check-circle"
-          text={messageDate}
+          icoName="times-circle"
+          text="Data inválida, informe apartir da data liberada"
           modalVisible={modalInfoTwo}
           functionOnPressText={() => {
             completeDate();
+          }}
+        />
+        <ModalInfo
+          icoName="check-circle"
+          text="Data válida"
+          modalVisible={modalInfoTheere}
+          functionOnPressText={() => {
+            setModalInfoTheere(!modalInfoTheere);
           }}
         />
       </ContainerModal>

@@ -11,7 +11,7 @@ import {
   commonActionFailure,
   commonActionSucess,
 } from '../common/actions';
-import {reponseApi} from './actions';
+import {reponseApi, priceTotal} from './actions';
 import {navigate} from '../../../services/navigation';
 // import {navigate} from '../../../services/navigation';
 
@@ -34,7 +34,8 @@ function* saveOrderTotalSaga(action) {
 
   let product = yield call(AsyncStorage.getItem, '@novaDublagem:Products');
   product = JSON.parse(product);
-
+  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  token = JSON.parse(token);
   const {
     emissao,
     codPedido,
@@ -164,8 +165,6 @@ function* saveOrderTotalSaga(action) {
     };
     data2.pedidoItens = newProducts;
 
-    let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
-    token = JSON.parse(token);
     const response = yield call(api.post, '/pedido', data2, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -181,6 +180,18 @@ function* saveOrderTotalSaga(action) {
         response.data.condicaoPagamento.descricao,
         response.data.pedidoItens[0].data_faturamento,
         response.data.pedidoItens
+      )
+    );
+    const response2 = yield call(api.get, `/pedido/${response.data.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.tron.log(response2);
+    yield put(
+      priceTotal(
+        response2.data.valor_total_pedido,
+        response2.data.quantidade_pares_total
       )
     );
     yield put(commonActionSucess());

@@ -22,7 +22,7 @@ export default function InputMask({
         <Input
           type="datetime"
           options={{
-            format: 'DD-MM-YYYY',
+            format: 'DD/MM/YYYY',
           }}
           placeholder={placeholder}
           value={valueInput}

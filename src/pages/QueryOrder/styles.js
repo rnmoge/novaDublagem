@@ -13,4 +13,5 @@ export const ContainerInput = styled.View`
   elevation: 5px;
   padding: 10px;
   border-radius: 10px;
+  margin-bottom: 10px;
 `;

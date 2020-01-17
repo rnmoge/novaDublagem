@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import {Text} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -16,41 +16,48 @@ export default function CardOrder({
   orders,
   FunctionListFooterComponent,
   functionOnEndReached,
+  loading,
 }) {
   return (
     <Container>
-      <FlatList
-        ListEmptyComponent={
-          <TextInitial>Digite um dos filtros para buscar um pedido</TextInitial>
-        }
-        data={orders}
-        showsVerticalScrollIndicator={false}
-        initialNumToRender={10}
-        listFooterComponent={FunctionListFooterComponent}
-        onEndReached={functionOnEndReached}
-        renderItem={({item}) => {
-          return (
-            <ContainerButton
-              onPress={() => {
-                functionOnpress(item.id);
-              }}>
-              <Card>
-                <TextBold>{item.cliente.nome_razao}</TextBold>
-                <TextRegular>
-                  CNPJ: <TextBold>{item.cliente.cnpj}</TextBold>
-                </TextRegular>
-                <TextRegular>
-                  Cod. pedido: <TextBold>{item.pedido_cod}</TextBold>
-                </TextRegular>
-                <TextRegular>
-                  Data Emissão:{' '}
-                  <TextBold>{item.emissao.substring(0, 10)}</TextBold>
-                </TextRegular>
-              </Card>
-            </ContainerButton>
-          );
-        }}
-      />
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          ListEmptyComponent={
+            <TextInitial>
+              Digite um dos filtros para buscar um pedido
+            </TextInitial>
+          }
+          data={orders}
+          showsVerticalScrollIndicator={false}
+          initialNumToRender={10}
+          listFooterComponent={FunctionListFooterComponent}
+          onEndReached={functionOnEndReached}
+          renderItem={({item}) => {
+            return (
+              <ContainerButton
+                onPress={() => {
+                  functionOnpress(item.id);
+                }}>
+                <Card>
+                  <TextBold>{item.cliente.nome_razao}</TextBold>
+                  <TextRegular>
+                    CNPJ: <TextBold>{item.cliente.cnpj}</TextBold>
+                  </TextRegular>
+                  <TextRegular>
+                    Cod. pedido: <TextBold>{item.pedido_cod}</TextBold>
+                  </TextRegular>
+                  <TextRegular>
+                    Data Emissão:{' '}
+                    <TextBold>{item.emissao.substring(0, 10)}</TextBold>
+                  </TextRegular>
+                </Card>
+              </ContainerButton>
+            );
+          }}
+        />
+      )}
     </Container>
   );
 }
@@ -59,9 +66,11 @@ CardOrder.prototypes = {
   FunctionListFooterComponent: PropTypes.func,
   functionOnEndReached: PropTypes.func,
   data: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool,
 };
 CardOrder.defaultProps = {
   functionOnpress: () => {},
   FunctionListFooterComponent: () => {},
   functionOnEndReached: () => {},
+  loading: false,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {TextRegular, TextBold, ContainerText} from '../../styles/fonts';
 import {
   Container,
@@ -8,6 +8,14 @@ import {
 } from './styles';
 
 export default function DetailsOrder({data}) {
+  const [datePreview, setDatePreview] = useState(' - ');
+  // useEffect(() => {
+  //   if (data.data_faturamento === null) {
+  //     setDatePreview(' - ');
+  //   } else {
+  //     setDatePreview(data_faturamento);
+  //   }
+  // }, [data.data_faturamento]);
   return (
     <Container>
       <ContainerBody>
@@ -32,18 +40,18 @@ export default function DetailsOrder({data}) {
           <ContainerText>
             <TextRegular>
               Situação:
-              <TextBold> Em avaliação</TextBold>
+              <TextBold> {data.situacao}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>
             <TextRegular>
               Data Prevista:
-              <TextBold> 18-02-2019</TextBold>
+              <TextBold>{datePreview}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>
             <TextRegular>
-              Data Faturamento:
+              Data de entrega:
               <TextBold>
                 {' '}
                 {data.pedidoItens[0].data_faturamento.substring(0, 10)}
@@ -53,13 +61,13 @@ export default function DetailsOrder({data}) {
           <ContainerText>
             <TextRegular>
               Valor Total:
-              <TextBold> R$ 30,00</TextBold>
+              <TextBold> R$ {data.valor_total_pedido}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>
             <TextRegular>
               Quantidade Total:
-              <TextBold> 240</TextBold>
+              <TextBold> {data.quantidade_pares_total}</TextBold>
             </TextRegular>
           </ContainerText>
         </ContainerInfo>

@@ -65,10 +65,7 @@ export default function ModalTransport({
     setDataStateAux(transport);
     const orderArray = transport
       .filter(element => {
-        return (
-          element.nome_razao.toLowerCase().indexOf(inputModal.toLowerCase()) !==
-          -1
-        );
+        return element.nome_razao.toLowerCase().indexOf(inputModal) !== -1;
       })
       .map(element => {
         return element;

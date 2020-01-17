@@ -26,6 +26,8 @@ const INITIAL_STATE = {
   billingDate: '',
   pedidoItens: [],
   pedidoItemTamanhos: [],
+  price: '',
+  quantTotal: '',
 };
 export default function Common(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -55,6 +57,11 @@ export default function Common(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.despachId = action.payload.despachId;
       });
+    case '@finalizeorder/PRICE_TOTAL':
+      return produce(state, draft => {
+        draft.price = action.payload.price;
+        draft.quantTotal = action.payload.quantTotal;
+      });
     case '@finalizeorder/CLEAN_FINALIZE_ORDER':
       return produce(state, draft => {
         draft.emissao = null;
@@ -71,6 +78,8 @@ export default function Common(state = INITIAL_STATE, action) {
         draft.typeOrder = null;
         draft.transpoId = null;
         draft.despachId = null;
+        draft.price = null;
+        draft.quantTotal = null;
       });
     case '@finalizeorder/CHANGE_QUANT':
       return produce(state, draft => {
@@ -113,6 +122,8 @@ export default function Common(state = INITIAL_STATE, action) {
         draft.billingDate = '';
         draft.pedidoItens = [];
         draft.pedidoItemTamanhos = [];
+        draft.price = '';
+        draft.quantTotal = '';
       });
     default:
       return state;

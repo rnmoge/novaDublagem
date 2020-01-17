@@ -15,6 +15,7 @@ import {
   selectPagamentSucess,
   detailsProduct,
   sizesSucess,
+  billingDateSucess,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -157,6 +158,27 @@ function* sizePriceSaga(action) {
     yield put(commonActionFailure(''));
   }
 }
+function* billingDateSaga(action) {
+  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  token = JSON.parse(token);
+  const {id} = action.payload;
+  try {
+    const billingDate = yield call(
+      api.get,
+      `datafaturamento?linhaMatrizId=${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.tron.log(billingDate);
+
+    yield put(billingDateSucess(billingDate.data.data_faturamento));
+  } catch (err) {
+    yield put(commonActionFailure(''));
+  }
+}
 function* selectTypeChargeSaga() {
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
   token = JSON.parse(token);
@@ -186,6 +208,7 @@ export default all([
   takeLatest('@neworder/SELECT_TABLE_ORDER', selectTableOrderSaga),
   takeLatest('@newOrder/SEARCH_DESCRIPITION', searchDescripitionOrder),
   takeLatest('@newOrder/SEARCH_MODEL', searchModelSaga),
+  takeLatest('newOrder/BILLING_DATE', billingDateSaga),
   takeLatest('@newOrder/COLOR_AND_SIZES', requestTablePriceSaga),
   takeLatest('@newOrder/SIZE_PRICE_ONE', sizePriceSaga),
   takeLatest('@newOrder/SELECT_TYPE_CHARGE', selectTypeChargeSaga),

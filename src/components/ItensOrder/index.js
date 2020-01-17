@@ -26,7 +26,10 @@ export default function ItensOrder({data}) {
             return (
               <Card>
                 <Line>
-                  Linha: <TextBoldSizes>{item.linha_cod}</TextBoldSizes>
+                  Linha:{' '}
+                  <TextBoldSizes>
+                    {item.linhamatriz.linha.descricao}
+                  </TextBoldSizes>
                 </Line>
                 <Line>
                   Modelo: <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>

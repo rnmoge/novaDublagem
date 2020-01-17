@@ -13,7 +13,7 @@ export const ContainerTotal = styled.View`
 `;
 
 export const ContainerBody = styled.View`
-  height: 220px;
+  height: 250px;
   background: #3f51b7;
   border-radius: 8px;
   padding: 10px;
@@ -29,6 +29,7 @@ export const ContainerText = styled.View`
   flex-direction: row;
   justify-content: center;
   padding-top: 10px;
+  height: 50px;
 `;
 
 export const TextInfo = styled.Text`

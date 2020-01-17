@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 // import {Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -24,10 +24,7 @@ export default function CardCart({
   functionOnpressIconDelete,
 }) {
   const [stateData, setStateData] = [data];
-  // function excluirProductList(index) {
-  //   const newProductList = productList.splice(1, index);
-  //   setProductList(newProductList);
-  // },
+
   return (
     <Container>
       <List
@@ -62,6 +59,7 @@ export default function CardCart({
                   );
                 })}
               </ContainerTotal2>
+
               <ContainerIcon>
                 <AreaIcon>
                   <Icon name={nameIconOne} />
@@ -78,8 +76,6 @@ export default function CardCart({
             </ContainerTotal>
           );
         }}
-        // testa aew yuri
-        // di
         keyExtractor={({item}, index) => index.toString()}
       />
     </Container>

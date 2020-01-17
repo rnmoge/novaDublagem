@@ -19,28 +19,29 @@ export default function QueryOrder() {
   function backOrder() {
     dispatch(ActionsOrder.backOrder());
   }
-
-  // useEffect(() => {
-  //   const orderArray = orders
-  //     .filter(element => {
-  //       return (
-  //         element.pedido_cod
-  //           .toLowerCase()
-  //           .indexOf(inputCodPedido.toLowerCase()) !== -1
-  //       );
-  //     })
-  //     .filter(element => {
-  //       return (
-  //         element.cliente.nome_razao
-  //           .toLowerCase()
-  //           .indexOf(inputRazao.toLowerCase()) !== -1
-  //       );
-  //     })
-  //     .map(element => {
-  //       return element;
-  //     });
-  //   setDataStateAux(orderArray);
-  // }, [inputRazao, inputCodPedido]); // eslint-disable-line
+  console.tron.log(orders);
+  useEffect(() => {
+    setDataStateAux(orders);
+    const orderArray = orders
+      .filter(element => {
+        return (
+          element.pedido_cod
+            .toLowerCase()
+            .indexOf(inputCodPedido.toLowerCase()) !== -1
+        );
+      })
+      .filter(element => {
+        return (
+          element.cliente.nome_razao
+            .toLowerCase()
+            .indexOf(inputRazao.toLowerCase()) !== -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setDataStateAux(orderArray);
+  }, [inputRazao, inputCodPedido]); // eslint-disable-line
   function selectorder(id) {
     dispatch(ActionsQuery.selectOrder(id));
   }
@@ -72,7 +73,8 @@ export default function QueryOrder() {
           />
         </ContainerInput>
         <CardOrder
-          orders={orders}
+          loading={loading}
+          orders={dataStateAux}
           functionOnpress={id => {
             selectorder(id);
           }}

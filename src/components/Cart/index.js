@@ -1,19 +1,47 @@
 import React, {useState, useEffect} from 'react';
-import {Modal} from 'react-native';
+import {Modal, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Container, ContainerBody} from './styles';
+import {Container, ContainerBody, ContainerValue} from './styles';
 import Header from '../Header';
 import ModalTransport from '../ModalTransport';
 import CardCart from '../CardCart';
 import Button from '../Button';
 import * as ActionsCart from '../../store/modules/cart/actions';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
+import {ContainerText, TextBold, TextRegular} from '../../styles/fonts';
 
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
   const [disable, setDisable] = useState();
-
+  const [valueState, setValueState] = useState();
+  const [quantState, setQuantState] = useState();
+  useEffect(() => {
+    const list = [];
+    const listQuant = [];
+    if (products.length > 0) {
+      for (let i = 0; i < products.length; i += 1) {
+        const {pedidoItemTamanhos, value} = products[i];
+        let valueTotalQuant = 0;
+        for (let j = 0; j < pedidoItemTamanhos.length; j += 1) {
+          valueTotalQuant += Number(pedidoItemTamanhos[j].quant);
+        }
+        const valueProductTotal = valueTotalQuant * value;
+        list.push(valueProductTotal);
+        listQuant.push(valueTotalQuant);
+      }
+      const newValue = list.reduce(
+        (acumulador, element) => (acumulador += element),
+        0
+      );
+      const newQuant = listQuant.reduce(
+        (acumulador, element) => (acumulador += element),
+        0
+      );
+      setValueState(newValue.toFixed(2));
+      setQuantState(newQuant);
+    }
+  }, [products]);
   useEffect(() => {
     if (products.length !== 0) {
       setDisable(false);
@@ -21,7 +49,6 @@ export default function({functionOnPressIcon}) {
       setDisable(true);
     }
    }, [products]); // eslint-disable-line
-
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));
@@ -30,9 +57,12 @@ export default function({functionOnPressIcon}) {
     dispatch(ActionsProduct.openTransport(true));
   }
   function excluirProductList(index) {
-    const newList = [...products];
-    const newProductList = newList.splice(1, index);
-    dispatch(ActionsCart.removeToCart([...newProductList]));
+    const newList = products.filter((product, indexProduct) => {
+      if (indexProduct !== index) {
+        return product;
+      }
+    });
+    dispatch(ActionsCart.removeToCart([...newList]));
   }
   return (
     <Container>
@@ -53,6 +83,18 @@ export default function({functionOnPressIcon}) {
               excluirProductList(index);
             }}
           />
+          <ContainerValue>
+            <ContainerText>
+              <TextRegular>
+                Valor Total: <TextBold>R${valueState}</TextBold>
+              </TextRegular>
+            </ContainerText>
+            <ContainerText>
+              <TextRegular>
+                Quantidade total: <TextBold>{quantState}</TextBold>
+              </TextRegular>
+            </ContainerText>
+          </ContainerValue>
           <Button
             titleButton="SALVAR E ENVIAR"
             disabledButton={disable}

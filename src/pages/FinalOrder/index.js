@@ -28,6 +28,7 @@ export default function FinalOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
   const [date, setDate] = useState();
+
   const {
     id,
     client,
@@ -36,23 +37,19 @@ export default function FinalOrder() {
     conditionPagament,
     billingDate,
     pedidoItens,
+    price,
+    quantTotal,
   } = useSelector(state => state.finalizeorder);
+  console.tron.log(price);
+  console.tron.log(quantTotal);
   function handleOrder() {
     dispatch(ActionsFinalize.handleOrder());
   }
-  // function totalTudo() {
-  //   const total = [...pedidoItens];
+  useEffect(() => {});
 
-  //   total.pedidoItemTamanhos
-  //     .map(element => element)
-  //     .reduce((acumulador, element) => {
-  //       const li = (acumulador += Number(element.quantidade));
-  //       console.tron.log(li);
-  //   });
-  // }
   const data = billingDate;
   data.substring(0, 10);
-  console.tron.log(data);
+  data.substring(0, 10);
   useEffect(() => {
     setDate(data.substring(0, 10));
     // totalTudo();
@@ -89,6 +86,10 @@ export default function FinalOrder() {
                 <TextRegular>{charge}</TextRegular>
                 <TextBold>Data faturamento:</TextBold>
                 <TextRegular>{date}</TextRegular>
+                <TextBold>Valor total:</TextBold>
+                <TextRegular>R$ {price}</TextRegular>
+                <TextBold>Quantidade total:</TextBold>
+                <TextRegular>{quantTotal}</TextRegular>
               </ContainerOrder>
 
               <ContainerProducts>
@@ -105,6 +106,12 @@ export default function FinalOrder() {
                           Matriz:{' '}
                           <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
                         </Line>
+                        <Line>
+                          Quantidade total do item:{' '}
+                          <TextBoldSizes>
+                            {item.quantidade_item_total}
+                          </TextBoldSizes>
+                        </Line>
 
                         {item.pedidoItemTamanhos.map(tamanhos => {
                           return (
@@ -120,7 +127,7 @@ export default function FinalOrder() {
                                 <Line>Quantidade: </Line>
                                 <TextBoldSizes>
                                   {' '}
-                                  {tamanhos.quantidade} uni.
+                                  {tamanhos.quantidade}
                                 </TextBoldSizes>
                               </ContainerInfo>
                               <Sizes />
@@ -129,24 +136,6 @@ export default function FinalOrder() {
                         })
                         //
                         }
-                        {/* {item.pedidoItemTamanhos
-                          .map(tamanhos => tamanhos)
-                          .reduce((acumulador, tamanhos) => {
-                            const tamanho = Number(tamanhos.quantidade);
-                            const total = tamanho + acumulador;
-                            console.tron.log(total);
-                            console.tron.log(tamanhos.quantidade);
-                            console.tron.log('acumulador');
-                            console.tron.log(acumulador);
-                            console.tron.log(
-                              (acumulador += Number(tamanhos.quantidade))
-                            );
-                            return (
-                              <TotalSizes>
-                                <Line>{total}</Line>
-                              </TotalSizes>
-                            );
-                          }, 0)} */}
                       </Card>
                     );
                   }}

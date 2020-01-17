@@ -6,7 +6,6 @@ import Button from '../../components/Button';
 import InputMask from '../../components/InputMaskCNPJ';
 import InputClick from '../../components/InputClick';
 import Radius from '../../components/Radius';
-
 import {Container} from './styles';
 import {ContainerBody} from '../../components/DetailsOrder/styles';
 

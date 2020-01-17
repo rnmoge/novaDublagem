@@ -24,13 +24,13 @@ export const AreaIcon = styled.View`
 `;
 
 export const Icon = styled(Icons)`
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   color: #fff;
 `;
 
 export const Text = styled.Text`
-  padding: 10px;
+  padding: 4px;
   color: #fff;
   font-weight: bold;
 `;
@@ -45,7 +45,7 @@ export const ContainerClient = styled.View`
   margin-bottom: 15px;
 `;
 export const ContainerOrder = styled.View`
-  height: 280px;
+  height: 350px;
   background: #fff;
   padding-left: 20px;
   elevation: 5px;
@@ -56,14 +56,14 @@ export const ContainerOrder = styled.View`
 export const TextBold = styled.Text`
   font-weight: bold;
   font-size: 16px;
-  padding-top: 8px;
+  padding-top: 4px;
 `;
 
 export const TextRegular = styled.Text.attrs({
   numberOfLines: 1,
 })`
   font-size: 16px;
-  padding-top: 8px;
+  padding-top: 6px;
 `;
 export const ContainerProducts = styled.View`
   margin-top: 10px;

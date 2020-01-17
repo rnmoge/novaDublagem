@@ -27,6 +27,7 @@ const INITIAL_STATE = {
   tamanhos: [],
   details: [],
   amount: [],
+  dateBillingNew: '',
 };
 export default function Login(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -90,6 +91,10 @@ export default function Login(state = INITIAL_STATE, action) {
     case 'newOrder/CHANGE_DETAILS':
       return produce(state, draft => {
         draft.tamanhos = action.payload.newDetails;
+      });
+    case '@newOrder/BILLING_DATE_SUCESS':
+      return produce(state, draft => {
+        draft.dateBillingNew = action.payload.dateBillingNew;
       });
 
     case '@newOrder/SAVE_STATE':
