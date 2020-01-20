@@ -172,7 +172,6 @@ function* billingDateSaga(action) {
         },
       }
     );
-    console.tron.log(billingDate);
 
     yield put(billingDateSucess(billingDate.data.data_faturamento));
   } catch (err) {

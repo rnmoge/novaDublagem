@@ -13,44 +13,50 @@ export default function QueryOrder() {
   const {orders} = useSelector(state => state.queryorder);
   const {loading} = useSelector(state => state.common);
   const [inputRazao, setInputRazao] = useState('');
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [inputCodPedido, setCodPedido] = useState('');
   const [dataStateAux, setDataStateAux] = useState('');
   function backOrder() {
     dispatch(ActionsOrder.backOrder());
   }
-  console.tron.log(orders);
   useEffect(() => {
+    console.tron.log('use3');
+
     setDataStateAux(orders);
-    const orderArray = orders
-      .filter(element => {
-        return (
-          element.pedido_cod
-            .toLowerCase()
-            .indexOf(inputCodPedido.toLowerCase()) !== -1
-        );
-      })
-      .filter(element => {
-        return (
-          element.cliente.nome_razao
-            .toLowerCase()
-            .indexOf(inputRazao.toLowerCase()) !== -1
-        );
-      })
-      .map(element => {
-        return element;
-      });
-    setDataStateAux(orderArray);
+  }, [orders]);// eslint-disable-line
+  useEffect(() => {
+    console.tron.log('use2');
+
+    if (orders !== null) {
+      const orderArray = orders
+
+        .filter(element => {
+          return element.pedido_cod.indexOf(inputCodPedido) !== -1;
+        })
+        .filter(element => {
+          return (
+            element.cliente.nome_razao
+              .toLowerCase()
+              .indexOf(inputRazao.toLowerCase()) !== -1
+          );
+        })
+
+        .map(element => {
+          return element;
+        });
+      setDataStateAux(orderArray);
+    }
   }, [inputRazao, inputCodPedido]); // eslint-disable-line
   function selectorder(id) {
     dispatch(ActionsQuery.selectOrder(id));
   }
-  function loadOrders() {
-    dispatch(ActionsQuery.requestOrders(page));
-  }
+  // function loadOrders() {
+  //   dispatch(ActionsQuery.requestOrders());
+  // }
   useEffect(() => {
-    loadOrders();
-  }, []);// eslint-disable-line
+    console.tron.log('use1');
+    dispatch(ActionsQuery.requestOrders());
+  }, [dispatch]);
   return (
     <Container>
       <Header
@@ -78,10 +84,6 @@ export default function QueryOrder() {
           functionOnpress={id => {
             selectorder(id);
           }}
-          functionOnEndReached={() => {
-            loadOrders();
-          }}
-          FunctionListFooterComponent={loading && <ActivityIndicator />}
         />
       </ContainerBody>
     </Container>

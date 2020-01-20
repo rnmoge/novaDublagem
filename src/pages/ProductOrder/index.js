@@ -99,16 +99,14 @@ export default function ProductOrder() {
     setInputComissionState(comission.comissao1);
     if (dateBillingNew !== undefined || dateBillingNew !== null) {
       if (inputMask !== '') {
-        console.tron.log('inputmask');
         setInputMask(inputMask);
       } else {
-        console.tron.log('inputmask232');
         setInputMask(dateBillingNew);
       }
     }
-  }, [comission, dateBillingNew]);// eslint-disable-line
+  }, [comission,dateBillingNew]);// eslint-disable-line
+
   useEffect(() => {
-    console.tron.log(dateInput[0]);
     if (
       dateInput[0] < dateNew[0] &&
       dateInput[1] <= dateNew[1] &&
@@ -346,7 +344,7 @@ export default function ProductOrder() {
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
     dispatch(NewOrderActions.billingDate(id));
-    console.tron.log(id);
+
     setIdSize(id);
   }
   function sizeFunc() {

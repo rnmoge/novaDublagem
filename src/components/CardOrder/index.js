@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -9,6 +9,7 @@ import {
   TextInitial,
   FlatList,
   ContainerButton,
+  Loading,
 } from './styles';
 
 export default function CardOrder({
@@ -21,17 +22,16 @@ export default function CardOrder({
   return (
     <Container>
       {loading ? (
-        <ActivityIndicator />
+        <Loading>
+          <Text style={{fontSize: 16, fontWeight: 'bold', padding: 10}}>
+            Procurando pedidos...
+          </Text>
+          <ActivityIndicator color="#fff000" size="large" />
+        </Loading>
       ) : (
         <FlatList
-          ListEmptyComponent={
-            <TextInitial>
-              Digite um dos filtros para buscar um pedido
-            </TextInitial>
-          }
           data={orders}
           showsVerticalScrollIndicator={false}
-          initialNumToRender={10}
           listFooterComponent={FunctionListFooterComponent}
           onEndReached={functionOnEndReached}
           renderItem={({item}) => {
@@ -49,7 +49,7 @@ export default function CardOrder({
                     Cod. pedido: <TextBold>{item.pedido_cod}</TextBold>
                   </TextRegular>
                   <TextRegular>
-                    Data Emissão:{' '}
+                    Data Emissão:
                     <TextBold>{item.emissao.substring(0, 10)}</TextBold>
                   </TextRegular>
                 </Card>

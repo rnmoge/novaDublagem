@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   orders: [],
   order: [],
+  date: '',
 };
 export default function table(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -14,10 +15,15 @@ export default function table(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.order = action.payload.order;
       });
-    case '@queryorder/BACK_QUERY_ORDER':
+    case '@queryorder/DATE_BILLING_SUCESS':
       return produce(state, draft => {
-        draft.order = [];
+        draft.date = action.payload.dateNew;
       });
+    // case '@queryorder/BACK_QUERY_ORDER':
+    //   return produce(state, draft => {
+    //     draft.order = [];
+    //     draft.date = '';
+    //   });
     default:
       return state;
   }

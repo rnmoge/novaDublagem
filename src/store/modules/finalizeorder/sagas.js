@@ -31,7 +31,6 @@ function* saveNewOrderSaga(action) {
 function* saveOrderTotalSaga(action) {
   let data = yield call(AsyncStorage.getItem, '@novaDublagem:newOrder');
   data = JSON.parse(data);
-
   let product = yield call(AsyncStorage.getItem, '@novaDublagem:Products');
   product = JSON.parse(product);
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
@@ -187,7 +186,7 @@ function* saveOrderTotalSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.tron.log(response2);
+
     yield put(
       priceTotal(
         response2.data.valor_total_pedido,

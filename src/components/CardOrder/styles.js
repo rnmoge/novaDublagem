@@ -1,14 +1,17 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  padding: 5px;
+  margin-bottom: 150px;
+`;
 
 export const List = styled.FlatList``;
 
-export const FlatList = styled.FlatList`
-  flex-direction: column;
-`;
+export const FlatList = styled.FlatList``;
+
 export const Card = styled.View`
   height: 120px;
+  width: 100%;
   background: #fff;
   justify-content: center;
   margin-bottom: 10px;
@@ -39,3 +42,10 @@ export const TextInitial = styled.Text`
   text-align: center;
 `;
 export const ContainerButton = styled.TouchableOpacity``;
+
+export const Loading = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 300px;
+`;

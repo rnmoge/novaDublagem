@@ -40,8 +40,7 @@ export default function FinalOrder() {
     price,
     quantTotal,
   } = useSelector(state => state.finalizeorder);
-  console.tron.log(price);
-  console.tron.log(quantTotal);
+
   function handleOrder() {
     dispatch(ActionsFinalize.handleOrder());
   }

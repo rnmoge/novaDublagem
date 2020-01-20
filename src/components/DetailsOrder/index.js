@@ -34,7 +34,7 @@ export default function DetailsOrder({data}) {
           <ContainerText>
             <TextRegular>
               Emissão:
-              <TextBold> {data.emissao.substring(0, 10)}</TextBold>
+              <TextBold> {data.emissao}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>
@@ -45,17 +45,17 @@ export default function DetailsOrder({data}) {
           </ContainerText>
           <ContainerText>
             <TextRegular>
-              Data Prevista:
-              <TextBold>{datePreview}</TextBold>
-            </TextRegular>
-          </ContainerText>
-          <ContainerText>
-            <TextRegular>
               Data de entrega:
               <TextBold>
                 {' '}
                 {data.pedidoItens[0].data_faturamento.substring(0, 10)}
               </TextBold>
+            </TextRegular>
+          </ContainerText>
+          <ContainerText>
+            <TextRegular>
+              Data de faturamento:
+              <TextBold>{datePreview}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>

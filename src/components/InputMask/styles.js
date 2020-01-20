@@ -5,7 +5,7 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 export const Container = styled.View`
   flex-direction: row;
   justify-content: flex-start;
-  border-width: 0.5px;
+  border-width: 1px;
   margin-bottom: 20px;
   height: 48px;
   background: #fff;

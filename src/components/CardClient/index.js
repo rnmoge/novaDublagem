@@ -42,10 +42,7 @@ export default function CardClient({data, functionOnpressClient}) {
                     <TextInfo2>{item.nome_razao}</TextInfo2>
                   </TextInfo>
                 </ConatinerCod>
-                {/* <TextInfo>
-                  Endereço:
-                  <TextInfo2>{item.}</TextInfo2>
-                </TextInfo> */}
+
                 <TextInfo>
                   <TextInfo2>{item.email}</TextInfo2>
                 </TextInfo>

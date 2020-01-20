@@ -73,6 +73,10 @@ function* backOrderSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('Request');
 }
+function* backSaga() {
+  yield put(commonLoadingActivityOn(''));
+  navigate('Request');
+}
 function* backRegisterOrderSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('RegisterOrder');
@@ -89,7 +93,7 @@ export default all([
   takeLatest('@order/HANDLE_REGISTER_ORDER', handleRegisterOrderSaga),
   takeLatest('@order/HANDLE_QUERY_ORDER', handleQueryOrderSaga),
   takeLatest('@order/HANDLE_TRANSMIT_ORDER', handleTransmitOrderSaga),
-  takeLatest('@order/BACK_ORDER', backOrderSaga),
+  takeLatest('@order/BACK_ORDER', backSaga),
   takeLatest('@order/HANDLE_DETAILS_CLIENT', handleDetailsClientSaga),
   takeLatest('@order/BACK_REGISTER_ORDER', backRegisterOrderSaga),
   takeLatest('@order/HANDLE_NEW_ORDER', handleNewOrderSaga),
