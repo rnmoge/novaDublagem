@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import * as ActionsOrder from '../../store/modules/order/actions';
 import * as ActionsQuery from '../../store/modules/queryorder/actions';
@@ -13,50 +12,45 @@ export default function QueryOrder() {
   const {orders} = useSelector(state => state.queryorder);
   const {loading} = useSelector(state => state.common);
   const [inputRazao, setInputRazao] = useState('');
-  // const [page, setPage] = useState(1);
   const [inputCodPedido, setCodPedido] = useState('');
-  const [dataStateAux, setDataStateAux] = useState('');
-  function backOrder() {
-    dispatch(ActionsOrder.backOrder());
-  }
+  const [dataStateAux, setDataStateAux] = useState(orders);
   useEffect(() => {
-    console.tron.log('use3');
-
+    dispatch(ActionsQuery.requestOrders());
+  }, [dispatch]); // eslint-disable-line
+  useEffect(() => {
     setDataStateAux(orders);
-  }, [orders]);// eslint-disable-line
+  }, [orders]);
   useEffect(() => {
-    console.tron.log('use2');
-
     if (orders !== null) {
       const orderArray = orders
-
         .filter(element => {
-          return element.pedido_cod.indexOf(inputCodPedido) !== -1;
+          return (
+            element.pedidoCod
+              .toLowerCase()
+              .indexOf(inputCodPedido.toLowerCase()) !== -1
+          );
         })
         .filter(element => {
           return (
-            element.cliente.nome_razao
+            element.nomeRazao
               .toLowerCase()
               .indexOf(inputRazao.toLowerCase()) !== -1
           );
         })
-
         .map(element => {
           return element;
         });
       setDataStateAux(orderArray);
+      console.tron.log(orderArray);
     }
   }, [inputRazao, inputCodPedido]); // eslint-disable-line
   function selectorder(id) {
     dispatch(ActionsQuery.selectOrder(id));
+    dispatch(ActionsQuery.ordersSucess(orders));
   }
-  // function loadOrders() {
-  //   dispatch(ActionsQuery.requestOrders());
-  // }
-  useEffect(() => {
-    console.tron.log('use1');
-    dispatch(ActionsQuery.requestOrders());
-  }, [dispatch]);
+  function backOrder() {
+    dispatch(ActionsOrder.backOrder());
+  }
   return (
     <Container>
       <Header

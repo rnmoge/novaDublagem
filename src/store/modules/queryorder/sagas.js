@@ -26,7 +26,23 @@ function* requestOrdersSaga() {
       },
     });
 
-    yield put(requestOrdersSucess(data.data));
+    const {data: orders} = data;
+
+    const newOrders = [];
+    for (let i = 0; i < orders.length; i += 1) {
+      const {id, pedido_cod: pedidoCod, emissao} = orders[i];
+      const {nome_razao: nomeRazao, cnpj} = orders[i].cliente;
+      const order2 = {
+        id,
+        nomeRazao,
+        cnpj,
+        pedidoCod,
+        emissao,
+      };
+      newOrders.push(order2);
+    }
+
+    yield put(requestOrdersSucess(newOrders));
     yield put(commonActionSucess());
   } catch (err) {
     yield put(commonActionFailure());
@@ -46,8 +62,10 @@ function* selectOrderSaga(action) {
       },
     });
     const idProduct = data.data.pedidoItens[0].linhamatriz.id;
+
     yield put(selectOrderSucess(data.data));
     yield put(commonLoadingActivityOn());
+
     const billingDate = yield call(
       api.get,
       `datafaturamento?linhaMatrizId=${idProduct}`,
@@ -68,7 +86,6 @@ function* selectOrderSaga(action) {
 function* backQueryOrderSaga() {
   yield put(commonLoadingActivityOn());
   navigate('QueryOrder');
-  yield put(commonActionSucess());
 }
 function* copyOrderSaga(action) {
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
@@ -96,13 +113,12 @@ function* copyOrderSaga(action) {
   try {
     yield put(commonLoadingActivityOn(''));
     navigate('FinalOrder');
-    console.tron.log('entrou aqui');
+
     const newProducts = [];
     for (let i = 0; i < pedidoItens.length; i += 1) {
       const pedidoItemTamanhos = [];
-      console.tron.log('entrou aqui2');
+
       for (let j = 0; j < pedidoItens[i].pedidoItemTamanhos.length; j += 1) {
-        console.tron.log('entrou aqui3');
         const {tamanho_id, tamanho_cod, quantidade} = pedidoItens[
           i
         ].pedidoItemTamanhos[j];
@@ -254,7 +270,7 @@ function* dateBillingSaga(action) {
         },
       }
     );
-    console.tron.log(billingDate.data.data_faturamento);
+
     yield put(commonActionSucess());
     // yield put(billingDateSucess(billingDate.data.data_faturamento));
   } catch (err) {

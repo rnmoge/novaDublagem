@@ -54,7 +54,7 @@ export default function CardCart({
                   return (
                     <ContainerQuant2>
                       <Line>{tamanhos.descricao}- </Line>
-                      <Line> {tamanhos.quant} uni.</Line>
+                      <Line> {tamanhos.quant}</Line>
                     </ContainerQuant2>
                   );
                 })}

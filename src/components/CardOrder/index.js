@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ActivityIndicator, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -31,6 +31,9 @@ export default function CardOrder({
       ) : (
         <FlatList
           data={orders}
+          listEmptyComponent={
+            <TextInitial>Você não possui este pedido</TextInitial>
+          }
           showsVerticalScrollIndicator={false}
           listFooterComponent={FunctionListFooterComponent}
           onEndReached={functionOnEndReached}
@@ -41,12 +44,12 @@ export default function CardOrder({
                   functionOnpress(item.id);
                 }}>
                 <Card>
-                  <TextBold>{item.cliente.nome_razao}</TextBold>
+                  <TextBold>{item.nomeRazao}</TextBold>
                   <TextRegular>
-                    CNPJ: <TextBold>{item.cliente.cnpj}</TextBold>
+                    CNPJ: <TextBold>{item.cnpj}</TextBold>
                   </TextRegular>
                   <TextRegular>
-                    Cod. pedido: <TextBold>{item.pedido_cod}</TextBold>
+                    Cod. pedido: <TextBold>{item.pedidoCod}</TextBold>
                   </TextRegular>
                   <TextRegular>
                     Data Emissão:
@@ -65,7 +68,7 @@ CardOrder.prototypes = {
   functionOnpress: PropTypes.func,
   FunctionListFooterComponent: PropTypes.func,
   functionOnEndReached: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.object),
+  orders: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
 };
 CardOrder.defaultProps = {

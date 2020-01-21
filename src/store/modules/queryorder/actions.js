@@ -45,3 +45,9 @@ export function dateBillingSucess(dateNew) {
     payload: {dateNew},
   };
 }
+export function ordersSucess(newOrders) {
+  return {
+    type: '@queryorder/ORDERS_SUCESS',
+    payload: {newOrders},
+  };
+}

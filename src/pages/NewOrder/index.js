@@ -347,7 +347,7 @@ export default function NewOrder() {
               }}
             />
             <Button
-              titleButton="PROXIMO"
+              titleButton="PRÓXIMO"
               disabledButton={disableButton}
               functionOnPress={() => {
                 handleProducts();

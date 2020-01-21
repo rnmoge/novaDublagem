@@ -9,10 +9,27 @@ import CardCart from '../CardCart';
 import Button from '../Button';
 import * as ActionsCart from '../../store/modules/cart/actions';
 import * as ActionsProduct from '../../store/modules/productorder/actions';
+import * as ActionsFinalize from '../../store/modules/finalizeorder/actions';
 import {ContainerText, TextBold, TextRegular} from '../../styles/fonts';
 
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
+  const {
+    emissao,
+    codPedido,
+    typeChargeId,
+    packingId,
+    idTable,
+    descont,
+    pagamentId,
+    note,
+    billingId,
+    clientId,
+    representativeId,
+    typeOrder,
+    transpoId,
+    despachId,
+  } = useSelector(state => state.finalizeorder);
   const [disable, setDisable] = useState();
   const [valueState, setValueState] = useState();
   const [quantState, setQuantState] = useState();
@@ -49,12 +66,19 @@ export default function({functionOnPressIcon}) {
       setDisable(true);
     }
    }, [products]); // eslint-disable-line
+  console.tron.log(quantState);
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));
   }
   function transportOpen() {
-    dispatch(ActionsProduct.openTransport(true));
+    if (quantState >= 1499) {
+      dispatch(ActionsFinalize.saveOrderTotal());
+    } else if (quantState === 720) {
+      dispatch(ActionsFinalize.saveOrderTotal());
+    } else {
+      dispatch(ActionsProduct.openTransport(true));
+    }
   }
   function excluirProductList(index) {
     const newList = products.filter((product, indexProduct) => {
@@ -83,18 +107,23 @@ export default function({functionOnPressIcon}) {
               excluirProductList(index);
             }}
           />
-          <ContainerValue>
-            <ContainerText>
-              <TextRegular>
-                Valor Total: <TextBold>R${valueState}</TextBold>
-              </TextRegular>
-            </ContainerText>
-            <ContainerText>
-              <TextRegular>
-                Quantidade total: <TextBold>{quantState}</TextBold>
-              </TextRegular>
-            </ContainerText>
-          </ContainerValue>
+          {products.length !== 0 ? (
+            <ContainerValue>
+              <ContainerText>
+                <TextRegular>
+                  Valor Total: <TextBold>R${valueState}</TextBold>
+                </TextRegular>
+              </ContainerText>
+              <ContainerText>
+                <TextRegular>
+                  Quantidade total: <TextBold>{quantState}</TextBold>
+                </TextRegular>
+              </ContainerText>
+            </ContainerValue>
+          ) : (
+            <TextRegular />
+          )}
+
           <Button
             titleButton="SALVAR E ENVIAR"
             disabledButton={disable}

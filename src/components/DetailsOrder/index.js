@@ -48,7 +48,7 @@ export default function DetailsOrder({data}) {
               Data de entrega:
               <TextBold>
                 {' '}
-                {data.pedidoItens[0].data_faturamento.substring(0, 10)}
+                {data.pedidoItens[0].data_entrega.substring(0, 10)}
               </TextBold>
             </TextRegular>
           </ContainerText>

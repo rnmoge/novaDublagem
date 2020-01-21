@@ -75,7 +75,8 @@ function* saveOrderTotalSaga(action) {
         value: valor_real,
         observacao_item,
         comissao,
-        data_faturamento,
+        data_entrega,
+        preco_especial,
         color_id: cor_id,
         grupotamanho_id,
       } = product[i];
@@ -86,7 +87,8 @@ function* saveOrderTotalSaga(action) {
         valor_real,
         observacao_item,
         comissao,
-        data_faturamento,
+        data_entrega,
+        preco_especial,
         cor_id: Number(cor_id),
         grupotamanho_id: Number(grupotamanho_id),
         pedidoItemTamanhos,
@@ -177,7 +179,7 @@ function* saveOrderTotalSaga(action) {
         response.data.tabelaPreco.tabelapreco,
         response.data.tipoCobranca.descricao,
         response.data.condicaoPagamento.descricao,
-        response.data.pedidoItens[0].data_faturamento,
+        response.data.pedidoItens[0].data_entrega,
         response.data.pedidoItens
       )
     );

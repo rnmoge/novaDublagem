@@ -19,13 +19,13 @@ import Header from '../../components/Header';
 import InputType from '../../components/InputType';
 import CardClient from '../../components/CardClient';
 // import Button from '../../components/Button';
-import Radius from '../../components/Radius';
+// import Radius from '../../components/Radius';
 import * as ActionsOrder from '../../store/modules/order/actions';
 
 export default function RegisterOrder() {
-  const [selectStateOne, setSelectStateOne] = useState(true);
-  const [selectStateTwo, setSelectStateTwo] = useState(false);
-  const [selectStateThree, setSelectStateThree] = useState(false);
+  // const [selectStateOne, setSelectStateOne] = useState(true);
+  // const [selectStateTwo, setSelectStateTwo] = useState(false);
+  // const [selectStateThree, setSelectStateThree] = useState(false);
   const {clients} = useSelector(state => state.order);
   const [inputReasonState, setInputReasonState] = useState('');
   const [inputCnpjState, setInputCnpjState] = useState('');
@@ -62,21 +62,21 @@ export default function RegisterOrder() {
       setDataStateAux(orderArray);
     }
   }, [inputReasonState, inputCnpjState]);// eslint-disable-line
-  function trocaRadius1() {
-    setSelectStateOne(!selectStateOne);
-    setSelectStateTwo(false);
-    setSelectStateThree(false);
-  }
-  function trocaRadius2() {
-    setSelectStateTwo(!selectStateTwo);
-    setSelectStateOne(false);
-    setSelectStateThree(false);
-  }
-  function trocaRadius3() {
-    setSelectStateThree(!selectStateThree);
-    setSelectStateTwo(false);
-    setSelectStateOne(false);
-  }
+  // function trocaRadius1() {
+  //   setSelectStateOne(!selectStateOne);
+  //   setSelectStateTwo(false);
+  //   setSelectStateThree(false);
+  // }
+  // function trocaRadius2() {
+  //   setSelectStateTwo(!selectStateTwo);
+  //   setSelectStateOne(false);
+  //   setSelectStateThree(false);
+  // }
+  // function trocaRadius3() {
+  //   setSelectStateThree(!selectStateThree);
+  //   setSelectStateTwo(false);
+  //   setSelectStateOne(false);
+  // }
   return (
     <Container>
       <Header

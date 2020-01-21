@@ -13,22 +13,21 @@ export const ContainerTotal = styled.View`
 `;
 
 export const ContainerBody = styled.View`
-  height: 350px;
+  height: 300px;
   background: #3f51b7;
   border-radius: 8px;
   padding: 10px;
 `;
-export const ContainerIcon = styled.View`
-  flex: 1;
+export const ContainerIcon = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  padding-top: 10px;
+  padding-bottom: 15px;
+  margin-left: 18px;
 `;
 
 export const ContainerText = styled.View`
   flex-direction: row;
   justify-content: center;
-  padding-top: 10px;
   height: 50px;
 `;
 export const ContainerInput = styled.View`
@@ -43,14 +42,15 @@ export const TextInfo = styled.Text`
 `;
 
 export const AreaIcon = styled.View`
-  height: 100px;
-  width: 100px;
+  height: 22px;
+  width: 22px;
   align-items: center;
   justify-content: center;
+  background: #f65;
 `;
 
 export const Icon = styled(Icons)`
-  font-size: 90px;
+  font-size: 20px;
   font-weight: bold;
   color: #fff;
 `;

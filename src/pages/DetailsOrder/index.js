@@ -12,7 +12,8 @@ import * as ActionsQuery from '../../store/modules/queryorder/actions';
 export default function DetailsOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
-  const {order, date} = useSelector(state => state.queryorder);
+  const {order, date, newOrders} = useSelector(state => state.queryorder);
+  // const {orders, newOrders} = useSelector(state => state.queryorder);
   const [inputCod, setInputCod] = useState();
   const [inputDate, setInputDate] = useState(date);
   const [modalState, setModalState] = useState(false);
@@ -39,26 +40,26 @@ export default function DetailsOrder() {
   useEffect(() => {
     setTextError(false);
     const newDate = inputDate.split('/');
-    console.tron.log(newDate);
     const newDateBiliing = date.split('/');
-    console.tron.log(newDateBiliing);
     if (
       newDate[0] < newDateBiliing[0] &&
       newDate[1] <= newDateBiliing[1] &&
       newDate[2] === newDateBiliing[2]
     ) {
-      setTextError(true);
-      console.tron.log(textError);
-      setInputDate(date);
+      setTextError(!textError);
     } else if (
       newDate[0] > newDateBiliing[0] &&
       newDate[1] >= newDateBiliing[1] &&
       newDate[2] === newDateBiliing[2]
     ) {
-      console.tron.log('enrkgjkh');
       setInputDate(inputDate);
+      if (textError) {
+        setTextError(!textError);
+      } else {
+        setInputDate(inputDate);
+      }
     }
-  }, [inputDate]);// eslint-disable-line
+  }, [date, inputDate]); // eslint-disable-line
 
   function backQueryOrder() {
     dispatch(ActionsQuery.backQueryOrder());
@@ -114,7 +115,9 @@ export default function DetailsOrder() {
         }}
         disabled={disable}
         textExist={textError}
-        error={error}
+        functionOnpress={() => {
+          setModalState(!modalState);
+        }}
       />
     </Container>
   );

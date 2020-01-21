@@ -83,7 +83,7 @@ export default function FinalOrder() {
                 <TextRegular>{conditionPagament}</TextRegular>
                 <TextBold>Tipo de cobrança:</TextBold>
                 <TextRegular>{charge}</TextRegular>
-                <TextBold>Data faturamento:</TextBold>
+                <TextBold>Data de entrega:</TextBold>
                 <TextRegular>{date}</TextRegular>
                 <TextBold>Valor total:</TextBold>
                 <TextRegular>R$ {price}</TextRegular>

@@ -91,6 +91,7 @@ export default function ProductOrder() {
   const [colorModalState, setColorModalState] = useState(false);
   const [inputMask, setInputMask] = useState('');
   const [disable, setDisable] = useState(true);
+  const [specialPrice, setSpecialPrice] = useState(0);
   const [idSize, setIdSize] = useState('');
   const [errorDate, setErrorDate] = useState(false);
   const dateNew = dateBillingNew.split('/');
@@ -360,6 +361,7 @@ export default function ProductOrder() {
       priceNew1 = priceNew1.toString();
       setDataValueState(priceNew1);
       setInputComissionState(comission.comissao1);
+      setSpecialPrice(1);
     } else {
       setDataValueState(price.preco1);
     }
@@ -382,7 +384,6 @@ export default function ProductOrder() {
     setColorModalState(!colorModalState);
     setColorId(id);
   }
-
   function addProduct() {
     // const productExist = products.findIndex(product => {
     //   return product.id === idProduct;
@@ -442,7 +443,9 @@ export default function ProductOrder() {
           value: dataValueState,
           observacao_item: inputNoteState,
           comissao: inputComissionState,
-          data_faturamento: inputMask,
+          // data_faturamento: inputMask,
+          data_entrega: inputMask,
+          preco_especial: specialPrice,
           color_id: colorId,
           grupotamanho_id: groupId,
           matriz_cod: null,
