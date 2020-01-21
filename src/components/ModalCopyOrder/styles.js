@@ -19,16 +19,17 @@ export const ContainerBody = styled.View`
   padding: 10px;
 `;
 export const ContainerIcon = styled.TouchableOpacity`
+  height: 50px;
+  width: 50px;
   justify-content: center;
   align-items: center;
-  padding-bottom: 15px;
-  margin-left: 18px;
 `;
 
 export const ContainerText = styled.View`
   flex-direction: row;
-  justify-content: center;
-  height: 50px;
+
+  align-items: center;
+  height: 60px;
 `;
 export const ContainerInput = styled.View`
   flex: 1;
@@ -55,6 +56,7 @@ export const Icon = styled(Icons)`
   color: #fff;
 `;
 export const ContainerError = styled.View``;
+
 export const TextError = styled.Text`
   color: #ff0000;
 `;

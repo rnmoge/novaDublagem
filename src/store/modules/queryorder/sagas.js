@@ -17,14 +17,22 @@ import {navigate} from '../../../services/navigation';
 
 function* requestOrdersSaga() {
   yield put(commonLoadingActivityOn());
+  let user = yield call(AsyncStorage.getItem, '@novaDublagem:user');
+  user = JSON.parse(user);
+  const idRepre = user.cliente.id;
+  // pedidorepre?representante=7
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
-    const {data} = yield call(api.get, `/pedido`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const {data} = yield call(
+      api.get,
+      `/pedidorepre?representante=${idRepre}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const {data: orders} = data;
 
@@ -90,7 +98,13 @@ function* backQueryOrderSaga() {
 function* copyOrderSaga(action) {
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
   token = JSON.parse(token);
-  const {pedidoCod, dateBilling, order, emission} = action.payload;
+  const {
+    pedidoCod,
+    dateBilling,
+    order,
+    emission,
+    specialPrice,
+  } = action.payload;
   const {
     embalagem_id,
     condicao_pagamento_id,
@@ -110,6 +124,7 @@ function* copyOrderSaga(action) {
     representante_id,
     pedidoItens,
   } = order;
+
   try {
     yield put(commonLoadingActivityOn(''));
     navigate('FinalOrder');
@@ -144,7 +159,8 @@ function* copyOrderSaga(action) {
         valor_real,
         observacao_item,
         comissao,
-        data_faturamento: dateBilling,
+        data_entrega: dateBilling,
+        preco_especial: specialPrice,
         cor_id: Number(cor_id),
         grupotamanho_id: Number(grupotamanho_id),
         pedidoItemTamanhos,
@@ -221,7 +237,7 @@ function* copyOrderSaga(action) {
       ],
     };
     data2.pedidoItens = newProducts;
-    console.tron.log(data2);
+
     const response = yield call(api.post, '/pedido', data2, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -234,7 +250,7 @@ function* copyOrderSaga(action) {
         response.data.tabelaPreco.tabelapreco,
         response.data.tipoCobranca.descricao,
         response.data.condicaoPagamento.descricao,
-        response.data.pedidoItens[0].data_faturamento,
+        response.data.pedidoItens[0].data_entrega,
         response.data.pedidoItens
       )
     );

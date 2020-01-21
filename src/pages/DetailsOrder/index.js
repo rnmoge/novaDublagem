@@ -18,6 +18,7 @@ export default function DetailsOrder() {
   const [inputDate, setInputDate] = useState(date);
   const [modalState, setModalState] = useState(false);
   const [textError, setTextError] = useState(false);
+  const [specialPrice, setSpecialPrice] = useState(0);
   const [error, setError] = useState(false);
   const [disable, setDisable] = useState(true);
   const day = new Date().getDate(); // Current Date
@@ -26,7 +27,6 @@ export default function DetailsOrder() {
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
   const emission = `${day}/${month}/${year}T${hours}:${minutes}`;
-
   useEffect(() => {
     if (inputDate === '' || inputCod === '') {
       setDisable(true);
@@ -60,15 +60,22 @@ export default function DetailsOrder() {
       }
     }
   }, [date, inputDate]); // eslint-disable-line
-
   function backQueryOrder() {
     dispatch(ActionsQuery.backQueryOrder());
   }
   function copyOrder() {
+    const specialPrice2 = order.condicaoPagamento.descricao;
+    if (specialPrice2 === 'A VISTA') {
+      setSpecialPrice(1);
+    } else {
+      setSpecialPrice(0);
+    }
     setModalState(!modalState);
   }
   function newOrderCopy() {
-    dispatch(ActionsQuery.copyOrder(inputCod, inputDate, order, emission));
+    dispatch(
+      ActionsQuery.copyOrder(inputCod, inputDate, order, emission, specialPrice)
+    );
   }
   return (
     <Container>

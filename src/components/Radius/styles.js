@@ -16,11 +16,12 @@ export const ContainerButton = styled.TouchableOpacity`
 export const Icon = styled(Icons)`
   font-size: 20px;
   font-weight: bold;
-  color: #000a20;
+  color: #606060;
 `;
 export const ContainerText = styled.View`
   justify-content: center;
 `;
 export const TextInfo = styled.Text`
   font-size: 15;
+  color: #606060;
 `;

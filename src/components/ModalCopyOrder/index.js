@@ -44,9 +44,7 @@ export default function ModalCopy({
                   <Icon name="times" />
                 </AreaIcon>
               </ContainerIcon>
-              <TextInfo>
-                Para copiar este pedido adicione estas informações:
-              </TextInfo>
+              <TextInfo>Adicione estas informações:</TextInfo>
             </ContainerText>
             <ContainerInput>
               <InputType

@@ -34,7 +34,7 @@ export default function DetailsOrder({data}) {
           <ContainerText>
             <TextRegular>
               Emissão:
-              <TextBold> {data.emissao}</TextBold>
+              <TextBold> {data.emissao.substring(0, 10)}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>

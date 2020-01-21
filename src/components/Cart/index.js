@@ -66,7 +66,7 @@ export default function({functionOnPressIcon}) {
       setDisable(true);
     }
    }, [products]); // eslint-disable-line
-  console.tron.log(quantState);
+
   const dispatch = useDispatch();
   function handleCart() {
     dispatch(ActionsCart.cartClose(false));

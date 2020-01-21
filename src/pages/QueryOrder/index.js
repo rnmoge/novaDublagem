@@ -41,7 +41,6 @@ export default function QueryOrder() {
           return element;
         });
       setDataStateAux(orderArray);
-      console.tron.log(orderArray);
     }
   }, [inputRazao, inputCodPedido]); // eslint-disable-line
   function selectorder(id) {

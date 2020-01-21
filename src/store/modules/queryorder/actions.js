@@ -27,10 +27,16 @@ export function backQueryOrder() {
     type: '@queryorder/BACK_QUERY_ORDER',
   };
 }
-export function copyOrder(pedidoCod, dateBilling, order, emission) {
+export function copyOrder(
+  pedidoCod,
+  dateBilling,
+  order,
+  emission,
+  specialPrice
+) {
   return {
     type: '@queryorder/COPY_ORDER',
-    payload: {pedidoCod, dateBilling, order, emission},
+    payload: {pedidoCod, dateBilling, order, emission, specialPrice},
   };
 }
 export function dateBilling(idProduct) {
