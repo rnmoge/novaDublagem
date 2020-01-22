@@ -16,6 +16,7 @@ export default function InputType({
   functionOnPressIcon,
   disabledButtonIcon,
   error,
+  functionOnEndEditing,
 }) {
   return (
     <Container error={error}>
@@ -49,6 +50,7 @@ Input.propTypes = {
   areaIcon: PropTypes.bool,
   functionOnChangeText: PropTypes.func,
   functionOnPressIcon: PropTypes.func,
+  functionOnEndEditing: PropTypes.func,
   disabledButtonIcon: PropTypes.bool,
 };
 Input.defaultProps = {
@@ -63,5 +65,6 @@ Input.defaultProps = {
   areaIcon: false,
   functionOnChangeText: () => {},
   functionOnPressIcon: () => {},
+  functionOnEndEditing: () => {},
   disabledButtonIcon: true,
 };

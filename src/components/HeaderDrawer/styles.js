@@ -12,12 +12,14 @@ export const ContainerAvatar = styled.View`
   border-radius: 45px;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: #fdca0b;
   margin-bottom: 10px;
 `;
-export const TextAvatar = styled.Image`
-  width: 51px;
-  height: 60px;
+export const TextAvatar = styled.Text`
+  font-size: 22;
+  color: #000;
+  text-align: center;
+  font-weight: bold;
 `;
 export const ContainerUser = styled.View`
   padding-top: 20px;

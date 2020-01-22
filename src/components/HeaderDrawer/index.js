@@ -16,8 +16,8 @@ import logo from '../../../assets/image/logo-azul.png';
 import * as MenuActions from '../../store/modules/menu/actions';
 
 export default function HeaderDrawer() {
-  const {username, permission} = useSelector(state => state.menu);
   const dispatch = useDispatch();
+  const {username, permission} = useSelector(state => state.menu);
   function menuRender() {
     dispatch(MenuActions.menuRequest());
   }
@@ -28,7 +28,7 @@ export default function HeaderDrawer() {
         menuRender();
       }}>
       <ContainerAvatar>
-        <TextAvatar source={logo} />
+        <TextAvatar>{username.substring(0, 1).toUpperCase()}</TextAvatar>
       </ContainerAvatar>
       <ContainerUser>
         <ContainerName>

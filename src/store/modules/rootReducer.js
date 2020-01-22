@@ -11,6 +11,7 @@ import cart from './cart/reducers';
 import home from './home/reducers';
 import finalizeorder from './finalizeorder/reducers';
 import queryorder from './queryorder/reducers';
+import registerclient from './registerclient/reducers';
 
 export default combineReducers({
   common,
@@ -25,4 +26,5 @@ export default combineReducers({
   home,
   finalizeorder,
   queryorder,
+  registerclient,
 });

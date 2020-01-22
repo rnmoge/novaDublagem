@@ -1,40 +1,94 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import InputType from '../../components/InputType';
 import Button from '../../components/Button';
 import ModalAddress from '../../components/ModalAddress';
+import ModalClient from '../../components/ModalClient';
 import InputMask from '../../components/InputMaskCNPJ';
+import InputMaskCel from '../../components/InputMaskCel';
 import InputClick from '../../components/InputClick';
 import Radius from '../../components/Radius';
 import {Container, ContainerTotal} from './styles';
 import {ContainerBody} from '../../components/DetailsOrder/styles';
 import {TextNormal} from '../../styles/fonts';
+import * as ActionsRegister from '../../store/modules/registerclient/actions';
 
 export default function CustomerRegistration({navigation}) {
+  const dispatch = useDispatch();
+  const {
+    modalAddress,
+    addressApi,
+    clientsApi,
+    providersApi,
+    modalProvider,
+    modalClient,
+  } = useSelector(state => state.registerclient);
+  console.tron.log(addressApi);
+  console.tron.log(clientsApi);
+  console.tron.log(providersApi);
   const [inputRazon, setInpuRazon] = useState();
+  const [textSecondary, setTextSecondary] = useState('Cadastre os endereços');
+  const [textSecondary2, setTextSecondary2] = useState(
+    'Cadastre os fornecedores'
+  );
+  const [textSecondary3, setTextSecondary3] = useState('Cadastre os clientes');
   const [inputName, setInpuName] = useState();
   const [inputCnpj, setInputCnpj] = useState();
   const [inputSubscriptionOne, setInputSubscriptionOne] = useState();
   const [inputSubscriptionTwo, setInputSubscriptionTwo] = useState();
   const [suffrage, setSuffrage] = useState(false);
   const [InputExist, setInputExist] = useState(false);
+  const [modalAddress2, setModalAddress2] = useState(false);
+  const [modalAddress3, setModalAddress3] = useState(false);
+  const [modalBank, setModalBank] = useState(false);
+  const [addressEqual, setAddressEqual] = useState(false);
+  const [addressEqual2, setAddressEqual2] = useState(false);
   const [inputSuffrage, setinputSuffrage] = useState();
   const [inputContat, setInputContat] = useState();
   const [inputMobile, setInputMobile] = useState();
   const [inputCellFix, setInputCellFix] = useState();
   const [inputEmail, setInputEmail] = useState();
-  // function trocaRadius1() {
-  //   setSelectStateOne(!selectStateOne);
-  //   setSelectStateTwo(false);
-  //   setTypeOrderId(0);
-  // }
+  useEffect(() => {
+    if (addressApi !== null) {
+      setTextSecondary('Cadastrado');
+    }
+  }, [addressApi]);
+  useEffect(() => {
+    if (clientsApi !== null) {
+      setTextSecondary3('Cadastrado');
+    }
+  }, [clientsApi]);
+  useEffect(() => {
+    if (providersApi !== null) {
+      setTextSecondary2('Cadastrado');
+    }
+  }, [providersApi]);
   function exchangeRadius() {
     setSuffrage(!suffrage);
     setInputExist(!InputExist);
   }
   function registerClient() {
     console.tron.log('entrou register');
+  }
+  function openModalAddress() {
+    dispatch(ActionsRegister.openModalAddress());
+  }
+  function closeModalAddress() {
+    dispatch(ActionsRegister.closeModalAddress());
+  }
+  function openModalProvider() {
+    dispatch(ActionsRegister.openModalProvider());
+  }
+  function closeModalProvider() {
+    dispatch(ActionsRegister.closeModalProvider());
+  }
+  function openModalClient() {
+    dispatch(ActionsRegister.openModalClient());
+  }
+  function closeModalClient() {
+    dispatch(ActionsRegister.closeModalClient());
   }
   return (
     <Container>
@@ -69,6 +123,7 @@ export default function CustomerRegistration({navigation}) {
                 setInputCnpj(text);
               }}
             />
+
             <TextNormal>Inscrição Estadual</TextNormal>
             <InputType
               placeholder="Inscrição Estadual"
@@ -110,18 +165,18 @@ export default function CustomerRegistration({navigation}) {
               }}
             />
             <TextNormal>Celular</TextNormal>
-            <InputType
+            <InputMaskCel
               placeholder="Celular"
-              valueInputText={inputMobile}
-              functionOnChangeText={text => {
+              valueInput={inputMobile}
+              onChangeText={text => {
                 setInputMobile(text);
               }}
             />
             <TextNormal>Telefone Fixo</TextNormal>
-            <InputType
+            <InputMaskCel
               placeholder="Telefone Fixo"
-              valueInputText={inputCellFix}
-              functionOnChangeText={text => {
+              valueInput={inputCellFix}
+              onChangeText={text => {
                 setInputCellFix(text);
               }}
             />
@@ -136,34 +191,53 @@ export default function CustomerRegistration({navigation}) {
             <InputClick
               icoName="angle-down"
               textPrimary="Endereço"
-              textSecundary="Cadastre os endereços"
+              textSecundary={textSecondary}
+              functionOnpressInput={() => {
+                openModalAddress();
+              }}
             />
-            {/* <InputClick
-              icoName="angle-down"
-              textPrimary="Endereço de cobrança"
-              textSecundary="Cadastre os endereços de cobrança"
-            />
-            <InputClick
-              icoName="angle-down"
-              textPrimary="Endereço de entrega"
-              textSecundary="Cadastre os endereços de entrega"
-            /> */}
+            {addressEqual ? (
+              <InputClick
+                icoName="angle-down"
+                textPrimary="Endereço de cobrança"
+                textSecundary="Cadastre os endereços de cobrança"
+                functionOnpressInput={() => {
+                  setModalAddress2(!modalAddress2);
+                }}
+              />
+            ) : null}
+            {addressEqual2 ? (
+              <InputClick
+                icoName="angle-down"
+                textPrimary="Endereço de entrega"
+                textSecundary="Cadastre os endereços de entrega"
+                functionOnpressInput={() => {
+                  setModalAddress3(!modalAddress3);
+                }}
+              />
+            ) : null}
+
             <InputClick
               icoName="angle-down"
               textPrimary="Fornecedores"
-              textSecundary="Cadastre os fornecedores"
+              textSecundary={textSecondary2}
+              functionOnpressInput={() => {
+                openModalProvider();
+              }}
             />
             <InputClick
               icoName="angle-down"
               textPrimary="Clientes"
-              textSecundary="Cadastre os clientes"
+              textSecundary={textSecondary3}
+              functionOnpressInput={() => {
+                openModalClient();
+              }}
             />
             <InputClick
               icoName="angle-down"
               textPrimary="Bancos"
               textSecundary="Cadastre os bancos"
             />
-
             <Button
               titleButton="CONFIRMAR"
               functionOnPress={() => {
@@ -174,7 +248,40 @@ export default function CustomerRegistration({navigation}) {
           </ContainerTotal>
         </ContainerBody>
       </ScrollView>
-      <ModalAddress />
+      <ModalAddress
+        modalVisible={modalAddress}
+        functionOnPressIcon={() => {
+          closeModalAddress();
+        }}
+      />
+      <ModalAddress
+        modalVisible={modalAddress2}
+        functionOnPressIcon={() => {
+          setModalAddress2(!modalAddress2);
+        }}
+        radiusExist={false}
+      />
+      <ModalAddress
+        modalVisible={modalAddress3}
+        functionOnPressIcon={() => {
+          setModalAddress3(!modalAddress3);
+        }}
+        radiusExist={false}
+      />
+      <ModalClient
+        modalExist={false}
+        modalVisible={modalProvider}
+        functionOnPressIcon={() => {
+          closeModalProvider();
+        }}
+      />
+      <ModalClient
+        modalExist
+        modalVisible={modalClient}
+        functionOnPressIcon={() => {
+          closeModalClient();
+        }}
+      />
     </Container>
   );
 }
