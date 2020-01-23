@@ -22,7 +22,7 @@ export default function ModalAddress({
   radiusExist,
 }) {
   const dispatch = useDispatch();
-  const {address} = useSelector(state => state.registerclient);
+  const {address, newData} = useSelector(state => state.registerclient);
   const [inputCep, setInputCep] = useState();
   const [inputAddress, setInputAddress] = useState();
   const [inputNumber, setInputNumber] = useState();
@@ -36,9 +36,23 @@ export default function ModalAddress({
   const [radius1, setRadius1] = useState(false);
   const [radius2, setRadius2] = useState(false);
   useEffect(() => {
+    if (newData !== null) {
+      setInputCep();
+      setInputAddress();
+      setInputNumber();
+      setInputDistrict();
+      setInputCity();
+      setInputUf();
+      setInputComplement();
+      setParent();
+      setRadius1(false);
+      setRadius2(false);
+    }
+  }, [newData]);
+  useEffect(() => {
     if (address !== null) {
       setCodCity(address.ibge.substring(3, 7));
-      setCodParent(1058);
+      setCodParent('1058');
       setParent('Brasil');
       setInputAddress(address.logradouro);
       setInputDistrict(address.bairro);

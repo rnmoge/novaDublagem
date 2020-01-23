@@ -14,7 +14,6 @@ export const ContainerBody = styled.View`
 `;
 export const ContainerRadius = styled.View`
   flex-direction: row;
-  justify-content: center;
 `;
 
 export const AreaIcon = styled.TouchableOpacity`

@@ -6,6 +6,9 @@ import InputType from '../../components/InputType';
 import Button from '../../components/Button';
 import ModalAddress from '../../components/ModalAddress';
 import ModalClient from '../../components/ModalClient';
+import ModalBank from '../../components/ModalBank';
+import ModalInfoClient from '../../components/ModalInfoClient';
+import Confirmation from '../../components/Confirmation';
 import InputMask from '../../components/InputMaskCNPJ';
 import InputMaskCel from '../../components/InputMaskCel';
 import InputClick from '../../components/InputClick';
@@ -17,60 +20,100 @@ import * as ActionsRegister from '../../store/modules/registerclient/actions';
 
 export default function CustomerRegistration({navigation}) {
   const dispatch = useDispatch();
+  const {loading} = useSelector(state => state.common);
   const {
-    modalAddress,
     addressApi,
     clientsApi,
     providersApi,
+    banksApi,
+    infoApi,
+    modalAddress,
     modalProvider,
     modalClient,
+    modalBank,
+    modalInfo,
+    newData,
   } = useSelector(state => state.registerclient);
-  console.tron.log(addressApi);
-  console.tron.log(clientsApi);
-  console.tron.log(providersApi);
+  console.tron.log('newData');
+  console.tron.log(newData);
   const [inputRazon, setInpuRazon] = useState();
   const [textSecondary, setTextSecondary] = useState('Cadastre os endereços');
   const [textSecondary2, setTextSecondary2] = useState(
     'Cadastre os fornecedores'
   );
-  const [textSecondary3, setTextSecondary3] = useState('Cadastre os clientes');
-  const [inputName, setInpuName] = useState();
-  const [inputCnpj, setInputCnpj] = useState();
-  const [inputSubscriptionOne, setInputSubscriptionOne] = useState();
-  const [inputSubscriptionTwo, setInputSubscriptionTwo] = useState();
+  // const [textSecondary3, setTextSecondary3] = useState('Cadastre os clientes');
+  // const [textSecondary4, setTextSecondary4] = useState('Cadastre os bancos');
+  // const [textSecondary5, setTextSecondary5] = useState(
+  //   'Cadastre outras informações'
+  // );
+  const [inputName, setInpuName] = useState(null);
+  const [inputCnpj, setInputCnpj] = useState(null);
+  const [inputSubscriptionOne, setInputSubscriptionOne] = useState(null);
+  const [inputSubscriptionTwo, setInputSubscriptionTwo] = useState(null);
   const [suffrage, setSuffrage] = useState(false);
   const [InputExist, setInputExist] = useState(false);
   const [modalAddress2, setModalAddress2] = useState(false);
   const [modalAddress3, setModalAddress3] = useState(false);
-  const [modalBank, setModalBank] = useState(false);
+  const [modalConfirmation, setModalConfirmation] = useState(false);
   const [addressEqual, setAddressEqual] = useState(false);
   const [addressEqual2, setAddressEqual2] = useState(false);
-  const [inputSuffrage, setinputSuffrage] = useState();
-  const [inputContat, setInputContat] = useState();
-  const [inputMobile, setInputMobile] = useState();
-  const [inputCellFix, setInputCellFix] = useState();
-  const [inputEmail, setInputEmail] = useState();
+  const [inputSuffrage, setinputSuffrage] = useState(null);
+  const [inputContat, setInputContat] = useState(null);
+  const [inputMobile, setInputMobile] = useState(null);
+  const [inputCellFix, setInputCellFix] = useState(null);
+  const [inputEmail, setInputEmail] = useState(null);
   useEffect(() => {
     if (addressApi !== null) {
       setTextSecondary('Cadastrado');
+    } else {
+      setTextSecondary('Cadastre os endereços');
     }
   }, [addressApi]);
-  useEffect(() => {
-    if (clientsApi !== null) {
-      setTextSecondary3('Cadastrado');
-    }
-  }, [clientsApi]);
+  // useEffect(() => {
+  //   if (clientsApi !== null) {
+  //     setTextSecondary3('Cadastrado');
+  //   }
+  // }, [clientsApi]);
   useEffect(() => {
     if (providersApi !== null) {
       setTextSecondary2('Cadastrado');
+    } else {
+      setTextSecondary2('Cadastre os fornecedores');
     }
   }, [providersApi]);
+  // useEffect(() => {
+  //   if (banksApi !== null) {
+  //     setTextSecondary4('Cadastrado');
+  //   }
+  // }, [banksApi]);
+  // useEffect(() => {
+  //   if (infoApi !== null) {
+  //     setTextSecondary5('Cadastrado');
+  //   }
+  // }, [infoApi]);
   function exchangeRadius() {
     setSuffrage(!suffrage);
     setInputExist(!InputExist);
   }
   function registerClient() {
-    console.tron.log('entrou register');
+    setModalConfirmation(!modalConfirmation);
+    dispatch(
+      ActionsRegister.saveClientTotal(
+        inputRazon,
+        inputName,
+        inputCnpj,
+        inputSubscriptionOne,
+        inputSubscriptionTwo,
+        suffrage,
+        inputSuffrage,
+        inputContat,
+        inputCellFix,
+        inputEmail,
+        inputMobile,
+        addressApi,
+        providersApi
+      )
+    );
   }
   function openModalAddress() {
     dispatch(ActionsRegister.openModalAddress());
@@ -84,11 +127,35 @@ export default function CustomerRegistration({navigation}) {
   function closeModalProvider() {
     dispatch(ActionsRegister.closeModalProvider());
   }
-  function openModalClient() {
-    dispatch(ActionsRegister.openModalClient());
-  }
-  function closeModalClient() {
-    dispatch(ActionsRegister.closeModalClient());
+  // function openModalClient() {
+  //   dispatch(ActionsRegister.openModalClient());
+  // }
+  // function closeModalClient() {
+  //   dispatch(ActionsRegister.closeModalClient());
+  // }
+  // function openModalBank() {
+  //   dispatch(ActionsRegister.openModalBank());
+  // }
+  // function closeModalBank() {
+  //   dispatch(ActionsRegister.closeModalBank());
+  // }
+  // function openModalInfo() {
+  //   dispatch(ActionsRegister.openModalInfo());
+  // }
+  // function closeModalInfo() {
+  //   dispatch(ActionsRegister.closeModalInfo());
+  // }
+  function closeModal() {
+    setModalConfirmation(!modalConfirmation);
+    setInpuName();
+    setInputCnpj();
+    setInpuRazon();
+    setInputSubscriptionOne();
+    setInputSubscriptionTwo();
+    setinputSuffrage();
+    setTextSecondary2('Cadastre os fornecedores');
+    setTextSecondary('Cadastre os endereços');
+    dispatch(ActionsRegister.cleanModals());
   }
   return (
     <Container>
@@ -188,6 +255,14 @@ export default function CustomerRegistration({navigation}) {
                 setInputEmail(text);
               }}
             />
+            {/* <InputClick
+              icoName="angle-down"
+              textPrimary="Outras informações"
+              textSecundary={textSecondary5}
+              functionOnpressInput={() => {
+                openModalInfo();
+              }}
+            /> */}
             <InputClick
               icoName="angle-down"
               textPrimary="Endereço"
@@ -225,19 +300,22 @@ export default function CustomerRegistration({navigation}) {
                 openModalProvider();
               }}
             />
-            <InputClick
+            {/* <InputClick
               icoName="angle-down"
               textPrimary="Clientes"
               textSecundary={textSecondary3}
               functionOnpressInput={() => {
                 openModalClient();
               }}
-            />
-            <InputClick
+            /> */}
+            {/* <InputClick
               icoName="angle-down"
               textPrimary="Bancos"
-              textSecundary="Cadastre os bancos"
-            />
+              textSecundary={textSecondary4}
+              functionOnpressInput={() => {
+                openModalBank();
+              }}
+            /> */}
             <Button
               titleButton="CONFIRMAR"
               functionOnPress={() => {
@@ -275,13 +353,35 @@ export default function CustomerRegistration({navigation}) {
           closeModalProvider();
         }}
       />
-      <ModalClient
+      {/* <ModalClient
         modalExist
         modalVisible={modalClient}
         functionOnPressIcon={() => {
           closeModalClient();
         }}
       />
+      <ModalBank
+        modalExist
+        modalVisible={modalBank}
+        functionOnPressIcon={() => {
+          closeModalBank();
+        }}
+      />
+      <ModalInfoClient
+        modalVisible={modalInfo}
+        functionOnPressIcon={() => {
+          closeModalInfo();
+        }}
+      /> */}
+      {/* <Confirmation
+        modalVisible={modalConfirmation}
+        nameIcon="check-circle"
+        functionOnPressButton={() => {
+          closeModal();
+        }}
+        loading={loading}
+        data={newData}
+      /> */}
     </Container>
   );
 }

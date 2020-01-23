@@ -28,6 +28,26 @@ export function closeModalClient() {
     type: '@client/CLOSE_MODAL_CLIENT',
   };
 }
+export function openModalBank() {
+  return {
+    type: '@client/OPEN_MODAL_BANK',
+  };
+}
+export function closeModalBank() {
+  return {
+    type: '@client/CLOSE_MODAL_BANK',
+  };
+}
+export function openModalInfo() {
+  return {
+    type: '@client/OPEN_MODAL_INFO',
+  };
+}
+export function closeModalInfo() {
+  return {
+    type: '@client/CLOSE_MODAL_INFO',
+  };
+}
 export function requestCep(cep) {
   return {
     type: '@client/REQUEST_CEP',
@@ -145,5 +165,114 @@ export function saveProviderSucess(data) {
   return {
     type: '@client/SAVE_PROVIDER_SUCESS',
     payload: {data},
+  };
+}
+export function saveBank(
+  NameBank1,
+  Agency1,
+  Manager1,
+  Time1,
+  NameBank2,
+  Agency2,
+  Manager2,
+  Time2,
+  NameBank3,
+  Agency3,
+  Manager3,
+  Time3
+) {
+  return {
+    type: '@client/SAVE_BANK',
+    payload: {
+      NameBank1,
+      Agency1,
+      Manager1,
+      Time1,
+      NameBank2,
+      Agency2,
+      Manager2,
+      Time2,
+      NameBank3,
+      Agency3,
+      Manager3,
+      Time3,
+    },
+  };
+}
+export function saveBankSucess(data) {
+  return {
+    type: '@client/SAVE_BANK_SUCESS',
+    payload: {data},
+  };
+}
+export function saveInfo(
+  Time,
+  NumberWork,
+  Headquarters,
+  Age,
+  Production,
+  Billing
+) {
+  return {
+    type: '@client/SAVE_INFO',
+    payload: {
+      Time,
+      NumberWork,
+      Headquarters,
+      Age,
+      Production,
+      Billing,
+    },
+  };
+}
+export function saveInfoSucess(data) {
+  return {
+    type: '@client/SAVE_INFO_SUCESS',
+    payload: {data},
+  };
+}
+export function saveClientTotal(
+  Razon,
+  Name,
+  Cnpj,
+  SubscriptionOne,
+  SubscriptionTwo,
+  suffrage,
+  SuffrageInput,
+  Contat,
+  CellFix,
+  Email,
+  Mobile,
+  clienteEnderecos,
+  clienteFornecedores
+) {
+  return {
+    type: '@client/SAVE_CLIENT_TOTAL',
+    payload: {
+      Razon,
+      Name,
+      Cnpj,
+      SubscriptionOne,
+      SubscriptionTwo,
+      suffrage,
+      SuffrageInput,
+      Contat,
+      CellFix,
+      Email,
+      Mobile,
+      clienteEnderecos,
+      clienteFornecedores,
+    },
+  };
+}
+export function saveClientTotalSucess(data) {
+  return {
+    type: '@client/SAVE_CLIENT_TOTAL_SUCESS',
+    payload: {data},
+  };
+}
+export function cleanModals() {
+  return {
+    type: '@client/CLEAN_MODALS',
   };
 }

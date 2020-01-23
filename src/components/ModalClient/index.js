@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import InputType from '../InputType';
 import InputMaskCel from '../InputMaskCel';
 import Button from '../Button';
+import Radius from '../Radius';
 import {TextNormal, TextBold} from '../../styles/fonts';
 import * as ActionsRegister from '../../store/modules/registerclient/actions';
 import {
@@ -13,15 +14,16 @@ import {
   AreaIcon,
   Icon,
   ContainerBody,
+  ContainerRadius,
 } from './styles';
 
 export default function ModalClient({
   modalExist,
   modalVisible,
   functionOnPressIcon,
-  functionOnPressButton,
 }) {
   const dispatch = useDispatch();
+  const {newData} = useSelector(state => state.registerclient);
   const [inputRazonClient1, setInputRazonClient1] = useState();
   const [inputRazonClient2, setInputRazonClient2] = useState(null);
   const [inputRazonClient3, setInputRazonClient3] = useState(null);
@@ -40,6 +42,21 @@ export default function ModalClient({
   const [inputBuyProvider1, setInputBuyProvider1] = useState(null);
   const [inputBuyProvider2, setInputBuyProvider2] = useState(null);
   const [inputBuyProvider3, setInputBuyProvider3] = useState(null);
+  const [openNewProvider1, setOpenNewProvider1] = useState(false);
+  useEffect(() => {
+    if (newData !== null) {
+      setInputRazonProvider1(null);
+      setInputRazonProvider2(null);
+      setInputRazonProvider3(null);
+      setInputMobileProvider1(null);
+      setInputMobileProvider2(null);
+      setInputMobileProvider3(null);
+      setInputBuyProvider1(null);
+      setInputBuyProvider2(null);
+      setInputBuyProvider3(null);
+      setOpenNewProvider1(false);
+    }
+  }, [newData]);
   function saveClients() {
     if (inputRazonClient2 === null) {
       console.tron.log('entrou1');
@@ -96,6 +113,9 @@ export default function ModalClient({
     );
     dispatch(ActionsRegister.closeModalProvider());
   }
+  function openNewProvider() {
+    setOpenNewProvider1(!openNewProvider1);
+  }
   return (
     <Container>
       <Modal visible={modalVisible} animationType="slide">
@@ -129,9 +149,9 @@ export default function ModalClient({
                 }}
               />
 
-              <TextNormal>Compra Mensal</TextNormal>
+              <TextNormal>Venda Mensal</TextNormal>
               <InputType
-                placeholder="Compra Mensal"
+                placeholder="Venda Mensal"
                 valueInputText={inputBuyClient1}
                 functionOnChangeText={text => {
                   setInputBuyClient1(text);
@@ -147,7 +167,7 @@ export default function ModalClient({
 
                 <TextBold>Adicionar cliente</TextBold>
               </ContainerBody> */}
-
+              <Radius />
               <TextBold>Cliente 2</TextBold>
               <TextNormal>Razão Social</TextNormal>
               <InputType
@@ -166,9 +186,9 @@ export default function ModalClient({
                 }}
               />
 
-              <TextNormal>Compra Mensal</TextNormal>
+              <TextNormal>Venda Mensal</TextNormal>
               <InputType
-                placeholder="Compra Mensal"
+                placeholder="Venda Mensal"
                 valueInputText={inputBuyClient2}
                 functionOnChangeText={text => {
                   setInputBuyClient2(text);
@@ -191,10 +211,9 @@ export default function ModalClient({
                   setInputMobileClient3(text);
                 }}
               />
-
-              <TextNormal>Compra Mensal</TextNormal>
+              <TextNormal>Venda Mensal</TextNormal>
               <InputType
-                placeholder="Compra Mensal"
+                placeholder="Venda Mensal"
                 valueInputText={inputBuyClient3}
                 functionOnChangeText={text => {
                   setInputBuyClient3(text);
@@ -237,56 +256,74 @@ export default function ModalClient({
                   setInputBuyProvider1(text);
                 }}
               />
-              <TextBold>Fornecedor 2</TextBold>
-              <TextNormal>Razão Social</TextNormal>
-              <InputType
-                placeholder="Razão Social"
-                valueInputText={inputRazonProvider2}
-                functionOnChangeText={text => {
-                  setInputRazonProvider2(text);
-                }}
-              />
-              <TextNormal>Telefone</TextNormal>
-              <InputMaskCel
-                placeholder="Telefone"
-                valueInput={inputMobileProvider2}
-                onChangeText={text => {
-                  setInputMobileProvider2(text);
-                }}
-              />
-              <TextNormal>Compra Mensal</TextNormal>
-              <InputType
-                placeholder="Compra Mensal"
-                valueInputText={inputBuyProvider2}
-                functionOnChangeText={text => {
-                  setInputBuyProvider2(text);
-                }}
-              />
-              <TextBold>Fornecedor 3</TextBold>
-              <TextNormal>Razão Social</TextNormal>
-              <InputType
-                placeholder="Razão Social"
-                valueInputText={inputRazonProvider3}
-                functionOnChangeText={text => {
-                  setInputRazonProvider3(text);
-                }}
-              />
-              <TextNormal>Telefone</TextNormal>
-              <InputMaskCel
-                placeholder="Telefone"
-                valueInput={inputMobileProvider3}
-                onChangeText={text => {
-                  setInputMobileProvider3(text);
-                }}
-              />
-              <TextNormal>Compra Mensal</TextNormal>
-              <InputType
-                placeholder="Compra Mensal"
-                valueInputText={inputBuyProvider3}
-                functionOnChangeText={text => {
-                  setInputBuyProvider3(text);
-                }}
-              />
+              <ContainerRadius>
+                <Radius
+                  functionOnPress={() => {
+                    openNewProvider();
+                  }}
+                  nameIcon={openNewProvider1 ? 'times' : 'plus'}
+                  text={
+                    openNewProvider1
+                      ? 'Não adicionar fornecedores'
+                      : 'Adicionar Fornecedores'
+                  }
+                />
+              </ContainerRadius>
+              {openNewProvider1 ? (
+                <>
+                  <TextBold>Fornecedor 2</TextBold>
+                  <TextNormal>Razão Social</TextNormal>
+                  <InputType
+                    placeholder="Razão Social"
+                    valueInputText={inputRazonProvider2}
+                    functionOnChangeText={text => {
+                      setInputRazonProvider2(text);
+                    }}
+                  />
+                  <TextNormal>Telefone</TextNormal>
+                  <InputMaskCel
+                    placeholder="Telefone"
+                    valueInput={inputMobileProvider2}
+                    onChangeText={text => {
+                      setInputMobileProvider2(text);
+                    }}
+                  />
+                  <TextNormal>Compra Mensal</TextNormal>
+                  <InputType
+                    placeholder="Compra Mensal"
+                    valueInputText={inputBuyProvider2}
+                    functionOnChangeText={text => {
+                      setInputBuyProvider2(text);
+                    }}
+                  />
+                  <TextBold>Fornecedor 3</TextBold>
+                  <TextNormal>Razão Social</TextNormal>
+                  <InputType
+                    placeholder="Razão Social"
+                    valueInputText={inputRazonProvider3}
+                    functionOnChangeText={text => {
+                      setInputRazonProvider3(text);
+                    }}
+                  />
+                  <TextNormal>Telefone</TextNormal>
+                  <InputMaskCel
+                    placeholder="Telefone"
+                    valueInput={inputMobileProvider3}
+                    onChangeText={text => {
+                      setInputMobileProvider3(text);
+                    }}
+                  />
+                  <TextNormal>Compra Mensal</TextNormal>
+                  <InputType
+                    placeholder="Compra Mensal"
+                    valueInputText={inputBuyProvider3}
+                    functionOnChangeText={text => {
+                      setInputBuyProvider3(text);
+                    }}
+                  />
+                </>
+              ) : null}
+
               <Button
                 titleButton="CONFIRMAR"
                 functionOnPress={() => {
@@ -305,11 +342,9 @@ ModalClient.propTypes = {
   modalVisible: PropTypes.bool,
   modalExist: PropTypes.bool,
   functionOnPressIcon: PropTypes.func,
-  functionOnPressButton: PropTypes.func,
 };
 ModalClient.defaultProps = {
   modalVisible: false,
   modalExist: true,
   functionOnPressIcon: () => {},
-  functionOnPressButton: () => {},
 };

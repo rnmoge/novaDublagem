@@ -3,7 +3,7 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 
 export const Container = styled.View`
   /* flex: 1; */
-  /* background: #f89; */
+  background: #707070;
   justify-content: center;
   align-items: center;
 `;

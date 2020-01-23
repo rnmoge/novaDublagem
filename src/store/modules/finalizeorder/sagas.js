@@ -109,7 +109,7 @@ function* saveOrderTotalSaga(action) {
       desconto_percent: descont,
       tipo_frete: 4,
       pedido_industria: null,
-      tipo_pedido: null,
+      tipo_pedido: 0,
       redespacho_id: null,
       transportadora_id: Number(transpoId),
       created_at: null,
@@ -197,6 +197,7 @@ function* saveOrderTotalSaga(action) {
     );
     yield put(commonActionSucess());
   } catch (err) {
+    console.tron.log('entou aqui');
     yield put(commonActionFailure('Erro ao Gravar o pedido'));
   }
 }

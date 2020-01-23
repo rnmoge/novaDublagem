@@ -3,8 +3,8 @@ import {Modal, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import InputType from '../InputType';
+import InputMaskCel from '../InputMaskCel';
 import Button from '../Button';
-import Radius from '../Radius';
 import {TextNormal, TextBold} from '../../styles/fonts';
 import * as ActionsRegister from '../../store/modules/registerclient/actions';
 import {
@@ -32,10 +32,38 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
   const [inputTime1, setInputTime1] = useState(null);
   const [inputTime2, setInputTime2] = useState(null);
   const [inputTime3, setInputTime3] = useState(null);
-
   function saveBanks() {
-    dispatch(ActionsRegister.saveAddress());
-    dispatch(ActionsRegister.closeModalAddress());
+    if (inputNameBank2 === null) {
+      setInputNameBank2(null);
+      setInputAgency2(null);
+      setInputMobile2(null);
+      setInputManager2(null);
+      setInputTime2(null);
+    }
+    if (inputNameBank3 === null) {
+      setInputNameBank3(null);
+      setInputAgency3(null);
+      setInputMobile3(null);
+      setInputManager3(null);
+      setInputTime3(null);
+    }
+    dispatch(
+      ActionsRegister.saveBank(
+        inputNameBank1,
+        inputAgency1,
+        inputManager1,
+        inputTime1,
+        inputNameBank2,
+        inputAgency2,
+        inputManager2,
+        inputTime2,
+        inputNameBank3,
+        inputAgency3,
+        inputManager3,
+        inputTime3
+      )
+    );
+    dispatch(ActionsRegister.closeModalBank());
   }
   return (
     <Container>
@@ -47,7 +75,7 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
             }}>
             <Icon name="times" />
           </AreaIcon>
-          <TextBold>Endereço</TextBold>
+          <TextBold>Bancos</TextBold>
         </ContainerHeader>
         <ScrollView>
           <ContainerBody>
@@ -68,14 +96,6 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
                 setInputAgency1(text);
               }}
             />
-            <TextNormal>Telefone</TextNormal>
-            <InputType
-              placeholder="Telefone"
-              valueInputText={inputMobile1}
-              functionOnChangeText={text => {
-                setInputMobile1(text);
-              }}
-            />
 
             <TextNormal>Gerente</TextNormal>
             <InputType
@@ -87,7 +107,7 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
             />
             <TextNormal>Quanto tempo?</TextNormal>
             <InputType
-              placeholder="Cidade"
+              placeholder="Quanto tempo"
               valueInputText={inputTime1}
               functionOnChangeText={text => {
                 setInputTime1(text);
@@ -110,14 +130,6 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
                 setInputAgency2(text);
               }}
             />
-            <TextNormal>Telefone</TextNormal>
-            <InputType
-              placeholder="Telefone"
-              valueInputText={inputMobile2}
-              functionOnChangeText={text => {
-                setInputMobile2(text);
-              }}
-            />
 
             <TextNormal>Gerente</TextNormal>
             <InputType
@@ -129,7 +141,7 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
             />
             <TextNormal>Quanto tempo?</TextNormal>
             <InputType
-              placeholder="Cidade"
+              placeholder="Quanto tempo"
               valueInputText={inputTime2}
               functionOnChangeText={text => {
                 setInputTime2(text);
@@ -152,14 +164,6 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
                 setInputAgency3(text);
               }}
             />
-            <TextNormal>Telefone</TextNormal>
-            <InputType
-              placeholder="Telefone"
-              valueInputText={inputMobile3}
-              functionOnChangeText={text => {
-                setInputMobile3(text);
-              }}
-            />
 
             <TextNormal>Gerente</TextNormal>
             <InputType
@@ -171,7 +175,7 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
             />
             <TextNormal>Quanto tempo?</TextNormal>
             <InputType
-              placeholder="Cidade"
+              placeholder="Quanto tempo"
               valueInputText={inputTime3}
               functionOnChangeText={text => {
                 setInputTime3(text);
@@ -192,11 +196,9 @@ export default function ModalBank({modalVisible, functionOnPressIcon}) {
 }
 ModalBank.propTypes = {
   modalVisible: PropTypes.bool,
-  radiusExist: PropTypes.bool,
   functionOnPressIcon: PropTypes.func,
 };
 ModalBank.defaultProps = {
   modalVisible: false,
-  radiusExist: true,
   functionOnPressIcon: () => {},
 };
