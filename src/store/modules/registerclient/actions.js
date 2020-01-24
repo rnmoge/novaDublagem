@@ -103,6 +103,12 @@ export function saveAddressSucess(data) {
     payload: {data},
   };
 }
+export function addressExist(state1, state2) {
+  return {
+    type: '@client/ADDRESS_EXIST',
+    payload: {state1, state2},
+  };
+}
 export function saveClient(
   RazonClient1,
   MobileClient1,
@@ -274,5 +280,10 @@ export function saveClientTotalSucess(data) {
 export function cleanModals() {
   return {
     type: '@client/CLEAN_MODALS',
+  };
+}
+export function cleanData() {
+  return {
+    type: '@client/CLEAN_DATA',
   };
 }

@@ -40,3 +40,8 @@ export const TextRegular = styled.Text.attrs({
   color: #fff;
   font-size: 16px;
 `;
+export const ContainerError = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

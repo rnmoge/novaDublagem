@@ -10,13 +10,14 @@ export const List = styled.FlatList``;
 export const FlatList = styled.FlatList``;
 
 export const Card = styled.View`
-  height: 120px;
+  height: 150px;
   width: 100%;
   background: #fff;
   justify-content: center;
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 8px;
+  elevation: 5px;
 `;
 export const TextRegular = styled.Text.attrs({
   numberOfLines: 1,

@@ -2,6 +2,7 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
   orders: null,
+  page: 1,
   order: [],
   date: '',
   newOrders: [],
@@ -11,6 +12,10 @@ export default function table(state = INITIAL_STATE, action) {
     case '@queryorder/REQUEST_ORDERS_SUCESS':
       return produce(state, draft => {
         draft.orders = action.payload.orders;
+      });
+    case '@queryorder/SET_PAGE_STATE':
+      return produce(state, draft => {
+        draft.page = action.payload.page;
       });
     case '@queryorder/ORDERS_SUCESS':
       return produce(state, draft => {

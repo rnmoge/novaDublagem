@@ -13,6 +13,7 @@ import {
   saveBankSucess,
   saveInfoSucess,
   saveClientTotalSucess,
+  addressExist,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -31,7 +32,7 @@ function* requestCepSaga(action) {
   });
   try {
     const {data} = yield call(api1.get, `/${cep}/json/`);
-    console.tron.log(data);
+   
     yield put(cepSucess(data));
     yield put(commonActionSucess());
   } catch (err) {
@@ -107,6 +108,7 @@ function* saveAddressSaga(action) {
 
     address.push(newAddress3);
   }
+  yield put(addressExist(equal1, equal2));
   yield put(saveAddressSucess(address));
 }
 function* saveClientsSaga(action) {
@@ -145,7 +147,7 @@ function* saveClientsSaga(action) {
     };
     newClients.push(clients3);
   }
-  console.tron.log(newClients);
+ 
   yield put(commonActionSucess());
   yield put(saveClientSucess(newClients));
 }
@@ -185,7 +187,7 @@ function* saveProviderSaga(action) {
     };
     newProviders.push(provider3);
   }
-  console.tron.log(newProviders);
+  
   yield put(commonActionSucess());
   yield put(saveProviderSucess(newProviders));
 }
@@ -231,7 +233,7 @@ function* saveBankSaga(action) {
     };
     newBanks.push(bank3);
   }
-  console.tron.log(newBanks);
+  
   yield put(commonActionSucess());
   yield put(saveBankSucess(newBanks));
 }
@@ -254,7 +256,7 @@ function* saveInfoSaga(action) {
     faturamento_mensal: Billing,
     tempo_endereco: Time,
   };
-  console.tron.log(newInfo);
+
   yield put(saveInfoSucess(newInfo));
 }
 function* saveClientTotalSaga(action) {
@@ -264,7 +266,7 @@ function* saveClientTotalSaga(action) {
   const {id} = user.cliente;
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
   token = JSON.parse(token);
-  console.tron.log(action.payload);
+  
 
   try {
     const {
@@ -308,7 +310,7 @@ function* saveClientTotalSaga(action) {
       clienteEnderecos,
       clienteFornecedores,
     };
-    console.tron.log(data);
+    
 
     const response = yield call(api.post, '/cliente', data, {
       headers: {
@@ -318,7 +320,7 @@ function* saveClientTotalSaga(action) {
     const razaoSocial = response.data.nome_razao;
     const newCnpj = response.data.cnpj;
     const newAddress = response.data.clienteEnderecos[0].endereco;
-    console.tron.log(response.data);
+  
     const newData = {
       razaoSocial,
       newCnpj,

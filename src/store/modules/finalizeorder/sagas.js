@@ -197,7 +197,6 @@ function* saveOrderTotalSaga(action) {
     );
     yield put(commonActionSucess());
   } catch (err) {
-    console.tron.log('entou aqui');
     yield put(commonActionFailure('Erro ao Gravar o pedido'));
   }
 }

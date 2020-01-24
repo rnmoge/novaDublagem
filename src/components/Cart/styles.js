@@ -15,3 +15,9 @@ export const ContainerValue = styled.View`
   elevation: 5px;
   border-radius: 8px;
 `;
+export const ContainerButton = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;

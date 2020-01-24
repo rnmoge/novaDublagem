@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 
 export const Container = styled.View`
-  flex: 1;
+  flex: 7;
   background: #eee;
 
   /* elevation: 5; */

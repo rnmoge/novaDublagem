@@ -22,29 +22,32 @@ export default function ModalAddress({
   radiusExist,
 }) {
   const dispatch = useDispatch();
-  const {address, newData} = useSelector(state => state.registerclient);
-  const [inputCep, setInputCep] = useState();
-  const [inputAddress, setInputAddress] = useState();
-  const [inputNumber, setInputNumber] = useState();
-  const [inputDistrict, setInputDistrict] = useState();
-  const [inputCity, setInputCity] = useState();
-  const [inputUf, setInputUf] = useState();
-  const [inputComplement, setInputComplement] = useState();
-  const [codCity, setCodCity] = useState();
-  const [codParent, setCodParent] = useState();
-  const [parent, setParent] = useState();
-  const [radius1, setRadius1] = useState(false);
-  const [radius2, setRadius2] = useState(false);
+  const {address, newData, address1, address2} = useSelector(
+    state => state.registerclient
+  );
+  const [inputCep, setInputCep] = useState(null);
+  const [inputAddress, setInputAddress] = useState(null);
+  const [inputNumber, setInputNumber] = useState(null);
+  const [inputDistrict, setInputDistrict] = useState(null);
+  const [inputCity, setInputCity] = useState(null);
+  const [inputUf, setInputUf] = useState(null);
+  const [inputComplement, setInputComplement] = useState(null);
+  const [codCity, setCodCity] = useState(null);
+  const [codParent, setCodParent] = useState(null);
+  const [parent, setParent] = useState(null);
+  const [radius1, setRadius1] = useState(true);
+  const [radius2, setRadius2] = useState(true);
+  const [disable, setDisable] = useState();
   useEffect(() => {
     if (newData !== null) {
-      setInputCep();
-      setInputAddress();
-      setInputNumber();
-      setInputDistrict();
-      setInputCity();
-      setInputUf();
-      setInputComplement();
-      setParent();
+      setInputCep(null);
+      setInputAddress(null);
+      setInputNumber(null);
+      setInputDistrict(null);
+      setInputCity(null);
+      setInputUf(null);
+      setInputComplement(null);
+      setParent(null);
       setRadius1(false);
       setRadius2(false);
     }
@@ -59,15 +62,28 @@ export default function ModalAddress({
       setInputCity(address.localidade);
       setInputUf(address.uf);
     } else {
-      setInputAddress();
-      setCodCity();
-      setCodParent();
-      setInputDistrict();
-      setInputCity();
-      setInputUf();
-      setInputCep();
+      setInputAddress(null);
+      setCodCity(null);
+      setCodParent(null);
+      setInputDistrict(null);
+      setInputCity(null);
+      setInputUf(null);
+      setInputCep(null);
     }
   }, [address]);
+  useEffect(() => {
+    if (
+      inputCep === null ||
+      inputAddress === null ||
+      inputDistrict === null ||
+      inputCity === null ||
+      inputUf === null
+    ) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+  }, [inputAddress, inputCep, inputCity, inputDistrict, inputNumber, inputUf]);
   function trocaRadius1() {
     setRadius1(!radius1);
   }
@@ -75,7 +91,6 @@ export default function ModalAddress({
     setRadius2(!radius2);
   }
   function saveAddress() {
-    console.tron.log('entrou');
     dispatch(
       ActionsRegister.saveAddress(
         inputCep,
@@ -95,7 +110,6 @@ export default function ModalAddress({
     dispatch(ActionsRegister.closeModalAddress());
   }
   function requestCep() {
-    console.tron.log('entri');
     dispatch(ActionsRegister.requestCep(inputCep));
   }
   return (
@@ -178,14 +192,14 @@ export default function ModalAddress({
               <ContainerRadius>
                 <Radius
                   text="Endereço igual para cobrança?"
-                  nameIcon={radius1 ? 'dot-circle' : 'circle'}
+                  nameIcon={radius1 ? 'circle' : 'dot-circle'}
                   functionOnPress={() => {
                     trocaRadius1();
                   }}
                 />
                 <Radius
                   text="Endereço igual para entrega?"
-                  nameIcon={radius2 ? 'dot-circle' : 'circle'}
+                  nameIcon={radius2 ? 'circle' : 'dot-circle'}
                   functionOnPress={() => {
                     trocaRadius2();
                   }}
@@ -198,7 +212,7 @@ export default function ModalAddress({
               functionOnPress={() => {
                 saveAddress();
               }}
-              disabledButton={false}
+              disabledButton={disable}
             />
           </ContainerBody>
         </ScrollView>

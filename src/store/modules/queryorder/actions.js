@@ -4,6 +4,12 @@ export function requestOrders(page) {
     payload: {page},
   };
 }
+export function setpageState(page) {
+  return {
+    type: '@queryorder/SET_PAGE_STATE',
+    payload: {page},
+  };
+}
 export function requestOrdersSucess(orders) {
   return {
     type: '@queryorder/REQUEST_ORDERS_SUCESS',

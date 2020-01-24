@@ -43,13 +43,13 @@ export default function Request({navigation}) {
             handleQueryOrders();
           }}
         />
-        <CardRequest
+        {/* <CardRequest
           text="Transmitir Pedidos"
           nameIcon="rss"
           functionOnPress={() => {
             handleTransmitOrders();
           }}
-        />
+        /> */}
       </ContainerPage>
     </Container>
   );

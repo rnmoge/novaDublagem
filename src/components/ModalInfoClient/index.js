@@ -37,7 +37,6 @@ export default function ModalInfoClient({modalVisible, functionOnPressIcon}) {
     setInputHeadquarters(0);
   }
   function saveAddress() {
-    console.tron.log('entrou');
     dispatch(
       ActionsRegister.saveInfo(
         inputTime,

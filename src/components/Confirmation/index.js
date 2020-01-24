@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {useDispatch, useSelector} from 'react-redux';
+
 import {FlatList, Modal, ActivityIndicator, Text} from 'react-native';
 import {
   Container,
@@ -10,6 +10,7 @@ import {
   TextBold,
   TextRegular,
   TextBoldTwo,
+  ContainerError,
 } from './styles';
 import Button from '../Button';
 
@@ -24,7 +25,19 @@ export default function Confirmation({
   functionOnPressText,
   data,
   loading,
+  error,
+  nameIconError,
 }) {
+  const [razon, setRazon] = useState();
+  const [cnpj, setCnpj] = useState();
+  const [address, setAddress] = useState();
+  useEffect(() => {
+    if (data !== null) {
+      setRazon(data.razaoSocial);
+      setCnpj(data.newCnpj);
+      setAddress(data.newAddress);
+    }
+  }, [data]);
   return (
     <Container>
       <Modal visible={modalVisible} animationType="slide">
@@ -34,23 +47,40 @@ export default function Confirmation({
           </AreaIcon>
         ) : (
           <ContainerHeader>
-            <AreaIcon>
-              <Icon name={nameIcon} />
-              <TextBold>CLIENTE ADICIONADO COM SUCESSO!</TextBold>
-              <TextRegular>Razão social:</TextRegular>
-              <TextBoldTwo>{data.razaoSocial}</TextBoldTwo>
-              <TextRegular>CNPJ:</TextRegular>
-              <TextBoldTwo>{data.newCnpj}</TextBoldTwo>
-              <TextRegular>Endereço Principal:</TextRegular>
-              <TextBoldTwo>{data.newAddress}</TextBoldTwo>
-            </AreaIcon>
-            <Button
-              titleButton="CONFIRMAR"
-              functionOnPress={() => {
-                functionOnPressButton();
-              }}
-              disabledButton={false}
-            />
+            {error ? (
+              <>
+                <ContainerError>
+                  <Icon name={nameIconError} />
+                  <TextBold>ERRO AO ADICIONAR O CLIENTE!</TextBold>
+                </ContainerError>
+                <Button
+                  titleButton="CONFIRMAR"
+                  functionOnPress={() => {
+                    functionOnPressButton();
+                  }}
+                  disabledButton={false}
+                />
+              </>
+            ) : (
+              <>
+                <AreaIcon>
+                  <Icon name={nameIcon} />
+                  <TextRegular>Razão social:</TextRegular>
+                  <TextBoldTwo>{razon}</TextBoldTwo>
+                  <TextRegular>CNPJ:</TextRegular>
+                  <TextBoldTwo>{cnpj}</TextBoldTwo>
+                  <TextRegular>Endereço Principal:</TextRegular>
+                  <TextBoldTwo>{address}</TextBoldTwo>
+                </AreaIcon>
+                <Button
+                  titleButton="CONFIRMAR"
+                  functionOnPress={() => {
+                    functionOnPressButton();
+                  }}
+                  disabledButton={false}
+                />
+              </>
+            )}
           </ContainerHeader>
         )}
       </Modal>
@@ -60,6 +90,7 @@ export default function Confirmation({
 Modal.propTypes = {
   placeholder: PropTypes.string,
   nameIcon: PropTypes.string,
+  nameIconError: PropTypes.string,
   nameIconTwo: PropTypes.string,
   modalVisible: PropTypes.bool,
   functionOnPressButton: PropTypes.func,
@@ -67,13 +98,16 @@ Modal.propTypes = {
   functionOnChangeText: PropTypes.func,
   functionOnPressText: PropTypes.func,
   loading: PropTypes.bool,
+  error: PropTypes.bool,
 };
 Modal.defaultProps = {
   nameIcon: 'times',
+  nameIconError: 'times',
   nameIconTwo: 'search',
   placeholder: 'TesteModal',
   modalVisible: false,
   loading: true,
+  error: false,
   functionOnPressButton: () => {},
   functionOnPressRight: () => {},
   functionOnChangeText: () => {},

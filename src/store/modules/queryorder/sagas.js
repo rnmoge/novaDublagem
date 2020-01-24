@@ -6,6 +6,7 @@ import {
   requestOrdersSucess,
   selectOrderSucess,
   dateBillingSucess,
+  setpageState,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -15,10 +16,13 @@ import {
 import {reponseApi, priceTotal} from '../finalizeorder/actions';
 import {navigate} from '../../../services/navigation';
 
-function* requestOrdersSaga() {
+function* requestOrdersSaga(action) {
   yield put(commonLoadingActivityOn());
   let user = yield call(AsyncStorage.getItem, '@novaDublagem:user');
   user = JSON.parse(user);
+  const {page} = action.payload;
+  console.tron.log('page');
+  console.tron.log(page);
   const idRepre = user.cliente.id;
   // pedidorepre?representante=7
   try {
@@ -26,7 +30,7 @@ function* requestOrdersSaga() {
     token = JSON.parse(token);
     const {data} = yield call(
       api.get,
-      `/pedidorepre?representante=${idRepre}`,
+      `/pedidorepre?representante=${idRepre}&page=${page}&pageSize=20`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -38,7 +42,12 @@ function* requestOrdersSaga() {
 
     const newOrders = [];
     for (let i = 0; i < orders.length; i += 1) {
-      const {id, pedido_cod: pedidoCod, emissao} = orders[i];
+      const {
+        id,
+        pedido_cod: pedidoCod,
+        emissao,
+        situacao: situacaoCod,
+      } = orders[i];
       const {nome_razao: nomeRazao, cnpj} = orders[i].cliente;
       const order2 = {
         id,
@@ -46,10 +55,15 @@ function* requestOrdersSaga() {
         cnpj,
         pedidoCod,
         emissao,
+        situacaoCod,
       };
       newOrders.push(order2);
     }
+    const newPage = page + 1;
+    console.tron.log(newPage);
+    console.tron.log('newPage');
 
+    yield put(setpageState(newPage));
     yield put(requestOrdersSucess(newOrders));
     yield put(commonActionSucess());
   } catch (err) {

@@ -43,6 +43,7 @@ export default function ModalClient({
   const [inputBuyProvider2, setInputBuyProvider2] = useState(null);
   const [inputBuyProvider3, setInputBuyProvider3] = useState(null);
   const [openNewProvider1, setOpenNewProvider1] = useState(false);
+  const [disable, setDisable] = useState(true);
   useEffect(() => {
     if (newData !== null) {
       setInputRazonProvider1(null);
@@ -59,13 +60,11 @@ export default function ModalClient({
   }, [newData]);
   function saveClients() {
     if (inputRazonClient2 === null) {
-      console.tron.log('entrou1');
       setInputRazonClient2(null);
       setInputMobileClient2(null);
       setInputBuyProvider2(null);
     }
     if (inputRazonClient3 === null) {
-      console.tron.log('entrou1');
       setInputRazonClient3(null);
       setInputMobileClient3(null);
       setInputBuyProvider3(null);
@@ -87,13 +86,11 @@ export default function ModalClient({
   }
   function saveProviders() {
     if (inputRazonProvider2 === null) {
-      console.tron.log('entrou1');
       setInputRazonProvider2(null);
       setInputMobileProvider2(null);
       setInputBuyProvider2(null);
     }
     if (inputRazonProvider3 === null) {
-      console.tron.log('entrou1');
       setInputRazonProvider3(null);
       setInputMobileProvider3(null);
       setInputBuyProvider3(null);
@@ -116,6 +113,17 @@ export default function ModalClient({
   function openNewProvider() {
     setOpenNewProvider1(!openNewProvider1);
   }
+  useEffect(() => {
+    if (
+      inputBuyProvider1 === null ||
+      inputMobileClient1 === null ||
+      inputRazonClient1 === null
+    ) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+  }, [inputBuyProvider1, inputMobileClient1, inputRazonClient1]);
   return (
     <Container>
       <Modal visible={modalVisible} animationType="slide">
@@ -160,7 +168,7 @@ export default function ModalClient({
               {/* <ContainerBody>
                 <AreaIcon
                   onPress={() => {
-                    console.tron.log('entj');
+
                   }}>
                   <Icon name="plus" />
                 </AreaIcon>
@@ -224,7 +232,7 @@ export default function ModalClient({
                 functionOnPress={() => {
                   saveClients();
                 }}
-                disabledButton={false}
+                disabledButton={disable}
               />
             </ContainerBody>
           </ScrollView>

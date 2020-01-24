@@ -2,7 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {Modal, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Container, ContainerBody, ContainerValue} from './styles';
+import {
+  Container,
+  ContainerBody,
+  ContainerValue,
+  ContainerButton,
+} from './styles';
 import Header from '../Header';
 import ModalTransport from '../ModalTransport';
 import CardCart from '../CardCart';
@@ -108,29 +113,38 @@ export default function({functionOnPressIcon}) {
             }}
           />
           {products.length !== 0 ? (
-            <ContainerValue>
-              <ContainerText>
-                <TextRegular>
-                  Valor Total: <TextBold>R${valueState}</TextBold>
-                </TextRegular>
-              </ContainerText>
-              <ContainerText>
-                <TextRegular>
-                  Quantidade total: <TextBold>{quantState}</TextBold>
-                </TextRegular>
-              </ContainerText>
-            </ContainerValue>
-          ) : (
-            <TextRegular />
-          )}
-
-          <Button
-            titleButton="SALVAR E ENVIAR"
-            disabledButton={disable}
-            functionOnPress={() => {
-              transportOpen();
-            }}
-          />
+            <>
+              <ContainerValue>
+                <ContainerText>
+                  <TextRegular>
+                    Valor Total: <TextBold>R${valueState}</TextBold>
+                  </TextRegular>
+                </ContainerText>
+                <ContainerText>
+                  <TextRegular>
+                    Quantidade total: <TextBold>{quantState}</TextBold>
+                  </TextRegular>
+                </ContainerText>
+              </ContainerValue>
+              <ContainerButton>
+                <Button
+                  titleButton="SALVAR E ENVIAR"
+                  disabledButton={disable}
+                  functionOnPress={() => {
+                    transportOpen();
+                  }}
+                />
+                {/* <TextBold>OU</TextBold> */}
+                <Button
+                  titleButton="SALVAR APENAS"
+                  disabledButton
+                  functionOnPress={() => {
+                    transportOpen();
+                  }}
+                />
+              </ContainerButton>
+            </>
+          ) : null}
         </ContainerBody>
       </Modal>
       <ModalTransport modalVisible={false} />

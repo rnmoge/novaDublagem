@@ -34,8 +34,9 @@ export default function CardOrder({
           listEmptyComponent={
             <TextInitial>Você não possui este pedido</TextInitial>
           }
+          onEndReachedThreshold={0.1}
           showsVerticalScrollIndicator={false}
-          listFooterComponent={FunctionListFooterComponent}
+          // listFooterComponent={FunctionListFooterComponent}
           onEndReached={functionOnEndReached}
           renderItem={({item}) => {
             return (
@@ -53,7 +54,11 @@ export default function CardOrder({
                   </TextRegular>
                   <TextRegular>
                     Data Emissão:
-                    <TextBold>{item.emissao.substring(0, 10)}</TextBold>
+                    <TextBold>{item.emissao}</TextBold>
+                  </TextRegular>
+                  <TextRegular>
+                    Situação:
+                    <TextBold> {item.situacaoCod}</TextBold>
                   </TextRegular>
                 </Card>
               </ContainerButton>

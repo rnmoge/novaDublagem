@@ -9,17 +9,26 @@ import {Container, ContainerBody, ContainerInput} from './styles';
 
 export default function QueryOrder() {
   const dispatch = useDispatch();
-  const {orders} = useSelector(state => state.queryorder);
+  const {orders, page} = useSelector(state => state.queryorder);
   const {loading} = useSelector(state => state.common);
   const [inputRazao, setInputRazao] = useState('');
   const [inputCodPedido, setCodPedido] = useState('');
-  const [dataStateAux, setDataStateAux] = useState(orders);
+  const [dataStateAux, setDataStateAux] = useState([]);
+  const [newPage, setNewPage] = useState(page);
+  console.tron.log(page);
   useEffect(() => {
-    dispatch(ActionsQuery.requestOrders());
-  }, [dispatch]); // eslint-disable-line
+    setNewPage(page);
+  }, [page]);
+  function loadOrders() {
+    console.tron.log('entrou');
+    dispatch(ActionsQuery.requestOrders(newPage));
+  }
+  useEffect(() => {
+    loadOrders();
+  }, []); // eslint-disable-line
   useEffect(() => {
     setDataStateAux(orders);
-  }, [orders]);
+  }, [orders]);// eslint-disable-line
   useEffect(() => {
     if (orders !== null) {
       const orderArray = orders
@@ -76,6 +85,9 @@ export default function QueryOrder() {
           orders={dataStateAux}
           functionOnpress={id => {
             selectorder(id);
+          }}
+          functionOnEndReached={() => {
+            loadOrders();
           }}
         />
       </ContainerBody>

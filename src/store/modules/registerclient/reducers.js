@@ -14,6 +14,8 @@ const INITIAL_STATE = {
   modalClient: false,
   modalBank: false,
   modalInfo: false,
+  address1: false,
+  address2: false,
 };
 export default function table(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -92,6 +94,29 @@ export default function table(state = INITIAL_STATE, action) {
     case '@client/CLEAN_MODALS':
       return produce(state, draft => {
         draft.cleanCamp = null;
+      });
+    case '@client/ADDRESS_EXIST':
+      return produce(state, draft => {
+        draft.address1 = action.payload.state1;
+        draft.address2 = action.payload.state2;
+      });
+    case '@client/CLEAN_DATA':
+      return produce(state, draft => {
+        draft.address = null;
+        draft.addressApi = null;
+        draft.clientsApi = null;
+        draft.providersApi = null;
+        draft.banksApi = null;
+        draft.infoApi = null;
+        draft.newData = null;
+        draft.cleanCamp = null;
+        draft.modalAddress = false;
+        draft.modalProvider = false;
+        draft.modalClient = false;
+        draft.modalBank = false;
+        draft.modalInfo = false;
+        draft.address1 = false;
+        draft.address2 = false;
       });
     default:
       return state;
