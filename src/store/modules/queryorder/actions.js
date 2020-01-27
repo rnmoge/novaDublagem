@@ -10,6 +10,12 @@ export function setpageState(page) {
     payload: {page},
   };
 }
+export function setLastPage(last) {
+  return {
+    type: '@queryorder/SET_LAST_PAGE',
+    payload: {last},
+  };
+}
 export function requestOrdersSucess(orders) {
   return {
     type: '@queryorder/REQUEST_ORDERS_SUCESS',
@@ -61,5 +67,23 @@ export function ordersSucess(newOrders) {
   return {
     type: '@queryorder/ORDERS_SUCESS',
     payload: {newOrders},
+  };
+}
+export function saveOrderTransmit(order) {
+  return {
+    type: '@queryorder/SAVE_ORDER_TRANSMIT',
+    payload: {order},
+  };
+}
+export function openModal(state) {
+  return {
+    type: '@queryorder/OPEN_MODAL',
+    payload: {state},
+  };
+}
+export function closeModal(state) {
+  return {
+    type: '@queryorder/CLOSE_MODAL',
+    payload: {state},
   };
 }

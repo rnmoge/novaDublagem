@@ -53,7 +53,7 @@ function* saveOrderTotalSaga(action) {
     yield put(commonLoadingActivityOn(''));
     navigate('FinalOrder');
     const newProducts = [];
-    const {transpoId} = action.payload;
+    const {transpoId, situacaoCod} = action.payload;
     for (let i = 0; i < product.length; i += 1) {
       const pedidoItemTamanhos = [];
       for (let j = 0; j < product[i].pedidoItemTamanhos.length; j += 1) {
@@ -115,6 +115,7 @@ function* saveOrderTotalSaga(action) {
       created_at: null,
       updated_at: null,
       representante_id: Number(representativeId),
+      situacao_cod: Number(situacaoCod),
       pedidoItens: [
         {
           linha_matriz_id: 3,
@@ -171,7 +172,7 @@ function* saveOrderTotalSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.tron.log(response.data.situacao);
     yield put(
       reponseApi(
         response.data.id,
@@ -180,6 +181,7 @@ function* saveOrderTotalSaga(action) {
         response.data.tipoCobranca.descricao,
         response.data.condicaoPagamento.descricao,
         response.data.pedidoItens[0].data_entrega,
+        response.data.situacao,
         response.data.pedidoItens
       )
     );

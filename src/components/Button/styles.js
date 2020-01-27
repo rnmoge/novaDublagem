@@ -1,8 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  height: 80px;
-  padding: 10px;
+  height: 60px;
 `;
 export const ButtonArea = styled.TouchableOpacity`
   flex: 1;

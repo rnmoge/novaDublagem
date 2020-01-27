@@ -5,6 +5,12 @@ export const Container = styled.View`
   flex: 1;
   background: #eee;
 `;
+export const ContainerError = styled.View`
+  flex: 1;
+  background: #3f51b7;
+  justify-content: center;
+  align-items: center;
+`;
 export const ContainerBody = styled.View`
   flex: 1;
   background: #eee;
@@ -45,7 +51,7 @@ export const ContainerClient = styled.View`
   margin-bottom: 15px;
 `;
 export const ContainerOrder = styled.View`
-  height: 350px;
+  height: 400px;
   background: #fff;
   padding-left: 20px;
   elevation: 5px;

@@ -48,42 +48,20 @@ export function selectDespachId(despachId) {
     payload: {despachId},
   };
 }
-export function saveOrderTotal(
-  codEmissao,
-  codPedido,
-  typeChargeId,
-  packingId,
-  idTable,
-  descont,
-  pagamentId,
-  note,
-  billingId,
-  clientId,
-  representativeId,
-  typeOrder,
-  transpoId,
-  despachId,
-  products
-) {
+export function saveOrderTotal(transpoId, despachId, situacaoCod) {
   return {
     type: '@finalizeorder/SAVE_ORDER_TOTAL',
     payload: {
-      codEmissao,
-      codPedido,
-      typeChargeId,
-      packingId,
-      idTable,
-      descont,
-      pagamentId,
-      note,
-      billingId,
-      clientId,
-      representativeId,
-      typeOrder,
       transpoId,
       despachId,
-      products,
+      situacaoCod,
     },
+  };
+}
+export function statusOrder(statusCod) {
+  return {
+    type: '@finalizeorder/STATUS_ORDER',
+    payload: {statusCod},
   };
 }
 export function cleanFinalizeOrder() {
@@ -111,6 +89,7 @@ export function reponseApi(
   charge,
   conditionPagament,
   billingDate,
+  status,
   pedidoItens
 ) {
   return {
@@ -122,6 +101,7 @@ export function reponseApi(
       charge,
       conditionPagament,
       billingDate,
+      status,
       pedidoItens,
     },
   };
@@ -137,3 +117,13 @@ export function priceTotal(price, quantTotal) {
     payload: {price, quantTotal},
   };
 }
+// export function saveOrderNotTransmitted(transpoId, despachId, situacaoCod) {
+//   return {
+//     type: '@finalizeorder/SAVE_ORDER_NOT_TRANSMITTED',
+//     payload: {
+//       transpoId,
+//       despachId,
+//       situacaoCod,
+//     },
+//   };
+// }

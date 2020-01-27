@@ -67,3 +67,15 @@ export function openTransport(state) {
     payload: {state},
   };
 }
+export function closeTransportTwo(estado) {
+  return {
+    type: '@productorder/CLOSE_TRANSPORT_TWO',
+    payload: {estado},
+  };
+}
+export function openTransportTwo(estado) {
+  return {
+    type: '@productorder/OPEN_TRANSPORT_TWO',
+    payload: {estado},
+  };
+}

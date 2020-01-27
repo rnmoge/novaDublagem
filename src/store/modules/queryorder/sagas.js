@@ -7,6 +7,8 @@ import {
   selectOrderSucess,
   dateBillingSucess,
   setpageState,
+  openModal,
+  setLastPage,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -25,6 +27,7 @@ function* requestOrdersSaga(action) {
   console.tron.log(page);
   const idRepre = user.cliente.id;
   // pedidorepre?representante=7
+  // /pedidorepre?representante=${idRepre}&page=${page}&pageSize=20
   try {
     let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
     token = JSON.parse(token);
@@ -39,7 +42,7 @@ function* requestOrdersSaga(action) {
     );
 
     const {data: orders} = data;
-
+    console.tron.log(data.lastPage);
     const newOrders = [];
     for (let i = 0; i < orders.length; i += 1) {
       const {
@@ -62,8 +65,10 @@ function* requestOrdersSaga(action) {
     const newPage = page + 1;
     console.tron.log(newPage);
     console.tron.log('newPage');
-
+    const totalItens = data.total;
+    const total = Math.floor(totalItens / 20);
     yield put(setpageState(newPage));
+    yield put(setLastPage(total));
     yield put(requestOrdersSucess(newOrders));
     yield put(commonActionSucess());
   } catch (err) {
@@ -136,6 +141,7 @@ function* copyOrderSaga(action) {
     redespacho_id,
     transportadora_id,
     representante_id,
+    situacao_cod,
     pedidoItens,
   } = order;
 
@@ -201,6 +207,7 @@ function* copyOrderSaga(action) {
       created_at: null,
       updated_at: null,
       representante_id,
+      situacao_cod,
       pedidoItens: [
         {
           linha_matriz_id: 3,
@@ -265,6 +272,7 @@ function* copyOrderSaga(action) {
         response.data.tipoCobranca.descricao,
         response.data.condicaoPagamento.descricao,
         response.data.pedidoItens[0].data_entrega,
+        response.data.situacao,
         response.data.pedidoItens
       )
     );
@@ -308,10 +316,227 @@ function* dateBillingSaga(action) {
   }
 }
 
+function* saveOrderTransmitSaga(action) {
+  yield put(commonLoadingActivityOn(''));
+  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  token = JSON.parse(token);
+  const {order} = action.payload;
+  const {
+    id,
+    embalagem_id,
+    condicao_pagamento_id,
+    tipo_cobranca_id,
+    tabela_preco_id,
+    cliente_id,
+    emissao,
+    pedido_cod,
+    observacao,
+    taxa_cotacao,
+    antecipa_faturamento,
+    desconto_percent,
+    tipo_frete,
+    tipo_pedido,
+    redespacho_id,
+    transportadora_id,
+    representante_id,
+    situacao_cod,
+    created_at,
+    updated_at,
+    usuario_cadastro,
+    pedidoItens,
+  } = order;
+  try {
+    yield put(commonLoadingActivityOn(''));
+
+    const newProducts = [];
+    for (let i = 0; i < pedidoItens.length; i += 1) {
+      const pedidoItemTamanhos = [];
+
+      for (let j = 0; j < pedidoItens[i].pedidoItemTamanhos.length; j += 1) {
+        const {
+          id,
+          pedidos_item_id,
+          tamanho_id,
+          tamanho_cod,
+          quantidade,
+          sequencia_item,
+          data_faturamento,
+          created_at,
+          updated_at,
+        } = pedidoItens[i].pedidoItemTamanhos[j];
+        const pedidoItemTamanhos2 = {
+          id,
+          pedidos_item_id,
+          tamanho_id: Number(tamanho_id),
+          created_at,
+          updated_at,
+          tamanho_cod,
+          quantidade: Number(quantidade),
+          sequencia_item,
+          data_faturamento,
+        };
+        pedidoItemTamanhos.push(pedidoItemTamanhos2);
+      }
+      const {
+        id,
+        pedido_id,
+        linha_matriz_id,
+        linha_cod,
+        matriz_cod,
+        grupo_tamanho_cod,
+        cor_cod,
+        valor_real,
+        observacao_item,
+        comissao,
+        cor_id,
+        grupotamanho_id,
+        data_entrega,
+        preco_especial,
+        quantidade_item_total,
+        preco_item_total,
+        created_at,
+        updated_at,
+      } = pedidoItens[i];
+
+      const pedidoItens2 = {
+        id,
+        pedido_id,
+        linha_matriz_id: Number(linha_matriz_id),
+        cor_id: Number(cor_id),
+        grupotamanho_id: Number(grupotamanho_id),
+        linha_cod,
+        matriz_cod,
+        pedido_cod,
+        cor_cod,
+        grupo_tamanho_cod,
+        observacao_item,
+        valor_real,
+        comissao,
+        created_at,
+        updated_at,
+        preco_especial: Number(preco_especial),
+        data_entrega,
+        quantidade_item_total,
+        preco_item_total,
+        pedidoItemTamanhos,
+      };
+      newProducts.push(pedidoItens2);
+    }
+    const data2 = {
+      embalagem_id,
+      condicao_pagamento_id,
+      tipo_cobranca_id,
+      tabela_preco_id,
+      cliente_id,
+      emissao,
+      pedido_cod,
+      observacao,
+      taxa_cotacao,
+      antecipa_faturamento,
+      desconto_percent,
+      tipo_frete,
+      pedido_industria: 0,
+      tipo_pedido: null,
+      redespacho_id,
+      transportadora_id,
+      created_at,
+      updated_at,
+      representante_id,
+      situacao_cod: 7,
+      usuario_cadastro,
+      pedidoItens: [
+        {
+          linha_matriz_id: 3,
+          cor_id: 1205,
+          grupotamanho_id: 1,
+          pedido_cod: '2',
+          linha_cod: null,
+          matriz_cod: null,
+          cor_cod: null,
+          grupo_tamanho_cod: null,
+          observavao_item: 'Teste',
+          data_faturamento: '2019-12-17T03:00:00.000Z',
+          valor_real: '15.000',
+          comissao: '5.00',
+          pedidoItemTamanhos: [
+            {
+              tamanho_id: 7,
+              created_at: '2019-12-17 01:00:00',
+              updated_at: '2019-12-17 01:00:00',
+              tamanho_cod: 'B',
+              quantidade: 10,
+            },
+          ],
+        },
+        {
+          linha_matriz_id: 2,
+          cor_id: 1206,
+          grupotamanho_id: 1,
+          pedido_cod: '2',
+          linha_cod: null,
+          matriz_cod: null,
+          cor_cod: null,
+          grupo_tamanho_cod: null,
+          observavao_item: 'Teste',
+          data_faturamento: '2019-12-17T03:00:00.000Z',
+          valor_real: '15.000',
+          comissao: '5.00',
+          pedidoItemTamanhos: [
+            {
+              tamanho_id: 7,
+              created_at: '2019-12-17 01:00:00',
+              updated_at: '2019-12-17 01:00:00',
+              tamanho_cod: 'B',
+              quantidade: 90,
+            },
+          ],
+        },
+      ],
+    };
+    data2.pedidoItens = newProducts;
+
+    const response = yield call(api.put, `/pedido/${id}`, data2, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // yield put(
+    //   reponseApi(
+    //     response.data.id,
+    //     response.data.cliente.nome_razao,
+    //     response.data.tabelaPreco.tabelapreco,
+    //     response.data.tipoCobranca.descricao,
+    //     response.data.condicaoPagamento.descricao,
+    //     response.data.pedidoItens[0].data_entrega,
+    //     response.data.situacao,
+    //     response.data.pedidoItens
+    //   )
+    // );
+    const response2 = yield call(api.get, `/pedido/${response.data.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    yield put(selectOrderSucess(response2.data));
+    // yield put(
+    //   priceTotal(
+    //     response2.data.valor_total_pedido,
+    //     response2.data.quantidade_pares_total
+    //   )
+    // );
+    yield put(commonActionSucess());
+    yield put(openModal(true));
+    // yield put(billingDateSucess(billingDate.data.data_faturamento));
+  } catch (err) {
+    yield put(commonActionFailure(''));
+  }
+}
+
 export default all([
   takeLatest('@queryorder/BACK_QUERY_ORDER', backQueryOrderSaga),
   takeLatest('@queryorder/SELECT_ORDER', selectOrderSaga),
   takeLatest('@queryorder/REQUEST_ORDERS', requestOrdersSaga),
   takeLatest('@queryorder/COPY_ORDER', copyOrderSaga),
   takeLatest('@queryorder/DATE_BILLING', dateBillingSaga),
+  takeLatest('@queryorder/SAVE_ORDER_TRANSMIT', saveOrderTransmitSaga),
 ]);

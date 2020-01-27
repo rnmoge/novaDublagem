@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   messageDate: '',
   modal: false,
   modalTransport: false,
+  modalTransportTwo: true,
   transport: [],
   dataTransport: [],
   dataDespach: [],
@@ -47,6 +48,14 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@productorder/CLOSE_TRANSPORT':
       return produce(state, draft => {
         draft.modalTransport = action.payload.state;
+      });
+    case '@productorder/OPEN_TRANSPORT_TWO':
+      return produce(state, draft => {
+        draft.modalTransportTwo = action.payload.estado;
+      });
+    case '@productorder/CLOSE_TRANSPORT_TWO':
+      return produce(state, draft => {
+        draft.modalTransportTwo = action.payload.estado;
       });
     default:
       return state;

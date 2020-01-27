@@ -22,6 +22,7 @@ import {
   Sizes,
   ContainerInfo,
   TextBoldSizes,
+  ContainerError,
 } from './styles';
 
 export default function FinalOrder() {
@@ -36,11 +37,12 @@ export default function FinalOrder() {
     charge,
     conditionPagament,
     billingDate,
+    status,
     pedidoItens,
     price,
     quantTotal,
   } = useSelector(state => state.finalizeorder);
-
+  console.tron.log(status);
   function handleOrder() {
     dispatch(ActionsFinalize.handleOrder());
   }
@@ -65,8 +67,10 @@ export default function FinalOrder() {
       ) : (
         <Container>
           {error ? (
-            <Container>
-              <Text>Erro no pedido pedido</Text>
+            <>
+              <ContainerError>
+                <Text>Erro no pedido pedido</Text>
+              </ContainerError>
               <Button
                 titleButton="CONFIRMAR"
                 disabledButton={false}
@@ -74,7 +78,7 @@ export default function FinalOrder() {
                   handleOrder();
                 }}
               />
-            </Container>
+            </>
           ) : (
             <>
               <ContainerHeader>
@@ -90,6 +94,8 @@ export default function FinalOrder() {
                     <TextRegular>{client}</TextRegular>
                   </ContainerClient>
                   <ContainerOrder>
+                    <TextBold>Status do pedido:</TextBold>
+                    <TextRegular>{status}</TextRegular>
                     <TextBold>Tabela de preço:</TextBold>
                     <TextRegular>{table}</TextRegular>
                     <TextBold>Condição de pagamento:</TextBold>

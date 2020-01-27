@@ -7,9 +7,11 @@ import {
   ContainerBody,
   ContainerValue,
   ContainerButton,
+  ContainerButtonTotal,
 } from './styles';
 import Header from '../Header';
 import ModalTransport from '../ModalTransport';
+import ModalTransportTow from '../ModalTransportTwo';
 import CardCart from '../CardCart';
 import Button from '../Button';
 import * as ActionsCart from '../../store/modules/cart/actions';
@@ -78,11 +80,23 @@ export default function({functionOnPressIcon}) {
   }
   function transportOpen() {
     if (quantState >= 1499) {
-      dispatch(ActionsFinalize.saveOrderTotal());
+      dispatch(ActionsFinalize.saveOrderTotal(null, null, 7));
     } else if (quantState === 720) {
-      dispatch(ActionsFinalize.saveOrderTotal());
+      dispatch(ActionsFinalize.saveOrderTotal(null, null, 7));
     } else {
       dispatch(ActionsProduct.openTransport(true));
+      dispatch(ActionsFinalize.statusOrder(7));
+    }
+  }
+  function transportOpenTwo() {
+    console.tron.log('entrou');
+    if (quantState >= 1499) {
+      dispatch(ActionsFinalize.saveOrderTotal(null, null, 8));
+    } else if (quantState === 720) {
+      dispatch(ActionsFinalize.saveOrderTotal(null, null, 8));
+    } else {
+      dispatch(ActionsProduct.openTransport(true));
+      dispatch(ActionsFinalize.statusOrder(8));
     }
   }
   function excluirProductList(index) {
@@ -126,28 +140,33 @@ export default function({functionOnPressIcon}) {
                   </TextRegular>
                 </ContainerText>
               </ContainerValue>
-              <ContainerButton>
-                <Button
-                  titleButton="SALVAR E ENVIAR"
-                  disabledButton={disable}
-                  functionOnPress={() => {
-                    transportOpen();
-                  }}
-                />
-                {/* <TextBold>OU</TextBold> */}
-                <Button
-                  titleButton="SALVAR APENAS"
-                  disabledButton
-                  functionOnPress={() => {
-                    transportOpen();
-                  }}
-                />
-              </ContainerButton>
+              <ContainerButtonTotal>
+                <ContainerButton>
+                  <Button
+                    titleButton="SALVAR E ENVIAR"
+                    disabledButton={disable}
+                    functionOnPress={() => {
+                      transportOpen();
+                    }}
+                  />
+                </ContainerButton>
+                <ContainerButton>
+                  {/* <TextBold>OU</TextBold> */}
+                  <Button
+                    titleButton="SALVAR APENAS"
+                    disabledButton={disable}
+                    functionOnPress={() => {
+                      transportOpenTwo();
+                    }}
+                  />
+                </ContainerButton>
+              </ContainerButtonTotal>
             </>
           ) : null}
         </ContainerBody>
       </Modal>
       <ModalTransport modalVisible={false} />
+      <ModalTransportTow />
     </Container>
   );
 }

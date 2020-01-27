@@ -32,7 +32,7 @@ function* requestCepSaga(action) {
   });
   try {
     const {data} = yield call(api1.get, `/${cep}/json/`);
-   
+
     yield put(cepSucess(data));
     yield put(commonActionSucess());
   } catch (err) {
@@ -147,7 +147,7 @@ function* saveClientsSaga(action) {
     };
     newClients.push(clients3);
   }
- 
+
   yield put(commonActionSucess());
   yield put(saveClientSucess(newClients));
 }
@@ -187,7 +187,7 @@ function* saveProviderSaga(action) {
     };
     newProviders.push(provider3);
   }
-  
+
   yield put(commonActionSucess());
   yield put(saveProviderSucess(newProviders));
 }
@@ -233,7 +233,7 @@ function* saveBankSaga(action) {
     };
     newBanks.push(bank3);
   }
-  
+
   yield put(commonActionSucess());
   yield put(saveBankSucess(newBanks));
 }
@@ -266,7 +266,6 @@ function* saveClientTotalSaga(action) {
   const {id} = user.cliente;
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
   token = JSON.parse(token);
-  
 
   try {
     const {
@@ -310,8 +309,6 @@ function* saveClientTotalSaga(action) {
       clienteEnderecos,
       clienteFornecedores,
     };
-    
-
     const response = yield call(api.post, '/cliente', data, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -320,7 +317,6 @@ function* saveClientTotalSaga(action) {
     const razaoSocial = response.data.nome_razao;
     const newCnpj = response.data.cnpj;
     const newAddress = response.data.clienteEnderecos[0].endereco;
-  
     const newData = {
       razaoSocial,
       newCnpj,

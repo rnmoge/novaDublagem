@@ -24,10 +24,12 @@ const INITIAL_STATE = {
   charge: '',
   conditionPagament: '',
   billingDate: '',
+  status: null,
   pedidoItens: [],
   pedidoItemTamanhos: [],
   price: '',
   quantTotal: '',
+  statusCod: null,
 };
 export default function Common(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -57,6 +59,10 @@ export default function Common(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.despachId = action.payload.despachId;
       });
+    case '@finalizeorder/STATUS_ORDER':
+      return produce(state, draft => {
+        draft.statusCod = action.payload.statusCod;
+      });
     case '@finalizeorder/PRICE_TOTAL':
       return produce(state, draft => {
         draft.price = action.payload.price;
@@ -80,6 +86,7 @@ export default function Common(state = INITIAL_STATE, action) {
         draft.despachId = null;
         draft.price = null;
         draft.quantTotal = null;
+        draft.statusCod = null;
       });
     case '@finalizeorder/CHANGE_QUANT':
       return produce(state, draft => {
@@ -93,6 +100,7 @@ export default function Common(state = INITIAL_STATE, action) {
         draft.charge = action.payload.charge;
         draft.conditionPagament = action.payload.conditionPagament;
         draft.billingDate = action.payload.billingDate;
+        draft.status = action.payload.status;
         draft.pedidoItens = action.payload.pedidoItens;
       });
     case '@finalizeorder/handleOrder':

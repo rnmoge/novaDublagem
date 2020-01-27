@@ -15,3 +15,10 @@ export const ContainerInput = styled.View`
   border-radius: 10px;
   margin-bottom: 10px;
 `;
+
+export const Loading = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: '#000',
+})`
+  margin: 30px 0;
+`;

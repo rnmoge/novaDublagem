@@ -23,7 +23,7 @@ import {
   ContainerTotal,
 } from './styles';
 
-export default function ModalTransport({
+export default function ModalTransportTow({
   nameIcon,
   functionOnPressRight,
   functionOnChangeText,
@@ -31,13 +31,26 @@ export default function ModalTransport({
   functionOnpressIcon,
   data,
 }) {
-  const dispatch = useDispatch();
-  const {transport, modalTransport} = useSelector(state => state.productorder);
-  const {products} = useSelector(state => state.cart);
-  const {transpoId, despachId, statusCod} = useSelector(
-    state => state.finalizeorder
+  const {transport, modalTransport, ModalTransportTwo} = useSelector(
+    state => state.productorder
   );
-  console.tron.log(statusCod);
+  const {products} = useSelector(state => state.cart);
+  const {
+    emissao,
+    codPedido,
+    typeChargeId,
+    packingId,
+    idTable,
+    descont,
+    pagamentId,
+    note,
+    billingId,
+    clientId,
+    representativeId,
+    typeOrder,
+    transpoId,
+    despachId,
+  } = useSelector(state => state.finalizeorder);
   const {loading} = useSelector(state => state.common);
   const [transState, setTransState] = useState(false);
   const [despachState, setDespachState] = useState(false);
@@ -61,6 +74,7 @@ export default function ModalTransport({
       });
     setDataStateAux(orderArray);
   }, [inputModal]);// eslint-disable-line
+  const dispatch = useDispatch();
   function Transport() {
     setTransState(!transState);
     dispatch(ActionsProduct.selectTransport());
@@ -84,15 +98,33 @@ export default function ModalTransport({
     setInputModal('');
   }
   function transportClose() {
-    dispatch(ActionsProduct.closeTransport(false));
+    dispatch(ActionsProduct.closeTransportTwo(false));
   }
   function saveOrderTotal() {
-    dispatch(ActionsFinalize.saveOrderTotal(transpoId, despachId, statusCod));
-    dispatch(ActionsProduct.closeTransport(false));
+    dispatch(
+      ActionsFinalize.saveOrderNotTransmitted(
+        emissao,
+        codPedido,
+        typeChargeId,
+        packingId,
+        idTable,
+        descont,
+        pagamentId,
+        note,
+        billingId,
+        clientId,
+        representativeId,
+        typeOrder,
+        transpoId,
+        despachId,
+        products
+      )
+    );
+    dispatch(ActionsProduct.closeTransportTwo(false));
   }
   return (
     <Container>
-      <Modal visible={modalTransport} animationType="slide">
+      <Modal visible={ModalTransportTwo} animationType="slide">
         <ContainerHeader>
           <Header
             icoName="arrow-left"
@@ -186,6 +218,11 @@ export default function ModalTransport({
             onChangeText={text => setInputModal(text)}
             value={inputModal}
           />
+          <Input
+            placeholder="Nome da empresa"
+            onChangeText={text => setInputModal(text)}
+            value={inputModal}
+          />
           <AreaIcon onPress={functionOnPressRight}>
             <Icon name={nameIconTwo} />
           </AreaIcon>
@@ -222,7 +259,7 @@ export default function ModalTransport({
     </Container>
   );
 }
-ModalTransport.propTypes = {
+ModalTransportTow.propTypes = {
   placeholder: PropTypes.string,
   nameIcon: PropTypes.string,
   nameIconTwo: PropTypes.string,
@@ -232,7 +269,7 @@ ModalTransport.propTypes = {
   functionOnpressIcon: PropTypes.func,
   loading: PropTypes.bool,
 };
-ModalTransport.defaultProps = {
+ModalTransportTow.defaultProps = {
   nameIcon: 'times',
   nameIconTwo: 'search',
   placeholder: 'TesteModal',

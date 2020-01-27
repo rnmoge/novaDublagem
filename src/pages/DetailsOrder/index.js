@@ -4,16 +4,26 @@ import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import ModalCopy from '../../components/ModalCopyOrder';
+import ModalUpdate from '../../components/ModalUpdate';
 import ItensOrder from '../../components/ItensOrder';
 import Details from '../../components/DetailsOrder';
-import {Container, ContainerBody} from './styles';
+import {
+  Container,
+  ContainerBody,
+  ContainerButtonTotal,
+  ContainerButton,
+} from './styles';
 import * as ActionsQuery from '../../store/modules/queryorder/actions';
+import {saveOrderTotal} from '../../store/modules/finalizeorder/actions';
 
 export default function DetailsOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
-  const {order, date, newOrders} = useSelector(state => state.queryorder);
+  const {order, date, newOrders, modalUpdate} = useSelector(
+    state => state.queryorder
+  );
   // const {orders, newOrders} = useSelector(state => state.queryorder);
+  console.tron.log(order);
   const [inputCod, setInputCod] = useState();
   const [inputDate, setInputDate] = useState(date);
   const [modalState, setModalState] = useState(false);
@@ -77,6 +87,13 @@ export default function DetailsOrder() {
       ActionsQuery.copyOrder(inputCod, inputDate, order, emission, specialPrice)
     );
   }
+  function saveOrder() {
+    console.tron.log('entrou');
+    dispatch(ActionsQuery.saveOrderTransmit(order));
+  }
+  function closeModalUpdate() {
+    dispatch(ActionsQuery.closeModal(false));
+  }
   return (
     <Container>
       <Header
@@ -85,6 +102,7 @@ export default function DetailsOrder() {
         functionOnpressIconLeft={() => {
           backQueryOrder();
         }}
+        icoNameTwo={order.situacao_cod === 8 ? 'edit' : ''}
       />
       {loading ? (
         <ActivityIndicator
@@ -98,15 +116,46 @@ export default function DetailsOrder() {
             <Details data={order} />
             <ItensOrder data={order.pedidoItens} />
           </ScrollView>
-          <Button
-            titleButton="COPIAR PEDIDO"
-            disabledButton={false}
-            functionOnPress={() => {
-              copyOrder();
-            }}
-          />
+
+          {order.situacao_cod === 8 ? (
+            <ContainerButtonTotal>
+              <ContainerButton>
+                <Button
+                  titleButton="TRANSMITIR PEDIDO"
+                  disabledButton={false}
+                  functionOnPress={() => {
+                    saveOrder();
+                  }}
+                />
+              </ContainerButton>
+              <ContainerButton>
+                <Button
+                  titleButton="COPIAR PEDIDO"
+                  disabledButton={false}
+                  functionOnPress={() => {
+                    copyOrder();
+                  }}
+                />
+              </ContainerButton>
+            </ContainerButtonTotal>
+          ) : (
+            <Button
+              titleButton="COPIAR PEDIDO"
+              disabledButton={false}
+              functionOnPress={() => {
+                copyOrder();
+              }}
+            />
+          )}
         </ContainerBody>
       )}
+      <ModalUpdate
+        modalVisible={modalUpdate}
+        text="Pedido Transmitido"
+        functionOnPressText={() => {
+          closeModalUpdate();
+        }}
+      />
       <ModalCopy
         modalVisible={modalState}
         functionOnPressText={() => {

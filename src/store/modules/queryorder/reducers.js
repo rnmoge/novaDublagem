@@ -3,9 +3,11 @@ import produce from 'immer';
 const INITIAL_STATE = {
   orders: null,
   page: 1,
+  last: 0,
   order: [],
   date: '',
   newOrders: [],
+  modalUpdate: false,
 };
 export default function table(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -16,6 +18,10 @@ export default function table(state = INITIAL_STATE, action) {
     case '@queryorder/SET_PAGE_STATE':
       return produce(state, draft => {
         draft.page = action.payload.page;
+      });
+    case '@queryorder/SET_LAST_PAGE':
+      return produce(state, draft => {
+        draft.last = action.payload.last;
       });
     case '@queryorder/ORDERS_SUCESS':
       return produce(state, draft => {
@@ -29,6 +35,15 @@ export default function table(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.date = action.payload.dateNew;
       });
+    case '@queryorder/OPEN_MODAL':
+      return produce(state, draft => {
+        draft.modalUpdate = action.payload.state;
+      });
+    case '@queryorder/CLOSE_MODAL':
+      return produce(state, draft => {
+        draft.modalUpdate = action.payload.state;
+      });
+
     // case '@queryorder/BACK_QUERY_ORDER':
     //   return produce(state, draft => {
     //     draft.order = [];

@@ -9,3 +9,15 @@ export const ContainerBody = styled.View`
   background: #eee;
   padding: 10px;
 `;
+export const ContainerButtonTotal = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ContainerButton = styled.View`
+  flex: 1;
+  background: #eee;
+  padding: 1.5px;
+`;
