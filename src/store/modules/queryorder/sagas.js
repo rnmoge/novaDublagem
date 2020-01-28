@@ -91,6 +91,24 @@ function* selectOrderSaga(action) {
     const idProduct = data.data.pedidoItens[0].linhamatriz.id;
 
     yield put(selectOrderSucess(data.data));
+
+    const newArray = data.data;
+
+    const {condicaoPagamento} = newArray;
+
+    const newOrder = {condicaoPagamento};
+
+    console.tron.log(newOrder);
+
+    // for (let i = 0; i < newArray.length; i += 1) {
+    //   const {descricao} = newArray[i].tipoCobranca;
+
+    //   const type = {
+    //     descricao,
+    //   };
+    //   console.tron.log(type);
+    // }
+
     yield put(commonLoadingActivityOn());
 
     const billingDate = yield call(

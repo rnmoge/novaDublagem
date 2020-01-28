@@ -21,22 +21,7 @@ import {ContainerText, TextBold, TextRegular} from '../../styles/fonts';
 
 export default function({functionOnPressIcon}) {
   const {stateModal, products} = useSelector(state => state.cart);
-  const {
-    emissao,
-    codPedido,
-    typeChargeId,
-    packingId,
-    idTable,
-    descont,
-    pagamentId,
-    note,
-    billingId,
-    clientId,
-    representativeId,
-    typeOrder,
-    transpoId,
-    despachId,
-  } = useSelector(state => state.finalizeorder);
+
   const [disable, setDisable] = useState();
   const [valueState, setValueState] = useState();
   const [quantState, setQuantState] = useState();

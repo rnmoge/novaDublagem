@@ -12,6 +12,7 @@ import home from './home/reducers';
 import finalizeorder from './finalizeorder/reducers';
 import queryorder from './queryorder/reducers';
 import registerclient from './registerclient/reducers';
+import editorder from './editorder/reducers';
 
 export default combineReducers({
   common,
@@ -27,4 +28,5 @@ export default combineReducers({
   finalizeorder,
   queryorder,
   registerclient,
+  editorder,
 });

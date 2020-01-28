@@ -14,6 +14,7 @@ import cart from './cart/sagas';
 import finalizeorder from './finalizeorder/sagas';
 import queryorder from './queryorder/sagas';
 import registerclient from './registerclient/sagas';
+import editorder from './editorder/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -32,6 +33,7 @@ export default function* rootSaga() {
     finalizeorder,
     queryorder,
     registerclient,
+    editorder,
     // adicione mais sagas
   ]);
 }

@@ -7,6 +7,7 @@ import ModalCopy from '../../components/ModalCopyOrder';
 import ModalUpdate from '../../components/ModalUpdate';
 import ItensOrder from '../../components/ItensOrder';
 import Details from '../../components/DetailsOrder';
+import EditOrder from '../../components/EditOrder';
 import {
   Container,
   ContainerBody,
@@ -15,6 +16,7 @@ import {
 } from './styles';
 import * as ActionsQuery from '../../store/modules/queryorder/actions';
 import {saveOrderTotal} from '../../store/modules/finalizeorder/actions';
+import {TextBold} from '../../styles/fonts';
 
 export default function DetailsOrder() {
   const dispatch = useDispatch();
@@ -31,6 +33,8 @@ export default function DetailsOrder() {
   const [specialPrice, setSpecialPrice] = useState(0);
   const [error, setError] = useState(false);
   const [disable, setDisable] = useState(true);
+  const [modalBody, setModalBody] = useState(false);
+  const [modalItens, setModalItens] = useState(false);
   const day = new Date().getDate(); // Current Date
   const month = new Date().getMonth() + 1; // Current Month
   const year = new Date().getFullYear(); // Current Year
@@ -70,6 +74,7 @@ export default function DetailsOrder() {
       }
     }
   }, [date, inputDate]); // eslint-disable-line
+  console.tron.log(order);
   function backQueryOrder() {
     dispatch(ActionsQuery.backQueryOrder());
     dispatch(ActionsQuery.requestOrders(1, null));
@@ -104,6 +109,7 @@ export default function DetailsOrder() {
         }}
         icoNameTwo={order.situacao_cod === 8 ? 'edit' : ''}
       />
+
       {loading ? (
         <ActivityIndicator
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
@@ -113,7 +119,12 @@ export default function DetailsOrder() {
       ) : (
         <ContainerBody>
           <ScrollView>
-            <Details data={order} />
+            <Details
+              data={order}
+              openModal={() => {
+                setModalBody(!modalBody);
+              }}
+            />
             <ItensOrder data={order.pedidoItens} />
           </ScrollView>
 
@@ -174,6 +185,21 @@ export default function DetailsOrder() {
         functionOnpress={() => {
           setModalState(!modalState);
         }}
+      />
+      <EditOrder
+        modalVisible={modalBody}
+        functionOnpressIconLeft={() => {
+          setModalBody(!modalBody);
+        }}
+        itensExist
+        data={order}
+      />
+      <EditOrder
+        modalVisible={modalItens}
+        functionOnpressIconLeft={() => {
+          console.tron.log('entr');
+        }}
+        itensExist={false}
       />
     </Container>
   );

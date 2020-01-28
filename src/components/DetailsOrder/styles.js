@@ -13,16 +13,22 @@ export const ContainerClient = styled.View`
   margin-bottom: 15px;
 `;
 export const ContainerInfo = styled.View`
-  height: 200px;
+  height: 250px;
   background: #fff;
   padding: 10px;
-  padding-top: 10px;
   elevation: 5px;
+  padding-left: 20px;
   border-radius: 6px;
   margin-bottom: 15px;
   justify-content: center;
 `;
 export const ContainerBody = styled.View`
   background: #eee;
-  padding: 10px;
+  padding: 5px;
+`;
+export const ContainerEdit = styled.View`
+  margin-top: -20px;
+  margin-right: 10px;
+  flex-direction: row;
+  justify-content: flex-end;
 `;

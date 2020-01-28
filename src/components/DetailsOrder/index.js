@@ -5,9 +5,11 @@ import {
   ContainerClient,
   ContainerInfo,
   ContainerBody,
+  ContainerEdit,
 } from './styles';
+import {openModal} from '../../store/modules/queryorder/actions';
 
-export default function DetailsOrder({data}) {
+export default function DetailsOrder({data, openModal}) {
   const [datePreview, setDatePreview] = useState(' - ');
   // useEffect(() => {
   //   if (data.data_faturamento === null) {
@@ -25,6 +27,16 @@ export default function DetailsOrder({data}) {
           </TextRegular>
         </ContainerClient>
         <ContainerInfo>
+          {data.situacao_cod === 8 ? (
+            <ContainerEdit>
+              <TextBold
+                onPress={() => {
+                  openModal();
+                }}>
+                Editar
+              </TextBold>
+            </ContainerEdit>
+          ) : null}
           <ContainerText>
             <TextRegular>
               Cod Pedido:
