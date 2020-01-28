@@ -8,6 +8,7 @@ import {
   handleDetailsClientSucess,
   clientsSucess,
   clientsAddressSucess,
+  cleanQueryOrder,
 } from './actions';
 import {
   commonLoadingActivityOn,
@@ -76,6 +77,7 @@ function* backOrderSaga() {
 function* backSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('Request');
+  yield put(cleanQueryOrder());
 }
 function* backRegisterOrderSaga() {
   yield put(commonLoadingActivityOn(''));

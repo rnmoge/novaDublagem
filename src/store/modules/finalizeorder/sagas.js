@@ -172,7 +172,7 @@ function* saveOrderTotalSaga(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.tron.log(response.data.situacao);
+
     yield put(
       reponseApi(
         response.data.id,

@@ -23,7 +23,7 @@ export default function DetailsOrder() {
     state => state.queryorder
   );
   // const {orders, newOrders} = useSelector(state => state.queryorder);
-  console.tron.log(order);
+
   const [inputCod, setInputCod] = useState();
   const [inputDate, setInputDate] = useState(date);
   const [modalState, setModalState] = useState(false);
@@ -88,7 +88,6 @@ export default function DetailsOrder() {
     );
   }
   function saveOrder() {
-    console.tron.log('entrou');
     dispatch(ActionsQuery.saveOrderTransmit(order));
   }
   function closeModalUpdate() {

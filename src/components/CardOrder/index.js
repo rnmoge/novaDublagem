@@ -32,7 +32,13 @@ export default function CardOrder({
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={
-          loading && <ActivityIndicator color="#000" size="small" />
+          loading && (
+            <ActivityIndicator
+              color="#000"
+              size="small"
+              style={{marginTop: 30}}
+            />
+          )
         }
         onEndReached={() => {
           functionOnEndReached();

@@ -19,6 +19,12 @@ export default function Login(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.address = action.payload.data;
       });
+    case '@order/CLEAN_QUERY_ORDER':
+      return produce(state, draft => {
+        draft.data = [];
+        draft.clients = [];
+        draft.address = [];
+      });
     default:
       return state;
   }

@@ -89,7 +89,6 @@ export default function({functionOnPressIcon}) {
     }
   }
   function transportOpenTwo() {
-    console.tron.log('entrou');
     if (quantState >= 1499) {
       dispatch(ActionsFinalize.saveOrderTotal(null, null, 8));
     } else if (quantState === 720) {

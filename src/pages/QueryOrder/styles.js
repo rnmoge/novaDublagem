@@ -20,5 +20,5 @@ export const Loading = styled.ActivityIndicator.attrs({
   size: 'small',
   color: '#000',
 })`
-  margin: 30px 0;
+  margin: 30px;
 `;

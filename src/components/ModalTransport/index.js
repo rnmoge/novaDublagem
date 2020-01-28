@@ -37,7 +37,7 @@ export default function ModalTransport({
   const {transpoId, despachId, statusCod} = useSelector(
     state => state.finalizeorder
   );
-  console.tron.log(statusCod);
+
   const {loading} = useSelector(state => state.common);
   const [transState, setTransState] = useState(false);
   const [despachState, setDespachState] = useState(false);

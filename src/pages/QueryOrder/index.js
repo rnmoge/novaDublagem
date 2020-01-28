@@ -23,35 +23,22 @@ export default function QueryOrder() {
     setNewPage(page);
   }, [page]);
   function loadOrders() {
-    console.tron.log('last');
-    console.tron.log(last);
-    console.tron.log('page');
-    console.tron.log(page);
-
     if (last === page) return;
     dispatch(ActionsQuery.requestOrders(Number(newPage)));
   }
   useEffect(() => {
     loadOrders();
   }, []); // eslint-disable-line
-  // useEffect(() => {
-  //   dispatch(ActionsQuery.requestOrders());
-  // }, []);// eslint-disable-line
+
   useEffect(() => {
-    // const newDataState = orders;
     if (dataStateAux === null || dataStateAux.length === 0) {
       setDataStateAux(orders);
     } else {
       const newOrders = [...orders];
       setDataStateAux([...dataStateAux, ...newOrders]);
     }
-    // } else {
-    //   const newOrders = [...orders];
-
-    //   // setDataStateAux([...dataStateAux, ...newOrders]);
-    // }
   }, [orders]); // eslint-disable-line
-  console.tron.log(dataStateAux);
+
   useEffect(() => {
     if (orders !== null) {
       const orderArray = orders
@@ -83,7 +70,7 @@ export default function QueryOrder() {
     dispatch(ActionsOrder.backOrder());
   }
   // function selectOnlongPress() {
-  //   console.tron.log('ejhfjkz');
+  //
   //   setIconHeader(true);
   // }
   return (
@@ -91,7 +78,7 @@ export default function QueryOrder() {
       <Header
         title="Consulta Pedido"
         icoName="arrow-left"
-        icoNameTwo={iconHeader ? 'edit' : ''}
+        icoNameTwo=""
         functionOnpressIconLeft={() => backOrder()}
       />
       <ContainerBody>

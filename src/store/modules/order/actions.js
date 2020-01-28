@@ -21,6 +21,11 @@ export function backOrder() {
     type: '@order/BACK_ORDER',
   };
 }
+export function cleanQueryOrder() {
+  return {
+    type: '@order/CLEAN_QUERY_ORDER',
+  };
+}
 
 // actions page RegisterOrder
 

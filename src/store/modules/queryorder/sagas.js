@@ -22,9 +22,8 @@ function* requestOrdersSaga(action) {
   yield put(commonLoadingActivityOn());
   let user = yield call(AsyncStorage.getItem, '@novaDublagem:user');
   user = JSON.parse(user);
-  const {page} = action.payload;
-  console.tron.log('page');
-  console.tron.log(page);
+  const {page, input} = action.payload;
+
   const idRepre = user.cliente.id;
   // pedidorepre?representante=7
   // /pedidorepre?representante=${idRepre}&page=${page}&pageSize=20
@@ -42,7 +41,7 @@ function* requestOrdersSaga(action) {
     );
 
     const {data: orders} = data;
-    console.tron.log(data.lastPage);
+
     const newOrders = [];
     for (let i = 0; i < orders.length; i += 1) {
       const {
@@ -63,8 +62,7 @@ function* requestOrdersSaga(action) {
       newOrders.push(order2);
     }
     const newPage = page + 1;
-    console.tron.log(newPage);
-    console.tron.log('newPage');
+
     const totalItens = data.total;
     const total = Math.floor(totalItens / 20);
     yield put(setpageState(newPage));
