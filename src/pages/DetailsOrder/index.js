@@ -72,6 +72,7 @@ export default function DetailsOrder() {
   }, [date, inputDate]); // eslint-disable-line
   function backQueryOrder() {
     dispatch(ActionsQuery.backQueryOrder());
+    dispatch(ActionsQuery.requestOrders(1, null));
   }
   function copyOrder() {
     const specialPrice2 = order.condicaoPagamento.descricao;

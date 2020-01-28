@@ -16,6 +16,11 @@ export function setLastPage(last) {
     payload: {last},
   };
 }
+export function updatePage() {
+  return {
+    type: '@queryorder/UPDATE_PAGE',
+  };
+}
 export function requestOrdersSucess(orders) {
   return {
     type: '@queryorder/REQUEST_ORDERS_SUCESS',
@@ -37,6 +42,11 @@ export function selectOrderSucess(order) {
 export function backQueryOrder() {
   return {
     type: '@queryorder/BACK_QUERY_ORDER',
+  };
+}
+export function backOrder() {
+  return {
+    type: '@queryorder/BACK_ORDER',
   };
 }
 export function copyOrder(

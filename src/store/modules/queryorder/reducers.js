@@ -43,12 +43,21 @@ export default function table(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.modalUpdate = action.payload.state;
       });
+    case '@queryorder/UPDATE_PAGE':
+      return produce(state, draft => {
+        draft.page = 1;
+      });
 
-    // case '@queryorder/BACK_QUERY_ORDER':
-    //   return produce(state, draft => {
-    //     draft.order = [];
-    //     draft.date = '';
-    //   });
+    case '@queryorder/BACK_ORDER':
+      return produce(state, draft => {
+        draft.orders = null;
+        draft.page = 1;
+        draft.date = '';
+        draft.last = 0;
+        draft.order = [];
+        draft.newOrders = [];
+        draft.modalUpdate = false;
+      });
     default:
       return state;
   }

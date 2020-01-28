@@ -10,7 +10,7 @@ import {Container, ContainerBody, ContainerInput, Loading} from './styles';
 
 export default function QueryOrder() {
   const dispatch = useDispatch();
-  const {orders, page, last} = useSelector(state => state.queryorder);
+  const {orders, page} = useSelector(state => state.queryorder);
   const {loading} = useSelector(state => state.common);
   const [inputRazao, setInputRazao] = useState('');
   const [inputCodPedido, setCodPedido] = useState('');
@@ -23,22 +23,29 @@ export default function QueryOrder() {
     setNewPage(page);
   }, [page]);
   function loadOrders() {
-    if (last === page) return;
-    dispatch(ActionsQuery.requestOrders(Number(newPage)));
+    if (inputRazao === '') {
+      dispatch(ActionsQuery.requestOrders(Number(newPage), inputRazao));
+    }
   }
   useEffect(() => {
     loadOrders();
   }, []); // eslint-disable-line
-
+  useEffect(() => {
+    if (inputRazao === '') {
+      dispatch(ActionsQuery.requestOrders(1, inputRazao));
+    }
+  }, [inputRazao]);// eslint-disable-line
   useEffect(() => {
     if (dataStateAux === null || dataStateAux.length === 0) {
       setDataStateAux(orders);
+    } else if (dataStateAux.length === orders.length) {
+      setDataStateAux(orders);
     } else {
       const newOrders = [...orders];
+
       setDataStateAux([...dataStateAux, ...newOrders]);
     }
   }, [orders]); // eslint-disable-line
-
   useEffect(() => {
     if (orders !== null) {
       const orderArray = orders
@@ -65,14 +72,12 @@ export default function QueryOrder() {
   function selectorder(id) {
     dispatch(ActionsQuery.selectOrder(id));
     dispatch(ActionsQuery.ordersSucess(orders));
+    dispatch(ActionsQuery.updatePage());
   }
   function backOrder() {
     dispatch(ActionsOrder.backOrder());
+    dispatch(ActionsQuery.backOrder());
   }
-  // function selectOnlongPress() {
-  //
-  //   setIconHeader(true);
-  // }
   return (
     <Container>
       <Header
