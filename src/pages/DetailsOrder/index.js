@@ -15,17 +15,20 @@ import {
   ContainerButton,
 } from './styles';
 import * as ActionsQuery from '../../store/modules/queryorder/actions';
-import {saveOrderTotal} from '../../store/modules/finalizeorder/actions';
+import * as ActionsEdit from '../../store/modules/editorder/actions';
+
 import {TextBold} from '../../styles/fonts';
 
 export default function DetailsOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
+  const {index} = useSelector(state => state.editorder);
   const {order, date, newOrders, modalUpdate} = useSelector(
     state => state.queryorder
   );
   // const {orders, newOrders} = useSelector(state => state.queryorder);
-
+  console.tron.log('index');
+  console.tron.log(index);
   const [inputCod, setInputCod] = useState();
   const [inputDate, setInputDate] = useState(date);
   const [modalState, setModalState] = useState(false);
@@ -35,6 +38,7 @@ export default function DetailsOrder() {
   const [disable, setDisable] = useState(true);
   const [modalBody, setModalBody] = useState(false);
   const [modalItens, setModalItens] = useState(false);
+  const [data, setData] = useState(null);
   const day = new Date().getDate(); // Current Date
   const month = new Date().getMonth() + 1; // Current Month
   const year = new Date().getFullYear(); // Current Year
@@ -48,6 +52,7 @@ export default function DetailsOrder() {
       setDisable(false);
     }
   }, [inputCod, inputDate]);
+  console.tron.log(order);
   useEffect(() => {
     setInputDate(date);
   }, [date]);
@@ -74,7 +79,7 @@ export default function DetailsOrder() {
       }
     }
   }, [date, inputDate]); // eslint-disable-line
-  console.tron.log(order);
+
   function backQueryOrder() {
     dispatch(ActionsQuery.backQueryOrder());
     dispatch(ActionsQuery.requestOrders(1, null));
@@ -99,6 +104,16 @@ export default function DetailsOrder() {
   function closeModalUpdate() {
     dispatch(ActionsQuery.closeModal(false));
   }
+  function openModal(index) {
+    dispatch(ActionsEdit.selectItem(index));
+    setModalItens(!modalItens);
+    console.tron.log(index);
+  }
+  useEffect(() => {
+    if (order.pedidoItens !== undefined) {
+      setData(order.pedidoItens[index]);
+    }
+  }, [order]);// eslint-disable-line
   return (
     <Container>
       <Header
@@ -125,7 +140,13 @@ export default function DetailsOrder() {
                 setModalBody(!modalBody);
               }}
             />
-            <ItensOrder data={order.pedidoItens} />
+            <ItensOrder
+              data={order.pedidoItens}
+              iconExist={order.situacao_cod === 7}
+              functionOnPressIcon={index => {
+                openModal(index);
+              }}
+            />
           </ScrollView>
 
           {order.situacao_cod === 8 ? (
@@ -187,20 +208,20 @@ export default function DetailsOrder() {
         }}
       />
       <EditOrder
-        modalVisible={modalBody}
-        functionOnpressIconLeft={() => {
-          setModalBody(!modalBody);
-        }}
-        itensExist
-        data={order}
-      />
-      <EditOrder
         modalVisible={modalItens}
         functionOnpressIconLeft={() => {
-          console.tron.log('entr');
+          setModalItens(!modalItens);
+        }}
+        data={data}
+        orders={order}
+      />
+      {/* <EditOrder
+        modalVisible={modalItens}
+        functionOnpressIconLeft={() => {
+
         }}
         itensExist={false}
-      />
+      /> */}
     </Container>
   );
 }

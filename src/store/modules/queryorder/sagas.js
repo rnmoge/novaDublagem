@@ -98,8 +98,6 @@ function* selectOrderSaga(action) {
 
     const newOrder = {condicaoPagamento};
 
-    console.tron.log(newOrder);
-
     // for (let i = 0; i < newArray.length; i += 1) {
     //   const {descricao} = newArray[i].tipoCobranca;
 

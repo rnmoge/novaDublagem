@@ -27,16 +27,6 @@ export default function DetailsOrder({data, openModal}) {
           </TextRegular>
         </ContainerClient>
         <ContainerInfo>
-          {data.situacao_cod === 8 ? (
-            <ContainerEdit>
-              <TextBold
-                onPress={() => {
-                  openModal();
-                }}>
-                Editar
-              </TextBold>
-            </ContainerEdit>
-          ) : null}
           <ContainerText>
             <TextRegular>
               Cod Pedido:

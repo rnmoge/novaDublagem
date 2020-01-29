@@ -1,6 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
-
+import PropTypes from 'prop-types';
 import {
   Container,
   ContainerProducts,
@@ -12,9 +11,13 @@ import {
   ContainerInfo,
   Sizes,
   Text,
+  AreaIcon,
+  Icon,
+  ContainerCard,
+  ContainerIcon,
 } from './styles';
 
-export default function ItensOrder({data}) {
+export default function ItensOrder({data, functionOnPressIcon, iconExist}) {
   return (
     <Container>
       <Text>Produtos</Text>
@@ -22,48 +25,71 @@ export default function ItensOrder({data}) {
         <ListProducts
           data={data}
           initialNumToRender={10}
-          renderItem={({item}) => {
+          renderItem={({item, index}) => {
             return (
               <Card>
-                <Line>
-                  Linha:{' '}
-                  <TextBoldSizes>
-                    {item.linhamatriz.linha.descricao}
-                  </TextBoldSizes>
-                </Line>
-                <Line>
-                  Modelo: <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
-                </Line>
-                <Line>
-                  Valor Unitario:{' '}
-                  <TextBoldSizes>
-                    R$ {item.valor_real.substring(0, 4)}
-                  </TextBoldSizes>
-                </Line>
+                <ContainerCard>
+                  <Line>
+                    Linha:{' '}
+                    <TextBoldSizes>
+                      {item.linhamatriz.linha.descricao}
+                    </TextBoldSizes>
+                  </Line>
+                  <Line>
+                    Modelo: <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
+                  </Line>
+                  <Line>
+                    Valor Unitario:{' '}
+                    <TextBoldSizes>
+                      R$ {item.valor_real.substring(0, 4)}
+                    </TextBoldSizes>
+                  </Line>
 
-                {item.pedidoItemTamanhos.map(tamanhos => {
-                  return (
-                    <TotalSizes>
-                      <ContainerInfo>
-                        <Line>Tamanho: </Line>
-                        <TextBoldSizes>
-                          {' '}
-                          {tamanhos.tamanho.descricao}
-                        </TextBoldSizes>
-                      </ContainerInfo>
-                      <ContainerInfo>
-                        <Line>Quantidade: </Line>
-                        <TextBoldSizes> {tamanhos.quantidade}</TextBoldSizes>
-                      </ContainerInfo>
-                      <Sizes />
-                    </TotalSizes>
-                  );
-                })}
+                  {item.pedidoItemTamanhos.map(tamanhos => {
+                    return (
+                      <TotalSizes>
+                        <ContainerInfo>
+                          <Line>Tamanho: </Line>
+                          <TextBoldSizes>
+                            {' '}
+                            {tamanhos.tamanho.descricao}
+                          </TextBoldSizes>
+                        </ContainerInfo>
+                        <ContainerInfo>
+                          <Line>Quantidade: </Line>
+                          <TextBoldSizes> {tamanhos.quantidade}</TextBoldSizes>
+                        </ContainerInfo>
+                      </TotalSizes>
+                    );
+                  })}
+                </ContainerCard>
+                {iconExist ? (
+                  <ContainerIcon>
+                    <AreaIcon
+                      onPress={() => {
+                        functionOnPressIcon(index);
+                      }}>
+                      <Icon name="pen" />
+                    </AreaIcon>
+                    <AreaIcon>
+                      <Icon name="times" />
+                    </AreaIcon>
+                  </ContainerIcon>
+                ) : null}
               </Card>
             );
           }}
         />
+        <AreaIcon>
+          <Icon name="plus" />
+        </AreaIcon>
       </ContainerProducts>
     </Container>
   );
 }
+ItensOrder.propTypes = {
+  functionOnPressIcon: PropTypes.func,
+};
+ItensOrder.defaultProps = {
+  functionOnPressIcon: () => {},
+};

@@ -13,7 +13,7 @@ export const ContainerClient = styled.View`
   margin-bottom: 15px;
 `;
 export const ContainerInfo = styled.View`
-  height: 250px;
+  height: 210px;
   background: #fff;
   padding: 10px;
   elevation: 5px;
