@@ -22,13 +22,12 @@ import {TextBold} from '../../styles/fonts';
 export default function DetailsOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
-  const {index} = useSelector(state => state.editorder);
+  const {modalEdit} = useSelector(state => state.editorder);
   const {order, date, newOrders, modalUpdate} = useSelector(
     state => state.queryorder
   );
   // const {orders, newOrders} = useSelector(state => state.queryorder);
-  console.tron.log('index');
-  console.tron.log(index);
+
   const [inputCod, setInputCod] = useState();
   const [inputDate, setInputDate] = useState(date);
   const [modalState, setModalState] = useState(false);
@@ -52,7 +51,7 @@ export default function DetailsOrder() {
       setDisable(false);
     }
   }, [inputCod, inputDate]);
-  console.tron.log(order);
+
   useEffect(() => {
     setInputDate(date);
   }, [date]);
@@ -105,15 +104,10 @@ export default function DetailsOrder() {
     dispatch(ActionsQuery.closeModal(false));
   }
   function openModal(index) {
+    setData(order.pedidoItens[index]);
     dispatch(ActionsEdit.selectItem(index));
-    setModalItens(!modalItens);
-    console.tron.log(index);
+    dispatch(ActionsEdit.openModalEdit(true));
   }
-  useEffect(() => {
-    if (order.pedidoItens !== undefined) {
-      setData(order.pedidoItens[index]);
-    }
-  }, [order]);// eslint-disable-line
   return (
     <Container>
       <Header
@@ -208,10 +202,10 @@ export default function DetailsOrder() {
         }}
       />
       <EditOrder
-        modalVisible={modalItens}
-        functionOnpressIconLeft={() => {
-          setModalItens(!modalItens);
-        }}
+        modalVisible={modalEdit}
+        // functionOnpressIconLeft={() => {
+        //   setModalItens(!modalItens);
+        // }}
         data={data}
         orders={order}
       />

@@ -80,11 +80,24 @@ export const ContainerIcon = styled.View`
   justify-content: center;
   align-items: center;
 `;
+export const ContainerAdd = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+export const Add = styled.TouchableOpacity`
+  background: #b5b4b0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  width: 200px;
+`;
 
 export const AreaIcon = styled.TouchableOpacity`
   /* background: #f65; */
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   justify-content: center;
   align-items: center;
 `;

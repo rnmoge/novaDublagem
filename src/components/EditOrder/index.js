@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Modal, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import InputClick from '../InputClick';
 import Header from '../Header';
 import InputType from '../InputType';
@@ -20,10 +20,16 @@ export default function EditOrder({
   orders,
 }) {
   const dispatch = useDispatch();
-  console.tron.log(orders);
+  const {index, price, comission} = useSelector(state => state.editorder);
+  console.tron.log('price');
+  console.tron.log(price);
+  console.tron.log('comission');
+  console.tron.log(comission);
   const [inputComission, setInputComission] = useState();
   const [inputValue, setInputValue] = useState();
   const [size, setSize] = useState([]);
+  const [condition, setCondition] = useState(null);
+  const [disable, setDisable] = useState(true);
   // useEffect(() => {
   //   if (orders !== null || data !== null) {
   //     dispatch(
@@ -46,126 +52,221 @@ export default function EditOrder({
             orders.tabela_preco_id
           )
         );
+        setCondition(orders.condicaoPagamento.descricao);
+        console.tron.log(condition);
       }
     }
-  }, [data, dispatch, orders]);
+  }, [data, dispatch, orders]);// eslint-disable-line
+  useEffect(() => {
+    if (condition !== null) {
+      if (condition === 'A VISTA' || condition === '7 DD') {
+        console.tron.log('bjhhjsfdjhk');
+      }
+    }
+  }, [condition]);
   useEffect(() => {
     if (data !== null) {
       const newSizes = [];
       const {pedidoItemTamanhos} = data;
-      console.tron.log(pedidoItemTamanhos);
+
       for (let i = 0; i < pedidoItemTamanhos.length; i += 1) {
         const {descricao} = pedidoItemTamanhos[i].tamanho;
-        console.tron.log(newSizes);
+
         const {
+          id,
           quantidade: quant,
           tamanho_id,
           tamanho_cod,
           pedidos_item_id,
           sequencia_item,
+          data_faturamento,
         } = pedidoItemTamanhos[i];
 
         const newArray = {
+          id,
           quant,
           descricao,
           tamanho_id,
           tamanho_cod,
           pedidos_item_id,
           sequencia_item,
+          data_faturamento,
         };
         newSizes.push(newArray);
       }
       setSize(newSizes);
     }
   }, [data]);
-  console.tron.log(data);
+  console.tron.log(orders);
+  useEffect(() => {
+    if (price.preco1 !== null) {
+      const value = comission.desconto_vista_percent;
+      let priceNew = (price.preco1 - (price.preco1 * value) / 100).toFixed(2);
+      priceNew = priceNew.toString();
+      let priceNew2 = (price.preco2 - (price.preco2 * value) / 100).toFixed(2);
+      priceNew2 = priceNew2.toString();
+      let priceNew3 = (price.preco3 - (price.preco3 * value) / 100).toFixed(2);
+      priceNew3 = priceNew3.toString();
+
+      if (condition === 'A VISTA' || condition === '7 DD') {
+        if (inputValue === '') {
+          setInputComission('Digite um preço');
+        }
+        if (inputValue >= priceNew) {
+          setInputComission(comission.comissao1);
+        } else if (inputValue < priceNew && inputValue >= priceNew2) {
+          setInputComission(comission.comissao2);
+        } else if (inputValue < priceNew2 && inputValue >= priceNew3) {
+          setInputComission(comission.comissao3);
+        } else if (
+          inputValue < priceNew3 &&
+          inputValue !== '' &&
+          inputValue !== 0
+        ) {
+          setInputComission('0.00 - situação especial');
+        } else if (inputValue === 0.0) {
+          setInputValue('digite um valor');
+        }
+      } else {
+        if (inputValue === '') {
+          setInputComission('Digite um preço');
+        }
+        if (inputValue >= price.preco1) {
+          setInputComission(comission.comissao1);
+        } else if (inputValue < price.preco1 && inputValue >= price.preco2) {
+          setInputComission(comission.comissao2);
+        } else if (inputValue < price.preco2 && inputValue >= price.preco3) {
+          setInputComission(comission.comissao3);
+        } else if (
+          inputValue < price.preco3 &&
+          inputValue !== '' &&
+          inputValue !== 0
+        ) {
+          setInputComission('0.00 - situação especial');
+        } else if (inputValue === 0.0) {
+          setInputValue('digite um valor');
+        }
+      }
+    }
+  }, [inputValue, price.preco1, price.preco2, price.preco3]);// eslint-disable-line
   function changeQuant(index, add) {
-    console.tron.log(index);
-    console.tron.log(add);
     const newSize = size.map((element, elementIndex) => {
       if (add) {
         if (index === elementIndex) {
           const {
+            id,
             quant,
             descricao,
             tamanho_id,
             tamanho_cod,
             pedidos_item_id,
             sequencia_item,
+            data_faturamento,
           } = element;
           return {
+            id,
             quant: Number(quant) + 60,
             descricao,
             tamanho_id,
             tamanho_cod,
             pedidos_item_id,
             sequencia_item,
+            data_faturamento,
           };
         }
         const {
+          id,
           quant,
           descricao,
           tamanho_id,
           tamanho_cod,
           pedidos_item_id,
           sequencia_item,
+          data_faturamento,
         } = element;
         return {
+          id,
           quant,
           descricao,
           tamanho_id,
           tamanho_cod,
           pedidos_item_id,
           sequencia_item,
+          data_faturamento,
         };
       }
       if (index === elementIndex) {
         if (element.quant >= 60) {
           const {
+            id,
             quant,
             descricao,
             tamanho_id,
             tamanho_cod,
             pedidos_item_id,
             sequencia_item,
+            data_faturamento,
           } = element;
           return {
+            id,
             quant: Number(quant) - 60,
             descricao,
             tamanho_id,
             tamanho_cod,
             pedidos_item_id,
             sequencia_item,
+            data_faturamento,
           };
         }
       } // else
       const {
+        id,
         quant,
         descricao,
         tamanho_id,
         tamanho_cod,
         pedidos_item_id,
         sequencia_item,
+        data_faturamento,
       } = element;
       return {
+        id,
         quant,
         descricao,
         tamanho_id,
         tamanho_cod,
         pedidos_item_id,
         sequencia_item,
+        data_faturamento,
       };
     });
     const newDetails = newSize;
-    console.tron.log(newDetails);
+
     setSize(newDetails);
   }
   function requestUpdateOrder() {
-    console.tron.log('emdfnm');
     dispatch(
-      ActionsEdit.requestUpdateOrder(size, inputComission, inputValue, orders)
+      ActionsEdit.requestUpdateOrder(
+        size,
+        inputComission,
+        inputValue,
+        orders,
+        index,
+        data
+      )
     );
+    dispatch(ActionsEdit.closeModalEdit(false));
   }
+  function closeModal() {
+    dispatch(ActionsEdit.closeModalEdit(false));
+  }
+  useEffect(() => {
+    if (inputValue === '') {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [inputValue]);
   return (
     <Container>
       <Modal visible={modalVisible}>
@@ -173,7 +274,7 @@ export default function EditOrder({
           icoName="times"
           title="Editar Pedido"
           functionOnpressIconLeft={() => {
-            functionOnpressIconLeft();
+            closeModal();
           }}
         />
         <ContainerBody>

@@ -137,7 +137,6 @@ function* sizePriceSaga(action) {
   let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
   token = JSON.parse(token);
   const {id, idGroup, sizes, idProduct} = action.payload;
-  console.tron.log(sizes);
   try {
     const price1 = sizes.find(element => {
       return element.id === id;
@@ -151,11 +150,10 @@ function* sizePriceSaga(action) {
         },
       }
     );
-    console.tron.log(data.data.tamanhos);
+
     yield put(sizesSucess(data.data.tamanhos));
 
     yield put(sizePriceOneSucess(price1));
-    console.tron.log(price1);
   } catch (err) {
     yield put(commonActionFailure(''));
   }

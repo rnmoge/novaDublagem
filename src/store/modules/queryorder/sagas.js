@@ -98,15 +98,6 @@ function* selectOrderSaga(action) {
 
     const newOrder = {condicaoPagamento};
 
-    // for (let i = 0; i < newArray.length; i += 1) {
-    //   const {descricao} = newArray[i].tipoCobranca;
-
-    //   const type = {
-    //     descricao,
-    //   };
-    //   console.tron.log(type);
-    // }
-
     yield put(commonLoadingActivityOn());
 
     const billingDate = yield call(

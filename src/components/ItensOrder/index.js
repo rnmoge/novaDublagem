@@ -15,9 +15,16 @@ import {
   Icon,
   ContainerCard,
   ContainerIcon,
+  ContainerAdd,
+  Add,
 } from './styles';
 
-export default function ItensOrder({data, functionOnPressIcon, iconExist}) {
+export default function ItensOrder({
+  data,
+  functionOnPressIcon,
+  iconExist,
+  functionOnPressIconAdd,
+}) {
   return (
     <Container>
       <Text>Produtos</Text>
@@ -80,16 +87,26 @@ export default function ItensOrder({data, functionOnPressIcon, iconExist}) {
             );
           }}
         />
-        <AreaIcon>
-          <Icon name="plus" />
-        </AreaIcon>
+        <ContainerAdd>
+          <Add>
+            <AreaIcon
+              onPress={() => {
+                functionOnPressIconAdd();
+              }}>
+              <Icon name="plus" />
+            </AreaIcon>
+            <Text>Adicionar item</Text>
+          </Add>
+        </ContainerAdd>
       </ContainerProducts>
     </Container>
   );
 }
 ItensOrder.propTypes = {
   functionOnPressIcon: PropTypes.func,
+  functionOnPressIconAdd: PropTypes.func,
 };
 ItensOrder.defaultProps = {
   functionOnPressIcon: () => {},
+  functionOnPressIconAdd: () => {},
 };
