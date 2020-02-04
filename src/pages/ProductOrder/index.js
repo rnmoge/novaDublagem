@@ -224,7 +224,7 @@ export default function ProductOrder() {
     const newDetails = newSizes;
     dispatch(NewOrderActions.changeDetails(newDetails));
   }
-  console.tron.log();
+  
   useEffect(() => {
     const value = comission.desconto_vista_percent;
     let priceNew = (price.preco1 - (price.preco1 * value) / 100).toFixed(2);
@@ -322,7 +322,7 @@ export default function ProductOrder() {
       });
     setDataStateAuxModel(orderArrayModel);
   }, [inputStateModel, line]); // eslint-disable-line
-  console.tron.log(sizes);
+ 
   useEffect(() => {
     const orderArrayColor = colors
       .filter(element => {
@@ -350,8 +350,6 @@ export default function ProductOrder() {
         return element;
       });
     setDataAuxSizes(orderArraySize);
-    console.tron.log(orderArraySize);
-    console.tron.log('orderArraySize');
   }, [sizes, inputModalSize]); // eslint-disable-line
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());

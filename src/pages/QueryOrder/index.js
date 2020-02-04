@@ -24,7 +24,7 @@ export default function QueryOrder() {
     setNewPage(page);
   }, [page]);
   function loadOrders() {
-    if (inputRazao === '') {
+    if (inputRazao === '' && inputCodPedido === '') {
       dispatch(
         ActionsQuery.requestOrders(Number(newPage), inputRazao, dataStateAux)
       );
@@ -33,11 +33,11 @@ export default function QueryOrder() {
   useEffect(() => {
     loadOrders();
   }, []); // eslint-disable-line
-  useEffect(() => {
-    if (inputRazao === '') {
-      dispatch(ActionsQuery.requestOrders(1, inputRazao, dataStateAux));
-    }
-  }, [inputRazao]);// eslint-disable-line
+  // useEffect(() => {
+  //   if (inputRazao === '' && inputCodPedido === '') {
+  //     dispatch(ActionsQuery.requestOrders(1, inputRazao, dataStateAux));
+  //   }
+  // }, [inputRazao, inputCodPedido]);// eslint-disable-line
   useEffect(() => {
     setDataStateAux(orders);
   }, [orders]);// eslint-disable-line

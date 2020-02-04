@@ -442,7 +442,7 @@ function* requestAddItemSaga(action) {
         updated_at,
         quant: quantidade,
       } = tamanhos[i];
-      console.tron.log(tamanhos);
+
       const newSizes = {
         id,
         tamanho_order,
@@ -452,7 +452,7 @@ function* requestAddItemSaga(action) {
       };
       newSize2.push(newSizes);
     }
-    console.tron.log(newSize2);
+
     const newItem = {
       id: idProduct,
       color_id: colorId,
