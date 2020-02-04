@@ -1,6 +1,8 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
+  modalCatalog: false,
+  param: null,
   data: [],
   id: '',
   linha: '',
@@ -49,6 +51,16 @@ export default function Login(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.model = action.payload.data;
         draft.input = action.payload.input;
+      });
+    case '@catalog/OPEN_MODAL_TABLE':
+      return produce(state, draft => {
+        draft.modalCatalog = action.payload.state;
+        draft.param = action.payload.param;
+      });
+    case '@catalog/CLOSE_MODAL_TABLE':
+      return produce(state, draft => {
+        draft.modalCatalog = action.payload.state;
+        draft.param = action.payload.param;
       });
     case '@catalog/CATALOG_CLEAN':
       return produce(state, draft => {

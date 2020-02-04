@@ -85,6 +85,8 @@ export default function ModalTypeCharge({
   const [dataStateAuxLine, setDataStateAuxLine] = useState([]);
   const [dataStateAuxModel, setDataStateAuxModel] = useState([]);
   const [dataStateAuxColor, setDataStateAuxColor] = useState([]);
+  const [inputModalSize, setInputModalSize] = useState();
+  const [inputModalColor, setinputModalColor] = useState();
   const [modalInfoOne, setModalInfoOne] = useState(false);
   const [modalInfoTwo, setModalInfoTwo] = useState(false);
   const [modalInfoTheere, setModalInfoTheere] = useState(false);
@@ -308,6 +310,7 @@ export default function ModalTypeCharge({
       }
     }
   }, [price.preco1, order]); // eslint-disable-line
+
 
   useEffect(() => {
     if (order !== null && order !== [] && order !== undefined) {
@@ -576,10 +579,11 @@ export default function ModalTypeCharge({
           selectModel(id, matriz, imageUrl);
         }}
       />
+
       <ModalSize
         loading={load}
-        valueInputText={inputState}
-        functionOnChangeText={text => setInputState(text)}
+        valueInputText={inputModalSize}
+        functionOnChangeText={text => setInputModalSize(text)}
         placeholder="Digite o tamanho"
         modalVisible={modalSizeState}
         data={sizes}
@@ -592,8 +596,8 @@ export default function ModalTypeCharge({
       />
       <ModalColor
         loading={load}
-        valueInputText={inputState}
-        functionOnChangeText={text => setInputState(text)}
+        valueInputText={inputModalColor}
+        functionOnChangeText={text => setinputModalColor(text)}
         placeholder="Digite a cor"
         modalVisible={colorModalState}
         data={dataStateAuxColor}

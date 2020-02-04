@@ -83,3 +83,20 @@ export function searchModelSucess(data, input) {
     payload: {data, input},
   };
 }
+export function backHome() {
+  return {
+    type: '@catalog/BACK_HOME',
+  };
+}
+export function openModalTable(state, param) {
+  return {
+    type: '@catalog/OPEN_MODAL_TABLE',
+    payload: {state, param},
+  };
+}
+export function closeModalTable(state, param) {
+  return {
+    type: '@catalog/CLOSE_MODAL_TABLE',
+    payload: {state, param},
+  };
+}

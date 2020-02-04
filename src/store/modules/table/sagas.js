@@ -41,7 +41,7 @@ function* selectTablePriceSaga(action) {
     yield put(selectTablePriceSucess(tabela));
     yield put(commonActionSucess(''));
 
-    navigate('Home');
+    navigate('Catalogo');
   } catch (err) {
     yield put(commonActionFailure(''));
   }

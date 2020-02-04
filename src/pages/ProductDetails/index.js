@@ -15,7 +15,6 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   // const {prices} = useSelector(state => state.catalog);
   const {product, cores, prices} = useSelector(state => state.catalog);
-
   const {loading} = useSelector(state => state.common);
   const {data2} = useSelector(state => state.table);
   const [stateProduct, setStateProduct] = useState(product);
@@ -45,6 +44,7 @@ export default function ProductDetails() {
   }, [dispatch, inputState]); // eslint-disable-line
 
   function backCatalogPage() {
+    dispatch(ActionsCatalog.closeModalTable(false, 1));
     dispatch(ActionsCatalog.backCatalog());
   }
   function handleCart() {
@@ -56,13 +56,12 @@ export default function ProductDetails() {
         title="Detalhes"
         icoName="arrow-left"
         icoSize={20}
-        icoNameTwo="shopping-cart"
         functionOnpressIconLeft={() => {
           backCatalogPage();
         }}
-        functionOnpressIconRigth={() => {
-          handleCart();
-        }}
+        // functionOnpressIconRigth={() => {
+        //   handleCart();
+        // }}
       />
 
       <ContainerBody>

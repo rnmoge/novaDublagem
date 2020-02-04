@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
+import * as ActionsTable from '../../store/modules/table/actions';
 import {
   Container,
   ContainerTotal,
@@ -173,6 +174,7 @@ export default function NewOrder() {
   }
   // Funçoes do modal tabela preço
   function selectInputTablePrice() {
+    dispatch(ActionsTable.requestTablePrice());
     setModalState(!modalState);
   }
   function selectTablePrice(id, tabelapreco) {
@@ -319,6 +321,7 @@ export default function NewOrder() {
               functionOnChangeText={text => {
                 setInputClientState(text);
               }}
+              number={14}
             />
             <InputClick
               textPrimary="Condição de pagamento:"

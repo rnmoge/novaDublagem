@@ -26,17 +26,22 @@ export default function Catalog({navigation}) {
   const {table, data2} = useSelector(state => state.table);
   const [inputLineState, setInputLineState] = useState('');
   const [inputModelState, setInputModelState] = useState('');
-  const {descricao1, model, input, input2} = useSelector(
+  const {descricao1, model, input, input2, modalCatalog, param} = useSelector(
     state => state.catalog
   );
+  console.tron.log(modalCatalog);
   const [inputModelStateAux, setInputModelStateAux] = useState(input2);
-  const [modalSelect, setModalSelect] = useState(false);
+  const [modalSelect, setModalSelect] = useState(true);
   const [modalPrice, setModalPrice] = useState(false);
-
   const [dataStateAux, setDataStateAux] = useState([]);
   // const [dataModalState, setDataModalState] = useState([]);
   const [tableStateAux, settableStateAux] = useState(table);
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (param === null) {
+      dispatch(CatalogActions.openModalTable(true, 1));
+    }
+  }, []);// eslint-disable-line
   useEffect(() => {
     if (input === '') {
       setInputLineState('Selecione a linha');
@@ -91,17 +96,21 @@ export default function Catalog({navigation}) {
   function selectTablePrice(id) {
     dispatch(ActionsTable.selectTablePrice(id, table));
     setModalPrice(!modalPrice);
-    setModalSelect(!modalSelect);
+    dispatch(CatalogActions.closeModalTable(false, null));
+  }
+  function backHome() {
+    dispatch(CatalogActions.backHome());
+    dispatch(CatalogActions.closeModalTable(false, null));
   }
   return (
     <Container>
       <Header
         title="Catálogo"
         iconName="bars"
-        icoNameTwo="shopping-cart"
+        icoNameTwo="table"
         functionOnpressIconLeft={() => navigation.openDrawer()}
         functionOnpressIconRigth={() => {
-          handleCart();
+          selectTable();
         }}
       />
       <ContainerInput>
@@ -162,11 +171,13 @@ export default function Catalog({navigation}) {
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
           placeholder="Digite a tabela"
-          modalVisible={modalSelect}
+          modalVisible={modalCatalog}
           data={descricao1}
           nameIcon="times"
           nameIconTwo="search"
-          // functionOnPressLeft={() => setModalState(!modalState)}
+          functionOnPressLeft={() => {
+            backHome();
+          }}
           functionOnPressText={(linha, descricao) => {
             selectDescripition(linha, descricao);
           }}

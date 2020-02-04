@@ -87,6 +87,7 @@ function* requestTablePriceSaga(action) {
 function* backCatalogSaga() {
   yield put(commonLoadingActivityOn(''));
   navigate('Catalogo');
+  yield put(commonActionSucess(''));
 }
 function* searchDescripitionSaga(action) {
   yield put(commonLoadingActivityOn(''));
@@ -131,10 +132,18 @@ function* searchModelSaga(action) {
     yield put(commonActionFailure(''));
   }
 }
+
+function* backHomeSaga() {
+  yield put(commonLoadingActivityOn(''));
+  navigate('Home');
+  yield put(commonActionSucess(''));
+}
+
 export default all([
   takeLatest('@catalog/CATALOG_MORE_DETAILS_PRODUCT', moreDetailsProduct),
   takeLatest('@catalog/REQUEST_TABLE_PRICE', requestTablePriceSaga),
   takeLatest('@catalog/BACK_CATALOG', backCatalogSaga),
   takeLatest('@catalog/SEARCH_DESCRIPITION', searchDescripitionSaga),
   takeLatest('@catalog/SEARCH_MODEL', searchModelSaga),
+  takeLatest('@catalog/BACK_HOME', backHomeSaga),
 ]);

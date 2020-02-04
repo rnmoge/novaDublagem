@@ -32,7 +32,7 @@ export default function FooterDrawer() {
         <TextFooter onPress={() => handleExit()}>Sair</TextFooter>
       </ContainerExit>
       <ContainerVersion>
-        <TextVesion>V1.0.1</TextVesion>
+        <TextVesion>V1.0.3</TextVesion>
       </ContainerVersion>
     </Container>
   );

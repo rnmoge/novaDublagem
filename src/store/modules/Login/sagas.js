@@ -67,7 +67,7 @@ function* loginRequestSaga(action) {
       //   });
       // }
 
-      navigate('TableSelection');
+      navigate('Home');
     } catch (err) {
       yield put(commonActionFailure(err.response.data.message));
     }
@@ -98,7 +98,8 @@ function* loginRequestExistSaga() {
       });
 
       if (status === false) {
-        navigate('TableSelection');
+        // navigate('TableSelection');
+        navigate('Home');
       } else {
         yield call(AsyncStorage.removeItem, '@novaDublagem:token');
         navigate('Login');

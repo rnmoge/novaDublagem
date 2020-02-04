@@ -102,13 +102,13 @@ const createDrawerNavigatorApp = createDrawerNavigator(
         drawerIcon: <Icon name="user-plus" size={20} color="#263238" />,
       },
     },
-    TableSelection: {
-      screen: TableSelection,
-      navigationOptions: {
-        title: 'Selecionar Tabela',
-        drawerIcon: <Icon name="table" size={20} color="#263238" />,
-      },
-    },
+    // TableSelection: {
+    //   screen: TableSelection,
+    //   navigationOptions: {
+    //     title: 'Selecionar Tabela',
+    //     drawerIcon: <Icon name="table" size={20} color="#263238" />,
+    //   },
+    // },
   },
   {
     drawerBackgroundColor: '#ffffff',

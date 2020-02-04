@@ -49,6 +49,9 @@ export default function FinalOrder() {
   function handleOrder() {
     dispatch(ActionsFinalize.handleOrder());
   }
+  // function errorOrder() {
+  //   dispatch(ActionsFinalize.errorOrder());
+  // }
   useEffect(() => {});
 
   const data = billingDate;

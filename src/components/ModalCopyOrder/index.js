@@ -53,6 +53,7 @@ export default function ModalCopy({
                 functionOnChangeText={te => {
                   functionOnChange(te);
                 }}
+                number={14}
               />
               {textExist ? (
                 <ContainerError>

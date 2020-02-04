@@ -17,6 +17,7 @@ export default function InputType({
   disabledButtonIcon,
   error,
   functionOnEndEditing,
+  number,
 }) {
   return (
     <Container error={error}>
@@ -28,6 +29,7 @@ export default function InputType({
           passwordOption={passwordOption}
           keyboardType={keyboardTypeInput}
           onChangeText={text => functionOnChangeText(text)}
+          maxLength={number}
         />
       </AreaInput>
       {areaIcon ? (
@@ -52,6 +54,7 @@ Input.propTypes = {
   functionOnPressIcon: PropTypes.func,
   functionOnEndEditing: PropTypes.func,
   disabledButtonIcon: PropTypes.bool,
+  number: PropTypes.number,
 };
 Input.defaultProps = {
   error: false,
@@ -67,4 +70,5 @@ Input.defaultProps = {
   functionOnPressIcon: () => {},
   functionOnEndEditing: () => {},
   disabledButtonIcon: true,
+  number: 32,
 };
