@@ -17,6 +17,8 @@ import {
   ContainerIcon,
   ContainerAdd,
   Add,
+  Model,
+  ContainerLine,
 } from './styles';
 
 export default function ItensOrder({
@@ -24,6 +26,7 @@ export default function ItensOrder({
   functionOnPressIcon,
   iconExist,
   functionOnPressIconAdd,
+  functionOnPressRemove,
 }) {
   return (
     <Container>
@@ -36,14 +39,19 @@ export default function ItensOrder({
             return (
               <Card>
                 <ContainerCard>
+                  <ContainerLine>
+                    <Line>
+                      Linha:{' '}
+                      <TextBoldSizes>
+                        {item.linhamatriz.linha.descricao}
+                      </TextBoldSizes>
+                    </Line>
+                    <Model>
+                      Modelo: <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
+                    </Model>
+                  </ContainerLine>
                   <Line>
-                    Linha:{' '}
-                    <TextBoldSizes>
-                      {item.linhamatriz.linha.descricao}
-                    </TextBoldSizes>
-                  </Line>
-                  <Line>
-                    Modelo: <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
+                    Cor: <TextBoldSizes>{item.cor.descricao}</TextBoldSizes>
                   </Line>
                   <Line>
                     Valor Unitario:{' '}
@@ -78,7 +86,10 @@ export default function ItensOrder({
                       }}>
                       <Icon name="pen" />
                     </AreaIcon>
-                    <AreaIcon>
+                    <AreaIcon
+                      onPress={() => {
+                        functionOnPressRemove(index);
+                      }}>
                       <Icon name="times" />
                     </AreaIcon>
                   </ContainerIcon>
@@ -87,17 +98,19 @@ export default function ItensOrder({
             );
           }}
         />
-        <ContainerAdd>
-          <Add>
-            <AreaIcon
+        {/* {iconExist ? (
+          <ContainerAdd>
+            <Add
               onPress={() => {
                 functionOnPressIconAdd();
               }}>
-              <Icon name="plus" />
-            </AreaIcon>
-            <Text>Adicionar item</Text>
-          </Add>
-        </ContainerAdd>
+              <AreaIcon>
+                <Icon name="plus" />
+              </AreaIcon>
+              <Text>Adicionar item</Text>
+            </Add>
+          </ContainerAdd>
+        ) : null} */}
       </ContainerProducts>
     </Container>
   );
@@ -105,8 +118,10 @@ export default function ItensOrder({
 ItensOrder.propTypes = {
   functionOnPressIcon: PropTypes.func,
   functionOnPressIconAdd: PropTypes.func,
+  functionOnPressRemove: PropTypes.func,
 };
 ItensOrder.defaultProps = {
   functionOnPressIcon: () => {},
   functionOnPressIconAdd: () => {},
+  functionOnPressRemove: () => {},
 };

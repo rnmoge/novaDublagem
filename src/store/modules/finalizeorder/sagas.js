@@ -111,7 +111,7 @@ function* saveOrderTotalSaga(action) {
       pedido_industria: null,
       tipo_pedido: 0,
       redespacho_id: null,
-      transportadora_id: Number(transpoId),
+      transportadora_id: transpoId,
       created_at: null,
       updated_at: null,
       representante_id: Number(representativeId),
@@ -197,6 +197,8 @@ function* saveOrderTotalSaga(action) {
         response2.data.quantidade_pares_total
       )
     );
+    yield call(AsyncStorage.removeItem, '@novaDublagem:newOrder');
+    yield call(AsyncStorage.removeItem, '@novaDublagem:Products');
     yield put(commonActionSucess());
   } catch (err) {
     yield put(commonActionFailure('Erro ao Gravar o pedido'));

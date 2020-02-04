@@ -34,7 +34,6 @@ export const ContainerButton = styled.View`
 `;
 
 export const TextInfo = styled.Text`
-  text-align: center;
   color: #fff;
   font-size: 16px;
 `;

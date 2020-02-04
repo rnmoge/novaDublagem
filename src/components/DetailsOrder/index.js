@@ -29,8 +29,18 @@ export default function DetailsOrder({data, openModal}) {
         <ContainerInfo>
           <ContainerText>
             <TextRegular>
-              Cod Pedido:
+              Pedido cliente:
               <TextBold> {data.pedido_cod}</TextBold>
+            </TextRegular>
+            {/* <TextRegular>
+              Cod Pedido:
+              <TextBold> {data.id}</TextBold>
+            </TextRegular> */}
+          </ContainerText>
+          <ContainerText>
+            <TextRegular>
+              Cod Pedido:
+              <TextBold> {data.id}</TextBold>
             </TextRegular>
           </ContainerText>
           <ContainerText>

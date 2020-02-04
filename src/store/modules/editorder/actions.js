@@ -41,3 +41,59 @@ export function requestUpdateOrder(
     payload: {size, comission, value, order, index, total},
   };
 }
+export function removeItem(order, index) {
+  return {
+    type: '@editorder/REMOVE_ITEM',
+    payload: {order, index},
+  };
+}
+export function openModalRemove(state) {
+  return {
+    type: '@editorder/OPEN_MODAL_REMOVE',
+    payload: {state},
+  };
+}
+export function closeModalRemove(state) {
+  return {
+    type: '@editorder/CLOSE_MODAL_REMOVE',
+    payload: {state},
+  };
+}
+export function openModalAdd(state) {
+  return {
+    type: '@editorder/OPEN_MODAL_ADD',
+    payload: {state},
+  };
+}
+export function closeModalAdd(state) {
+  return {
+    type: '@editorder/CLOSE_MODAL_ADD',
+    payload: {state},
+  };
+}
+export function requestAddItemOrder(
+  order,
+  idProduct,
+  colorId,
+  idSize,
+  pedido_cod,
+  inputObservacion,
+  inputMask,
+  inputComissionState,
+  tamanhos
+) {
+  return {
+    type: '@editorder/REQUEST_ADD_ITEM_ORDER',
+    payload: {
+      order,
+      idProduct,
+      colorId,
+      idSize,
+      pedido_cod,
+      inputObservacion,
+      inputMask,
+      inputComissionState,
+      tamanhos,
+    },
+  };
+}

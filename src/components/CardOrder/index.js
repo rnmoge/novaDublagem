@@ -58,7 +58,7 @@ export default function CardOrder({
                   CNPJ: <TextBold>{item.cnpj}</TextBold>
                 </TextRegular>
                 <TextRegular>
-                  Cod. pedido: <TextBold>{item.pedidoCod}</TextBold>
+                  Pedido Cliente: <TextBold>{item.pedidoCod}</TextBold>
                 </TextRegular>
                 <TextRegular>
                   Data Emissão:

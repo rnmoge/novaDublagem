@@ -10,6 +10,13 @@ export const ContainerHeader = styled.View`
   flex-direction: row;
   background: #fff;
 `;
+export const ContainerHeader2 = styled.View`
+  height: 48px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background: #3f51b5;
+`;
 export const ContainerInitial = styled.View`
   flex: 1;
   flex-direction: column;
@@ -17,15 +24,31 @@ export const ContainerInitial = styled.View`
   align-items: center;
   margin-top: 50px;
 `;
+export const ContainerBody = styled.View`
+  flex: 1;
+  padding: 10px;
+  justify-content: center;
+  background: #3f51b5;
+`;
 export const AreaIcon = styled.TouchableOpacity`
   flex: 1;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
+export const AreaIcon2 = styled.TouchableOpacity`
+  height: 48px;
+  width: 48px;
+  justify-content: center;
+  align-items: center;
+`;
 export const Icon = styled(Icons)`
   font-size: 22;
   color: #707070;
+`;
+export const Icon2 = styled(Icons)`
+  font-size: 22;
+  color: #fff;
 `;
 export const Input = styled.TextInput`
   flex: 6;
@@ -51,11 +74,10 @@ export const TextButton = styled.Text`
   border-bottom-color: #707070;
 `;
 export const TextInitial = styled.Text`
-  background: #fff;
   flex-direction: row;
   text-align: center;
   padding: 20px;
   font-size: 16px;
-  color: #707070;
+  color: #fff;
   font-weight: bold;
 `;

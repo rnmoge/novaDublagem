@@ -8,6 +8,7 @@ import ModalUpdate from '../../components/ModalUpdate';
 import ItensOrder from '../../components/ItensOrder';
 import Details from '../../components/DetailsOrder';
 import EditOrder from '../../components/EditOrder';
+import ModalTypeCharge from '../../components/ModalTypeCharge';
 import {
   Container,
   ContainerBody,
@@ -22,7 +23,9 @@ import {TextBold} from '../../styles/fonts';
 export default function DetailsOrder() {
   const dispatch = useDispatch();
   const {loading} = useSelector(state => state.common);
-  const {modalEdit} = useSelector(state => state.editorder);
+  const {modalEdit, modalRemove, modalAdd} = useSelector(
+    state => state.editorder
+  );
   const {order, date, newOrders, modalUpdate} = useSelector(
     state => state.queryorder
   );
@@ -38,6 +41,7 @@ export default function DetailsOrder() {
   const [modalBody, setModalBody] = useState(false);
   const [modalItens, setModalItens] = useState(false);
   const [data, setData] = useState(null);
+  const [data2, setData2] = useState(null);
   const day = new Date().getDate(); // Current Date
   const month = new Date().getMonth() + 1; // Current Month
   const year = new Date().getFullYear(); // Current Year
@@ -92,6 +96,7 @@ export default function DetailsOrder() {
     }
     setModalState(!modalState);
   }
+
   function newOrderCopy() {
     dispatch(
       ActionsQuery.copyOrder(inputCod, inputDate, order, emission, specialPrice)
@@ -103,10 +108,29 @@ export default function DetailsOrder() {
   function closeModalUpdate() {
     dispatch(ActionsQuery.closeModal(false));
   }
+  useEffect(() => {
+    if (order !== []) {
+      setData2(order);
+    } else {
+      setData2(null);
+    }
+  }, [order]);
   function openModal(index) {
     setData(order.pedidoItens[index]);
     dispatch(ActionsEdit.selectItem(index));
     dispatch(ActionsEdit.openModalEdit(true));
+  }
+  function removeItem(index) {
+    dispatch(ActionsEdit.removeItem(order, index));
+  }
+  function addItem() {
+    dispatch(ActionsEdit.openModalAdd(true));
+  }
+  function closeModalRemove() {
+    dispatch(ActionsEdit.closeModalRemove(false));
+  }
+  function closeModalAdd() {
+    dispatch(ActionsEdit.closeModalAdd(false));
   }
   return (
     <Container>
@@ -116,7 +140,7 @@ export default function DetailsOrder() {
         functionOnpressIconLeft={() => {
           backQueryOrder();
         }}
-        icoNameTwo={order.situacao_cod === 8 ? 'edit' : ''}
+        icoNameTwo={order.situacao_cod === 22 ? 'edit' : ''}
       />
 
       {loading ? (
@@ -136,9 +160,15 @@ export default function DetailsOrder() {
             />
             <ItensOrder
               data={order.pedidoItens}
-              iconExist={order.situacao_cod === 7}
+              iconExist={order.situacao_cod === 8}
               functionOnPressIcon={index => {
                 openModal(index);
+              }}
+              functionOnPressRemove={index => {
+                removeItem(index);
+              }}
+              functionOnPressIconAdd={() => {
+                addItem();
               }}
             />
           </ScrollView>
@@ -175,47 +205,64 @@ export default function DetailsOrder() {
           )}
         </ContainerBody>
       )}
-      <ModalUpdate
-        modalVisible={modalUpdate}
-        text="Pedido Transmitido"
-        functionOnPressText={() => {
-          closeModalUpdate();
-        }}
-      />
-      <ModalCopy
-        modalVisible={modalState}
-        functionOnPressText={() => {
-          newOrderCopy();
-        }}
-        valueInputCod={inputCod}
-        valueInput={inputDate}
-        onChangeText={text => {
-          setInputDate(text);
-        }}
-        functionOnChange={te => {
-          setInputCod(te);
-        }}
-        disabled={disable}
-        textExist={textError}
-        functionOnpress={() => {
-          setModalState(!modalState);
-        }}
-      />
-      <EditOrder
-        modalVisible={modalEdit}
-        // functionOnpressIconLeft={() => {
-        //   setModalItens(!modalItens);
-        // }}
-        data={data}
-        orders={order}
-      />
-      {/* <EditOrder
+      <>
+        <ModalUpdate
+          modalVisible={modalUpdate}
+          text="Pedido Transmitido"
+          functionOnPressText={() => {
+            closeModalUpdate();
+          }}
+        />
+        <ModalUpdate
+          modalVisible={modalRemove}
+          text="Não é possivel remover esse item"
+          functionOnPressText={() => {
+            closeModalRemove();
+          }}
+        />
+        <ModalCopy
+          modalVisible={modalState}
+          functionOnPressText={() => {
+            newOrderCopy();
+          }}
+          valueInputCod={inputCod}
+          valueInput={inputDate}
+          onChangeText={text => {
+            setInputDate(text);
+          }}
+          functionOnChange={te => {
+            setInputCod(te);
+          }}
+          disabled={disable}
+          textExist={textError}
+          functionOnpress={() => {
+            setModalState(!modalState);
+          }}
+        />
+        <EditOrder
+          modalVisible={modalEdit}
+          // functionOnpressIconLeft={() => {
+          //   setModalItens(!modalItens);
+          // }}
+          data={data}
+          orders={order}
+        />
+        <ModalTypeCharge
+          modalVisible={modalAdd}
+          addExist={false}
+          order={data2}
+          functionOnPressLeft={() => {
+            closeModalAdd();
+          }}
+        />
+        {/* <EditOrder
         modalVisible={modalItens}
         functionOnpressIconLeft={() => {
 
         }}
         itensExist={false}
       /> */}
+      </>
     </Container>
   );
 }

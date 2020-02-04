@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Header from '../../components/Header';
 import InputClick from '../../components/InputClick';
 import InputType from '../../components/InputType';
-import Modal from '../../components/Modal';
+import ModalColor from '../../components/ModalColor';
 import ModalCatalog from '../../components/ModalCatalog';
 import CardSize from '../../components/CardSize';
 import ModalModel from '../../components/ModalModel';
@@ -46,7 +46,7 @@ export default function ProductOrder() {
   const [inputModelState, setInputModelState] = useState('Selecione o modelo');
   const [inputSizeState, setInputSizeState] = useState('Grupo de tamanho');
   const [inputColorState, setInputColorState] = useState('Cor');
-  const [inputNoteState, setInputNoteState] = useState('');
+  const [inputNoteState, setInputNoteState] = useState(null);
   const [inputComissionState, setInputComissionState] = useState('5.00');
   const [imageState, setImageState] = useState();
   const {stateModal, products} = useSelector(state => state.cart);
@@ -90,9 +90,12 @@ export default function ProductOrder() {
   const [modalSizeState, setModalSizeState] = useState(false);
   const [colorModalState, setColorModalState] = useState(false);
   const [inputMask, setInputMask] = useState('');
+  const [inputModalColor, setInputModalColor] = useState('');
+  const [inputModalSize, setInputModalSize] = useState('');
   const [disable, setDisable] = useState(true);
   const [specialPrice, setSpecialPrice] = useState(0);
   const [idSize, setIdSize] = useState('');
+  const [dataAuxSizes, setDataAuxSizes] = useState([]);
   const [errorDate, setErrorDate] = useState(false);
   const dateNew = dateBillingNew.split('/');
   const dateInput = inputMask.split('/');
@@ -221,6 +224,7 @@ export default function ProductOrder() {
     const newDetails = newSizes;
     dispatch(NewOrderActions.changeDetails(newDetails));
   }
+  console.tron.log();
   useEffect(() => {
     const value = comission.desconto_vista_percent;
     let priceNew = (price.preco1 - (price.preco1 * value) / 100).toFixed(2);
@@ -234,23 +238,28 @@ export default function ProductOrder() {
       if (dataValueState === '') {
         setInputComissionState('Digite um preço');
         setStateError(true);
+        setSpecialPrice(0);
       }
       if (dataValueState >= priceNew) {
         setInputComissionState(comission.comissao1);
         setStateError(false);
+        setSpecialPrice(0);
       } else if (dataValueState < priceNew && dataValueState >= priceNew2) {
         setInputComissionState(comission.comissao2);
         setStateError(false);
+        setSpecialPrice(0);
       } else if (dataValueState < priceNew2 && dataValueState >= priceNew3) {
         setInputComissionState(comission.comissao3);
         setStateError(false);
+        setSpecialPrice(0);
       } else if (
         dataValueState < priceNew3 &&
         dataValueState !== '' &&
         dataValueState !== 0
       ) {
-        setInputComissionState('0.00 - situação especial');
+        setInputComissionState('0.00');
         setStateError(false);
+        setSpecialPrice(1);
       } else if (dataValueState === 0.0) {
         setStateError(true);
         setDataValueState('digite um valor');
@@ -259,29 +268,34 @@ export default function ProductOrder() {
       if (dataValueState === '') {
         setInputComissionState('Digite um preço');
         setStateError(true);
+        setSpecialPrice(0);
       }
       if (dataValueState >= price.preco1) {
         setInputComissionState(comission.comissao1);
         setStateError(false);
+        setSpecialPrice(0);
       } else if (
         dataValueState < price.preco1 &&
         dataValueState >= price.preco2
       ) {
         setInputComissionState(comission.comissao2);
         setStateError(false);
+        setSpecialPrice(0);
       } else if (
         dataValueState < price.preco2 &&
         dataValueState >= price.preco3
       ) {
         setInputComissionState(comission.comissao3);
         setStateError(false);
+        setSpecialPrice(0);
       } else if (
         dataValueState < price.preco3 &&
         dataValueState !== '' &&
         dataValueState !== 0
       ) {
-        setInputComissionState('0.00 - situação especial');
+        setInputComissionState('0.00');
         setStateError(false);
+        setSpecialPrice(1);
       } else if (dataValueState === 0.0) {
         setStateError(true);
         setDataValueState('digite um valor');
@@ -308,19 +322,37 @@ export default function ProductOrder() {
       });
     setDataStateAuxModel(orderArrayModel);
   }, [inputStateModel, line]); // eslint-disable-line
+  console.tron.log(sizes);
   useEffect(() => {
     const orderArrayColor = colors
       .filter(element => {
         return (
-          element.descricao.toLowerCase().indexOf(inputState.toLowerCase()) !==
-          -1
+          element.descricao
+            .toLowerCase()
+            .indexOf(inputModalColor.toLowerCase()) !== -1
         );
       })
       .map(element => {
         return element;
       });
     setDataStateAuxColor(orderArrayColor);
-  }, [inputState, colors]); // eslint-disable-line
+  }, [inputModalColor, colors]); // eslint-disable-line
+  useEffect(() => {
+    const orderArraySize = sizes
+      .filter(element => {
+        return (
+          element.tamanho.descricao
+            .toLowerCase()
+            .indexOf(inputModalSize.toLowerCase()) !== -1
+        );
+      })
+      .map(element => {
+        return element;
+      });
+    setDataAuxSizes(orderArraySize);
+    console.tron.log(orderArraySize);
+    console.tron.log('orderArraySize');
+  }, [sizes, inputModalSize]); // eslint-disable-line
   function backNewOrder() {
     dispatch(ActionsProduct.backNewOrder());
   }
@@ -331,10 +363,11 @@ export default function ProductOrder() {
   }
   function selectDescripition(linha, descricao) {
     dispatch(
-      NewOrderActions.searchModel(linha, idTable, inputState, descricao)
+      NewOrderActions.searchModel(linha, idTable, inputStateModel, descricao)
     );
     setInputLineState(descricao);
     setModalState(!modalState);
+    setInputState('');
   }
   function modelFunc() {
     setModalModelState(!modalModelState);
@@ -345,8 +378,8 @@ export default function ProductOrder() {
     setModalModelState(!modalModelState);
     dispatch(NewOrderActions.colorAndSizes(idTable, id));
     dispatch(NewOrderActions.billingDate(id));
-
     setIdSize(id);
+    setInputStateModel('');
   }
   function sizeFunc() {
     setModalSizeState(!modalSizeState);
@@ -361,7 +394,6 @@ export default function ProductOrder() {
       priceNew1 = priceNew1.toString();
       setDataValueState(priceNew1);
       setInputComissionState(comission.comissao1);
-      setSpecialPrice(1);
     } else {
       setDataValueState(price.preco1);
     }
@@ -373,6 +405,7 @@ export default function ProductOrder() {
     );
     setModalSizeState(!modalSizeState);
     setGroupId(grupotamanho_id);
+    setInputStateModel('');
     // groupId, setGroupId
   }
   function colorFunc() {
@@ -383,6 +416,7 @@ export default function ProductOrder() {
     setInputColorState(descricao);
     setColorModalState(!colorModalState);
     setColorId(id);
+    setInputModalColor('');
   }
   function addProduct() {
     // const productExist = products.findIndex(product => {
@@ -439,6 +473,7 @@ export default function ProductOrder() {
           id: idProduct,
           produto: inputLineState,
           quant: 120,
+          color: inputColorState,
           descricao: details.matriz,
           value: dataValueState,
           observacao_item: inputNoteState,
@@ -466,6 +501,8 @@ export default function ProductOrder() {
     setInputComissionState(comission.comissao1);
     setDataValueState();
     setGroupId(null);
+    setColorId(null);
+    setIdSize(null);
     dispatch(NewOrderActions.cleanState());
     setModalInfoOne(!modalInfoOne);
   }
@@ -599,6 +636,7 @@ export default function ProductOrder() {
       </ContainerBody>
       <ContainerModal>
         <ModalCatalog
+          modalExist
           loading={loading}
           valueInputText={inputState}
           functionOnChangeText={text => setInputState(text)}
@@ -615,10 +653,10 @@ export default function ProductOrder() {
             searchDescription();
           }}
         />
-        <Modal
+        <ModalColor
           loading={loading}
-          valueInputText={inputState}
-          functionOnChangeText={text => setInputState(text)}
+          valueInputText={inputModalColor}
+          functionOnChangeText={text => setInputModalColor(text)}
           placeholder="Digite a cor"
           modalVisible={colorModalState}
           data={dataStateAuxColor}
@@ -628,17 +666,17 @@ export default function ProductOrder() {
           functionOnPressText={(id, descricao) => {
             selectColor(id, descricao);
           }}
-          functionOnPressRight={() => {
-            searchDescription();
-          }}
+          // functionOnPressRight={() => {
+          //   searchDescription();
+          // }}
         />
         <ModalSize
           loading={loading}
-          valueInputText={inputState}
-          functionOnChangeText={text => setInputState(text)}
+          valueInputText={inputModalSize}
+          functionOnChangeText={text => setInputModalSize(text)}
           placeholder="Digite o tamanho"
           modalVisible={modalSizeState}
-          data={sizes}
+          data={dataAuxSizes}
           nameIcon="times"
           nameIconTwo="search"
           functionOnPressLeft={() => setModalSizeState(!modalSizeState)}
@@ -659,9 +697,9 @@ export default function ProductOrder() {
           functionOnPressText={(id, matriz, imageUrl) => {
             selectModel(id, matriz, imageUrl);
           }}
-          functionOnPressRight={() => {
-            searchDescription();
-          }}
+          // functionOnPressRight={() => {
+          //   searchDescription();
+          // }}
         />
         <ModalDetails
           modalVisible={modalDetails}

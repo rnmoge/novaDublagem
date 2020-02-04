@@ -118,6 +118,7 @@ function* requestTablePriceSaga(action) {
     );
 
     yield put(tablePriceSucess(data));
+
     yield put(commonActionSucess(''));
   } catch (err) {
     yield put(commonActionFailure(''));

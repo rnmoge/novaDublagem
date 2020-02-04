@@ -1,7 +1,7 @@
-export function requestOrders(page, input) {
+export function requestOrders(page, input, dataStateAux) {
   return {
     type: '@queryorder/REQUEST_ORDERS',
-    payload: {page, input},
+    payload: {page, input, dataStateAux},
   };
 }
 export function setpageState(page) {

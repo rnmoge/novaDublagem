@@ -22,6 +22,7 @@ function* requestTableSaga() {
     table2 = JSON.parse(table2);
 
     yield put(requestTablePriceSucess(table2));
+
     // const realm = yield getRealm();
 
     // const data = realm.objects('tablePrice').sorted('table_price', true);

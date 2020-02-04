@@ -48,6 +48,8 @@ export default function CardCart({
               <ContainerQuant>
                 <TextTitle>Valor Real</TextTitle>
                 <TextInfo>R${item.value}</TextInfo>
+                <TextTitle>Cor:</TextTitle>
+                <TextInfo>{item.color}</TextInfo>
               </ContainerQuant>
               <ContainerTotal2>
                 {item.pedidoItemTamanhos.map(tamanhos => {

@@ -80,17 +80,24 @@ export const ListProducts = styled.FlatList``;
 export const Card = styled.View`
   background: #fff;
   border-radius: 8px;
-  height: 160px;
   justify-content: center;
+  padding: 10px;
   padding-left: 20px;
   elevation: 5px;
   margin-bottom: 20px;
 `;
 
 export const Line = styled.Text``;
+export const Model = styled.Text`
+  padding-left: 5px;
+`;
+export const Model2 = styled.Text``;
 
 export const ListSizes = styled.View`
   background: #f65;
+`;
+export const ContainerLine = styled.View`
+  flex-direction: row;
 `;
 
 export const Sizes = styled.View`

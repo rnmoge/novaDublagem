@@ -20,6 +20,8 @@ function* exitAplicationSaga() {
     yield call(AsyncStorage.removeItem, '@novaDublagem:token');
     yield call(AsyncStorage.removeItem, '@novaDublagem:userTable');
     yield call(AsyncStorage.removeItem, '@novaDublagem:user');
+    yield call(AsyncStorage.removeItem, '@novaDublagem:newOrder');
+    yield call(AsyncStorage.removeItem, '@novaDublagem:Products');
     navigate('Login');
   } catch (err) {
     yield put(commonActionFailure('error ao sair'));

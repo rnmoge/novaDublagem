@@ -22,8 +22,9 @@ function* requestOrdersSaga(action) {
   yield put(commonLoadingActivityOn());
   let user = yield call(AsyncStorage.getItem, '@novaDublagem:user');
   user = JSON.parse(user);
-  const {page, input} = action.payload;
+  const {page, input, dataStateAux} = action.payload;
   const idRepre = user.cliente.id;
+
   // pedidorepre?representante=7
   // /pedidorepre?representante=${idRepre}&page=${page}&pageSize=20
   try {
@@ -40,9 +41,9 @@ function* requestOrdersSaga(action) {
     );
 
     const {data: orders} = data;
-
     const newOrders = [];
-    const compare = [];
+    const newArray = [...dataStateAux];
+    // const compare = [];
     for (let i = 0; i < orders.length; i += 1) {
       const {
         id,
@@ -60,15 +61,16 @@ function* requestOrdersSaga(action) {
         situacaoCod,
       };
       newOrders.push(order2);
-      compare.push(order2);
+      newArray.push(order2);
     }
     const totalPages = data.lastPage;
-    const newPage = page + 1;
-    if (totalPages <= newPage) {
+
+    if (page <= totalPages) {
+      const newPage = page + 1;
       yield put(setpageState(newPage));
       yield put(setLastPage(totalPages));
+      yield put(requestOrdersSucess(newArray));
       yield put(commonActionSucess());
-      yield put(requestOrdersSucess(newOrders));
     }
     yield put(commonActionSucess());
   } catch (err) {

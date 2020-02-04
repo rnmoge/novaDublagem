@@ -8,12 +8,26 @@ export const Container = styled.TouchableOpacity`
   align-items: flex-start;
   padding: 16px;
 `;
+export const ContainerExit = styled.TouchableOpacity`
+  flex: 1;
+`;
+export const ContainerVersion = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 10px;
+`;
 
 export const TextFooter = styled.Text`
   color: #263238;
   font-size: 17px;
   font-weight: bold;
   margin-left: 35px;
+`;
+export const TextVesion = styled.Text`
+  color: #263238;
+  font-size: 17px;
+  padding-left: 40px;
 `;
 
 export const AreaIcon = styled.View`

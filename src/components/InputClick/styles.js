@@ -30,7 +30,9 @@ export const Input = styled.View`
   padding-left: 10px;
 `;
 
-export const TextInput = styled.Text`
+export const TextInput = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-size: 16px;
   color: #717171;
 `;

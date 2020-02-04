@@ -78,6 +78,7 @@ function* requestTablePriceSaga(action) {
       }
     );
     yield put(requestTablePriceSucess(data));
+
     yield put(commonActionSucess(''));
   } catch (err) {
     yield put(commonActionFailure(''));

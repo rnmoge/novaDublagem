@@ -8,7 +8,7 @@ import CardTablePrice from '../../components/CardTablePrice';
 import {Container, ContainerBody, ContainerModal} from './styles';
 import * as ActionsCatalog from '../../store/modules/catalog/actions';
 import * as ActionsCart from '../../store/modules/cart/actions';
-import Modal from '../../components/Modal';
+import ModalColor from '../../components/ModalColor';
 import Cart from '../../components/Cart';
 
 export default function ProductDetails() {
@@ -79,7 +79,7 @@ export default function ProductDetails() {
         />
       </ContainerBody>
       <ContainerModal>
-        <Modal
+        <ModalColor
           placeholder="Digite a cor"
           modalVisible={modalState}
           data={colorAux}

@@ -45,7 +45,7 @@ export const ListProducts = styled.FlatList``;
 export const Card = styled.View`
   background: #fff;
   border-radius: 8px;
-  height: 160px;
+  padding: 15px;
   padding-left: 20px;
   flex-direction: row;
   align-items: center;
@@ -54,8 +54,14 @@ export const Card = styled.View`
 `;
 
 export const Line = styled.Text``;
+export const Model = styled.Text`
+  padding-left: 4px;
+`;
 
 export const ListSizes = styled.View``;
+export const ContainerLine = styled.View`
+  flex-direction: row;
+`;
 
 export const Sizes = styled.View`
   flex-direction: row;

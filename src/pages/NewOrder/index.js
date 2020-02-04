@@ -81,7 +81,7 @@ export default function NewOrder() {
   const [inputState, setInputState] = useState('');
   const [inputDateState, setInputDateState] = useState(dateState);
   const [inputClientState, setInputClientState] = useState('');
-  const [inputNoteState, setInputNoteState] = useState('');
+  const [inputNoteState, setInputNoteState] = useState(null);
   const {table} = useSelector(state => state.table);
   const {stateModal} = useSelector(state => state.cart);
 
@@ -238,9 +238,7 @@ export default function NewOrder() {
         billingId
       )
     );
-    if (inputNoteState === '') {
-      setInputNoteState(null);
-    }
+
     dispatch(
       ActionsFinalize.saveNewOrder(
         completeState,

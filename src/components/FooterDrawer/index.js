@@ -1,7 +1,15 @@
 import React from 'react';
-// import {View} from 'react-native';
+import {Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Container, TextFooter, AreaIcon, Icon} from './styles';
+import {
+  Container,
+  TextFooter,
+  AreaIcon,
+  Icon,
+  TextVesion,
+  ContainerExit,
+  ContainerVersion,
+} from './styles';
 // import {navigate} from '../../services/navigation';
 import * as exitDrawerActions from '../../store/modules/exitdrawer/actions';
 
@@ -20,7 +28,12 @@ export default function FooterDrawer() {
           onPress={() => handleExit()}
         />
       </AreaIcon>
-      <TextFooter onPress={() => handleExit()}>Sair</TextFooter>
+      <ContainerExit>
+        <TextFooter onPress={() => handleExit()}>Sair</TextFooter>
+      </ContainerExit>
+      <ContainerVersion>
+        <TextVesion>V1.0.1</TextVesion>
+      </ContainerVersion>
     </Container>
   );
 }

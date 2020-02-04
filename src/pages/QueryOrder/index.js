@@ -11,6 +11,7 @@ import {Container, ContainerBody, ContainerInput, Loading} from './styles';
 export default function QueryOrder() {
   const dispatch = useDispatch();
   const {orders, page} = useSelector(state => state.queryorder);
+
   const {loading} = useSelector(state => state.common);
   const [inputRazao, setInputRazao] = useState('');
   const [inputCodPedido, setCodPedido] = useState('');
@@ -24,7 +25,9 @@ export default function QueryOrder() {
   }, [page]);
   function loadOrders() {
     if (inputRazao === '') {
-      dispatch(ActionsQuery.requestOrders(Number(newPage), inputRazao));
+      dispatch(
+        ActionsQuery.requestOrders(Number(newPage), inputRazao, dataStateAux)
+      );
     }
   }
   useEffect(() => {
@@ -32,20 +35,26 @@ export default function QueryOrder() {
   }, []); // eslint-disable-line
   useEffect(() => {
     if (inputRazao === '') {
-      dispatch(ActionsQuery.requestOrders(1, inputRazao));
+      dispatch(ActionsQuery.requestOrders(1, inputRazao, dataStateAux));
     }
   }, [inputRazao]);// eslint-disable-line
   useEffect(() => {
-    if (dataStateAux === null || dataStateAux.length === 0) {
-      setDataStateAux(orders);
-    } else if (dataStateAux.length === orders.length) {
-      setDataStateAux(orders);
-    } else {
-      const newOrders = [...orders];
-
-      setDataStateAux([...dataStateAux, ...newOrders]);
-    }
-  }, [orders]); // eslint-disable-line
+    setDataStateAux(orders);
+  }, [orders]);// eslint-disable-line
+  // useEffect(() => {
+  //   const newOrders = [...orders];
+  //   setDataStateAux([...dataStateAux, ...newOrders]);
+  // }, [dataStateAux, orders]);
+  // useEffect(() => {
+  //   if (dataStateAux === null || dataStateAux.length === 0) {
+  //     setDataStateAux(orders);
+  //   } else if (dataStateAux.length === orders.length) {
+  //     setDataStateAux(orders);
+  //   } else {
+  //     const newOrders = [...orders];
+  //     setDataStateAux([...dataStateAux, ...newOrders]);
+  //   }
+  // }, [orders]); // eslint-disable-line
   useEffect(() => {
     if (orders !== null) {
       const orderArray = orders

@@ -23,6 +23,9 @@ import {
   ContainerInfo,
   TextBoldSizes,
   ContainerError,
+  Model,
+  ContainerLine,
+  Model2,
 } from './styles';
 
 export default function FinalOrder() {
@@ -117,13 +120,23 @@ export default function FinalOrder() {
                       renderItem={({item}) => {
                         return (
                           <Card>
+                            <ContainerLine>
+                              <Model2>
+                                Linha:{' '}
+                                <TextBoldSizes>
+                                  {item.linhamatriz.linha.descricao}
+                                </TextBoldSizes>
+                              </Model2>
+                              <Model>
+                                Matriz:{' '}
+                                <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
+                              </Model>
+                            </ContainerLine>
                             <Line>
-                              Linha:{' '}
-                              <TextBoldSizes>{item.linha_cod}</TextBoldSizes>
-                            </Line>
-                            <Line>
-                              Matriz:{' '}
-                              <TextBoldSizes>{item.matriz_cod}</TextBoldSizes>
+                              Cor:{' '}
+                              <TextBoldSizes>
+                                {item.cor.descricao}
+                              </TextBoldSizes>
                             </Line>
                             <Line>
                               Quantidade total do item:{' '}

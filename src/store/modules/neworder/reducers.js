@@ -114,6 +114,9 @@ export default function Login(state = INITIAL_STATE, action) {
     case '@newOrder/CLEAN_STATE':
       return produce(state, draft => {
         draft.tamanhos = [];
+        draft.colors = [];
+        draft.dataDescription = [];
+        draft.line = [];
       });
     case '@neworder/CLEAN_TOTAL':
       return produce(state, draft => {

@@ -21,10 +21,7 @@ export default function EditOrder({
 }) {
   const dispatch = useDispatch();
   const {index, price, comission} = useSelector(state => state.editorder);
-  console.tron.log('price');
-  console.tron.log(price);
-  console.tron.log('comission');
-  console.tron.log(comission);
+
   const [inputComission, setInputComission] = useState();
   const [inputValue, setInputValue] = useState();
   const [size, setSize] = useState([]);
@@ -53,14 +50,12 @@ export default function EditOrder({
           )
         );
         setCondition(orders.condicaoPagamento.descricao);
-        console.tron.log(condition);
       }
     }
   }, [data, dispatch, orders]);// eslint-disable-line
   useEffect(() => {
     if (condition !== null) {
       if (condition === 'A VISTA' || condition === '7 DD') {
-        console.tron.log('bjhhjsfdjhk');
       }
     }
   }, [condition]);
@@ -97,7 +92,7 @@ export default function EditOrder({
       setSize(newSizes);
     }
   }, [data]);
-  console.tron.log(orders);
+
   useEffect(() => {
     if (price.preco1 !== null) {
       const value = comission.desconto_vista_percent;

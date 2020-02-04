@@ -8,7 +8,7 @@ import {
   commonActionFailure,
   commonActionSucess,
 } from '../common/actions';
-import {requestPriceAndComissionSucess} from './actions';
+import {requestPriceAndComissionSucess, openModalRemove} from './actions';
 import {selectOrderSucess} from '../queryorder/actions';
 // import {menuSucess} from '../menu/actions';
 import {navigate} from '../../../services/navigation';
@@ -26,8 +26,6 @@ function* requestPriceAndComission(action) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.tron.log('table.data');
-    console.tron.log(table.data);
 
     const {
       data: {data},
@@ -40,14 +38,11 @@ function* requestPriceAndComission(action) {
         },
       }
     );
-    console.tron.log('data');
-    console.tron.log(data);
 
     const price1 = data.find(element => {
       return element.grupotamanho_id === idGroupSize;
     });
-    console.tron.log('price1');
-    console.tron.log(price1);
+
     yield put(requestPriceAndComissionSucess(price1, table.data));
     yield put(commonActionSucess());
   } catch (err) {
@@ -295,10 +290,191 @@ function* requestUpdateOrder(action) {
   }
 }
 
+function* removeItemSaga(action) {
+  let token = yield call(AsyncStorage.getItem, '@novaDublagem:token');
+  token = JSON.parse(token);
+  yield put(commonLoadingActivityOn());
+  const {order, index} = action.payload;
+
+  const {
+    pedidoItens: pedido,
+    id: idProduct,
+    embalagem_id,
+    condicao_pagamento_id,
+    tipo_cobranca_id,
+    tabela_preco_id,
+    cliente_id,
+    emissao,
+    pedido_cod,
+    observacao,
+    taxa_cotacao,
+    antecipa_faturamento,
+    desconto_percent,
+    tipo_frete,
+    pedido_industria,
+    transportadora_id,
+    created_at,
+    updated_at,
+    representante_id,
+    situacao_cod,
+    usuario_cadastro,
+  } = order;
+  if (pedido.length > 1) {
+    const pedidoItens = [];
+    const newList = pedido.filter((element, indexItem) => {
+      if (index !== indexItem) {
+        return element;
+      }
+    });
+    for (let i = 0; i < newList.length; i += 1) {
+      const {
+        id,
+        pedido_id,
+        linha_matriz_id,
+        cor_id,
+        grupotamanho_id,
+        pedido_cod,
+        linha_cod,
+        matriz_cod,
+        cor_cod,
+        grupo_tamanho_cod,
+        observacao_item,
+        valor_real,
+        comissao,
+        created_at,
+        updated_at,
+        preco_especial,
+        data_entrega,
+        quantidade_item_total,
+        preco_item_total,
+        pedidoItemTamanhos,
+      } = newList[i];
+      const new4 = {
+        id,
+        pedido_id,
+        linha_matriz_id,
+        cor_id,
+        grupotamanho_id,
+        pedido_cod,
+        linha_cod,
+        matriz_cod,
+        cor_cod,
+        grupo_tamanho_cod,
+        observacao_item,
+        valor_real,
+        comissao,
+        created_at,
+        updated_at,
+        preco_especial,
+        data_entrega,
+        quantidade_item_total,
+        preco_item_total,
+        pedidoItemTamanhos,
+      };
+      pedidoItens.push(new4);
+    }
+
+    const data = {
+      id: idProduct,
+      embalagem_id,
+      condicao_pagamento_id,
+      tipo_cobranca_id,
+      tabela_preco_id,
+      cliente_id,
+      emissao,
+      pedido_cod,
+      observacao,
+      taxa_cotacao,
+      antecipa_faturamento,
+      desconto_percent,
+      tipo_frete,
+      pedido_industria,
+      transportadora_id,
+      created_at,
+      updated_at,
+      representante_id,
+      situacao_cod,
+      usuario_cadastro,
+      pedidoItens,
+    };
+
+    const response = yield call(api.put, `/pedido/${idProduct}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const response2 = yield call(api.get, `/pedido/${response.data.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    yield put(selectOrderSucess(response2.data));
+
+    yield put(commonActionSucess());
+  } else {
+    yield put(openModalRemove(true));
+    yield put(commonActionSucess());
+  }
+  yield put(commonActionSucess());
+}
+
+function* requestAddItemSaga(action) {
+  yield put(commonLoadingActivityOn());
+  const {
+    order,
+    idProduct,
+    colorId,
+    idSize,
+    pedido_cod,
+    inputObservacion,
+    inputMask,
+    inputComissionState,
+    tamanhos,
+  } = action.payload;
+  const newSize2 = [];
+  try {
+    for (let i = 0; i < tamanhos.length; i += 1) {
+      const {
+        id,
+        tamanho_order,
+        descricao,
+        created_at,
+        updated_at,
+        quant: quantidade,
+      } = tamanhos[i];
+      console.tron.log(tamanhos);
+      const newSizes = {
+        id,
+        tamanho_order,
+        created_at,
+        updated_at,
+        quantidade,
+      };
+      newSize2.push(newSizes);
+    }
+    console.tron.log(newSize2);
+    const newItem = {
+      id: idProduct,
+      color_id: colorId,
+      grupo_tamanho_id: idSize,
+      pedido_cod,
+      observacao_item: inputObservacion,
+      data_faturamento: inputMask,
+      comissao: inputComissionState,
+      pedidoItemTamanhos: newSize2,
+    };
+    yield put(commonActionSucess());
+  } catch (err) {
+    yield put(commonActionFailure());
+  }
+}
+
 export default all([
   takeLatest(
     '@editorder/REQUEST_PRICE_AND_COMISSION',
     requestPriceAndComission
   ),
   takeLatest('@editorder/REQUEST_UPDATE_ORDER', requestUpdateOrder),
+  takeLatest('@editorder/REMOVE_ITEM', removeItemSaga),
+  takeLatest('@editorder/REQUEST_ADD_ITEM_ORDER', requestAddItemSaga),
 ]);

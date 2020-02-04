@@ -1,7 +1,7 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  orders: null,
+  orders: [],
   page: 1,
   last: 0,
   order: [],
@@ -50,7 +50,7 @@ export default function table(state = INITIAL_STATE, action) {
 
     case '@queryorder/BACK_ORDER':
       return produce(state, draft => {
-        draft.orders = null;
+        draft.orders = [];
         draft.page = 1;
         draft.date = '';
         draft.last = 0;

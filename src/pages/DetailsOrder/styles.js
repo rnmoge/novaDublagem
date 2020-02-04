@@ -8,9 +8,9 @@ export const ContainerBody = styled.View`
   flex: 1;
   background: #eee;
   padding: 10px;
+  padding-top: 0px;
 `;
 export const ContainerButtonTotal = styled.View`
-  flex: 1;
   flex-direction: row;
   justify-content: center;
   align-items: center;
